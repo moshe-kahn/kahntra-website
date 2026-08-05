@@ -181,18 +181,42 @@ h3 {
 }
 
 .approach {
+  max-width: none;
+}
+
+.approach-copy {
   max-width: 900px;
 }
 
-.approach h2 {
+.approach-copy h2 {
   margin-bottom: 1.5rem;
 }
 
-.approach > p:last-child {
+.approach-copy > p:last-child {
   max-width: 590px;
   margin-bottom: 0;
   color: var(--muted-ink);
   font-size: 1.15rem;
+}
+
+.approach-visual {
+  aspect-ratio: 16 / 9;
+  margin: clamp(3rem, 7vw, 6rem) 0 0;
+  overflow: hidden;
+  background: var(--card);
+}
+
+.approach-visual,
+.approach-visual picture,
+.approach-visual img {
+  display: block;
+  width: 100%;
+}
+
+.approach-visual img {
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .site-footer {
@@ -223,10 +247,24 @@ h3 {
     min-height: 310px;
   }
 
+  .approach-visual {
+    aspect-ratio: 4 / 5;
+  }
+
+  .approach-visual img {
+    object-position: 72% center;
+  }
+
   .site-footer {
     align-items: flex-start;
     flex-direction: column;
     gap: 0.4rem;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 900px) {
+  .approach-visual {
+    aspect-ratio: 4 / 3;
   }
 }
 
