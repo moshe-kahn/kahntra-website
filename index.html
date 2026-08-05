@@ -26,7 +26,7 @@
       <section class="products section" id="products" aria-labelledby="products-title">
         <div class="section-heading">
           <p class="eyebrow">Portfolio</p>
-          <h2 id="products-title">Products in progress</h2>
+          <h2 id="products-title" tabindex="-1">Products in progress</h2>
         </div>
 
         <div class="product-grid">
@@ -45,7 +45,7 @@
       <section class="approach section" aria-labelledby="approach-title">
         <div class="approach-copy">
           <p class="eyebrow">Our approach</p>
-          <h2 id="approach-title">Useful software begins by paying attention.</h2>
+          <h2 id="approach-title" tabindex="-1">Useful software begins by paying attention.</h2>
           <p>We explore the details that shape everyday decisions, then turn them into thoughtful, focused tools.</p>
         </div>
 
@@ -58,9 +58,32 @@
       </section>
     </main>
 
-    <footer class="site-footer">
-      <p>© <span id="year">2026</span> Kahntra Productions. <a href="mailto:contact@kahntra.com">contact@kahntra.com</a></p>
+    <footer class="site-footer" id="contact">
+      <p>© <span id="year">2026</span> Kahntra Productions. <a id="contact-link" href="mailto:contact@kahntra.com">contact@kahntra.com</a></p>
     </footer>
   </div>
+
+  <section class="welcome-overlay" id="welcome-overlay" role="dialog" aria-modal="true" aria-labelledby="welcome-overlay-title" hidden>
+    <div class="welcome-overlay__visual" aria-hidden="true">
+      <picture>
+        <source media="(min-width: 900px)" srcset="assets/kahntra-welcome-paths-1600.webp" type="image/webp">
+        <img src="assets/kahntra-welcome-paths-960.webp" width="960" height="540" alt="">
+      </picture>
+    </div>
+
+    <div class="welcome-overlay__content">
+      <button class="welcome-overlay__close" type="button" data-welcome-close aria-label="Continue to website">Continue <span aria-hidden="true">→</span></button>
+      <div class="welcome-overlay__intro">
+        <h2 id="welcome-overlay-title">What would you like to explore?</h2>
+        <div class="welcome-overlay__choices" aria-label="Explore Kahntra">
+          <button type="button" data-welcome-target="#products-title">See what we’re building <span aria-hidden="true">→</span></button>
+          <button type="button" data-welcome-target="#approach-title">How we think <span aria-hidden="true">→</span></button>
+          <button type="button" data-welcome-target="#contact-link">Get in touch <span aria-hidden="true">→</span></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="welcome-overlay.js" defer></script>
 </body>
 </html>
