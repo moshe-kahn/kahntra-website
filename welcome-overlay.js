@@ -27,7 +27,7 @@
     let fallbackFocusables = [];
     let contentTransitionTimer = null;
     let contentTransitionVersion = 0;
-    const contentFadeDuration = 160;
+    const contentFadeOutDuration = 220;
     const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
     const focusableSelector = [
@@ -110,7 +110,7 @@
           transitionElements.forEach((element) => element.classList.remove("is-content-fading"));
           contentTransitionTimer = null;
         });
-      }, contentFadeDuration);
+      }, contentFadeOutDuration);
     }
 
     function setButtonState(buttons, activeValue, dataKey) {

@@ -301,8 +301,9 @@ h3 {
   margin-bottom: 1.5rem;
 }
 
-[data-content-group] {
-  transition: opacity 160ms ease;
+[data-content-group],
+[data-perspective-heading] {
+  transition: opacity 260ms ease;
 }
 
 .approach-copy [data-content-group] > p {
@@ -311,11 +312,11 @@ h3 {
   margin-bottom: 0;
   color: var(--muted-ink);
   font-size: 1.15rem;
-  transition: opacity 160ms ease;
 }
 
 [data-content-group].is-content-fading,
 [data-perspective-heading].is-content-fading {
+  transition-duration: 220ms;
   opacity: 0;
 }
 
