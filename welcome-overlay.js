@@ -138,15 +138,22 @@
     }
 
     function updateViewControlsToggle() {
-      const summary = `View: ${capitalize(globalPerspective)} · ${capitalize(globalDetail)}`;
+      const currentView = formatCollapsedView();
+      const summary = `View: ${currentView}`;
       viewControlsToggle.textContent = controlsCollapsed ? summary : "Collapse";
       viewControlsToggle.setAttribute("aria-expanded", String(!controlsCollapsed));
       viewControlsToggle.setAttribute(
         "aria-label",
         controlsCollapsed
-          ? `Expand view controls. Current view: ${capitalize(globalPerspective)}, ${capitalize(globalDetail)}.`
+          ? `Expand view controls. Current view: ${currentView}.`
           : "Collapse view controls."
       );
+    }
+
+    function formatCollapsedView() {
+      if (globalPerspective === "general" && globalDetail === "regular") return "Regular";
+      if (globalDetail === "regular") return capitalize(globalPerspective);
+      return `${capitalize(globalPerspective)} · ${capitalize(globalDetail)}`;
     }
 
     function setControlsCollapsed(collapsed, { persist = true } = {}) {
