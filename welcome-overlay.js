@@ -1,8 +1,8 @@
 (() => {
   const perspectiveKey = "kahntra-site-perspective-v1";
   const welcomeDismissedKey = "kahntra-welcome-perspective-dismissed-v1";
-  const lenses = ["philosophy", "technical", "practical"];
-  const defaultLens = "practical";
+  const lenses = ["philosophy", "general", "technical"];
+  const defaultLens = "general";
 
   const initialize = () => {
     const siteShell = document.querySelector(".site-shell");
@@ -11,10 +11,11 @@
     const globalButtons = [...document.querySelectorAll("[data-global-lens]")];
     const perspectiveBar = document.querySelector("[data-perspective-control]");
     const card = document.querySelector("[data-project-id='momomovies']");
-    const closeButtons = overlay?.querySelectorAll("[data-welcome-close]") ?? [];
-    const welcomeChoices = overlay?.querySelectorAll("[data-welcome-lens]") ?? [];
+    const backdrop = overlay?.querySelector("[data-welcome-dismiss]");
+    const welcomeSubmit = overlay?.querySelector("[data-welcome-submit]");
+    const welcomeChoices = [...(overlay?.querySelectorAll("[data-welcome-lens]") ?? [])];
 
-    if (!siteShell || !overlay || !announcement || !globalButtons.length || !perspectiveBar || !card || !closeButtons.length || !welcomeChoices.length) return;
+    if (!siteShell || !overlay || !announcement || !globalButtons.length || !perspectiveBar || !card || !backdrop || !welcomeSubmit || !welcomeChoices.length) return;
 
     const cardControls = card.querySelector("[data-card-perspective]");
     const cardButtons = [...card.querySelectorAll("[data-card-lens]")];
@@ -23,6 +24,7 @@
     const followSiteButton = card.querySelector("[data-follow-site-perspective]");
     const cardOverrides = { momomovies: null };
     let globalLens = readStoredLens();
+    let pendingLens = globalLens;
     let previousFocus = null;
     let fallbackFocusables = [];
 
@@ -38,6 +40,10 @@
     function readStoredLens() {
       try {
         const storedLens = sessionStorage.getItem(perspectiveKey);
+        if (storedLens === "practical") {
+          sessionStorage.setItem(perspectiveKey, defaultLens);
+          return defaultLens;
+        }
         return lenses.includes(storedLens) ? storedLens : defaultLens;
       } catch {
         return defaultLens;
@@ -60,8 +66,15 @@
 
     function setButtonState(buttons, activeLens) {
       buttons.forEach((button) => {
-        button.setAttribute("aria-pressed", String(button.dataset.globalLens === activeLens || button.dataset.cardLens === activeLens));
+        const buttonLens = button.dataset.globalLens ?? button.dataset.cardLens ?? button.dataset.welcomeLens;
+        button.setAttribute("aria-pressed", String(buttonLens === activeLens));
       });
+    }
+
+    function setPendingLens(lens) {
+      if (!lenses.includes(lens)) return;
+      pendingLens = lens;
+      setButtonState(welcomeChoices, pendingLens);
     }
 
     function updateCard() {
@@ -114,8 +127,8 @@
       else siteShell.removeAttribute("aria-hidden");
     }
 
-    function dismissWelcome({ selectedLens = null } = {}) {
-      setGlobalLens(selectedLens ?? defaultLens, { announce: Boolean(selectedLens) });
+    function dismissWelcome() {
+      setGlobalLens(pendingLens);
       try {
         sessionStorage.setItem(welcomeDismissedKey, "true");
       } catch {
@@ -134,6 +147,10 @@
       focusTarget?.focus({ preventScroll: true });
     }
 
+    function getOverlayFocusables() {
+      return [...overlay.querySelectorAll(focusableSelector)].filter((element) => !element.hasAttribute("hidden") && element.getAttribute("tabindex") !== "-1");
+    }
+
     function handleKeydown(event) {
       if (event.key === "Escape") {
         event.preventDefault();
@@ -142,7 +159,7 @@
       }
 
       if (event.key !== "Tab") return;
-      const focusable = [...overlay.querySelectorAll(focusableSelector)].filter((element) => !element.hasAttribute("hidden"));
+      const focusable = getOverlayFocusables();
       const first = focusable[0];
       const last = focusable.at(-1);
 
@@ -174,14 +191,16 @@
       announcement.textContent = "MomoMovies now follows the site perspective.";
     });
 
-    closeButtons.forEach((button) => button.addEventListener("click", () => dismissWelcome()));
     welcomeChoices.forEach((button) => {
-      button.addEventListener("click", () => dismissWelcome({ selectedLens: button.dataset.welcomeLens }));
+      button.addEventListener("click", () => setPendingLens(button.dataset.welcomeLens));
     });
+    welcomeSubmit.addEventListener("click", dismissWelcome);
+    backdrop.addEventListener("click", dismissWelcome);
 
     perspectiveBar.hidden = false;
     cardControls.hidden = false;
     setGlobalLens(globalLens, { announce: false });
+    setPendingLens(globalLens);
 
     try {
       if (sessionStorage.getItem(welcomeDismissedKey)) return;
@@ -196,7 +215,7 @@
     document.addEventListener("keydown", handleKeydown);
     requestAnimationFrame(() => {
       overlay.classList.add("is-open");
-      welcomeChoices[0].focus();
+      welcomeChoices.find((button) => button.dataset.welcomeLens === pendingLens)?.focus();
     });
   };
 

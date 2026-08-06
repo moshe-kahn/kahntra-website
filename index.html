@@ -8,7 +8,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="assets/kahntra-brand-mark-32.png">
   <link rel="icon" type="image/png" sizes="512x512" href="assets/kahntra-brand-mark-512.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/kahntra-brand-mark-180.png">
-  <link rel="stylesheet" href="styles.css?v=sticky-perspective-1">
+  <link rel="stylesheet" href="styles.css?v=perspective-general-1">
 </head>
 
 <body>
@@ -25,8 +25,8 @@
         <p class="perspective-bar__label">Perspective:</p>
         <div class="perspective-control" role="group" aria-label="Site perspective">
           <button type="button" data-global-lens="philosophy" aria-pressed="false">Philosophy</button>
+          <button type="button" data-global-lens="general" aria-pressed="true">General</button>
           <button type="button" data-global-lens="technical" aria-pressed="false">Technical</button>
-          <button type="button" data-global-lens="practical" aria-pressed="true">Practical</button>
         </div>
       </div>
     </div>
@@ -37,8 +37,8 @@
         <h1 id="page-title">A portfolio of software products, experiments, and evolving ideas.</h1>
         <div class="hero__support" data-lens-content-group>
           <p data-lens-content="philosophy" hidden>Kahntra starts with the decisions people make every day, and the friction that makes them harder than they need to be.</p>
+          <p data-lens-content="general">Kahntra creates software products and experiments that help people make everyday decisions with more clarity.</p>
           <p data-lens-content="technical" hidden>Kahntra develops focused software through small systems, careful experiments, and iterative engineering.</p>
-          <p data-lens-content="practical">Kahntra creates software products and experiments that help people make everyday decisions with more clarity.</p>
         </div>
       </section>
 
@@ -57,8 +57,8 @@
             <div class="card-perspective" data-card-perspective hidden>
               <div class="card-perspective__controls" role="group" aria-label="MomoMovies perspective">
                 <button type="button" data-card-lens="philosophy" aria-pressed="false">Philosophy</button>
+                <button type="button" data-card-lens="general" aria-pressed="true">General</button>
                 <button type="button" data-card-lens="technical" aria-pressed="false">Technical</button>
-                <button type="button" data-card-lens="practical" aria-pressed="true">Practical</button>
               </div>
               <div class="card-perspective__override" data-card-override hidden>
                 <span data-card-override-label></span>
@@ -68,8 +68,8 @@
             <h3>MomoMovies</h3>
             <div class="product-card__description" data-lens-content-group>
               <p data-lens-content="philosophy" hidden>Choosing a film is rarely about genre or ratings alone. MomoMovies treats discovery as a human decision: mood, context, and the people watching matter.</p>
+              <p data-lens-content="general">MomoMovies helps people decide what to watch by exploring films through mood, viewing context, and available services. The product is in development, with a functional discovery experience under active refinement.</p>
               <p data-lens-content="technical" hidden>MomoMovies is an active product experiment combining curated discovery, Vibes-based browsing, streaming-availability work, and private data and analysis pipelines. Some enrichment and ranking work remains experimental.</p>
-              <p data-lens-content="practical">MomoMovies helps people decide what to watch by exploring films through mood, viewing context, and available services. The product is in development, with a functional discovery experience under active refinement.</p>
             </div>
             <span class="card-link" aria-hidden="true">Coming soon <span>→</span></span>
           </article>
@@ -80,11 +80,11 @@
         <div class="approach-copy" data-lens-content-group>
           <p class="eyebrow">Our approach</p>
           <h2 tabindex="-1" data-lens-content="philosophy" hidden>Software begins with the person using it.</h2>
+          <h2 tabindex="-1" data-lens-content="general">Useful software begins by paying attention.</h2>
           <h2 tabindex="-1" data-lens-content="technical" hidden>Useful systems earn their complexity.</h2>
-          <h2 tabindex="-1" data-lens-content="practical">Useful software begins by paying attention.</h2>
           <p data-lens-content="philosophy" hidden>We look closely at the context, uncertainty, and habits around a decision before deciding what a tool should do.</p>
+          <p data-lens-content="general">We explore the details that shape everyday decisions, then turn them into thoughtful, focused tools.</p>
           <p data-lens-content="technical" hidden>We test ideas in bounded experiments, preserve what we learn, and build only the systems that improve a real experience.</p>
-          <p data-lens-content="practical">We explore the details that shape everyday decisions, then turn them into thoughtful, focused tools.</p>
         </div>
 
         <figure class="approach-visual">
@@ -110,21 +110,21 @@
         <img src="assets/kahntra-welcome-paths-960.webp" width="960" height="540" alt="">
       </picture>
     </div>
-    <button class="welcome-overlay__backdrop" type="button" data-welcome-close aria-label="Continue to website" tabindex="-1"></button>
+    <button class="welcome-overlay__backdrop" type="button" data-welcome-dismiss aria-hidden="true" tabindex="-1"></button>
     <div class="welcome-overlay__panel">
-      <button class="welcome-overlay__close" type="button" data-welcome-close>Continue <span aria-hidden="true">→</span></button>
       <div class="welcome-overlay__intro">
         <h2 id="welcome-overlay-title">How would you like to view the work?</h2>
-        <p>You can switch perspectives at any time.</p>
-        <div class="welcome-overlay__choices" aria-label="Choose a perspective">
-          <button type="button" data-welcome-lens="philosophy">Philosophy <span aria-hidden="true">→</span></button>
-          <button type="button" data-welcome-lens="technical">Technical <span aria-hidden="true">→</span></button>
-          <button type="button" data-welcome-lens="practical">Practical <span aria-hidden="true">→</span></button>
+        <p>Choose a perspective. You can switch at any time.</p>
+        <div class="welcome-overlay__choices" role="group" aria-label="Choose a perspective">
+          <button type="button" data-welcome-lens="philosophy" aria-pressed="false">Philosophy</button>
+          <button type="button" data-welcome-lens="general" aria-pressed="true">General</button>
+          <button type="button" data-welcome-lens="technical" aria-pressed="false">Technical</button>
         </div>
+        <button class="welcome-overlay__submit" type="button" data-welcome-submit>Enter site</button>
       </div>
     </div>
   </section>
 
-  <script src="welcome-overlay.js?v=perspective-system-1" defer></script>
+  <script src="welcome-overlay.js?v=perspective-general-1" defer></script>
 </body>
 </html>
