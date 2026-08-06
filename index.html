@@ -8,7 +8,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="assets/kahntra-brand-mark-32.png">
   <link rel="icon" type="image/png" sizes="512x512" href="assets/kahntra-brand-mark-512.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/kahntra-brand-mark-180.png">
-  <link rel="stylesheet" href="styles.css?v=welcome-overlay-safari-1">
+  <link rel="stylesheet" href="styles.css?v=view-controls-modal-1">
 </head>
 
 <body>
@@ -22,17 +22,17 @@
       </header>
 
       <div class="site-toolbar" data-site-toolbar hidden>
-        <div class="toolbar-group perspective-bar">
-          <p class="toolbar-group__label">Perspective:</p>
-          <div class="perspective-control" role="group" aria-label="Site perspective">
+        <div class="view-control-group perspective-bar">
+          <span class="view-control-group__label">Perspective:</span>
+          <div class="view-control-group__options" role="group" aria-label="Perspective">
             <button type="button" data-global-lens="philosophy" aria-pressed="false">Philosophy</button>
             <button type="button" data-global-lens="general" aria-pressed="true">General</button>
             <button type="button" data-global-lens="technical" aria-pressed="false">Technical</button>
           </div>
         </div>
-        <div class="toolbar-group detail-bar">
-          <p class="toolbar-group__label">Detail:</p>
-          <div class="detail-control" role="group" aria-label="Site detail">
+        <div class="view-control-group detail-bar">
+          <span class="view-control-group__label">Detail:</span>
+          <div class="view-control-group__options" role="group" aria-label="Detail">
             <button type="button" data-global-detail="less" aria-pressed="false">Less</button>
             <button type="button" data-global-detail="regular" aria-pressed="true">Regular</button>
             <button type="button" data-global-detail="more" aria-pressed="false">More</button>
@@ -43,15 +43,14 @@
 
     <main>
       <section class="hero" aria-labelledby="page-title">
-        <p class="eyebrow">Independent software studio</p>
         <h1 id="page-title">A portfolio of software products, experiments, and evolving ideas.</h1>
         <div class="hero__support" data-content-group>
           <p data-perspective="philosophy" data-detail="less" hidden>Kahntra starts with the everyday decisions people make and the friction around them.</p>
           <p data-perspective="philosophy" data-detail="regular" hidden>Kahntra starts with the decisions people make every day, and the friction that makes them harder than they need to be.</p>
           <p data-perspective="philosophy" data-detail="more" hidden>Kahntra starts with the decisions people make every day: the uncertainty, habits, and small sources of friction that make ordinary choices harder than they need to be.</p>
           <p data-perspective="general" data-detail="less" hidden>Kahntra creates focused software that brings more clarity to everyday decisions.</p>
-          <p data-perspective="general" data-detail="regular">Kahntra creates software products and experiments that help people make everyday decisions with more clarity.</p>
-          <p data-perspective="general" data-detail="more" hidden>Kahntra creates focused software products and experiments that bring more clarity to everyday decisions, turning overlooked moments of uncertainty into useful tools.</p>
+          <p data-perspective="general" data-detail="regular">Kahntra creates software products that help people make everyday decisions with more clarity.</p>
+          <p data-perspective="general" data-detail="more" hidden>Kahntra creates focused software products that bring more clarity to everyday decisions, turning overlooked moments of uncertainty into useful tools.</p>
           <p data-perspective="technical" data-detail="less" hidden>Kahntra develops focused software through careful experiments and iterative engineering.</p>
           <p data-perspective="technical" data-detail="regular" hidden>Kahntra develops focused software through small systems, careful experiments, and iterative engineering.</p>
           <p data-perspective="technical" data-detail="more" hidden>Kahntra develops focused software through small systems, careful experiments, and iterative engineering. The work tests ideas in context, preserves what is learned, and avoids complexity without a clear improvement to the experience.</p>
@@ -173,17 +172,28 @@
     <div class="welcome-overlay__panel">
       <div class="welcome-overlay__intro">
         <h2 id="welcome-overlay-title">How would you like to view the work?</h2>
-        <p>Choose a perspective. You can switch at any time.</p>
-        <div class="welcome-overlay__choices" role="group" aria-label="Choose a perspective">
-          <button type="button" data-welcome-lens="philosophy" aria-pressed="false">Philosophy</button>
-          <button type="button" data-welcome-lens="general" aria-pressed="true">General</button>
-          <button type="button" data-welcome-lens="technical" aria-pressed="false">Technical</button>
+        <p>You can change these settings at any time.</p>
+        <div class="welcome-overlay__view-group">
+          <span class="welcome-overlay__group-label">Perspective:</span>
+          <div class="welcome-overlay__choices" role="group" aria-label="Perspective">
+            <button type="button" data-welcome-lens="philosophy" aria-pressed="false">Philosophy</button>
+            <button type="button" data-welcome-lens="general" aria-pressed="true">General</button>
+            <button type="button" data-welcome-lens="technical" aria-pressed="false">Technical</button>
+          </div>
+        </div>
+        <div class="welcome-overlay__view-group">
+          <span class="welcome-overlay__group-label">Detail:</span>
+          <div class="welcome-overlay__choices" role="group" aria-label="Detail">
+            <button type="button" data-welcome-detail="less" aria-pressed="false">Less</button>
+            <button type="button" data-welcome-detail="regular" aria-pressed="true">Regular</button>
+            <button type="button" data-welcome-detail="more" aria-pressed="false">More</button>
+          </div>
         </div>
         <button class="welcome-overlay__submit" type="button" data-welcome-submit>Enter site</button>
       </div>
     </div>
   </section>
 
-  <script src="welcome-overlay.js?v=perspective-detail-fade-timing-1" defer></script>
+  <script src="welcome-overlay.js?v=view-controls-modal-1" defer></script>
 </body>
 </html>

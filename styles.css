@@ -151,43 +151,43 @@ h2 {
 .site-toolbar {
   display: flex;
   align-items: center;
+  justify-content: flex-start;
+  gap: clamp(1.5rem, 4vw, 3rem);
   min-height: 44px;
   border-bottom: 1px solid var(--line);
   background: var(--canvas);
   background: color-mix(in srgb, var(--canvas) 92%, var(--card));
 }
 
-.toolbar-group {
+.view-control-group {
   display: flex;
-  flex: 1 1 0;
   align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
+  flex: 0 1 auto;
+  gap: 0.6rem;
 }
 
 .detail-bar {
-  padding-left: 1.5rem;
+  padding-left: clamp(1.5rem, 3vw, 2.5rem);
   border-left: 1px solid var(--line);
 }
 
-.toolbar-group__label {
-  flex: 0 0 auto;
+.view-control-group__label,
+.welcome-overlay__group-label {
   margin: 0;
   color: var(--muted-ink);
   font-size: 0.75rem;
   font-weight: 600;
 }
 
-.perspective-control,
-.detail-control {
+.view-control-group__options,
+.welcome-overlay__choices {
   display: flex;
   flex-wrap: nowrap;
   gap: 0.2rem;
-  justify-content: flex-end;
 }
 
-.perspective-control button,
-.detail-control button {
+.view-control-group__options button,
+.welcome-overlay__choices button {
   border: 0;
   color: var(--muted-ink);
   background: transparent;
@@ -195,8 +195,7 @@ h2 {
   cursor: pointer;
 }
 
-.perspective-control button,
-.detail-control button {
+.view-control-group__options button {
   min-height: 40px;
   padding: 0 0.45rem;
   font-size: 0.75rem;
@@ -204,24 +203,20 @@ h2 {
   white-space: nowrap;
 }
 
-.perspective-control button[aria-pressed="true"],
-.perspective-control button:hover,
-.perspective-control button:focus-visible,
-.detail-control button[aria-pressed="true"],
-.detail-control button:hover,
-.detail-control button:focus-visible {
+.view-control-group__options button[aria-pressed="true"],
+.view-control-group__options button:hover,
+.view-control-group__options button:focus-visible {
   color: var(--accent);
 }
 
-.perspective-control button[aria-pressed="true"],
-.detail-control button[aria-pressed="true"] {
+.view-control-group__options button[aria-pressed="true"] {
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.25rem;
 }
 
-.perspective-control button:focus-visible,
-.detail-control button:focus-visible {
+.view-control-group__options button:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
@@ -344,6 +339,7 @@ h3 {
 }
 
 .site-footer {
+  justify-content: flex-end;
   padding: 1.75rem 0 2.25rem;
   border-top: 1px solid var(--line);
   color: var(--muted-ink);
@@ -451,10 +447,19 @@ h3 {
   color: var(--muted-ink);
 }
 
+.welcome-overlay__view-group {
+  display: grid;
+  gap: 0.3rem;
+  margin-top: 1rem;
+}
+
+.welcome-overlay__group-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
 .welcome-overlay__choices {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 0.2rem;
   padding: 0.2rem 0;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
@@ -484,6 +489,7 @@ h3 {
 
 .welcome-overlay__choices button[aria-pressed="true"] {
   color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.25rem;
@@ -521,7 +527,7 @@ h3 {
     display: block;
   }
 
-  .toolbar-group {
+  .view-control-group {
     width: 100%;
   }
 
@@ -585,7 +591,7 @@ h3 {
   }
 
   .site-footer {
-    align-items: flex-start;
+    align-items: flex-end;
     flex-direction: column;
     gap: 0.4rem;
   }
@@ -595,17 +601,15 @@ h3 {
     gap: 0.5rem;
   }
 
-  .toolbar-group__label {
+  .view-control-group__label {
     font-size: 0.7rem;
   }
 
-  .perspective-control,
-  .detail-control {
+  .view-control-group__options {
     gap: 0;
   }
 
-  .perspective-control button,
-  .detail-control button {
+  .view-control-group__options button {
     min-height: 38px;
     padding: 0 0.25rem;
     font-size: 0.7rem;

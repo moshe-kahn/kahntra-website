@@ -1,7 +1,7 @@
 (() => {
   const perspectiveKey = "kahntra-site-perspective-v1";
   const detailKey = "kahntra-site-detail-v1";
-  const welcomeDismissedKey = "kahntra-welcome-perspective-dismissed-v1";
+  const welcomeDismissedKey = "kahntra-welcome-perspective-detail-dismissed-v1";
   const perspectives = ["philosophy", "general", "technical"];
   const details = ["less", "regular", "more"];
   const defaultPerspective = "general";
@@ -16,13 +16,15 @@
     const siteToolbar = document.querySelector("[data-site-toolbar]");
     const backdrop = overlay?.querySelector("[data-welcome-dismiss]");
     const welcomeSubmit = overlay?.querySelector("[data-welcome-submit]");
-    const welcomeChoices = [...(overlay?.querySelectorAll("[data-welcome-lens]") ?? [])];
+    const welcomePerspectiveChoices = [...(overlay?.querySelectorAll("[data-welcome-lens]") ?? [])];
+    const welcomeDetailChoices = [...(overlay?.querySelectorAll("[data-welcome-detail]") ?? [])];
 
-    if (!siteShell || !overlay || !announcement || !perspectiveButtons.length || !detailButtons.length || !siteToolbar || !backdrop || !welcomeSubmit || !welcomeChoices.length) return;
+    if (!siteShell || !overlay || !announcement || !perspectiveButtons.length || !detailButtons.length || !siteToolbar || !backdrop || !welcomeSubmit || !welcomePerspectiveChoices.length || !welcomeDetailChoices.length) return;
 
     let globalPerspective = readPerspective();
     let globalDetail = readDetail();
     let pendingPerspective = globalPerspective;
+    let pendingDetail = globalDetail;
     let previousFocus = null;
     let fallbackFocusables = [];
     let contentTransitionTimer = null;
@@ -122,7 +124,13 @@
     function setPendingPerspective(perspective) {
       if (!perspectives.includes(perspective)) return;
       pendingPerspective = perspective;
-      setButtonState(welcomeChoices, pendingPerspective, "welcomeLens");
+      setButtonState(welcomePerspectiveChoices, pendingPerspective, "welcomeLens");
+    }
+
+    function setPendingDetail(detail) {
+      if (!details.includes(detail)) return;
+      pendingDetail = detail;
+      setButtonState(welcomeDetailChoices, pendingDetail, "welcomeDetail");
     }
 
     function setGlobalPerspective(perspective, { announce = true } = {}) {
@@ -172,6 +180,7 @@
 
     function dismissWelcome() {
       setGlobalPerspective(pendingPerspective);
+      setGlobalDetail(pendingDetail);
       storeValue(welcomeDismissedKey, "true");
 
       overlay.classList.remove("is-open");
@@ -218,8 +227,11 @@
     detailButtons.forEach((button) => {
       button.addEventListener("click", () => setGlobalDetail(button.dataset.globalDetail));
     });
-    welcomeChoices.forEach((button) => {
+    welcomePerspectiveChoices.forEach((button) => {
       button.addEventListener("click", () => setPendingPerspective(button.dataset.welcomeLens));
+    });
+    welcomeDetailChoices.forEach((button) => {
+      button.addEventListener("click", () => setPendingDetail(button.dataset.welcomeDetail));
     });
     welcomeSubmit.addEventListener("click", dismissWelcome);
     backdrop.addEventListener("click", dismissWelcome);
@@ -229,6 +241,7 @@
     setButtonState(perspectiveButtons, globalPerspective, "globalLens");
     setButtonState(detailButtons, globalDetail, "globalDetail");
     setPendingPerspective(globalPerspective);
+    setPendingDetail(globalDetail);
 
     try {
       if (sessionStorage.getItem(welcomeDismissedKey)) return;
@@ -243,7 +256,7 @@
     document.addEventListener("keydown", handleKeydown);
     requestAnimationFrame(() => {
       overlay.classList.add("is-open");
-      welcomeChoices.find((button) => button.dataset.welcomeLens === pendingPerspective)?.focus();
+      welcomePerspectiveChoices.find((button) => button.dataset.welcomeLens === pendingPerspective)?.focus();
     });
   };
 
