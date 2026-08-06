@@ -93,7 +93,6 @@ nav a:focus-visible {
 }
 
 .eyebrow,
-.work-type,
 .stage,
 .availability {
   margin: 0;
@@ -164,21 +163,15 @@ h2 {
   font-weight: 600;
 }
 
-.perspective-control,
-.card-perspective__controls {
+.perspective-control {
   display: flex;
   flex-wrap: wrap;
   gap: 0.2rem;
-}
-
-.perspective-control {
   flex-wrap: nowrap;
   justify-content: flex-end;
 }
 
-.perspective-control button,
-.card-perspective__controls button,
-.card-perspective__override button {
+.perspective-control button {
   border: 0;
   color: var(--muted-ink);
   background: transparent;
@@ -206,8 +199,7 @@ h2 {
   text-underline-offset: 0.25rem;
 }
 
-.perspective-control button:focus-visible,
-.card-perspective button:focus-visible {
+.perspective-control button:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
@@ -244,7 +236,6 @@ h2 {
   gap: 0.35rem 0.65rem;
 }
 
-.work-type,
 .availability {
   color: var(--muted-ink);
   font-size: 0.62rem;
@@ -268,47 +259,6 @@ h3 {
 
 .product-card__description p {
   margin: 0;
-}
-
-.card-perspective {
-  display: grid;
-  gap: 0.7rem;
-  margin-top: 1.5rem;
-}
-
-.card-perspective__controls button {
-  padding: 0.15rem 0.35rem;
-  font-size: 0.72rem;
-  font-weight: 700;
-}
-
-.card-perspective__controls button[aria-pressed="true"],
-.card-perspective__controls button:hover,
-.card-perspective__controls button:focus-visible {
-  color: var(--accent);
-}
-
-.card-perspective__controls button[aria-pressed="true"] {
-  text-decoration: underline;
-  text-underline-offset: 0.28rem;
-}
-
-.card-perspective__override {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.5rem;
-  color: var(--muted-ink);
-  font-size: 0.72rem;
-}
-
-.card-perspective__override button {
-  padding: 0;
-  color: var(--accent);
-  font-size: inherit;
-  font-weight: 700;
-  text-decoration: underline;
-  text-underline-offset: 0.25rem;
 }
 
 .card-action {
