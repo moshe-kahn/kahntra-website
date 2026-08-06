@@ -25,6 +25,10 @@
     let pendingPerspective = globalPerspective;
     let previousFocus = null;
     let fallbackFocusables = [];
+    let contentTransitionTimer = null;
+    let contentTransitionVersion = 0;
+    const contentFadeDuration = 160;
+    const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
     const focusableSelector = [
       "a[href]",
@@ -82,6 +86,33 @@
       updateApproachHeadings();
     }
 
+    function transitionContent({ includeApproachHeading = false } = {}) {
+      const contentGroups = [...document.querySelectorAll("[data-content-group]")];
+      const approachHeadings = [...document.querySelectorAll("[data-perspective-heading]")];
+
+      if (reduceMotionQuery.matches) {
+        updateAllContent();
+        return;
+      }
+
+      const fadingHeadings = approachHeadings.filter((heading) => heading.classList.contains("is-content-fading"));
+      const transitionElements = [...contentGroups, ...(includeApproachHeading ? approachHeadings : fadingHeadings)];
+      const version = ++contentTransitionVersion;
+
+      if (contentTransitionTimer) window.clearTimeout(contentTransitionTimer);
+      transitionElements.forEach((element) => element.classList.add("is-content-fading"));
+
+      contentTransitionTimer = window.setTimeout(() => {
+        if (version !== contentTransitionVersion) return;
+        updateAllContent();
+        requestAnimationFrame(() => {
+          if (version !== contentTransitionVersion) return;
+          transitionElements.forEach((element) => element.classList.remove("is-content-fading"));
+          contentTransitionTimer = null;
+        });
+      }, contentFadeDuration);
+    }
+
     function setButtonState(buttons, activeValue, dataKey) {
       buttons.forEach((button) => {
         button.setAttribute("aria-pressed", String(button.dataset[dataKey] === activeValue));
@@ -98,7 +129,7 @@
       if (!perspectives.includes(perspective)) return;
       globalPerspective = perspective;
       storeValue(perspectiveKey, perspective);
-      updateAllContent();
+      transitionContent({ includeApproachHeading: true });
       setButtonState(perspectiveButtons, perspective, "globalLens");
       if (announce) announcement.textContent = `Site perspective: ${capitalize(perspective)}.`;
     }
@@ -107,7 +138,7 @@
       if (!details.includes(detail)) return;
       globalDetail = detail;
       storeValue(detailKey, detail);
-      updateAllContent();
+      transitionContent();
       setButtonState(detailButtons, detail, "globalDetail");
       if (announce) announcement.textContent = `Detail: ${capitalize(detail)}.`;
     }
@@ -194,8 +225,9 @@
     backdrop.addEventListener("click", dismissWelcome);
 
     siteToolbar.hidden = false;
-    setGlobalPerspective(globalPerspective, { announce: false });
-    setGlobalDetail(globalDetail, { announce: false });
+    updateAllContent();
+    setButtonState(perspectiveButtons, globalPerspective, "globalLens");
+    setButtonState(detailButtons, globalDetail, "globalDetail");
     setPendingPerspective(globalPerspective);
 
     try {
