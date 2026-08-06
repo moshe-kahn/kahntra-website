@@ -8,36 +8,39 @@
   <link rel="icon" type="image/png" sizes="32x32" href="assets/kahntra-brand-mark-32.png">
   <link rel="icon" type="image/png" sizes="512x512" href="assets/kahntra-brand-mark-512.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/kahntra-brand-mark-180.png">
-  <link rel="stylesheet" href="styles.css?v=selected-work-heading-1">
+  <link rel="stylesheet" href="styles.css?v=compact-header-controls-1">
 </head>
 
 <body>
   <div class="site-shell">
     <div class="site-header-system">
       <header class="site-header">
-        <a class="wordmark" href="/" aria-label="Kahntra home">Kahntra</a>
+        <a class="wordmark" href="/" aria-label="Kahntra Productions home">Kahntra Productions</a>
         <nav aria-label="Primary navigation">
-          <a href="#products">Products</a>
+          <a href="#products">Work</a>
         </nav>
       </header>
 
       <div class="site-toolbar" data-site-toolbar hidden>
-        <div class="view-control-group perspective-bar">
-          <span class="view-control-group__label">Perspective:</span>
-          <div class="view-control-group__options" role="group" aria-label="Perspective">
-            <button type="button" data-global-lens="philosophy" aria-pressed="false">Philosophy</button>
-            <button type="button" data-global-lens="general" aria-pressed="true">General</button>
-            <button type="button" data-global-lens="technical" aria-pressed="false">Technical</button>
+        <div class="view-controls" id="view-controls" data-view-controls>
+          <div class="view-control-group perspective-bar">
+            <span class="view-control-group__label">Perspective:</span>
+            <div class="view-control-group__options" role="group" aria-label="Perspective">
+              <button type="button" data-global-lens="philosophy" aria-pressed="false">Philosophy</button>
+              <button type="button" data-global-lens="general" aria-pressed="true">General</button>
+              <button type="button" data-global-lens="technical" aria-pressed="false">Technical</button>
+            </div>
+          </div>
+          <div class="view-control-group detail-bar">
+            <span class="view-control-group__label">Detail:</span>
+            <div class="view-control-group__options" role="group" aria-label="Detail">
+              <button type="button" data-global-detail="less" aria-pressed="false">Less</button>
+              <button type="button" data-global-detail="regular" aria-pressed="true">Regular</button>
+              <button type="button" data-global-detail="more" aria-pressed="false">More</button>
+            </div>
           </div>
         </div>
-        <div class="view-control-group detail-bar">
-          <span class="view-control-group__label">Detail:</span>
-          <div class="view-control-group__options" role="group" aria-label="Detail">
-            <button type="button" data-global-detail="less" aria-pressed="false">Less</button>
-            <button type="button" data-global-detail="regular" aria-pressed="true">Regular</button>
-            <button type="button" data-global-detail="more" aria-pressed="false">More</button>
-          </div>
-        </div>
+        <button class="view-controls-toggle" type="button" data-view-controls-toggle aria-controls="view-controls" aria-expanded="true">Collapse</button>
       </div>
     </div>
 
@@ -193,6 +196,6 @@
     </div>
   </section>
 
-  <script src="welcome-overlay.js?v=view-controls-modal-1" defer></script>
+  <script src="welcome-overlay.js?v=compact-header-controls-1" defer></script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 (() => {
   const perspectiveKey = "kahntra-site-perspective-v1";
   const detailKey = "kahntra-site-detail-v1";
+  const controlsCollapsedKey = "kahntra-view-controls-collapsed-v1";
   const welcomeDismissedKey = "kahntra-welcome-perspective-detail-dismissed-v1";
   const perspectives = ["philosophy", "general", "technical"];
   const details = ["less", "regular", "more"];
@@ -14,17 +15,20 @@
     const perspectiveButtons = [...document.querySelectorAll("[data-global-lens]")];
     const detailButtons = [...document.querySelectorAll("[data-global-detail]")];
     const siteToolbar = document.querySelector("[data-site-toolbar]");
+    const viewControls = document.querySelector("[data-view-controls]");
+    const viewControlsToggle = document.querySelector("[data-view-controls-toggle]");
     const backdrop = overlay?.querySelector("[data-welcome-dismiss]");
     const welcomeSubmit = overlay?.querySelector("[data-welcome-submit]");
     const welcomePerspectiveChoices = [...(overlay?.querySelectorAll("[data-welcome-lens]") ?? [])];
     const welcomeDetailChoices = [...(overlay?.querySelectorAll("[data-welcome-detail]") ?? [])];
 
-    if (!siteShell || !overlay || !announcement || !perspectiveButtons.length || !detailButtons.length || !siteToolbar || !backdrop || !welcomeSubmit || !welcomePerspectiveChoices.length || !welcomeDetailChoices.length) return;
+    if (!siteShell || !overlay || !announcement || !perspectiveButtons.length || !detailButtons.length || !siteToolbar || !viewControls || !viewControlsToggle || !backdrop || !welcomeSubmit || !welcomePerspectiveChoices.length || !welcomeDetailChoices.length) return;
 
     let globalPerspective = readPerspective();
     let globalDetail = readDetail();
     let pendingPerspective = globalPerspective;
     let pendingDetail = globalDetail;
+    let controlsCollapsed = readControlsCollapsed();
     let previousFocus = null;
     let fallbackFocusables = [];
     let contentTransitionTimer = null;
@@ -61,6 +65,18 @@
       } catch {
         return defaultDetail;
       }
+    }
+
+    function readControlsCollapsed() {
+      try {
+        const storedValue = sessionStorage.getItem(controlsCollapsedKey);
+        if (storedValue === "true") return true;
+        if (storedValue === "false") return false;
+      } catch {
+        // The page remains usable when storage is unavailable.
+      }
+
+      return window.matchMedia("(max-width: 760px)").matches;
     }
 
     function storeValue(key, value) {
@@ -121,6 +137,29 @@
       });
     }
 
+    function updateViewControlsToggle() {
+      const summary = `View: ${capitalize(globalPerspective)} · ${capitalize(globalDetail)}`;
+      viewControlsToggle.textContent = controlsCollapsed ? summary : "Collapse";
+      viewControlsToggle.setAttribute("aria-expanded", String(!controlsCollapsed));
+      viewControlsToggle.setAttribute(
+        "aria-label",
+        controlsCollapsed
+          ? `Expand view controls. Current view: ${capitalize(globalPerspective)}, ${capitalize(globalDetail)}.`
+          : "Collapse view controls."
+      );
+    }
+
+    function setControlsCollapsed(collapsed, { persist = true } = {}) {
+      const focusWasInsideControls = viewControls.contains(document.activeElement);
+      controlsCollapsed = collapsed;
+      viewControls.hidden = collapsed;
+      document.body.classList.toggle("view-controls-collapsed", collapsed);
+      updateViewControlsToggle();
+
+      if (persist) storeValue(controlsCollapsedKey, String(collapsed));
+      if (collapsed && focusWasInsideControls) viewControlsToggle.focus({ preventScroll: true });
+    }
+
     function setPendingPerspective(perspective) {
       if (!perspectives.includes(perspective)) return;
       pendingPerspective = perspective;
@@ -139,6 +178,7 @@
       storeValue(perspectiveKey, perspective);
       transitionContent({ includeApproachHeading: true });
       setButtonState(perspectiveButtons, perspective, "globalLens");
+      updateViewControlsToggle();
       if (announce) announcement.textContent = `Site perspective: ${capitalize(perspective)}.`;
     }
 
@@ -148,6 +188,7 @@
       storeValue(detailKey, detail);
       transitionContent();
       setButtonState(detailButtons, detail, "globalDetail");
+      updateViewControlsToggle();
       if (announce) announcement.textContent = `Detail: ${capitalize(detail)}.`;
     }
 
@@ -227,6 +268,7 @@
     detailButtons.forEach((button) => {
       button.addEventListener("click", () => setGlobalDetail(button.dataset.globalDetail));
     });
+    viewControlsToggle.addEventListener("click", () => setControlsCollapsed(!controlsCollapsed));
     welcomePerspectiveChoices.forEach((button) => {
       button.addEventListener("click", () => setPendingPerspective(button.dataset.welcomeLens));
     });
@@ -242,6 +284,7 @@
     setButtonState(detailButtons, globalDetail, "globalDetail");
     setPendingPerspective(globalPerspective);
     setPendingDetail(globalDetail);
+    setControlsCollapsed(controlsCollapsed, { persist: false });
 
     try {
       if (sessionStorage.getItem(welcomeDismissedKey)) return;
