@@ -5,17 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Kahntra is a portfolio of software products, experiments, and evolving ideas.">
   <title>Kahntra — Software products and ideas</title>
-  <link rel="stylesheet" href="styles.css?v=perspective-system-1">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/kahntra-brand-mark-32.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="assets/kahntra-brand-mark-512.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/kahntra-brand-mark-180.png">
+  <link rel="stylesheet" href="styles.css?v=sticky-perspective-1">
 </head>
 
 <body>
   <div class="site-shell">
-    <header class="site-header">
-      <a class="wordmark" href="/" aria-label="Kahntra home">Kahntra</a>
-      <nav aria-label="Primary navigation">
-        <a href="#products">Products</a>
-      </nav>
-    </header>
+    <div class="site-header-system">
+      <header class="site-header">
+        <a class="wordmark" href="/" aria-label="Kahntra home">Kahntra</a>
+        <nav aria-label="Primary navigation">
+          <a href="#products">Products</a>
+        </nav>
+      </header>
+
+      <div class="perspective-bar" data-perspective-control hidden>
+        <p class="perspective-bar__label">Perspective:</p>
+        <div class="perspective-control" role="group" aria-label="Site perspective">
+          <button type="button" data-global-lens="philosophy" aria-pressed="false">Philosophy</button>
+          <button type="button" data-global-lens="technical" aria-pressed="false">Technical</button>
+          <button type="button" data-global-lens="practical" aria-pressed="true">Practical</button>
+        </div>
+      </div>
+    </div>
 
     <main>
       <section class="hero" aria-labelledby="page-title">
@@ -27,15 +41,6 @@
           <p data-lens-content="practical">Kahntra creates software products and experiments that help people make everyday decisions with more clarity.</p>
         </div>
       </section>
-
-      <div class="perspective-bar" data-perspective-control hidden>
-        <p class="perspective-bar__label">View the work through</p>
-        <div class="perspective-control" role="group" aria-label="Site perspective">
-          <button type="button" data-global-lens="philosophy" aria-pressed="false">Philosophy</button>
-          <button type="button" data-global-lens="technical" aria-pressed="false">Technical</button>
-          <button type="button" data-global-lens="practical" aria-pressed="true">Practical</button>
-        </div>
-      </div>
 
       <section class="products section" id="products" aria-labelledby="products-title">
         <div class="section-heading">
