@@ -8,7 +8,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="assets/kahntra-brand-mark-32.png">
   <link rel="icon" type="image/png" sizes="512x512" href="assets/kahntra-brand-mark-512.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/kahntra-brand-mark-180.png">
-  <link rel="stylesheet" href="styles.css?v=perspective-general-1">
+  <link rel="stylesheet" href="styles.css?v=selected-work-1">
 </head>
 
 <body>
@@ -45,14 +45,15 @@
       <section class="products section" id="products" aria-labelledby="products-title">
         <div class="section-heading">
           <p class="eyebrow">Portfolio</p>
-          <h2 id="products-title" tabindex="-1">Products in progress</h2>
+          <h2 id="products-title" tabindex="-1">Selected work</h2>
         </div>
 
         <div class="product-grid">
           <article class="product-card" data-project-id="momomovies">
             <div class="product-card__meta">
-              <p class="status">In development</p>
-              <p class="category">Entertainment</p>
+              <p class="work-type">In-house product</p>
+              <p class="stage">In development</p>
+              <p class="availability">Temporarily unavailable</p>
             </div>
             <div class="card-perspective" data-card-perspective hidden>
               <div class="card-perspective__controls" role="group" aria-label="MomoMovies perspective">
@@ -68,10 +69,62 @@
             <h3>MomoMovies</h3>
             <div class="product-card__description" data-lens-content-group>
               <p data-lens-content="philosophy" hidden>Choosing a film is rarely about genre or ratings alone. MomoMovies treats discovery as a human decision: mood, context, and the people watching matter.</p>
-              <p data-lens-content="general">MomoMovies helps people decide what to watch by exploring films through mood, viewing context, and available services. The product is in development, with a functional discovery experience under active refinement.</p>
+              <p data-lens-content="general">MomoMovies helps people decide what to watch through mood, viewing context, and available services. The product is in development; its public experience is temporarily unavailable while it is refined.</p>
               <p data-lens-content="technical" hidden>MomoMovies is an active product experiment combining curated discovery, Vibes-based browsing, streaming-availability work, and private data and analysis pipelines. Some enrichment and ranking work remains experimental.</p>
             </div>
-            <span class="card-link" aria-hidden="true">Coming soon <span>→</span></span>
+            <p class="card-action">Site temporarily unavailable</p>
+          </article>
+
+          <article class="product-card" data-project-id="listenlab">
+            <div class="product-card__meta">
+              <p class="work-type">In-house product</p>
+              <p class="stage">Prototype</p>
+              <p class="availability">Private</p>
+            </div>
+            <div class="card-perspective" data-card-perspective hidden>
+              <div class="card-perspective__controls" role="group" aria-label="ListenLab perspective">
+                <button type="button" data-card-lens="philosophy" aria-pressed="false">Philosophy</button>
+                <button type="button" data-card-lens="general" aria-pressed="true">General</button>
+                <button type="button" data-card-lens="technical" aria-pressed="false">Technical</button>
+              </div>
+              <div class="card-perspective__override" data-card-override hidden>
+                <span data-card-override-label></span>
+                <button type="button" data-follow-site-perspective>Follow site perspective</button>
+              </div>
+            </div>
+            <h3>ListenLab</h3>
+            <div class="product-card__description" data-lens-content-group>
+              <p data-lens-content="philosophy" hidden>ListenLab explores how music collections can reveal connections that ordinary streaming interfaces flatten or hide: alternate releases, performances, covers, album context, and personally meaningful organization.</p>
+              <p data-lens-content="general">ListenLab is a private music-listening and collection prototype designed to help people explore songs, recordings, releases, and playlists with more context.</p>
+              <p data-lens-content="technical" hidden>ListenLab is a private prototype exploring music metadata relationships through interface experiments around playlist organization, alternate recordings, and release context.</p>
+            </div>
+            <p class="card-action">Private prototype</p>
+          </article>
+
+          <article class="product-card" data-project-id="meal-match">
+            <div class="product-card__meta">
+              <p class="work-type">In-house product</p>
+              <p class="stage">Concept</p>
+              <p class="availability">Not yet available</p>
+            </div>
+            <div class="card-perspective" data-card-perspective hidden>
+              <div class="card-perspective__controls" role="group" aria-label="Meal Match perspective">
+                <button type="button" data-card-lens="philosophy" aria-pressed="false">Philosophy</button>
+                <button type="button" data-card-lens="general" aria-pressed="true">General</button>
+                <button type="button" data-card-lens="technical" aria-pressed="false">Technical</button>
+              </div>
+              <div class="card-perspective__override" data-card-override hidden>
+                <span data-card-override-label></span>
+                <button type="button" data-follow-site-perspective>Follow site perspective</button>
+              </div>
+            </div>
+            <h3>Meal Match</h3>
+            <div class="product-card__description" data-lens-content-group>
+              <p data-lens-content="philosophy" hidden>Choosing what to eat is often a coordination and decision problem rather than a lack of options. Preferences, energy, dietary constraints, time, and the people involved all shape the choice.</p>
+              <p data-lens-content="general">Meal Match is an early product concept for helping individuals or groups decide what to eat by narrowing options around preferences, context, and practical constraints.</p>
+              <p data-lens-content="technical" hidden>Meal Match is early product research and system design exploring structured preference inputs, constraint matching, shared decisions, and recommendation logic. No application or functional prototype is available yet.</p>
+            </div>
+            <p class="card-action">Early concept</p>
           </article>
         </div>
       </section>
@@ -125,6 +178,6 @@
     </div>
   </section>
 
-  <script src="welcome-overlay.js?v=perspective-general-1" defer></script>
+  <script src="welcome-overlay.js?v=selected-work-1" defer></script>
 </body>
 </html>

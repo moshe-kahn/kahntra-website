@@ -10,19 +10,28 @@
     const announcement = document.querySelector("#perspective-announcement");
     const globalButtons = [...document.querySelectorAll("[data-global-lens]")];
     const perspectiveBar = document.querySelector("[data-perspective-control]");
-    const card = document.querySelector("[data-project-id='momomovies']");
     const backdrop = overlay?.querySelector("[data-welcome-dismiss]");
     const welcomeSubmit = overlay?.querySelector("[data-welcome-submit]");
     const welcomeChoices = [...(overlay?.querySelectorAll("[data-welcome-lens]") ?? [])];
+    const cards = [...document.querySelectorAll("[data-project-id]")];
 
-    if (!siteShell || !overlay || !announcement || !globalButtons.length || !perspectiveBar || !card || !backdrop || !welcomeSubmit || !welcomeChoices.length) return;
+    if (!siteShell || !overlay || !announcement || !globalButtons.length || !perspectiveBar || !backdrop || !welcomeSubmit || !welcomeChoices.length || !cards.length) return;
 
-    const cardControls = card.querySelector("[data-card-perspective]");
-    const cardButtons = [...card.querySelectorAll("[data-card-lens]")];
-    const overrideStatus = card.querySelector("[data-card-override]");
-    const overrideLabel = card.querySelector("[data-card-override-label]");
-    const followSiteButton = card.querySelector("[data-follow-site-perspective]");
-    const cardOverrides = { momomovies: null };
+    const cardEntries = cards.map((card) => ({
+      card,
+      id: card.dataset.projectId,
+      name: card.querySelector("h3")?.textContent.trim(),
+      controls: card.querySelector("[data-card-perspective]"),
+      buttons: [...card.querySelectorAll("[data-card-lens]")],
+      description: card.querySelector(".product-card__description"),
+      overrideStatus: card.querySelector("[data-card-override]"),
+      overrideLabel: card.querySelector("[data-card-override-label]"),
+      followSiteButton: card.querySelector("[data-follow-site-perspective]")
+    }));
+
+    if (cardEntries.some(({ id, name, controls, buttons, description, overrideStatus, overrideLabel, followSiteButton }) => !id || !name || !controls || !buttons.length || !description || !overrideStatus || !overrideLabel || !followSiteButton)) return;
+
+    const cardOverrides = new Map(cardEntries.map(({ id }) => [id, null]));
     let globalLens = readStoredLens();
     let pendingLens = globalLens;
     let previousFocus = null;
@@ -77,14 +86,13 @@
       setButtonState(welcomeChoices, pendingLens);
     }
 
-    function updateCard() {
-      const override = cardOverrides.momomovies;
+    function updateCard(cardEntry) {
+      const override = cardOverrides.get(cardEntry.id);
       const activeLens = override ?? globalLens;
-      const description = card.querySelector(".product-card__description");
-      updateContent(description, activeLens);
-      setButtonState(cardButtons, activeLens);
-      overrideStatus.hidden = !override;
-      if (override) overrideLabel.textContent = `Viewing ${capitalize(override)} locally.`;
+      updateContent(cardEntry.description, activeLens);
+      setButtonState(cardEntry.buttons, activeLens);
+      cardEntry.overrideStatus.hidden = !override;
+      if (override) cardEntry.overrideLabel.textContent = `Viewing ${capitalize(override)} locally.`;
     }
 
     function setGlobalLens(lens, { announce = true } = {}) {
@@ -95,8 +103,10 @@
         if (!container.closest("[data-project-id]")) updateContent(container, lens);
       });
       setButtonState(globalButtons, lens);
-      cardOverrides.momomovies = null;
-      updateCard();
+      cardEntries.forEach((cardEntry) => {
+        cardOverrides.set(cardEntry.id, null);
+        updateCard(cardEntry);
+      });
       if (announce) announcement.textContent = `Site perspective: ${capitalize(lens)}.`;
     }
 
@@ -177,18 +187,20 @@
       button.addEventListener("click", () => setGlobalLens(button.dataset.globalLens));
     });
 
-    cardButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        cardOverrides.momomovies = button.dataset.cardLens;
-        updateCard();
-        announcement.textContent = `MomoMovies perspective: ${capitalize(button.dataset.cardLens)}. Local override active.`;
+    cardEntries.forEach((cardEntry) => {
+      cardEntry.buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          cardOverrides.set(cardEntry.id, button.dataset.cardLens);
+          updateCard(cardEntry);
+          announcement.textContent = `${cardEntry.name} perspective: ${capitalize(button.dataset.cardLens)}. Local override active.`;
+        });
       });
-    });
 
-    followSiteButton.addEventListener("click", () => {
-      cardOverrides.momomovies = null;
-      updateCard();
-      announcement.textContent = "MomoMovies now follows the site perspective.";
+      cardEntry.followSiteButton.addEventListener("click", () => {
+        cardOverrides.set(cardEntry.id, null);
+        updateCard(cardEntry);
+        announcement.textContent = `${cardEntry.name} now follows the site perspective.`;
+      });
     });
 
     welcomeChoices.forEach((button) => {
@@ -198,7 +210,9 @@
     backdrop.addEventListener("click", dismissWelcome);
 
     perspectiveBar.hidden = false;
-    cardControls.hidden = false;
+    cardEntries.forEach(({ controls }) => {
+      controls.hidden = false;
+    });
     setGlobalLens(globalLens, { announce: false });
     setPendingLens(globalLens);
 
