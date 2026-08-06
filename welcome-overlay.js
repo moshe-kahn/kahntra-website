@@ -1,23 +1,28 @@
 (() => {
   const perspectiveKey = "kahntra-site-perspective-v1";
+  const detailKey = "kahntra-site-detail-v1";
   const welcomeDismissedKey = "kahntra-welcome-perspective-dismissed-v1";
-  const lenses = ["philosophy", "general", "technical"];
-  const defaultLens = "general";
+  const perspectives = ["philosophy", "general", "technical"];
+  const details = ["less", "regular", "more"];
+  const defaultPerspective = "general";
+  const defaultDetail = "regular";
 
   const initialize = () => {
     const siteShell = document.querySelector(".site-shell");
     const overlay = document.querySelector("#welcome-overlay");
     const announcement = document.querySelector("#perspective-announcement");
-    const globalButtons = [...document.querySelectorAll("[data-global-lens]")];
-    const perspectiveBar = document.querySelector("[data-perspective-control]");
+    const perspectiveButtons = [...document.querySelectorAll("[data-global-lens]")];
+    const detailButtons = [...document.querySelectorAll("[data-global-detail]")];
+    const siteToolbar = document.querySelector("[data-site-toolbar]");
     const backdrop = overlay?.querySelector("[data-welcome-dismiss]");
     const welcomeSubmit = overlay?.querySelector("[data-welcome-submit]");
     const welcomeChoices = [...(overlay?.querySelectorAll("[data-welcome-lens]") ?? [])];
 
-    if (!siteShell || !overlay || !announcement || !globalButtons.length || !perspectiveBar || !backdrop || !welcomeSubmit || !welcomeChoices.length) return;
+    if (!siteShell || !overlay || !announcement || !perspectiveButtons.length || !detailButtons.length || !siteToolbar || !backdrop || !welcomeSubmit || !welcomeChoices.length) return;
 
-    let globalLens = readStoredLens();
-    let pendingLens = globalLens;
+    let globalPerspective = readPerspective();
+    let globalDetail = readDetail();
+    let pendingPerspective = globalPerspective;
     let previousFocus = null;
     let fallbackFocusables = [];
 
@@ -30,53 +35,81 @@
       "[tabindex]:not([tabindex='-1'])"
     ].join(",");
 
-    function readStoredLens() {
+    function readPerspective() {
       try {
-        const storedLens = sessionStorage.getItem(perspectiveKey);
-        if (storedLens === "practical") {
-          sessionStorage.setItem(perspectiveKey, defaultLens);
-          return defaultLens;
+        const storedPerspective = sessionStorage.getItem(perspectiveKey);
+        if (storedPerspective === "practical") {
+          sessionStorage.setItem(perspectiveKey, defaultPerspective);
+          return defaultPerspective;
         }
-        return lenses.includes(storedLens) ? storedLens : defaultLens;
+        return perspectives.includes(storedPerspective) ? storedPerspective : defaultPerspective;
       } catch {
-        return defaultLens;
+        return defaultPerspective;
       }
     }
 
-    function storeLens(lens) {
+    function readDetail() {
       try {
-        sessionStorage.setItem(perspectiveKey, lens);
+        const storedDetail = sessionStorage.getItem(detailKey);
+        return details.includes(storedDetail) ? storedDetail : defaultDetail;
+      } catch {
+        return defaultDetail;
+      }
+    }
+
+    function storeValue(key, value) {
+      try {
+        sessionStorage.setItem(key, value);
       } catch {
         // The page remains usable when storage is unavailable.
       }
     }
 
-    function updateContent(container, lens) {
-      container.querySelectorAll("[data-lens-content]").forEach((element) => {
-        element.hidden = element.dataset.lensContent !== lens;
+    function updateContent(container) {
+      container.querySelectorAll("[data-perspective][data-detail]").forEach((element) => {
+        element.hidden = element.dataset.perspective !== globalPerspective || element.dataset.detail !== globalDetail;
       });
     }
 
-    function setButtonState(buttons, activeLens) {
+    function updateApproachHeadings() {
+      document.querySelectorAll("[data-perspective-heading]").forEach((heading) => {
+        heading.hidden = heading.dataset.perspectiveHeading !== globalPerspective;
+      });
+    }
+
+    function updateAllContent() {
+      document.querySelectorAll("[data-content-group]").forEach(updateContent);
+      updateApproachHeadings();
+    }
+
+    function setButtonState(buttons, activeValue, dataKey) {
       buttons.forEach((button) => {
-        const buttonLens = button.dataset.globalLens ?? button.dataset.welcomeLens;
-        button.setAttribute("aria-pressed", String(buttonLens === activeLens));
+        button.setAttribute("aria-pressed", String(button.dataset[dataKey] === activeValue));
       });
     }
 
-    function setPendingLens(lens) {
-      if (!lenses.includes(lens)) return;
-      pendingLens = lens;
-      setButtonState(welcomeChoices, pendingLens);
+    function setPendingPerspective(perspective) {
+      if (!perspectives.includes(perspective)) return;
+      pendingPerspective = perspective;
+      setButtonState(welcomeChoices, pendingPerspective, "welcomeLens");
     }
 
-    function setGlobalLens(lens, { announce = true } = {}) {
-      if (!lenses.includes(lens)) return;
-      globalLens = lens;
-      storeLens(lens);
-      document.querySelectorAll("[data-lens-content-group]").forEach((container) => updateContent(container, lens));
-      setButtonState(globalButtons, lens);
-      if (announce) announcement.textContent = `Site perspective: ${capitalize(lens)}.`;
+    function setGlobalPerspective(perspective, { announce = true } = {}) {
+      if (!perspectives.includes(perspective)) return;
+      globalPerspective = perspective;
+      storeValue(perspectiveKey, perspective);
+      updateAllContent();
+      setButtonState(perspectiveButtons, perspective, "globalLens");
+      if (announce) announcement.textContent = `Site perspective: ${capitalize(perspective)}.`;
+    }
+
+    function setGlobalDetail(detail, { announce = true } = {}) {
+      if (!details.includes(detail)) return;
+      globalDetail = detail;
+      storeValue(detailKey, detail);
+      updateAllContent();
+      setButtonState(detailButtons, detail, "globalDetail");
+      if (announce) announcement.textContent = `Detail: ${capitalize(detail)}.`;
     }
 
     function capitalize(value) {
@@ -107,12 +140,8 @@
     }
 
     function dismissWelcome() {
-      setGlobalLens(pendingLens);
-      try {
-        sessionStorage.setItem(welcomeDismissedKey, "true");
-      } catch {
-        // The page remains usable when storage is unavailable.
-      }
+      setGlobalPerspective(pendingPerspective);
+      storeValue(welcomeDismissedKey, "true");
 
       overlay.classList.remove("is-open");
       document.body.classList.remove("welcome-overlay-open");
@@ -152,19 +181,22 @@
       }
     }
 
-    globalButtons.forEach((button) => {
-      button.addEventListener("click", () => setGlobalLens(button.dataset.globalLens));
+    perspectiveButtons.forEach((button) => {
+      button.addEventListener("click", () => setGlobalPerspective(button.dataset.globalLens));
     });
-
+    detailButtons.forEach((button) => {
+      button.addEventListener("click", () => setGlobalDetail(button.dataset.globalDetail));
+    });
     welcomeChoices.forEach((button) => {
-      button.addEventListener("click", () => setPendingLens(button.dataset.welcomeLens));
+      button.addEventListener("click", () => setPendingPerspective(button.dataset.welcomeLens));
     });
     welcomeSubmit.addEventListener("click", dismissWelcome);
     backdrop.addEventListener("click", dismissWelcome);
 
-    perspectiveBar.hidden = false;
-    setGlobalLens(globalLens, { announce: false });
-    setPendingLens(globalLens);
+    siteToolbar.hidden = false;
+    setGlobalPerspective(globalPerspective, { announce: false });
+    setGlobalDetail(globalDetail, { announce: false });
+    setPendingPerspective(globalPerspective);
 
     try {
       if (sessionStorage.getItem(welcomeDismissedKey)) return;
@@ -179,7 +211,7 @@
     document.addEventListener("keydown", handleKeydown);
     requestAnimationFrame(() => {
       overlay.classList.add("is-open");
-      welcomeChoices.find((button) => button.dataset.welcomeLens === pendingLens)?.focus();
+      welcomeChoices.find((button) => button.dataset.welcomeLens === pendingPerspective)?.focus();
     });
   };
 

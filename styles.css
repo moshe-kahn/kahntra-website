@@ -144,18 +144,29 @@ h2 {
   font-size: clamp(2.4rem, 5vw, 4.5rem);
 }
 
-.perspective-bar {
+.site-toolbar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   min-height: 44px;
-  gap: 1rem;
   border-bottom: 1px solid var(--line);
   background: var(--canvas);
   background: color-mix(in srgb, var(--canvas) 92%, var(--card));
 }
 
-.perspective-bar__label {
+.toolbar-group {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.detail-bar {
+  padding-left: 1.5rem;
+  border-left: 1px solid var(--line);
+}
+
+.toolbar-group__label {
   flex: 0 0 auto;
   margin: 0;
   color: var(--muted-ink);
@@ -163,15 +174,16 @@ h2 {
   font-weight: 600;
 }
 
-.perspective-control {
+.perspective-control,
+.detail-control {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.2rem;
   flex-wrap: nowrap;
+  gap: 0.2rem;
   justify-content: flex-end;
 }
 
-.perspective-control button {
+.perspective-control button,
+.detail-control button {
   border: 0;
   color: var(--muted-ink);
   background: transparent;
@@ -179,7 +191,8 @@ h2 {
   cursor: pointer;
 }
 
-.perspective-control button {
+.perspective-control button,
+.detail-control button {
   min-height: 40px;
   padding: 0 0.45rem;
   font-size: 0.75rem;
@@ -189,17 +202,22 @@ h2 {
 
 .perspective-control button[aria-pressed="true"],
 .perspective-control button:hover,
-.perspective-control button:focus-visible {
+.perspective-control button:focus-visible,
+.detail-control button[aria-pressed="true"],
+.detail-control button:hover,
+.detail-control button:focus-visible {
   color: var(--accent);
 }
 
-.perspective-control button[aria-pressed="true"] {
+.perspective-control button[aria-pressed="true"],
+.detail-control button[aria-pressed="true"] {
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.25rem;
 }
 
-.perspective-control button:focus-visible {
+.perspective-control button:focus-visible,
+.detail-control button:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
@@ -280,7 +298,7 @@ h3 {
   margin-bottom: 1.5rem;
 }
 
-.approach-copy > p:last-child {
+.approach-copy [data-content-group] > p {
   max-width: 590px;
   margin-bottom: 0;
   color: var(--muted-ink);
@@ -467,9 +485,34 @@ h3 {
   outline-offset: 3px;
 }
 
+@media (max-width: 760px) {
+  :root {
+    --sticky-header-height: 172px;
+  }
+
+  .site-toolbar {
+    display: block;
+  }
+
+  .toolbar-group {
+    width: 100%;
+  }
+
+  .perspective-bar {
+    min-height: 44px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .detail-bar {
+    min-height: 40px;
+    padding-left: 0;
+    border-left: 0;
+  }
+}
+
 @media (max-width: 640px) {
   :root {
-    --sticky-header-height: 112px;
+    --sticky-header-height: 152px;
   }
 
   .site-shell {
@@ -503,15 +546,17 @@ h3 {
     gap: 0.5rem;
   }
 
-  .perspective-bar__label {
+  .toolbar-group__label {
     font-size: 0.7rem;
   }
 
-  .perspective-control {
+  .perspective-control,
+  .detail-control {
     gap: 0;
   }
 
-  .perspective-control button {
+  .perspective-control button,
+  .detail-control button {
     min-height: 38px;
     padding: 0 0.25rem;
     font-size: 0.7rem;
