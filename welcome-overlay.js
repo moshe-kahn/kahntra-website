@@ -12,7 +12,7 @@
     const perspectiveButtons = [...document.querySelectorAll("[data-global-lens]")];
     const detailButtons = [...document.querySelectorAll("[data-global-detail]")];
     const siteToolbar = document.querySelector("[data-site-toolbar]");
-    const viewControls = document.querySelector("[data-view-controls]");
+    const viewControls = document.querySelector("#view-controls");
     const viewControlsToggle = document.querySelector("[data-view-controls-toggle]");
 
     if (!announcement || !perspectiveButtons.length || !detailButtons.length || !siteToolbar || !viewControls || !viewControlsToggle) return;
