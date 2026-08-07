@@ -16,9 +16,9 @@
     const siteToolbar = document.querySelector("[data-site-toolbar]");
     const viewControls = document.querySelector("[data-view-controls]");
     const viewControlsToggle = document.querySelector("[data-view-controls-toggle]");
-    const introVeil = document.querySelector("[data-intro-veil]");
+    const pageRevealVeil = document.querySelector("[data-page-reveal-veil]");
 
-    if (!announcement || !perspectiveButtons.length || !detailButtons.length || !siteToolbar || !viewControls || !viewControlsToggle || !introVeil) return;
+    if (!announcement || !perspectiveButtons.length || !detailButtons.length || !siteToolbar || !viewControls || !viewControlsToggle || !pageRevealVeil) return;
 
     let globalPerspective = readPerspective();
     let globalDetail = readDetail();
@@ -166,24 +166,21 @@
       if (collapsed && focusWasInsideControls) viewControlsToggle.focus({ preventScroll: true });
     }
 
-    function completeIntro({ keepPanel = false } = {}) {
+    function completeIntro() {
       if (!introActive) return;
       introActive = false;
       if (introTimer) window.clearTimeout(introTimer);
       storeValue(introCompleteKey, "true");
       document.documentElement.dataset.headerIntro = "complete";
-      introVeil.classList.remove("is-visible");
+      pageRevealVeil.classList.remove("is-visible");
 
       const finish = () => {
-        introVeil.hidden = true;
+        pageRevealVeil.hidden = true;
       };
 
       if (reduceMotionQuery.matches) finish();
       else window.setTimeout(finish, introFadeDuration);
 
-      if (isCompactViewport() && !keepPanel && !controlsCollapsed) {
-        setControlsCollapsed(true, { persist: false });
-      }
     }
 
     function beginIntro() {
@@ -208,19 +205,14 @@
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
           viewControls.classList.remove("is-intro-entering");
-          introVeil.classList.add("is-visible");
+          pageRevealVeil.classList.add("is-visible");
         });
       });
       introTimer = window.setTimeout(() => completeIntro(), 4500);
     }
 
-    function markIntroInteraction() {
-      if (introActive) completeIntro({ keepPanel: true });
-    }
-
     function setGlobalPerspective(perspective, { announce = true } = {}) {
       if (!perspectives.includes(perspective)) return;
-      markIntroInteraction();
       globalPerspective = perspective;
       storeValue(perspectiveKey, perspective);
       transitionContent({ includeApproachHeading: true });
@@ -231,7 +223,6 @@
 
     function setGlobalDetail(detail, { announce = true } = {}) {
       if (!details.includes(detail)) return;
-      markIntroInteraction();
       globalDetail = detail;
       storeValue(detailKey, detail);
       transitionContent();
@@ -261,7 +252,6 @@
       button.addEventListener("click", () => setGlobalDetail(button.dataset.globalDetail));
     });
     viewControlsToggle.addEventListener("click", () => {
-      if (introActive) markIntroInteraction();
       setControlsCollapsed(!controlsCollapsed);
     });
     document.addEventListener("pointerdown", handleDocumentPointerDown);

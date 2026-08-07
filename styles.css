@@ -421,7 +421,7 @@ h3 {
   margin: 0;
 }
 
-.site-intro-veil {
+.page-reveal-veil {
   position: fixed;
   z-index: 10;
   top: var(--sticky-header-height);
@@ -434,7 +434,7 @@ h3 {
   transition: opacity 720ms ease;
 }
 
-.site-intro-veil.is-visible {
+.page-reveal-veil.is-visible {
   opacity: 1;
 }
 
@@ -627,7 +627,7 @@ h3 {
 
   .product-card,
   .card-link span,
-  .site-intro-veil,
+  .page-reveal-veil,
   .product-card,
   [data-content-group],
   .approach-copy h2,
