@@ -17,9 +17,8 @@
     const viewControls = document.querySelector("[data-view-controls]");
     const viewControlsToggle = document.querySelector("[data-view-controls-toggle]");
     const introVeil = document.querySelector("[data-intro-veil]");
-    const introMessage = document.querySelector("[data-view-controls-intro]");
 
-    if (!announcement || !perspectiveButtons.length || !detailButtons.length || !siteToolbar || !viewControls || !viewControlsToggle || !introVeil || !introMessage) return;
+    if (!announcement || !perspectiveButtons.length || !detailButtons.length || !siteToolbar || !viewControls || !viewControlsToggle || !introVeil) return;
 
     let globalPerspective = readPerspective();
     let globalDetail = readDetail();
@@ -174,11 +173,9 @@
       storeValue(introCompleteKey, "true");
       document.documentElement.dataset.headerIntro = "complete";
       introVeil.classList.remove("is-visible");
-      introMessage.classList.remove("is-visible");
 
       const finish = () => {
         introVeil.hidden = true;
-        introMessage.hidden = true;
       };
 
       if (reduceMotionQuery.matches) finish();
@@ -212,10 +209,9 @@
         requestAnimationFrame(() => {
           viewControls.classList.remove("is-intro-entering");
           introVeil.classList.add("is-visible");
-          introMessage.classList.add("is-visible");
         });
       });
-      introTimer = window.setTimeout(() => completeIntro(), 2800);
+      introTimer = window.setTimeout(() => completeIntro(), 4500);
     }
 
     function markIntroInteraction() {

@@ -424,7 +424,10 @@ h3 {
 .site-intro-veil {
   position: fixed;
   z-index: 10;
-  inset: 0;
+  top: var(--sticky-header-height);
+  right: 0;
+  bottom: 0;
+  left: 0;
   pointer-events: none;
   background: rgb(44 52 50 / 32%);
   opacity: 0;
@@ -433,30 +436,6 @@ h3 {
 
 .site-intro-veil.is-visible {
   opacity: 1;
-}
-
-.view-controls-intro {
-  position: fixed;
-  z-index: calc(var(--layer-sticky-header) + 1);
-  top: calc(var(--primary-header-height) + var(--view-controls-expanded-height) + 0.75rem);
-  left: 50%;
-  width: max-content;
-  max-width: calc(100% - 2rem);
-  margin: 0;
-  padding: 0.45rem 0.65rem;
-  color: var(--muted-ink);
-  background: color-mix(in srgb, var(--canvas) 94%, var(--card));
-  border: 1px solid var(--line);
-  box-shadow: 0 0.5rem 1.5rem rgb(28 33 31 / 8%);
-  font-size: 0.75rem;
-  opacity: 0;
-  transform: translate(-50%, -0.25rem);
-  transition: opacity 400ms ease, transform 400ms ease;
-}
-
-.view-controls-intro.is-visible {
-  opacity: 1;
-  transform: translate(-50%, 0);
 }
 
 .view-controls.is-intro-entering {
@@ -534,11 +513,6 @@ h3 {
     margin-left: 0;
   }
 
-  .view-controls-intro {
-    top: calc(var(--primary-header-height) + var(--view-controls-collapsed-height) + 6.5rem);
-    width: calc(100% - 2rem);
-    text-align: center;
-  }
 }
 
 @media (min-width: 641px) and (max-width: 760px) {
@@ -654,7 +628,6 @@ h3 {
   .product-card,
   .card-link span,
   .site-intro-veil,
-  .view-controls-intro,
   .product-card,
   [data-content-group],
   .approach-copy h2,
