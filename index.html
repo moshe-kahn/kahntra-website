@@ -15,14 +15,12 @@
         const storedControls = sessionStorage.getItem("kahntra-view-controls-collapsed-v1");
         const collapsed = storedControls === "true" || (storedControls !== "false" && matchMedia("(max-width: 760px)").matches);
         root.dataset.viewControls = collapsed ? "collapsed" : "expanded";
-        root.dataset.headerIntro = sessionStorage.getItem("kahntra-header-intro-complete-v1") ? "complete" : "pending";
       } catch {
         root.dataset.viewControls = matchMedia("(max-width: 760px)").matches ? "collapsed" : "expanded";
-        root.dataset.headerIntro = "complete";
       }
     })();
   </script>
-  <link rel="stylesheet" href="styles.css?v=reveal-decoupling-1">
+  <link rel="stylesheet" href="styles.css?v=remove-reveal-hotfix-1">
 </head>
 
 <body>
@@ -177,8 +175,6 @@
   </div>
 
   <p class="sr-only" id="perspective-announcement" role="status" aria-live="polite" aria-atomic="true"></p>
-  <div class="page-reveal-veil" data-page-reveal-veil aria-hidden="true"></div>
-
-  <script src="welcome-overlay.js?v=reveal-decoupling-1" defer></script>
+  <script src="welcome-overlay.js?v=remove-reveal-hotfix-1" defer></script>
 </body>
 </html>

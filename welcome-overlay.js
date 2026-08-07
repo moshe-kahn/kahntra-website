@@ -2,8 +2,6 @@
   const perspectiveKey = "kahntra-site-perspective-v1";
   const detailKey = "kahntra-site-detail-v1";
   const controlsCollapsedKey = "kahntra-view-controls-collapsed-v1";
-  const introCompleteKey = "kahntra-header-intro-complete-v1";
-  const legacyWelcomeDismissedKey = "kahntra-welcome-perspective-detail-dismissed-v1";
   const perspectives = ["philosophy", "general", "technical"];
   const details = ["less", "regular", "more"];
   const defaultPerspective = "general";
@@ -16,19 +14,15 @@
     const siteToolbar = document.querySelector("[data-site-toolbar]");
     const viewControls = document.querySelector("[data-view-controls]");
     const viewControlsToggle = document.querySelector("[data-view-controls-toggle]");
-    const pageRevealVeil = document.querySelector("[data-page-reveal-veil]");
 
-    if (!announcement || !perspectiveButtons.length || !detailButtons.length || !siteToolbar || !viewControls || !viewControlsToggle || !pageRevealVeil) return;
+    if (!announcement || !perspectiveButtons.length || !detailButtons.length || !siteToolbar || !viewControls || !viewControlsToggle) return;
 
     let globalPerspective = readPerspective();
     let globalDetail = readDetail();
     let controlsCollapsed = readControlsCollapsed();
-    let introActive = false;
-    let introTimer = null;
     let contentTransitionTimer = null;
     let contentTransitionVersion = 0;
     const contentFadeOutDuration = 220;
-    const introFadeDuration = 720;
     const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
     function readPerspective() {
@@ -166,51 +160,6 @@
       if (collapsed && focusWasInsideControls) viewControlsToggle.focus({ preventScroll: true });
     }
 
-    function completeIntro() {
-      if (!introActive) return;
-      introActive = false;
-      if (introTimer) window.clearTimeout(introTimer);
-      storeValue(introCompleteKey, "true");
-      document.documentElement.dataset.headerIntro = "complete";
-      pageRevealVeil.classList.remove("is-visible");
-
-      const finish = () => {
-        pageRevealVeil.hidden = true;
-      };
-
-      if (reduceMotionQuery.matches) finish();
-      else window.setTimeout(finish, introFadeDuration);
-
-    }
-
-    function beginIntro() {
-      try {
-        sessionStorage.removeItem(legacyWelcomeDismissedKey);
-        if (document.documentElement.dataset.headerIntro === "complete" || sessionStorage.getItem(introCompleteKey)) return;
-      } catch {
-        // If storage is unavailable, show the introduction for this page view only.
-      }
-
-      if (reduceMotionQuery.matches) {
-        storeValue(introCompleteKey, "true");
-        return;
-      }
-
-      introActive = true;
-      document.documentElement.dataset.headerIntro = "active";
-      if (isCompactViewport()) {
-        viewControls.classList.add("is-intro-entering");
-        setControlsCollapsed(false, { persist: false });
-      }
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          viewControls.classList.remove("is-intro-entering");
-          pageRevealVeil.classList.add("is-visible");
-        });
-      });
-      introTimer = window.setTimeout(() => completeIntro(), 4500);
-    }
-
     function setGlobalPerspective(perspective, { announce = true } = {}) {
       if (!perspectives.includes(perspective)) return;
       globalPerspective = perspective;
@@ -232,7 +181,6 @@
     }
 
     function handleDocumentPointerDown(event) {
-      if (introActive && !siteToolbar.contains(event.target)) completeIntro();
       if (!controlsCollapsed && isCompactViewport() && !siteToolbar.contains(event.target)) {
         setControlsCollapsed(true);
       }
@@ -256,14 +204,12 @@
     });
     document.addEventListener("pointerdown", handleDocumentPointerDown);
     document.addEventListener("keydown", handleDocumentKeydown);
-    window.addEventListener("scroll", () => completeIntro(), { passive: true, once: true });
 
     siteToolbar.hidden = false;
     updateAllContent();
     setButtonState(perspectiveButtons, globalPerspective, "globalLens");
     setButtonState(detailButtons, globalDetail, "globalDetail");
     setControlsCollapsed(controlsCollapsed, { persist: false });
-    beginIntro();
   };
 
   if (document.readyState === "loading") {

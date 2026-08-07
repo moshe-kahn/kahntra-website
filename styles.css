@@ -421,34 +421,6 @@ h3 {
   margin: 0;
 }
 
-.page-reveal-veil {
-  position: fixed;
-  z-index: 10;
-  top: var(--sticky-header-height);
-  right: 0;
-  bottom: 0;
-  left: 0;
-  pointer-events: none;
-  background: rgb(44 52 50 / 32%);
-  opacity: 0;
-  transition: opacity 720ms ease;
-}
-
-.page-reveal-veil.is-visible {
-  opacity: 1;
-}
-
-.view-controls.is-intro-entering {
-  opacity: 0;
-  transform: translateY(-0.35rem);
-}
-
-@media (max-width: 760px) {
-  .view-controls {
-    transition: opacity 400ms ease, transform 400ms ease;
-  }
-}
-
 .sr-only {
   position: absolute;
   width: 1px;
@@ -627,7 +599,6 @@ h3 {
 
   .product-card,
   .card-link span,
-  .page-reveal-veil,
   .product-card,
   [data-content-group],
   .approach-copy h2,
