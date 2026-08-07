@@ -152,8 +152,7 @@
       controlsCollapsed = collapsed;
       viewControls.hidden = collapsed;
       document.documentElement.dataset.viewControls = collapsed ? "collapsed" : "expanded";
-      document.body.classList.toggle("view-controls-collapsed", collapsed);
-      document.body.classList.toggle("view-controls-panel-open", !collapsed && isCompactViewport());
+      siteToolbar.dataset.viewControlsState = collapsed ? "collapsed" : "expanded";
       updateViewControlsToggle();
 
       if (persist) storeValue(controlsCollapsedKey, String(collapsed));

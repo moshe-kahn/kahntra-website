@@ -30,10 +30,6 @@ body {
   line-height: 1.5;
 }
 
-body.view-controls-collapsed {
-  --sticky-header-height: calc(var(--primary-header-height) + var(--view-controls-collapsed-height));
-}
-
 html[data-view-controls="collapsed"] {
   --sticky-header-height: calc(var(--primary-header-height) + var(--view-controls-collapsed-height));
 }
@@ -226,11 +222,11 @@ html[data-view-controls="collapsed"] .view-controls {
   outline-offset: 3px;
 }
 
-body.view-controls-collapsed .site-toolbar {
+.site-toolbar[data-view-controls-state="collapsed"] {
   height: var(--view-controls-collapsed-height);
 }
 
-body.view-controls-collapsed .view-controls-toggle {
+.site-toolbar[data-view-controls-state="collapsed"] .view-controls-toggle {
   min-height: var(--view-controls-collapsed-height);
   margin-left: 0;
   padding-inline: 0;
