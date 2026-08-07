@@ -8,7 +8,21 @@
   <link rel="icon" type="image/png" sizes="32x32" href="assets/kahntra-brand-mark-32.png">
   <link rel="icon" type="image/png" sizes="512x512" href="assets/kahntra-brand-mark-512.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/kahntra-brand-mark-180.png">
-  <link rel="stylesheet" href="styles.css?v=header-intro-veil-1">
+  <script>
+    (() => {
+      const root = document.documentElement;
+      try {
+        const storedControls = sessionStorage.getItem("kahntra-view-controls-collapsed-v1");
+        const collapsed = storedControls === "true" || (storedControls !== "false" && matchMedia("(max-width: 760px)").matches);
+        root.dataset.viewControls = collapsed ? "collapsed" : "expanded";
+        root.dataset.headerIntro = sessionStorage.getItem("kahntra-header-intro-complete-v1") ? "complete" : "pending";
+      } catch {
+        root.dataset.viewControls = matchMedia("(max-width: 760px)").matches ? "collapsed" : "expanded";
+        root.dataset.headerIntro = "complete";
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="styles.css?v=header-intro-prepaint-1">
 </head>
 
 <body>
@@ -21,7 +35,7 @@
         </nav>
       </header>
 
-      <div class="site-toolbar" data-site-toolbar hidden>
+      <div class="site-toolbar" data-site-toolbar>
         <div class="view-controls" id="view-controls" data-view-controls>
           <div class="view-control-group perspective-bar">
             <span class="view-control-group__label">Perspective:</span>
@@ -163,9 +177,9 @@
   </div>
 
   <p class="sr-only" id="perspective-announcement" role="status" aria-live="polite" aria-atomic="true"></p>
-  <div class="site-intro-veil" data-intro-veil aria-hidden="true" hidden></div>
-  <p class="view-controls-intro" data-view-controls-intro hidden>These controls change how the site is presented.</p>
+  <div class="site-intro-veil" data-intro-veil aria-hidden="true"></div>
+  <p class="view-controls-intro" data-view-controls-intro>These controls change how the site is presented.</p>
 
-  <script src="welcome-overlay.js?v=header-intro-veil-1" defer></script>
+  <script src="welcome-overlay.js?v=header-intro-prepaint-1" defer></script>
 </body>
 </html>

@@ -29,7 +29,7 @@
     let contentTransitionTimer = null;
     let contentTransitionVersion = 0;
     const contentFadeOutDuration = 220;
-    const introFadeDuration = 420;
+    const introFadeDuration = 720;
     const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
     function readPerspective() {
@@ -59,6 +59,10 @@
     }
 
     function readControlsCollapsed() {
+      const prepaintState = document.documentElement.dataset.viewControls;
+      if (prepaintState === "collapsed") return true;
+      if (prepaintState === "expanded") return false;
+
       try {
         const storedValue = sessionStorage.getItem(controlsCollapsedKey);
         if (storedValue === "true") return true;
@@ -154,6 +158,7 @@
       const focusWasInsideControls = viewControls.contains(document.activeElement);
       controlsCollapsed = collapsed;
       viewControls.hidden = collapsed;
+      document.documentElement.dataset.viewControls = collapsed ? "collapsed" : "expanded";
       document.body.classList.toggle("view-controls-collapsed", collapsed);
       document.body.classList.toggle("view-controls-panel-open", !collapsed && isCompactViewport());
       updateViewControlsToggle();
@@ -167,6 +172,7 @@
       introActive = false;
       if (introTimer) window.clearTimeout(introTimer);
       storeValue(introCompleteKey, "true");
+      document.documentElement.dataset.headerIntro = "complete";
       introVeil.classList.remove("is-visible");
       introMessage.classList.remove("is-visible");
 
@@ -186,7 +192,7 @@
     function beginIntro() {
       try {
         sessionStorage.removeItem(legacyWelcomeDismissedKey);
-        if (sessionStorage.getItem(introCompleteKey)) return;
+        if (document.documentElement.dataset.headerIntro === "complete" || sessionStorage.getItem(introCompleteKey)) return;
       } catch {
         // If storage is unavailable, show the introduction for this page view only.
       }
@@ -197,14 +203,19 @@
       }
 
       introActive = true;
-      if (isCompactViewport()) setControlsCollapsed(false, { persist: false });
-      introVeil.hidden = false;
-      introMessage.hidden = false;
+      document.documentElement.dataset.headerIntro = "active";
+      if (isCompactViewport()) {
+        viewControls.classList.add("is-intro-entering");
+        setControlsCollapsed(false, { persist: false });
+      }
       requestAnimationFrame(() => {
-        introVeil.classList.add("is-visible");
-        introMessage.classList.add("is-visible");
+        requestAnimationFrame(() => {
+          viewControls.classList.remove("is-intro-entering");
+          introVeil.classList.add("is-visible");
+          introMessage.classList.add("is-visible");
+        });
       });
-      introTimer = window.setTimeout(() => completeIntro(), 2000);
+      introTimer = window.setTimeout(() => completeIntro(), 2800);
     }
 
     function markIntroInteraction() {

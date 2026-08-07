@@ -34,6 +34,10 @@ body.view-controls-collapsed {
   --sticky-header-height: calc(var(--primary-header-height) + var(--view-controls-collapsed-height));
 }
 
+html[data-view-controls="collapsed"] {
+  --sticky-header-height: calc(var(--primary-header-height) + var(--view-controls-collapsed-height));
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -179,6 +183,14 @@ h2 {
 }
 
 .view-controls[hidden] {
+  display: none;
+}
+
+html[data-view-controls="collapsed"] .site-toolbar {
+  height: var(--view-controls-collapsed-height);
+}
+
+html[data-view-controls="collapsed"] .view-controls {
   display: none;
 }
 
@@ -414,9 +426,9 @@ h3 {
   z-index: 10;
   inset: 0;
   pointer-events: none;
-  background: rgb(93 101 95 / 16%);
+  background: rgb(44 52 50 / 32%);
   opacity: 0;
-  transition: opacity 420ms ease;
+  transition: opacity 720ms ease;
 }
 
 .site-intro-veil.is-visible {
@@ -439,12 +451,23 @@ h3 {
   font-size: 0.75rem;
   opacity: 0;
   transform: translate(-50%, -0.25rem);
-  transition: opacity 420ms ease, transform 420ms ease;
+  transition: opacity 400ms ease, transform 400ms ease;
 }
 
 .view-controls-intro.is-visible {
   opacity: 1;
   transform: translate(-50%, 0);
+}
+
+.view-controls.is-intro-entering {
+  opacity: 0;
+  transform: translateY(-0.35rem);
+}
+
+@media (max-width: 760px) {
+  .view-controls {
+    transition: opacity 400ms ease, transform 400ms ease;
+  }
 }
 
 .sr-only {
