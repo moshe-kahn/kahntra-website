@@ -8,7 +8,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="assets/kahntra-brand-mark-32.png">
   <link rel="icon" type="image/png" sizes="512x512" href="assets/kahntra-brand-mark-512.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/kahntra-brand-mark-180.png">
-  <link rel="stylesheet" href="styles.css?v=compact-header-controls-1">
+  <link rel="stylesheet" href="styles.css?v=header-intro-veil-1">
 </head>
 
 <body>
@@ -157,45 +157,15 @@
     </main>
 
     <footer class="site-footer" id="contact">
-      <p>© <span id="year">2026</span> Kahntra Productions. <a id="contact-link" href="mailto:contact@kahntra.com">contact@kahntra.com</a></p>
+      <a id="contact-link" href="mailto:contact@kahntra.com">contact@kahntra.com</a>
+      <p>© <span id="year">2026</span> Kahntra Productions.</p>
     </footer>
   </div>
 
   <p class="sr-only" id="perspective-announcement" role="status" aria-live="polite" aria-atomic="true"></p>
+  <div class="site-intro-veil" data-intro-veil aria-hidden="true" hidden></div>
+  <p class="view-controls-intro" data-view-controls-intro hidden>These controls change how the site is presented.</p>
 
-  <section class="welcome-overlay" id="welcome-overlay" role="dialog" aria-modal="true" aria-labelledby="welcome-overlay-title" hidden>
-    <div class="welcome-overlay__visual" aria-hidden="true">
-      <picture>
-        <source media="(min-width: 900px)" srcset="assets/kahntra-welcome-paths-1600.webp" type="image/webp">
-        <img src="assets/kahntra-welcome-paths-960.webp" width="960" height="540" alt="">
-      </picture>
-    </div>
-    <button class="welcome-overlay__backdrop" type="button" data-welcome-dismiss aria-hidden="true" tabindex="-1"></button>
-    <div class="welcome-overlay__panel">
-      <div class="welcome-overlay__intro">
-        <h2 id="welcome-overlay-title">How would you like to view the work?</h2>
-        <p>You can change these settings at any time.</p>
-        <div class="welcome-overlay__view-group">
-          <span class="welcome-overlay__group-label">Perspective:</span>
-          <div class="welcome-overlay__choices" role="group" aria-label="Perspective">
-            <button type="button" data-welcome-lens="philosophy" aria-pressed="false">Philosophy</button>
-            <button type="button" data-welcome-lens="general" aria-pressed="true">General</button>
-            <button type="button" data-welcome-lens="technical" aria-pressed="false">Technical</button>
-          </div>
-        </div>
-        <div class="welcome-overlay__view-group">
-          <span class="welcome-overlay__group-label">Detail:</span>
-          <div class="welcome-overlay__choices" role="group" aria-label="Detail">
-            <button type="button" data-welcome-detail="less" aria-pressed="false">Less</button>
-            <button type="button" data-welcome-detail="regular" aria-pressed="true">Regular</button>
-            <button type="button" data-welcome-detail="more" aria-pressed="false">More</button>
-          </div>
-        </div>
-        <button class="welcome-overlay__submit" type="button" data-welcome-submit>Enter site</button>
-      </div>
-    </div>
-  </section>
-
-  <script src="welcome-overlay.js?v=compact-header-controls-1" defer></script>
+  <script src="welcome-overlay.js?v=header-intro-veil-1" defer></script>
 </body>
 </html>

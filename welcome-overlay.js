@@ -2,48 +2,35 @@
   const perspectiveKey = "kahntra-site-perspective-v1";
   const detailKey = "kahntra-site-detail-v1";
   const controlsCollapsedKey = "kahntra-view-controls-collapsed-v1";
-  const welcomeDismissedKey = "kahntra-welcome-perspective-detail-dismissed-v1";
+  const introCompleteKey = "kahntra-header-intro-complete-v1";
+  const legacyWelcomeDismissedKey = "kahntra-welcome-perspective-detail-dismissed-v1";
   const perspectives = ["philosophy", "general", "technical"];
   const details = ["less", "regular", "more"];
   const defaultPerspective = "general";
   const defaultDetail = "regular";
 
   const initialize = () => {
-    const siteShell = document.querySelector(".site-shell");
-    const overlay = document.querySelector("#welcome-overlay");
     const announcement = document.querySelector("#perspective-announcement");
     const perspectiveButtons = [...document.querySelectorAll("[data-global-lens]")];
     const detailButtons = [...document.querySelectorAll("[data-global-detail]")];
     const siteToolbar = document.querySelector("[data-site-toolbar]");
     const viewControls = document.querySelector("[data-view-controls]");
     const viewControlsToggle = document.querySelector("[data-view-controls-toggle]");
-    const backdrop = overlay?.querySelector("[data-welcome-dismiss]");
-    const welcomeSubmit = overlay?.querySelector("[data-welcome-submit]");
-    const welcomePerspectiveChoices = [...(overlay?.querySelectorAll("[data-welcome-lens]") ?? [])];
-    const welcomeDetailChoices = [...(overlay?.querySelectorAll("[data-welcome-detail]") ?? [])];
+    const introVeil = document.querySelector("[data-intro-veil]");
+    const introMessage = document.querySelector("[data-view-controls-intro]");
 
-    if (!siteShell || !overlay || !announcement || !perspectiveButtons.length || !detailButtons.length || !siteToolbar || !viewControls || !viewControlsToggle || !backdrop || !welcomeSubmit || !welcomePerspectiveChoices.length || !welcomeDetailChoices.length) return;
+    if (!announcement || !perspectiveButtons.length || !detailButtons.length || !siteToolbar || !viewControls || !viewControlsToggle || !introVeil || !introMessage) return;
 
     let globalPerspective = readPerspective();
     let globalDetail = readDetail();
-    let pendingPerspective = globalPerspective;
-    let pendingDetail = globalDetail;
     let controlsCollapsed = readControlsCollapsed();
-    let previousFocus = null;
-    let fallbackFocusables = [];
+    let introActive = false;
+    let introTimer = null;
     let contentTransitionTimer = null;
     let contentTransitionVersion = 0;
     const contentFadeOutDuration = 220;
+    const introFadeDuration = 420;
     const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-
-    const focusableSelector = [
-      "a[href]",
-      "button:not([disabled])",
-      "input:not([disabled])",
-      "select:not([disabled])",
-      "textarea:not([disabled])",
-      "[tabindex]:not([tabindex='-1'])"
-    ].join(",");
 
     function readPerspective() {
       try {
@@ -67,6 +54,10 @@
       }
     }
 
+    function isCompactViewport() {
+      return window.matchMedia("(max-width: 760px)").matches;
+    }
+
     function readControlsCollapsed() {
       try {
         const storedValue = sessionStorage.getItem(controlsCollapsedKey);
@@ -76,7 +67,7 @@
         // The page remains usable when storage is unavailable.
       }
 
-      return window.matchMedia("(max-width: 760px)").matches;
+      return isCompactViewport();
     }
 
     function storeValue(key, value) {
@@ -137,10 +128,19 @@
       });
     }
 
+    function capitalize(value) {
+      return value.charAt(0).toUpperCase() + value.slice(1);
+    }
+
+    function formatCollapsedView() {
+      if (globalPerspective === "general" && globalDetail === "regular") return "Regular";
+      if (globalDetail === "regular") return capitalize(globalPerspective);
+      return `${capitalize(globalPerspective)} · ${capitalize(globalDetail)}`;
+    }
+
     function updateViewControlsToggle() {
       const currentView = formatCollapsedView();
-      const summary = `View: ${currentView}`;
-      viewControlsToggle.textContent = controlsCollapsed ? summary : "Collapse";
+      viewControlsToggle.textContent = controlsCollapsed ? `View: ${currentView}` : "Collapse";
       viewControlsToggle.setAttribute("aria-expanded", String(!controlsCollapsed));
       viewControlsToggle.setAttribute(
         "aria-label",
@@ -150,37 +150,70 @@
       );
     }
 
-    function formatCollapsedView() {
-      if (globalPerspective === "general" && globalDetail === "regular") return "Regular";
-      if (globalDetail === "regular") return capitalize(globalPerspective);
-      return `${capitalize(globalPerspective)} · ${capitalize(globalDetail)}`;
-    }
-
     function setControlsCollapsed(collapsed, { persist = true } = {}) {
       const focusWasInsideControls = viewControls.contains(document.activeElement);
       controlsCollapsed = collapsed;
       viewControls.hidden = collapsed;
       document.body.classList.toggle("view-controls-collapsed", collapsed);
+      document.body.classList.toggle("view-controls-panel-open", !collapsed && isCompactViewport());
       updateViewControlsToggle();
 
       if (persist) storeValue(controlsCollapsedKey, String(collapsed));
       if (collapsed && focusWasInsideControls) viewControlsToggle.focus({ preventScroll: true });
     }
 
-    function setPendingPerspective(perspective) {
-      if (!perspectives.includes(perspective)) return;
-      pendingPerspective = perspective;
-      setButtonState(welcomePerspectiveChoices, pendingPerspective, "welcomeLens");
+    function completeIntro({ keepPanel = false } = {}) {
+      if (!introActive) return;
+      introActive = false;
+      if (introTimer) window.clearTimeout(introTimer);
+      storeValue(introCompleteKey, "true");
+      introVeil.classList.remove("is-visible");
+      introMessage.classList.remove("is-visible");
+
+      const finish = () => {
+        introVeil.hidden = true;
+        introMessage.hidden = true;
+      };
+
+      if (reduceMotionQuery.matches) finish();
+      else window.setTimeout(finish, introFadeDuration);
+
+      if (isCompactViewport() && !keepPanel && !controlsCollapsed) {
+        setControlsCollapsed(true, { persist: false });
+      }
     }
 
-    function setPendingDetail(detail) {
-      if (!details.includes(detail)) return;
-      pendingDetail = detail;
-      setButtonState(welcomeDetailChoices, pendingDetail, "welcomeDetail");
+    function beginIntro() {
+      try {
+        sessionStorage.removeItem(legacyWelcomeDismissedKey);
+        if (sessionStorage.getItem(introCompleteKey)) return;
+      } catch {
+        // If storage is unavailable, show the introduction for this page view only.
+      }
+
+      if (reduceMotionQuery.matches) {
+        storeValue(introCompleteKey, "true");
+        return;
+      }
+
+      introActive = true;
+      if (isCompactViewport()) setControlsCollapsed(false, { persist: false });
+      introVeil.hidden = false;
+      introMessage.hidden = false;
+      requestAnimationFrame(() => {
+        introVeil.classList.add("is-visible");
+        introMessage.classList.add("is-visible");
+      });
+      introTimer = window.setTimeout(() => completeIntro(), 2000);
+    }
+
+    function markIntroInteraction() {
+      if (introActive) completeIntro({ keepPanel: true });
     }
 
     function setGlobalPerspective(perspective, { announce = true } = {}) {
       if (!perspectives.includes(perspective)) return;
+      markIntroInteraction();
       globalPerspective = perspective;
       storeValue(perspectiveKey, perspective);
       transitionContent({ includeApproachHeading: true });
@@ -191,6 +224,7 @@
 
     function setGlobalDetail(detail, { announce = true } = {}) {
       if (!details.includes(detail)) return;
+      markIntroInteraction();
       globalDetail = detail;
       storeValue(detailKey, detail);
       transitionContent();
@@ -199,73 +233,17 @@
       if (announce) announcement.textContent = `Detail: ${capitalize(detail)}.`;
     }
 
-    function capitalize(value) {
-      return value.charAt(0).toUpperCase() + value.slice(1);
-    }
-
-    function setBackgroundInert(isInert) {
-      if ("inert" in siteShell) {
-        siteShell.inert = isInert;
-      } else if (isInert) {
-        fallbackFocusables = [...siteShell.querySelectorAll(focusableSelector)];
-        fallbackFocusables.forEach((element) => {
-          element.dataset.welcomeTabindex = element.getAttribute("tabindex") ?? "";
-          element.setAttribute("tabindex", "-1");
-        });
-      } else {
-        fallbackFocusables.forEach((element) => {
-          const originalTabindex = element.dataset.welcomeTabindex;
-          if (originalTabindex) element.setAttribute("tabindex", originalTabindex);
-          else element.removeAttribute("tabindex");
-          delete element.dataset.welcomeTabindex;
-        });
-        fallbackFocusables = [];
+    function handleDocumentPointerDown(event) {
+      if (introActive && !siteToolbar.contains(event.target)) completeIntro();
+      if (!controlsCollapsed && isCompactViewport() && !siteToolbar.contains(event.target)) {
+        setControlsCollapsed(true);
       }
-
-      if (isInert) siteShell.setAttribute("aria-hidden", "true");
-      else siteShell.removeAttribute("aria-hidden");
     }
 
-    function dismissWelcome() {
-      setGlobalPerspective(pendingPerspective);
-      setGlobalDetail(pendingDetail);
-      storeValue(welcomeDismissedKey, "true");
-
-      overlay.classList.remove("is-open");
-      document.body.classList.remove("welcome-overlay-open");
-      setBackgroundInert(false);
-      overlay.hidden = true;
-      document.removeEventListener("keydown", handleKeydown);
-
-      const focusTarget = previousFocus instanceof HTMLElement && previousFocus !== document.body && previousFocus.isConnected
-        ? previousFocus
-        : document.querySelector(".wordmark");
-      focusTarget?.focus({ preventScroll: true });
-    }
-
-    function getOverlayFocusables() {
-      return [...overlay.querySelectorAll(focusableSelector)].filter((element) => !element.hasAttribute("hidden") && element.getAttribute("tabindex") !== "-1");
-    }
-
-    function handleKeydown(event) {
-      if (event.key === "Escape") {
+    function handleDocumentKeydown(event) {
+      if (event.key === "Escape" && !controlsCollapsed && isCompactViewport()) {
         event.preventDefault();
-        dismissWelcome();
-        return;
-      }
-
-      if (event.key !== "Tab") return;
-      const focusable = getOverlayFocusables();
-      const first = focusable[0];
-      const last = focusable.at(-1);
-
-      if (!first || !last) return;
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
+        setControlsCollapsed(true);
       }
     }
 
@@ -275,39 +253,20 @@
     detailButtons.forEach((button) => {
       button.addEventListener("click", () => setGlobalDetail(button.dataset.globalDetail));
     });
-    viewControlsToggle.addEventListener("click", () => setControlsCollapsed(!controlsCollapsed));
-    welcomePerspectiveChoices.forEach((button) => {
-      button.addEventListener("click", () => setPendingPerspective(button.dataset.welcomeLens));
+    viewControlsToggle.addEventListener("click", () => {
+      if (introActive) markIntroInteraction();
+      setControlsCollapsed(!controlsCollapsed);
     });
-    welcomeDetailChoices.forEach((button) => {
-      button.addEventListener("click", () => setPendingDetail(button.dataset.welcomeDetail));
-    });
-    welcomeSubmit.addEventListener("click", dismissWelcome);
-    backdrop.addEventListener("click", dismissWelcome);
+    document.addEventListener("pointerdown", handleDocumentPointerDown);
+    document.addEventListener("keydown", handleDocumentKeydown);
+    window.addEventListener("scroll", () => completeIntro(), { passive: true, once: true });
 
     siteToolbar.hidden = false;
     updateAllContent();
     setButtonState(perspectiveButtons, globalPerspective, "globalLens");
     setButtonState(detailButtons, globalDetail, "globalDetail");
-    setPendingPerspective(globalPerspective);
-    setPendingDetail(globalDetail);
     setControlsCollapsed(controlsCollapsed, { persist: false });
-
-    try {
-      if (sessionStorage.getItem(welcomeDismissedKey)) return;
-    } catch {
-      // If storage is unavailable, show the overlay for this page view only.
-    }
-
-    overlay.hidden = false;
-    previousFocus = document.activeElement;
-    setBackgroundInert(true);
-    document.body.classList.add("welcome-overlay-open");
-    document.addEventListener("keydown", handleKeydown);
-    requestAnimationFrame(() => {
-      overlay.classList.add("is-open");
-      welcomePerspectiveChoices.find((button) => button.dataset.welcomeLens === pendingPerspective)?.focus();
-    });
+    beginIntro();
   };
 
   if (document.readyState === "loading") {
