@@ -507,7 +507,7 @@ h3 {
 
 @media (max-width: 640px) {
   :root {
-    --primary-header-height: 96px;
+    --primary-header-height: 88px;
     --view-controls-expanded-height: 0px;
     --view-controls-collapsed-height: 0px;
     --sticky-header-height: var(--primary-header-height);
@@ -520,7 +520,7 @@ h3 {
   .site-header {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 2.5rem;
-    grid-template-rows: 60px 36px;
+    grid-template-rows: 52px 36px;
     min-height: var(--primary-header-height);
   }
 
@@ -544,7 +544,7 @@ h3 {
   .mobile-perspective-selector {
     grid-column: 1 / -1;
     grid-row: 2;
-    align-items: center;
+    align-items: flex-start;
     margin: 0;
     white-space: nowrap;
   }
@@ -558,7 +558,7 @@ h3 {
     color: var(--muted-ink);
     background: transparent;
     font: inherit;
-    font-size: 0.68rem;
+    font-size: 0.66rem;
     font-weight: 600;
     letter-spacing: 0.01em;
     cursor: pointer;
@@ -611,6 +611,7 @@ h3 {
   }
 
   .mobile-context-toggle__paper {
+    position: relative;
     display: grid;
     width: 1.35rem;
     height: 1.7rem;
@@ -618,6 +619,18 @@ h3 {
     gap: 0.2rem;
     padding: 0.3rem;
     border: 1px solid currentColor;
+  }
+
+  .mobile-context-toggle__paper::after {
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    width: 0.4rem;
+    height: 0.4rem;
+    border-bottom: 1px solid currentColor;
+    border-left: 1px solid currentColor;
+    background: var(--canvas);
+    content: "";
   }
 
   .mobile-context-toggle__paper span {
