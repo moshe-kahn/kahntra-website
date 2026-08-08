@@ -423,7 +423,7 @@ html[data-view-controls="collapsed"] .view-controls {
 
   .hero {
     max-width: none;
-    min-height: 34rem;
+    min-height: 32rem;
     padding: clamp(5rem, 8vw, 7.25rem) clamp(2rem, 4vw, 3.5rem) clamp(4rem, 7vw, 6rem);
   }
 
@@ -436,13 +436,17 @@ html[data-view-controls="collapsed"] .view-controls {
     inset: 0;
     width: auto;
     height: auto;
-    background-position: right center;
-    background-size: cover;
+    background-position: right top;
+    background-size: 100% auto;
     opacity: 0.32;
   }
 
   .hero__support {
     min-height: 5.5rem;
+  }
+
+  .products.section {
+    padding-top: 3rem;
   }
 }
 
