@@ -70,14 +70,19 @@ a {
   letter-spacing: -0.06em;
 }
 
-nav a {
+.wordmark__compact,
+.mobile-header-topics {
+  display: none;
+}
+
+.site-nav a {
   color: var(--muted-ink);
   font-size: 0.875rem;
   font-weight: 600;
 }
 
-nav a:hover,
-nav a:focus-visible {
+.site-nav a:hover,
+.site-nav a:focus-visible {
   color: var(--accent);
 }
 
@@ -512,6 +517,30 @@ h3 {
 
   .site-header {
     min-height: var(--primary-header-height);
+  }
+
+  .wordmark__full,
+  .site-nav {
+    display: none;
+  }
+
+  .wordmark__compact,
+  .mobile-header-topics {
+    display: inline;
+  }
+
+  .mobile-header-topics {
+    margin: 0;
+    color: var(--muted-ink);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+  }
+
+  .mobile-header-topics span {
+    margin: 0 0.15rem;
+    color: var(--line);
   }
 
   .hero {
