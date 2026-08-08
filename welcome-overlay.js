@@ -4,7 +4,7 @@
   const controlsCollapsedKey = "kahntra-view-controls-collapsed-v1";
   const perspectives = ["philosophy", "general", "technical"];
   const details = ["less", "regular", "more"];
-  const defaultPerspective = "general";
+  const defaultPerspective = "technical";
   const defaultDetail = "less";
 
   const initialize = () => {
