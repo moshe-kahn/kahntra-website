@@ -31,9 +31,19 @@
           <span class="wordmark__full">Kahntra Productions</span>
           <span class="wordmark__compact">Kahntra</span>
         </a>
-        <nav class="site-nav" aria-label="Primary navigation">
-          <a href="#products">Work</a>
-        </nav>
+        <div class="desktop-header-controls">
+          <div class="desktop-perspective-selector" role="group" aria-label="Perspective">
+            <button type="button" data-global-lens="technical" aria-pressed="true"><span>Tech</span></button>
+            <button type="button" data-global-lens="general" aria-label="Design" aria-pressed="false"><span>Design</span></button>
+            <button type="button" data-global-lens="philosophy" aria-label="Philosophy" aria-pressed="false"><span>Philosophy</span></button>
+          </div>
+          <button class="context-toggle desktop-context-toggle" type="button" data-context-toggle aria-pressed="false" aria-label="Show more context">
+            <span class="context-toggle__paper" aria-hidden="true">
+              <span class="context-toggle__single-letter">a</span>
+              <span class="context-toggle__letter-grid"><span>a</span><span>a</span><span>a</span><span>a</span></span>
+            </span>
+          </button>
+        </div>
         <button class="mobile-context-toggle" type="button" data-mobile-context-toggle aria-pressed="false" aria-label="Show more context">
           <span class="mobile-context-toggle__paper" aria-hidden="true">
             <span class="mobile-context-toggle__single-letter">a</span>
@@ -42,8 +52,8 @@
         </button>
         <div class="mobile-perspective-selector" role="group" aria-label="Perspective">
           <button type="button" data-global-lens="technical" aria-pressed="true"><span>Tech</span></button>
-          <button type="button" data-global-lens="general" aria-pressed="false"><span>Design</span></button>
-          <button type="button" data-global-lens="philosophy" aria-pressed="false"><span>Philosophy</span></button>
+          <button type="button" data-global-lens="general" aria-label="Design" aria-pressed="false"><span>Design</span></button>
+          <button type="button" data-global-lens="philosophy" aria-label="Philosophy" aria-pressed="false"><span>Philosophy</span></button>
         </div>
       </header>
 

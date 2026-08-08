@@ -14,7 +14,7 @@
     const siteToolbar = document.querySelector("[data-site-toolbar]");
     const viewControls = document.querySelector("#view-controls");
     const viewControlsToggle = document.querySelector("[data-view-controls-toggle]");
-    const mobileContextToggle = document.querySelector("[data-mobile-context-toggle]");
+    const contextToggles = [...document.querySelectorAll("[data-context-toggle], [data-mobile-context-toggle]")];
     const mobilePerspectiveSelector = document.querySelector(".mobile-perspective-selector");
     const siteHeaderSystem = document.querySelector(".site-header-system");
 
@@ -159,14 +159,15 @@
       );
     }
 
-    function updateMobileContextToggle() {
-      if (!mobileContextToggle) return;
+    function updateContextToggles() {
       const showingMoreContext = globalDetail === "more";
-      mobileContextToggle.setAttribute("aria-pressed", String(showingMoreContext));
-      mobileContextToggle.setAttribute(
-        "aria-label",
-        showingMoreContext ? "Show concise context" : "Show more context"
-      );
+      contextToggles.forEach((toggle) => {
+        toggle.setAttribute("aria-pressed", String(showingMoreContext));
+        toggle.setAttribute(
+          "aria-label",
+          showingMoreContext ? "Show concise context" : "Show more context"
+        );
+      });
     }
 
     function updateMobileHeaderDivider() {
@@ -201,7 +202,7 @@
       setButtonState(perspectiveButtons, perspective, "globalLens");
       requestAnimationFrame(updateMobileHeaderDivider);
       updateViewControlsToggle();
-      updateMobileContextToggle();
+      updateContextToggles();
       if (announce) announcement.textContent = `Site perspective: ${capitalize(perspective)}.`;
     }
 
@@ -212,7 +213,7 @@
       transitionContent();
       setButtonState(detailButtons, detail, "globalDetail");
       updateViewControlsToggle();
-      updateMobileContextToggle();
+      updateContextToggles();
       if (announce) announcement.textContent = `Detail: ${capitalize(detail)}.`;
     }
 
@@ -235,8 +236,10 @@
     detailButtons.forEach((button) => {
       button.addEventListener("click", () => setGlobalDetail(button.dataset.globalDetail));
     });
-    mobileContextToggle?.addEventListener("click", () => {
-      setGlobalDetail(globalDetail === "more" ? "less" : "more");
+    contextToggles.forEach((toggle) => {
+      toggle.addEventListener("click", () => {
+        setGlobalDetail(globalDetail === "more" ? "less" : "more");
+      });
     });
     viewControlsToggle.addEventListener("click", () => {
       setControlsCollapsed(!controlsCollapsed);
@@ -250,7 +253,7 @@
     setButtonState(perspectiveButtons, globalPerspective, "globalLens");
     updateMobileHeaderDivider();
     setButtonState(detailButtons, globalDetail, "globalDetail");
-    updateMobileContextToggle();
+    updateContextToggles();
     setControlsCollapsed(controlsCollapsed, { persist: false });
   };
 

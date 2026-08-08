@@ -73,20 +73,10 @@ a {
 }
 
 .wordmark__compact,
+.desktop-header-controls,
 .mobile-perspective-selector,
 .mobile-context-toggle {
   display: none;
-}
-
-.site-nav a {
-  color: var(--muted-ink);
-  font-size: 0.875rem;
-  font-weight: 600;
-}
-
-.site-nav a:hover,
-.site-nav a:focus-visible {
-  color: var(--accent);
 }
 
 .hero {
@@ -287,6 +277,168 @@ html[data-view-controls="collapsed"] .view-controls {
 .view-controls-toggle:hover,
 .view-controls-toggle:focus-visible {
   color: var(--accent);
+}
+
+@media (min-width: 761px) {
+  :root,
+  html[data-view-controls="collapsed"] {
+    --sticky-header-height: var(--primary-header-height);
+  }
+
+  .site-toolbar {
+    display: none;
+  }
+
+  .desktop-header-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .desktop-perspective-selector {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+  }
+
+  .desktop-perspective-selector button {
+    position: relative;
+    min-height: 40px;
+    padding: 0 0.1rem;
+    border: 0;
+    color: var(--muted-ink);
+    background: transparent;
+    font: inherit;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .desktop-perspective-selector button + button::before {
+    margin: 0 0.45rem 0 0.3rem;
+    color: var(--line);
+    content: "|";
+  }
+
+  .desktop-perspective-selector button[aria-pressed="true"],
+  .desktop-perspective-selector button:hover,
+  .desktop-perspective-selector button:focus-visible {
+    color: var(--accent);
+  }
+
+  .desktop-perspective-selector button[aria-pressed="true"] span {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.4rem;
+  }
+
+  .desktop-perspective-selector button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  .context-toggle {
+    position: relative;
+    display: inline-flex;
+    width: 2rem;
+    height: 2rem;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 0;
+    color: var(--muted-ink);
+    background: transparent;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .context-toggle__paper {
+    position: relative;
+    display: flex;
+    width: 1.55rem;
+    height: 1.8rem;
+    align-items: center;
+    justify-content: center;
+    padding: 0.2rem;
+    border: 1px solid currentColor;
+    font-family: Georgia, "Times New Roman", serif;
+    transition: color 160ms ease, background-color 160ms ease, transform 160ms ease;
+  }
+
+  .context-toggle__paper::after {
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    width: 0.4rem;
+    height: 0.4rem;
+    border-bottom: 1px solid currentColor;
+    border-left: 1px solid currentColor;
+    background: var(--canvas);
+    content: "";
+  }
+
+  .context-toggle__single-letter {
+    font-size: 1.3rem;
+    line-height: 1;
+  }
+
+  .context-toggle__letter-grid {
+    display: none;
+  }
+
+  .context-toggle[aria-pressed="true"] .context-toggle__single-letter {
+    display: none;
+  }
+
+  .context-toggle[aria-pressed="true"] .context-toggle__letter-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    gap: 0;
+    font-size: 0.68rem;
+    line-height: 1;
+    text-align: center;
+  }
+
+  .context-toggle:hover,
+  .context-toggle:focus-visible {
+    color: var(--accent);
+  }
+
+  .context-toggle:active .context-toggle__paper {
+    color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 10%, transparent);
+    transform: translateY(1px);
+    transition-duration: 0ms;
+  }
+
+  .context-toggle:focus-visible {
+    outline: 0;
+  }
+
+  .context-toggle:focus-visible .context-toggle__paper {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .hero {
+    max-width: 900px;
+    min-height: 34rem;
+    padding: clamp(5rem, 8vw, 7.25rem) clamp(2rem, 4vw, 3.5rem) clamp(4rem, 7vw, 6rem);
+  }
+
+  .hero__title-field {
+    inset: 0;
+    width: auto;
+    height: auto;
+    background-position: right center;
+    background-size: cover;
+    opacity: 0.32;
+  }
+
+  .hero__support {
+    min-height: 5.5rem;
+  }
 }
 
 .view-controls-toggle:focus-visible {
