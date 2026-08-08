@@ -170,6 +170,8 @@ h1 {
 
 .products.section {
   position: relative;
+  margin-inline: calc((100vw - 100%) / -2);
+  padding-inline: calc((100vw - 100%) / 2);
 }
 
 .products.section::before {
