@@ -529,7 +529,7 @@ h3 {
 
 @media (max-width: 640px) {
   :root {
-    --primary-header-height: 70px;
+    --primary-header-height: 66px;
     --view-controls-expanded-height: 0px;
     --view-controls-collapsed-height: 0px;
     --sticky-header-height: var(--primary-header-height);
@@ -545,12 +545,13 @@ h3 {
     padding-inline: calc((100vw - 100%) / 2);
     border-bottom: 1px solid var(--line);
     background: var(--header);
+    box-shadow: 0 0.45rem 1.25rem rgb(33 111 107 / 10%);
   }
 
   .site-header {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 2.5rem;
-    grid-template-rows: 46px 24px;
+    grid-template-rows: 46px 20px;
     height: 100%;
     min-height: var(--primary-header-height);
     border-bottom: 0;
@@ -616,7 +617,7 @@ h3 {
   .mobile-perspective-selector button[aria-pressed="true"]::after {
     position: absolute;
     right: 0.1rem;
-    bottom: -4px;
+    bottom: 0;
     left: 0.1rem;
     z-index: 1;
     height: 1px;
