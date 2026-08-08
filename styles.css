@@ -529,7 +529,7 @@ h3 {
 
 @media (max-width: 640px) {
   :root {
-    --primary-header-height: 80px;
+    --primary-header-height: 70px;
     --view-controls-expanded-height: 0px;
     --view-controls-collapsed-height: 0px;
     --sticky-header-height: var(--primary-header-height);
@@ -550,7 +550,7 @@ h3 {
   .site-header {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 2.5rem;
-    grid-template-rows: 46px 34px;
+    grid-template-rows: 46px 24px;
     height: 100%;
     min-height: var(--primary-header-height);
     border-bottom: 0;
