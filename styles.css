@@ -612,13 +612,14 @@ h3 {
 
   .mobile-context-toggle__paper {
     position: relative;
-    display: grid;
-    width: 1.35rem;
-    height: 1.7rem;
-    align-content: center;
-    gap: 0.2rem;
-    padding: 0.3rem;
+    display: flex;
+    width: 1.55rem;
+    height: 1.8rem;
+    align-items: center;
+    justify-content: center;
+    padding: 0.2rem;
     border: 1px solid currentColor;
+    font-family: Georgia, "Times New Roman", serif;
   }
 
   .mobile-context-toggle__paper::after {
@@ -633,14 +634,27 @@ h3 {
     content: "";
   }
 
-  .mobile-context-toggle__paper span {
-    display: block;
-    height: 1px;
-    background: currentColor;
+  .mobile-context-toggle__single-letter {
+    font-size: 1.3rem;
+    line-height: 1;
   }
 
-  .mobile-context-toggle:not([aria-pressed="true"]) .mobile-context-toggle__paper span:nth-child(n + 2) {
+  .mobile-context-toggle__letter-grid {
     display: none;
+  }
+
+  .mobile-context-toggle[aria-pressed="true"] .mobile-context-toggle__single-letter {
+    display: none;
+  }
+
+  .mobile-context-toggle[aria-pressed="true"] .mobile-context-toggle__letter-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    gap: 0.03rem;
+    font-size: 0.36rem;
+    line-height: 1;
+    text-align: center;
   }
 
   .mobile-context-toggle[aria-pressed="true"],
