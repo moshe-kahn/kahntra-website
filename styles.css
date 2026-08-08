@@ -895,7 +895,7 @@ h3 {
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 760px) {
   :root {
     --primary-header-height: 66px;
     --view-controls-expanded-height: 0px;
