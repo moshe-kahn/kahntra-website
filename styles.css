@@ -71,7 +71,7 @@ a {
 }
 
 .wordmark__compact,
-.mobile-header-topics {
+.mobile-perspective-selector {
   display: none;
 }
 
@@ -507,7 +507,7 @@ h3 {
 @media (max-width: 640px) {
   :root {
     --primary-header-height: 60px;
-    --view-controls-expanded-height: 76px;
+    --view-controls-expanded-height: 48px;
     --view-controls-collapsed-height: 36px;
   }
 
@@ -525,22 +525,56 @@ h3 {
   }
 
   .wordmark__compact,
-  .mobile-header-topics {
-    display: inline;
+  .mobile-perspective-selector {
+    display: flex;
   }
 
-  .mobile-header-topics {
+  .mobile-perspective-selector {
+    align-items: center;
     margin: 0;
-    color: var(--muted-ink);
-    font-size: 0.68rem;
-    font-weight: 600;
-    letter-spacing: 0.01em;
     white-space: nowrap;
   }
 
-  .mobile-header-topics span {
-    margin: 0 0.15rem;
+  .mobile-perspective-selector button {
+    position: relative;
+    min-width: 2.75rem;
+    min-height: 44px;
+    padding: 0 0.15rem;
+    border: 0;
+    color: var(--muted-ink);
+    background: transparent;
+    font: inherit;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+  }
+
+  .mobile-perspective-selector button + button::before {
+    margin-right: 0.3rem;
     color: var(--line);
+    content: "|";
+  }
+
+  .mobile-perspective-selector button[aria-pressed="true"],
+  .mobile-perspective-selector button:hover,
+  .mobile-perspective-selector button:focus-visible {
+    color: var(--accent);
+  }
+
+  .mobile-perspective-selector button[aria-pressed="true"] {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.25rem;
+  }
+
+  .mobile-perspective-selector button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: -2px;
+  }
+
+  .view-controls .perspective-bar {
+    display: none;
   }
 
   .hero {

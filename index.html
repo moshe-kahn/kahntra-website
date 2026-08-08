@@ -34,7 +34,11 @@
         <nav class="site-nav" aria-label="Primary navigation">
           <a href="#products">Work</a>
         </nav>
-        <p class="mobile-header-topics" aria-label="Kahntra areas of focus">Tech <span aria-hidden="true">|</span> Design <span aria-hidden="true">|</span> Philosophy</p>
+        <div class="mobile-perspective-selector" role="group" aria-label="Perspective">
+          <button type="button" data-global-lens="technical" aria-pressed="false">Tech</button>
+          <button type="button" data-global-lens="general" aria-pressed="true">Design</button>
+          <button type="button" data-global-lens="philosophy" aria-pressed="false">Philosophy</button>
+        </div>
       </header>
 
       <div class="site-toolbar" data-site-toolbar>
