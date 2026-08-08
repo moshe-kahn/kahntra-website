@@ -440,7 +440,7 @@ html[data-view-controls="collapsed"] .view-controls {
     width: auto;
     height: auto;
     background-position: right top;
-    background-size: 100% auto;
+    background-size: cover;
     opacity: 0.32;
   }
 
@@ -1121,7 +1121,8 @@ h3 {
     right: calc((100vw - 100%) / -2);
     left: calc((100vw - 100%) / -2);
     width: auto;
-    height: 14.5rem;
+    bottom: 0;
+    height: auto;
     background-position: center;
     background-size: cover;
     opacity: 0.26;
