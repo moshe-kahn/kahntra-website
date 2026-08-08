@@ -549,9 +549,9 @@ h3 {
 
   .site-header-system::after {
     position: absolute;
-    top: 56px;
+    top: 52px;
     right: 0;
-    left: 0;
+    left: var(--mobile-divider-left, calc((100vw - 100%) / 2 + 0.1rem));
     z-index: 1;
     height: 2px;
     background: var(--line);
@@ -628,7 +628,7 @@ h3 {
   .mobile-perspective-selector button[aria-pressed="true"]::after {
     position: absolute;
     right: 0.1rem;
-    bottom: 8px;
+    bottom: 12px;
     left: 0.1rem;
     z-index: 2;
     height: 2px;

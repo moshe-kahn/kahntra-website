@@ -15,6 +15,8 @@
     const viewControls = document.querySelector("#view-controls");
     const viewControlsToggle = document.querySelector("[data-view-controls-toggle]");
     const mobileContextToggle = document.querySelector("[data-mobile-context-toggle]");
+    const mobilePerspectiveSelector = document.querySelector(".mobile-perspective-selector");
+    const siteHeaderSystem = document.querySelector(".site-header-system");
 
     if (!announcement || !perspectiveButtons.length || !detailButtons.length || !siteToolbar || !viewControls || !viewControlsToggle) return;
 
@@ -165,6 +167,15 @@
       );
     }
 
+    function updateMobileHeaderDivider() {
+      if (!mobilePerspectiveSelector || !siteHeaderSystem || !window.matchMedia("(max-width: 640px)").matches) return;
+      const activeButton = mobilePerspectiveSelector.querySelector('button[aria-pressed="true"]');
+      if (!activeButton) return;
+      const activeRect = activeButton.getBoundingClientRect();
+      const headerRect = siteHeaderSystem.getBoundingClientRect();
+      siteHeaderSystem.style.setProperty("--mobile-divider-left", `${activeRect.left - headerRect.left + 1.6}px`);
+    }
+
     function setControlsCollapsed(collapsed, { persist = true } = {}) {
       const focusWasInsideControls = viewControls.contains(document.activeElement);
       controlsCollapsed = collapsed;
@@ -183,6 +194,7 @@
       storeValue(perspectiveKey, perspective);
       transitionContent({ includeApproachHeading: true });
       setButtonState(perspectiveButtons, perspective, "globalLens");
+      requestAnimationFrame(updateMobileHeaderDivider);
       updateViewControlsToggle();
       updateMobileContextToggle();
       if (announce) announcement.textContent = `Site perspective: ${capitalize(perspective)}.`;
@@ -226,10 +238,12 @@
     });
     document.addEventListener("pointerdown", handleDocumentPointerDown);
     document.addEventListener("keydown", handleDocumentKeydown);
+    window.addEventListener("resize", updateMobileHeaderDivider);
 
     siteToolbar.hidden = false;
     updateAllContent();
     setButtonState(perspectiveButtons, globalPerspective, "globalLens");
+    updateMobileHeaderDivider();
     setButtonState(detailButtons, globalDetail, "globalDetail");
     updateMobileContextToggle();
     setControlsCollapsed(controlsCollapsed, { persist: false });
