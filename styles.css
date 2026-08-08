@@ -5,6 +5,7 @@
   --accent: #216f6b;
   --line: #cfcec5;
   --card: #fbfaf6;
+  --collection: #ebe8df;
   --primary-header-height: 68px;
   --view-controls-expanded-height: 40px;
   --view-controls-collapsed-height: 36px;
@@ -139,6 +140,10 @@ h1 {
 .section {
   padding: clamp(4.5rem, 8vw, 7.5rem) 0;
   border-top: 1px solid var(--line);
+}
+
+.products.section {
+  background: var(--collection);
 }
 
 .section-heading {
@@ -552,7 +557,7 @@ h3 {
     align-items: flex-start;
     margin: 0;
     white-space: nowrap;
-    transform: translateY(-10px);
+    transform: translateY(-14px);
   }
 
   .mobile-perspective-selector button {
