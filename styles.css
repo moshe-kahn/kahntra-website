@@ -922,7 +922,7 @@ h3 {
     position: absolute;
     top: 56px;
     right: 0;
-    left: var(--mobile-divider-left, calc((100vw - 100%) / 2 + 0.1rem));
+    left: 0;
     z-index: 1;
     height: 1px;
     background: var(--line);
@@ -931,15 +931,7 @@ h3 {
   }
 
   .site-header-system::before {
-    position: absolute;
-    top: 56px;
-    left: var(--mobile-divider-left, calc((100vw - 100%) / 2 + 0.1rem));
-    z-index: 2;
-    width: var(--mobile-divider-width, 2.5rem);
-    height: 3px;
-    background: var(--accent);
-    box-shadow: 0 0.45rem 0.8rem rgb(33 111 107 / 34%);
-    content: "";
+    display: none;
   }
 
   .site-header {
@@ -1006,6 +998,22 @@ h3 {
 
   .mobile-perspective-selector button[aria-pressed="true"] span {
     text-decoration: none;
+  }
+
+  .mobile-perspective-selector button[aria-pressed="true"] span {
+    position: relative;
+    display: inline-block;
+  }
+
+  .mobile-perspective-selector button[aria-pressed="true"] span::after {
+    position: absolute;
+    top: 16px;
+    right: 0;
+    left: 0;
+    height: 3px;
+    background: var(--accent);
+    box-shadow: 0 0.45rem 0.8rem rgb(33 111 107 / 34%);
+    content: "";
   }
 
   .mobile-perspective-selector button:focus-visible {
@@ -1126,8 +1134,8 @@ h3 {
     width: auto;
     bottom: 0;
     height: auto;
-    background-position: center;
-    background-size: cover;
+    background-position: center top;
+    background-size: auto clamp(32rem, 150vw, 36rem);
     opacity: 0.26;
   }
 
