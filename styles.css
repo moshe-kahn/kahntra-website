@@ -160,6 +160,12 @@ h1 {
   text-transform: uppercase;
 }
 
+.section-heading__support {
+  margin: 0.35rem 0 0;
+  color: var(--muted-ink);
+  font-size: 0.9rem;
+}
+
 h2 {
   max-width: 620px;
   margin: 0.85rem 0 0;
@@ -512,7 +518,7 @@ h3 {
   .site-header {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 2.5rem;
-    grid-template-rows: 42px 46px;
+    grid-template-rows: 52px 36px;
     min-height: var(--primary-header-height);
   }
 
@@ -539,6 +545,7 @@ h3 {
     align-items: flex-start;
     margin: 0;
     white-space: nowrap;
+    transform: translateY(-6px);
   }
 
   .mobile-perspective-selector button {
@@ -669,7 +676,7 @@ h3 {
   }
 
   .products.section {
-    padding-top: 2.75rem;
+    padding-top: 2rem;
   }
 
   .product-grid {
