@@ -512,7 +512,7 @@ h3 {
   .site-header {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 2.5rem;
-    grid-template-rows: 49px 39px;
+    grid-template-rows: 42px 46px;
     min-height: var(--primary-header-height);
   }
 
