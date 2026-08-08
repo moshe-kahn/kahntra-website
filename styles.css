@@ -649,22 +649,17 @@ h3 {
 
   .mobile-context-toggle[aria-pressed="true"] .mobile-context-toggle__letter-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     width: 100%;
-    gap: 0.03rem;
-    font-size: 0.36rem;
+    gap: 0.08rem;
+    font-size: 0.52rem;
     line-height: 1;
     text-align: center;
   }
 
-  .mobile-context-toggle[aria-pressed="true"],
   .mobile-context-toggle:hover,
   .mobile-context-toggle:focus-visible {
     color: var(--accent);
-  }
-
-  .mobile-context-toggle[aria-pressed="true"] .mobile-context-toggle__paper {
-    background: color-mix(in srgb, var(--accent) 8%, transparent);
   }
 
   .mobile-context-toggle:focus-visible {
