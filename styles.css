@@ -143,7 +143,20 @@ h1 {
 }
 
 .products.section {
+  position: relative;
+}
+
+.products.section::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0 calc((100vw - 100%) / -2);
   background: var(--collection);
+  content: "";
+}
+
+.products.section > * {
+  position: relative;
+  z-index: 1;
 }
 
 .section-heading {
@@ -517,7 +530,7 @@ h3 {
 
 @media (max-width: 640px) {
   :root {
-    --primary-header-height: 88px;
+    --primary-header-height: 80px;
     --view-controls-expanded-height: 0px;
     --view-controls-collapsed-height: 0px;
     --sticky-header-height: var(--primary-header-height);
@@ -530,7 +543,7 @@ h3 {
   .site-header {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 2.5rem;
-    grid-template-rows: 52px 36px;
+    grid-template-rows: 46px 34px;
     min-height: var(--primary-header-height);
   }
 
@@ -563,7 +576,7 @@ h3 {
   .mobile-perspective-selector button {
     position: relative;
     min-width: 0;
-    min-height: 36px;
+    min-height: 34px;
     padding: 0 0.1rem;
     border: 0;
     color: var(--muted-ink);
@@ -679,7 +692,7 @@ h3 {
   }
 
   .hero {
-    padding: clamp(2.25rem, 9vw, 3.75rem) 0 3rem;
+    padding: clamp(1.75rem, 7vw, 2.5rem) 0 3rem;
   }
 
   h1 {
