@@ -423,7 +423,7 @@ html[data-view-controls="collapsed"] .view-controls {
 
   .hero {
     max-width: none;
-    min-height: 32rem;
+    min-height: 35.5rem;
     padding: clamp(5rem, 8vw, 7.25rem) clamp(2rem, 4vw, 3.5rem) clamp(4rem, 7vw, 6rem);
   }
 
@@ -470,6 +470,7 @@ html[data-view-controls="collapsed"] .view-controls {
     width: min(58%, 44rem);
     align-self: start;
     margin: clamp(3rem, 5vw, 4.5rem) 0 0 clamp(1.5rem, 3vw, 3rem);
+    font-size: clamp(2.5rem, 4.5vw, 4rem);
     pointer-events: none;
   }
 
@@ -478,6 +479,7 @@ html[data-view-controls="collapsed"] .view-controls {
     grid-column: 1;
     aspect-ratio: 16 / 8;
     margin: 0;
+    align-self: start;
   }
 
   .approach-visual img {
@@ -490,6 +492,7 @@ html[data-view-controls="collapsed"] .view-controls {
     display: grid;
     grid-template-columns: minmax(0, 1.1fr) minmax(18rem, 0.9fr);
     gap: clamp(2.5rem, 7vw, 7rem);
+    align-items: start;
     margin-top: clamp(2rem, 4vw, 3.5rem);
   }
 
@@ -686,6 +689,8 @@ h3 {
   .approach-process {
     display: grid;
     gap: 1.5rem;
+    align-content: start;
+    align-self: start;
     margin: 0;
     padding: 0 0 0 clamp(1.75rem, 3vw, 3rem);
     border-left: 1px solid var(--line);
