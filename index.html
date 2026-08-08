@@ -20,7 +20,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="styles.css?v=mobile-lockup-refine-1">
+  <link rel="stylesheet" href="styles.css?v=collection-context-1">
 </head>
 
 <body>
@@ -100,7 +100,11 @@
         <div class="section-heading">
           <div>
             <h2 class="section-heading__label" id="products-title" tabindex="-1">The Moments Collection</h2>
-            <p class="section-heading__support">A growing body of tools for everyday decisions.</p>
+            <div class="section-heading__support" data-content-group>
+              <p data-detail-content="less">A growing body of tools for everyday decisions.</p>
+              <p data-detail-content="regular" hidden>A growing body of tools for everyday decisions, each exploring how context, constraints, and habits can make a choice clearer.</p>
+              <p data-detail-content="more" hidden>A growing body of tools for everyday decisions, each exploring how context, constraints, and habits can make a choice clearer.</p>
+            </div>
           </div>
         </div>
 
@@ -127,7 +131,7 @@
           <article class="product-card" data-project-id="listenlab">
             <div class="product-card__meta">
               <p class="stage">Prototype</p>
-              <p class="availability">Private</p>
+              <p class="availability">Public repository</p>
             </div>
             <h3>ListenLab</h3>
             <div class="product-card__description" data-content-group>
@@ -199,6 +203,6 @@
   </div>
 
   <p class="sr-only" id="perspective-announcement" role="status" aria-live="polite" aria-atomic="true"></p>
-  <script src="welcome-overlay.js?v=perspective-default-tech-1" defer></script>
+  <script src="welcome-overlay.js?v=collection-context-1" defer></script>
 </body>
 </html>

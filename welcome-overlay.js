@@ -84,6 +84,9 @@
       container.querySelectorAll("[data-perspective][data-detail]").forEach((element) => {
         element.hidden = element.dataset.perspective !== globalPerspective || element.dataset.detail !== globalDetail;
       });
+      container.querySelectorAll("[data-detail-content]").forEach((element) => {
+        element.hidden = element.dataset.detailContent !== globalDetail;
+      });
     }
 
     function updateApproachHeadings() {

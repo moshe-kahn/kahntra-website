@@ -166,6 +166,10 @@ h1 {
   font-size: 0.9rem;
 }
 
+.section-heading__support p {
+  margin: 0;
+}
+
 h2 {
   max-width: 620px;
   margin: 0.85rem 0 0;
@@ -325,13 +329,16 @@ html[data-view-controls="collapsed"] .view-controls {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
+  justify-content: space-between;
   gap: 0.35rem 0.65rem;
 }
 
 .availability {
+  margin-left: auto;
   color: var(--muted-ink);
   font-size: 0.62rem;
   font-weight: 600;
+  text-align: right;
 }
 
 .stage {
@@ -651,7 +658,7 @@ h3 {
     grid-template-columns: repeat(2, 1fr);
     width: 100%;
     gap: 0;
-    font-size: 0.64rem;
+    font-size: 0.68rem;
     line-height: 1;
     text-align: center;
   }
