@@ -1122,8 +1122,8 @@ h3 {
     left: calc((100vw - 100%) / -2);
     width: auto;
     height: 14.5rem;
-    background-position: right top;
-    background-size: 540px auto;
+    background-position: center;
+    background-size: cover;
     opacity: 0.26;
   }
 
