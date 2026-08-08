@@ -102,8 +102,10 @@
       updateApproachHeadings();
     }
 
-    function transitionContent({ includeApproachHeading = false } = {}) {
-      const contentGroups = [...document.querySelectorAll("[data-content-group]")];
+    function transitionContent({ includeApproachHeading = false, includeDetailOnlyGroups = true } = {}) {
+      const contentGroups = [...document.querySelectorAll("[data-content-group]")].filter((group) => {
+        return includeDetailOnlyGroups || Boolean(group.querySelector("[data-perspective]"));
+      });
       const approachHeadings = [...document.querySelectorAll("[data-perspective-heading]")];
 
       if (reduceMotionQuery.matches) {
@@ -171,9 +173,12 @@
       if (!mobilePerspectiveSelector || !siteHeaderSystem || !window.matchMedia("(max-width: 640px)").matches) return;
       const activeButton = mobilePerspectiveSelector.querySelector('button[aria-pressed="true"]');
       if (!activeButton) return;
-      const activeRect = activeButton.getBoundingClientRect();
+      const activeLabel = activeButton.querySelector("span");
+      if (!activeLabel) return;
+      const activeRect = activeLabel.getBoundingClientRect();
       const headerRect = siteHeaderSystem.getBoundingClientRect();
-      siteHeaderSystem.style.setProperty("--mobile-divider-left", `${activeRect.left - headerRect.left + 1.6}px`);
+      siteHeaderSystem.style.setProperty("--mobile-divider-left", `${activeRect.left - headerRect.left}px`);
+      siteHeaderSystem.style.setProperty("--mobile-divider-width", `${activeRect.width}px`);
     }
 
     function setControlsCollapsed(collapsed, { persist = true } = {}) {
@@ -192,7 +197,7 @@
       if (!perspectives.includes(perspective)) return;
       globalPerspective = perspective;
       storeValue(perspectiveKey, perspective);
-      transitionContent({ includeApproachHeading: true });
+      transitionContent({ includeApproachHeading: true, includeDetailOnlyGroups: false });
       setButtonState(perspectiveButtons, perspective, "globalLens");
       requestAnimationFrame(updateMobileHeaderDivider);
       updateViewControlsToggle();
