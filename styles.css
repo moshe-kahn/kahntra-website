@@ -578,7 +578,12 @@ h3 {
   }
 
   .hero {
-    padding: clamp(4rem, 16vw, 5rem) 0 3rem;
+    padding: clamp(2.25rem, 9vw, 3.75rem) 0 3rem;
+  }
+
+  h1 {
+    margin: 1rem 0 1.25rem;
+    font-size: clamp(3rem, 10vw, 3.5rem);
   }
 
   .products.section {
