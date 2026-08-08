@@ -139,7 +139,6 @@ h1 {
 
 .section {
   padding: clamp(4.5rem, 8vw, 7.5rem) 0;
-  border-top: 1px solid var(--line);
 }
 
 .products.section {
@@ -437,7 +436,6 @@ h3 {
 .site-footer {
   justify-content: space-between;
   padding: 1.75rem 0 2.25rem;
-  border-top: 1px solid var(--line);
   color: var(--muted-ink);
   font-size: 0.8rem;
 }
@@ -692,7 +690,7 @@ h3 {
   }
 
   .hero {
-    padding: clamp(1.75rem, 7vw, 2.5rem) 0 3rem;
+    padding: clamp(1.75rem, 7vw, 2.5rem) 0 2rem;
   }
 
   h1 {
@@ -719,7 +717,11 @@ h3 {
   }
 
   .approach-visual img {
-    object-position: 72% center;
+    object-position: 86% center;
+  }
+
+  .approach.section {
+    padding-bottom: 2rem;
   }
 
   .site-footer {
@@ -727,6 +729,7 @@ h3 {
     flex-wrap: wrap;
     justify-content: space-between;
     gap: 0.4rem;
+    padding-top: 1.25rem;
   }
 
   .site-footer p {
