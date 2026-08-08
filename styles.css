@@ -452,6 +452,10 @@ html[data-view-controls="collapsed"] .view-controls {
     padding-top: 3rem;
   }
 
+  .product-grid {
+    padding-inline: 1rem;
+  }
+
   .approach {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
