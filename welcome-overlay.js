@@ -5,7 +5,7 @@
   const perspectives = ["philosophy", "general", "technical"];
   const details = ["less", "regular", "more"];
   const defaultPerspective = "general";
-  const defaultDetail = "regular";
+  const defaultDetail = "less";
 
   const initialize = () => {
     const announcement = document.querySelector("#perspective-announcement");
@@ -14,6 +14,7 @@
     const siteToolbar = document.querySelector("[data-site-toolbar]");
     const viewControls = document.querySelector("#view-controls");
     const viewControlsToggle = document.querySelector("[data-view-controls-toggle]");
+    const mobileContextToggle = document.querySelector("[data-mobile-context-toggle]");
 
     if (!announcement || !perspectiveButtons.length || !detailButtons.length || !siteToolbar || !viewControls || !viewControlsToggle) return;
 
@@ -41,6 +42,10 @@
     function readDetail() {
       try {
         const storedDetail = sessionStorage.getItem(detailKey);
+        if (storedDetail === "regular") {
+          sessionStorage.setItem(detailKey, defaultDetail);
+          return defaultDetail;
+        }
         return details.includes(storedDetail) ? storedDetail : defaultDetail;
       } catch {
         return defaultDetail;
@@ -147,6 +152,16 @@
       );
     }
 
+    function updateMobileContextToggle() {
+      if (!mobileContextToggle) return;
+      const showingMoreContext = globalDetail === "more";
+      mobileContextToggle.setAttribute("aria-pressed", String(showingMoreContext));
+      mobileContextToggle.setAttribute(
+        "aria-label",
+        showingMoreContext ? "Show concise context" : "Show more context"
+      );
+    }
+
     function setControlsCollapsed(collapsed, { persist = true } = {}) {
       const focusWasInsideControls = viewControls.contains(document.activeElement);
       controlsCollapsed = collapsed;
@@ -166,6 +181,7 @@
       transitionContent({ includeApproachHeading: true });
       setButtonState(perspectiveButtons, perspective, "globalLens");
       updateViewControlsToggle();
+      updateMobileContextToggle();
       if (announce) announcement.textContent = `Site perspective: ${capitalize(perspective)}.`;
     }
 
@@ -176,6 +192,7 @@
       transitionContent();
       setButtonState(detailButtons, detail, "globalDetail");
       updateViewControlsToggle();
+      updateMobileContextToggle();
       if (announce) announcement.textContent = `Detail: ${capitalize(detail)}.`;
     }
 
@@ -198,6 +215,9 @@
     detailButtons.forEach((button) => {
       button.addEventListener("click", () => setGlobalDetail(button.dataset.globalDetail));
     });
+    mobileContextToggle?.addEventListener("click", () => {
+      setGlobalDetail(globalDetail === "more" ? "less" : "more");
+    });
     viewControlsToggle.addEventListener("click", () => {
       setControlsCollapsed(!controlsCollapsed);
     });
@@ -208,6 +228,7 @@
     updateAllContent();
     setButtonState(perspectiveButtons, globalPerspective, "globalLens");
     setButtonState(detailButtons, globalDetail, "globalDetail");
+    updateMobileContextToggle();
     setControlsCollapsed(controlsCollapsed, { persist: false });
   };
 

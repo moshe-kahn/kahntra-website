@@ -20,7 +20,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="styles.css?v=remove-reveal-hotfix-1">
+  <link rel="stylesheet" href="styles.css?v=mobile-context-toggle-1">
 </head>
 
 <body>
@@ -61,6 +61,9 @@
           </div>
         </div>
         <button class="view-controls-toggle" type="button" data-view-controls-toggle aria-controls="view-controls" aria-expanded="true">Collapse</button>
+        <button class="mobile-context-toggle" type="button" data-mobile-context-toggle aria-pressed="false" aria-label="Show more context">
+          <span class="mobile-context-toggle__paper" aria-hidden="true"><span></span><span></span><span></span></span>
+        </button>
       </div>
     </div>
 
@@ -71,8 +74,8 @@
           <p data-perspective="philosophy" data-detail="less" hidden>Kahntra starts with the everyday decisions people make and the friction around them.</p>
           <p data-perspective="philosophy" data-detail="regular" hidden>Kahntra starts with the decisions people make every day, and the friction that makes them harder than they need to be.</p>
           <p data-perspective="philosophy" data-detail="more" hidden>Kahntra starts with the decisions people make every day: the uncertainty, habits, and small sources of friction that make ordinary choices harder than they need to be.</p>
-          <p data-perspective="general" data-detail="less" hidden>Kahntra creates focused software that brings more clarity to everyday decisions.</p>
-          <p data-perspective="general" data-detail="regular">Kahntra creates software products that help people make everyday decisions with more clarity.</p>
+          <p data-perspective="general" data-detail="less">Kahntra creates focused software that brings more clarity to everyday decisions.</p>
+          <p data-perspective="general" data-detail="regular" hidden>Kahntra creates software products that help people make everyday decisions with more clarity.</p>
           <p data-perspective="general" data-detail="more" hidden>Kahntra creates focused software products that bring more clarity to everyday decisions, turning overlooked moments of uncertainty into useful tools.</p>
           <p data-perspective="technical" data-detail="less" hidden>Kahntra develops focused software through careful experiments and iterative engineering.</p>
           <p data-perspective="technical" data-detail="regular" hidden>Kahntra develops focused software through small systems, careful experiments, and iterative engineering.</p>
@@ -96,8 +99,8 @@
               <p data-perspective="philosophy" data-detail="less" hidden>MomoMovies treats choosing a film as a human decision shaped by mood, context, and the people watching.</p>
               <p data-perspective="philosophy" data-detail="regular" hidden>Choosing a film is rarely about genre or ratings alone. MomoMovies treats discovery as a human decision: mood, context, and the people watching matter.</p>
               <p data-perspective="philosophy" data-detail="more" hidden>Choosing a film can become overwhelming when genre, ratings, and long lists stand in for the situation people are actually in. MomoMovies treats discovery as a human decision: mood, available time, the people watching, and the kind of experience they want all matter.</p>
-              <p data-perspective="general" data-detail="less" hidden>MomoMovies helps people choose a film by considering mood, viewing context, and available services.</p>
-              <p data-perspective="general" data-detail="regular">MomoMovies helps people decide what to watch through mood, viewing context, and available services. The product is in development; its public experience is temporarily unavailable while it is refined.</p>
+              <p data-perspective="general" data-detail="less">MomoMovies helps people choose a film by considering mood, viewing context, and available services.</p>
+              <p data-perspective="general" data-detail="regular" hidden>MomoMovies helps people decide what to watch through mood, viewing context, and available services. The product is in development; its public experience is temporarily unavailable while it is refined.</p>
               <p data-perspective="general" data-detail="more" hidden>MomoMovies is for people choosing alone or with others who want a more useful starting point than an endless catalogue. It narrows choices through mood, viewing context, and available services. The product is in development, and its public experience is temporarily unavailable while that work continues.</p>
               <p data-perspective="technical" data-detail="less" hidden>MomoMovies experiments with Vibes-based discovery and streaming availability.</p>
               <p data-perspective="technical" data-detail="regular" hidden>MomoMovies is an active product experiment combining curated discovery, Vibes-based browsing, streaming-availability work, and private data and analysis pipelines. Some enrichment and ranking work remains experimental.</p>
@@ -116,8 +119,8 @@
               <p data-perspective="philosophy" data-detail="less" hidden>ListenLab reveals music relationships that ordinary streaming interfaces leave behind.</p>
               <p data-perspective="philosophy" data-detail="regular" hidden>ListenLab explores how music collections can reveal connections that ordinary streaming interfaces flatten or hide: alternate releases, performances, covers, album context, and personally meaningful organization.</p>
               <p data-perspective="philosophy" data-detail="more" hidden>ListenLab explores how music collections can reveal connections that ordinary streaming interfaces flatten or hide. Rather than treating a track as a single isolated item, it makes room for alternate performances, covers, album context, and the personal ways people organize music.</p>
-              <p data-perspective="general" data-detail="less" hidden>ListenLab is a private prototype for exploring music collections with more context.</p>
-              <p data-perspective="general" data-detail="regular">ListenLab is a private music-listening and collection prototype designed to help people explore songs, recordings, releases, and playlists with more context.</p>
+              <p data-perspective="general" data-detail="less">ListenLab is a private prototype for exploring music collections with more context.</p>
+              <p data-perspective="general" data-detail="regular" hidden>ListenLab is a private music-listening and collection prototype designed to help people explore songs, recordings, releases, and playlists with more context.</p>
               <p data-perspective="general" data-detail="more" hidden>ListenLab is a private music-listening and collection prototype designed to help people explore songs, recordings, releases, and playlists with more context. It brings those materials into a connected view shaped by the relationships that make a collection meaningful.</p>
               <p data-perspective="technical" data-detail="less" hidden>ListenLab prototypes interfaces for exploring music metadata, recordings, releases, and playlists.</p>
               <p data-perspective="technical" data-detail="regular" hidden>ListenLab is a private prototype exploring music metadata relationships through interface experiments around playlist organization, alternate recordings, and release context.</p>
@@ -136,8 +139,8 @@
               <p data-perspective="philosophy" data-detail="less" hidden>Meal Match treats choosing what to eat as a shared decision shaped by real constraints.</p>
               <p data-perspective="philosophy" data-detail="regular" hidden>Choosing what to eat is often a coordination and decision problem rather than a lack of options. Preferences, energy, dietary constraints, time, and the people involved all shape the choice.</p>
               <p data-perspective="philosophy" data-detail="more" hidden>Choosing what to eat is often a coordination and decision problem rather than a lack of options. A good choice has to work for preferences, dietary needs, time, energy, and the people involved.</p>
-              <p data-perspective="general" data-detail="less" hidden>Meal Match is an early concept for making food decisions around real constraints.</p>
-              <p data-perspective="general" data-detail="regular">Meal Match is an early product concept for helping individuals or groups decide what to eat by narrowing options around preferences, context, and practical constraints.</p>
+              <p data-perspective="general" data-detail="less">Meal Match is an early concept for making food decisions around real constraints.</p>
+              <p data-perspective="general" data-detail="regular" hidden>Meal Match is an early product concept for helping individuals or groups decide what to eat by narrowing options around preferences, context, and practical constraints.</p>
               <p data-perspective="general" data-detail="more" hidden>Meal Match is an early product concept for helping individuals or groups decide what to eat. It would narrow a broad set of options through preferences, context, and practical constraints, helping one person or a group move from indecision toward a workable choice.</p>
               <p data-perspective="technical" data-detail="less" hidden>Meal Match is early research into structured food-decision systems.</p>
               <p data-perspective="technical" data-detail="regular" hidden>Meal Match is early product research and system design exploring structured preference inputs, constraint matching, shared decisions, and recommendation logic. No application or functional prototype is available yet.</p>
@@ -158,8 +161,8 @@
             <p data-perspective="philosophy" data-detail="less" hidden>We begin with the context and uncertainty around a real decision.</p>
             <p data-perspective="philosophy" data-detail="regular" hidden>We look closely at the context, uncertainty, and habits around a decision before deciding what a tool should do.</p>
             <p data-perspective="philosophy" data-detail="more" hidden>We look closely at the context, uncertainty, and habits around a decision before deciding what a tool should do. That work helps define the tool before implementation choices take over.</p>
-            <p data-perspective="general" data-detail="less" hidden>We turn overlooked decision details into focused, useful tools.</p>
-            <p data-perspective="general" data-detail="regular">We explore the details that shape everyday decisions, then turn them into thoughtful, focused tools.</p>
+            <p data-perspective="general" data-detail="less">We turn overlooked decision details into focused, useful tools.</p>
+            <p data-perspective="general" data-detail="regular" hidden>We explore the details that shape everyday decisions, then turn them into thoughtful, focused tools.</p>
             <p data-perspective="general" data-detail="more" hidden>We explore the details that shape everyday decisions, then turn them into thoughtful, focused tools. The goal is not more software, but a clearer path through the choice at hand.</p>
             <p data-perspective="technical" data-detail="less" hidden>We test focused ideas and build only what improves a real experience.</p>
             <p data-perspective="technical" data-detail="regular" hidden>We test ideas in bounded experiments, preserve what we learn, and build only the systems that improve a real experience.</p>
@@ -183,6 +186,6 @@
   </div>
 
   <p class="sr-only" id="perspective-announcement" role="status" aria-live="polite" aria-atomic="true"></p>
-  <script src="welcome-overlay.js?v=collapse-selector-hotfix-1" defer></script>
+  <script src="welcome-overlay.js?v=mobile-context-toggle-1" defer></script>
 </body>
 </html>
