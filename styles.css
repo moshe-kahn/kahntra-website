@@ -562,7 +562,7 @@ h3 {
     color: var(--accent);
   }
 
-  .mobile-perspective-selector button[aria-pressed="true"] {
+  .mobile-perspective-selector button[aria-pressed="true"] span {
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 0.25rem;
