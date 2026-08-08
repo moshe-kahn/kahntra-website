@@ -633,7 +633,7 @@ h3 {
     grid-column: 2;
     grid-row: 1;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     width: 2.5rem;
     min-height: 40px;
     padding: 0;
@@ -641,6 +641,7 @@ h3 {
     color: var(--muted-ink);
     background: transparent;
     cursor: pointer;
+    transform: translateX(0.25rem);
   }
 
   .mobile-context-toggle__paper {
