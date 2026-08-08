@@ -6,6 +6,7 @@
   --line: #cfcec5;
   --card: #fbfaf6;
   --collection: #ebe8df;
+  --header: #f8f6f0;
   --primary-header-height: 68px;
   --view-controls-expanded-height: 40px;
   --view-controls-collapsed-height: 36px;
@@ -538,11 +539,21 @@ h3 {
     width: min(100% - 32px, 1180px);
   }
 
+  .site-header-system {
+    height: var(--primary-header-height);
+    margin-inline: calc((100vw - 100%) / -2);
+    padding-inline: calc((100vw - 100%) / 2);
+    border-bottom: 1px solid var(--line);
+    background: var(--header);
+  }
+
   .site-header {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 2.5rem;
     grid-template-rows: 46px 34px;
+    height: 100%;
     min-height: var(--primary-header-height);
+    border-bottom: 0;
   }
 
   .site-nav {
