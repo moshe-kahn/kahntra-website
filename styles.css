@@ -507,10 +507,10 @@ h3 {
 
 @media (max-width: 640px) {
   :root {
-    --primary-header-height: 60px;
-    --view-controls-expanded-height: 40px;
-    --view-controls-collapsed-height: 40px;
-    --sticky-header-height: calc(var(--primary-header-height) + var(--view-controls-collapsed-height));
+    --primary-header-height: 96px;
+    --view-controls-expanded-height: 0px;
+    --view-controls-collapsed-height: 0px;
+    --sticky-header-height: var(--primary-header-height);
   }
 
   .site-shell {
@@ -518,20 +518,32 @@ h3 {
   }
 
   .site-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 2.5rem;
+    grid-template-rows: 60px 36px;
     min-height: var(--primary-header-height);
   }
 
-  .wordmark__full,
   .site-nav {
     display: none;
   }
 
-  .wordmark__compact,
   .mobile-perspective-selector {
     display: flex;
   }
 
+  .wordmark__compact {
+    display: none;
+  }
+
+  .wordmark {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
   .mobile-perspective-selector {
+    grid-column: 1 / -1;
+    grid-row: 2;
     align-items: center;
     margin: 0;
     white-space: nowrap;
@@ -539,9 +551,9 @@ h3 {
 
   .mobile-perspective-selector button {
     position: relative;
-    min-width: 2.75rem;
-    min-height: 44px;
-    padding: 0 0.15rem;
+    min-width: 0;
+    min-height: 36px;
+    padding: 0 0.1rem;
     border: 0;
     color: var(--muted-ink);
     background: transparent;
@@ -553,7 +565,7 @@ h3 {
   }
 
   .mobile-perspective-selector button + button::before {
-    margin-right: 0.3rem;
+    margin: 0 0.28rem 0 0.12rem;
     color: var(--line);
     content: "|";
   }
@@ -580,17 +592,13 @@ h3 {
   }
 
   .site-toolbar {
-    justify-content: flex-end;
-    height: var(--view-controls-collapsed-height);
-  }
-
-  .site-toolbar .view-controls,
-  .site-toolbar .view-controls-toggle {
     display: none;
   }
 
   .mobile-context-toggle {
     display: inline-flex;
+    grid-column: 2;
+    grid-row: 1;
     align-items: center;
     justify-content: center;
     width: 2.5rem;
