@@ -1131,8 +1131,8 @@ h3 {
     width: auto;
     bottom: 0;
     height: auto;
-    background-position: right bottom;
-    background-size: auto clamp(32rem, 150vw, 36rem);
+    background-position: right top -9rem;
+    background-size: auto clamp(36rem, 165vw, 40rem);
     opacity: 0.26;
   }
 
