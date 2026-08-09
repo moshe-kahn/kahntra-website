@@ -170,16 +170,13 @@ h1 {
 
 .products.section {
   position: relative;
-  margin-inline: calc((100vw - 100%) / -2);
-  padding-inline: calc((100vw - 100%) / 2);
+  background: var(--collection);
+  box-shadow: 0 0 0 100vmax var(--collection);
+  clip-path: inset(0 -100vmax);
 }
 
 .products.section::before {
-  position: absolute;
-  z-index: 0;
-  inset: 0;
-  background: var(--collection);
-  content: "";
+  display: none;
 }
 
 .products.section > * {
@@ -912,8 +909,8 @@ h3 {
 
   .site-header-system {
     height: var(--primary-header-height);
-    margin-inline: calc((100vw - 100%) / -2);
-    padding-inline: calc((100vw - 100%) / 2);
+    margin-inline: -1rem;
+    padding-inline: 1rem;
     background: linear-gradient(to bottom, var(--header) 0 60px, transparent 60px);
     box-shadow: none;
   }
@@ -922,7 +919,7 @@ h3 {
     position: absolute;
     top: 56px;
     right: 0;
-    left: 0;
+    left: var(--mobile-divider-left, calc((100vw - 100%) / 2 + 0.1rem));
     z-index: 1;
     height: 1px;
     background: var(--line);
@@ -1123,14 +1120,14 @@ h3 {
   }
 
   .hero__title {
-    margin-inline: calc((100vw - 100%) / -2);
-    padding-inline: calc((100vw - 100%) / 2);
+    margin-inline: -1rem;
+    padding-inline: 1rem;
   }
 
   .hero__title-field {
     top: 0;
-    right: calc((100vw - 100%) / -2);
-    left: calc((100vw - 100%) / -2);
+    right: -1rem;
+    left: -1rem;
     width: auto;
     bottom: 0;
     height: auto;
