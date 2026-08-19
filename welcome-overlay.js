@@ -126,11 +126,11 @@
       }
     }
 
-    function detailPriority(detailValue) {
-      if (detailValue === "regular") return 2;
-      if (detailValue === "more") return 1;
-      if (detailValue === "verbose") return 2;
-      return 0;
+    function mappedDetailOrder(detailState) {
+      if (detailState === "verbose") {
+        return ["regular", "more", "less"];
+      }
+      return ["less", "regular", "more"];
     }
 
     function isCompactViewport() {
@@ -163,33 +163,28 @@
 
     function updateContent(container) {
       const visiblePerspective = resolveVisiblePerspective(globalPerspective);
-      const activeVerboseByPerspective = new Map();
-      container.querySelectorAll("[data-perspective][data-detail]").forEach((element) => {
-        if (element.dataset.perspective !== visiblePerspective) {
-          element.hidden = true;
-          return;
-        }
+      const detailCandidates = mappedDetailOrder(globalDetail);
 
-        const resolvedDetail = normalizeDetail(element.dataset.detail);
-        if (resolvedDetail !== globalDetail) {
-          element.hidden = true;
-          return;
-        }
+      const visibleElements = [...container.querySelectorAll("[data-perspective][data-detail]")].filter(
+        (element) => element.dataset.perspective === visiblePerspective
+      );
 
-        if (globalDetail !== "verbose") {
+      visibleElements.forEach((element) => {
+        element.hidden = true;
+      });
+
+      const selectedDetail = detailCandidates.find((detail) =>
+        visibleElements.some((element) => element.dataset.detail === detail)
+      );
+
+      visibleElements
+        .filter((element) => element.dataset.detail === selectedDetail)
+        .forEach((element) => {
           element.hidden = false;
-          return;
-        }
+        });
 
-        const perspective = element.dataset.perspective;
-        const active = activeVerboseByPerspective.get(perspective);
-        if (!active || detailPriority(element.dataset.detail) > detailPriority(active.dataset.detail)) {
-          if (active) active.hidden = true;
-          activeVerboseByPerspective.set(perspective, element);
-          element.hidden = false;
-        } else {
-          element.hidden = true;
-        }
+      [...container.querySelectorAll("[data-perspective][data-detail]")].forEach((element) => {
+        if (element.dataset.perspective !== visiblePerspective) element.hidden = true;
       });
       container.querySelectorAll("[data-detail-content]").forEach((element) => {
         element.hidden = element.dataset.detailContent !== globalDetail;
