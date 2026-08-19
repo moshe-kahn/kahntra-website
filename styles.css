@@ -425,9 +425,9 @@ html[data-view-controls="collapsed"] .view-controls {
 
   .hero {
     max-width: none;
-    height: clamp(28rem, 35vw, 30rem);
+    height: clamp(22.5rem, 30vw, 25.5rem);
     min-height: 0;
-    padding: clamp(4.5rem, 7vw, 6rem) clamp(2rem, 4vw, 3.5rem) clamp(3.25rem, 5vw, 4.5rem);
+    padding: clamp(3.75rem, 6vw, 5rem) clamp(2rem, 4vw, 3.5rem) clamp(2.75rem, 4vw, 3.75rem);
   }
 
   .hero h1 {
