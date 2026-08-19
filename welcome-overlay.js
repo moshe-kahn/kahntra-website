@@ -13,9 +13,16 @@
     technical: "Technical",
     "design-philosophy": "Design & Philosophy",
   };
-  const details = ["less", "regular", "more"];
+  const details = ["concise", "verbose"];
+  const detailAliases = {
+    concise: "concise",
+    verbose: "verbose",
+    less: "concise",
+    regular: "verbose",
+    more: "verbose",
+  };
   const defaultPerspective = "technical";
-  const defaultDetail = "less";
+  const defaultDetail = "concise";
 
   const initialize = () => {
     const announcement = document.querySelector("#perspective-announcement");
@@ -69,6 +76,10 @@
       return perspectiveLabelMap[value] || capitalize(value);
     }
 
+    function normalizeDetail(value) {
+      return detailAliases[value] || null;
+    }
+
     function readPerspective() {
       const urlPerspective = readPerspectiveFromUrl();
       if (urlPerspective) {
@@ -94,8 +105,7 @@
     function readDetail() {
       try {
         const params = new URLSearchParams(window.location.search);
-        const searchDetail = params.get("detail");
-        const resolvedDetail = searchDetail === "regular" ? defaultDetail : searchDetail;
+        const resolvedDetail = normalizeDetail(params.get("detail"));
         if (details.includes(resolvedDetail)) {
           sessionStorage.setItem(detailKey, resolvedDetail);
           return resolvedDetail;
@@ -106,14 +116,21 @@
 
       try {
         const storedDetail = sessionStorage.getItem(detailKey);
-        if (storedDetail === "regular") {
-          sessionStorage.setItem(detailKey, defaultDetail);
-          return defaultDetail;
+        const resolvedDetail = normalizeDetail(storedDetail);
+        if (storedDetail && resolvedDetail && storedDetail !== resolvedDetail) {
+          sessionStorage.setItem(detailKey, resolvedDetail);
         }
-        return details.includes(storedDetail) ? storedDetail : defaultDetail;
+        return details.includes(resolvedDetail) ? resolvedDetail : defaultDetail;
       } catch {
         return defaultDetail;
       }
+    }
+
+    function detailPriority(detailValue) {
+      if (detailValue === "regular") return 2;
+      if (detailValue === "more") return 1;
+      if (detailValue === "verbose") return 2;
+      return 0;
     }
 
     function isCompactViewport() {
@@ -146,8 +163,33 @@
 
     function updateContent(container) {
       const visiblePerspective = resolveVisiblePerspective(globalPerspective);
+      const activeVerboseByPerspective = new Map();
       container.querySelectorAll("[data-perspective][data-detail]").forEach((element) => {
-        element.hidden = element.dataset.perspective !== visiblePerspective || element.dataset.detail !== globalDetail;
+        if (element.dataset.perspective !== visiblePerspective) {
+          element.hidden = true;
+          return;
+        }
+
+        const resolvedDetail = normalizeDetail(element.dataset.detail);
+        if (resolvedDetail !== globalDetail) {
+          element.hidden = true;
+          return;
+        }
+
+        if (globalDetail !== "verbose") {
+          element.hidden = false;
+          return;
+        }
+
+        const perspective = element.dataset.perspective;
+        const active = activeVerboseByPerspective.get(perspective);
+        if (!active || detailPriority(element.dataset.detail) > detailPriority(active.dataset.detail)) {
+          if (active) active.hidden = true;
+          activeVerboseByPerspective.set(perspective, element);
+          element.hidden = false;
+        } else {
+          element.hidden = true;
+        }
       });
       container.querySelectorAll("[data-detail-content]").forEach((element) => {
         element.hidden = element.dataset.detailContent !== globalDetail;
@@ -206,8 +248,6 @@
     }
 
     function formatCollapsedView() {
-      if (globalPerspective === "design-philosophy" && globalDetail === "regular") return "Regular";
-      if (globalDetail === "regular") return perspectiveLabel(globalPerspective);
       return `${perspectiveLabel(globalPerspective)} · ${capitalize(globalDetail)}`;
     }
 
@@ -224,12 +264,12 @@
     }
 
     function updateContextToggles() {
-      const showingMoreContext = globalDetail === "more";
+      const showingVerbose = globalDetail === "verbose";
       contextToggles.forEach((toggle) => {
-        toggle.setAttribute("aria-pressed", String(showingMoreContext));
+        toggle.setAttribute("aria-pressed", String(showingVerbose));
         toggle.setAttribute(
           "aria-label",
-          showingMoreContext ? "Show concise context" : "Show more context"
+          showingVerbose ? "Show concise details" : "Show verbose details"
         );
       });
     }
@@ -304,7 +344,7 @@
     });
     contextToggles.forEach((toggle) => {
       toggle.addEventListener("click", () => {
-        setGlobalDetail(globalDetail === "more" ? "less" : "more");
+        setGlobalDetail(globalDetail === "verbose" ? "concise" : "verbose");
       });
     });
     viewControlsToggle.addEventListener("click", () => {
