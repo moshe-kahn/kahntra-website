@@ -2,7 +2,17 @@
   const perspectiveKey = "kahntra-site-perspective-v1";
   const detailKey = "kahntra-site-detail-v1";
   const controlsCollapsedKey = "kahntra-view-controls-collapsed-v1";
-  const perspectives = ["philosophy", "general", "technical"];
+  const perspectives = ["technical", "design-philosophy"];
+  const legacyPerspectiveAliases = {
+    philosophy: "design-philosophy",
+    general: "design-philosophy",
+    "design-philosophy": "design-philosophy",
+    technical: "technical",
+  };
+  const perspectiveLabelMap = {
+    technical: "Technical",
+    "design-philosophy": "Design & Philosophy",
+  };
   const details = ["less", "regular", "more"];
   const defaultPerspective = "technical";
   const defaultDetail = "less";
@@ -28,20 +38,72 @@
     const contentFadeOutDuration = 220;
     const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
+    function normalizePerspective(value) {
+      const mappedValue = legacyPerspectiveAliases[value];
+      if (!value) return null;
+      if (value === "practical") return defaultPerspective;
+      return perspectives.includes(mappedValue || value) ? (mappedValue || value) : null;
+    }
+
+    function readPerspectiveFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      return normalizePerspective(params.get("perspective"));
+    }
+
+    function writePerspectiveToUrl() {
+      try {
+        const url = new URL(window.location.href);
+        url.searchParams.set("perspective", globalPerspective);
+        url.searchParams.set("detail", globalDetail);
+        history.replaceState({}, "", `${url.pathname}${url.search}${url.hash}`);
+      } catch {
+        // URL state is optional when the environment does not support it.
+      }
+    }
+
+    function resolveVisiblePerspective(value) {
+      return value === "design-philosophy" ? "general" : value;
+    }
+
+    function perspectiveLabel(value) {
+      return perspectiveLabelMap[value] || capitalize(value);
+    }
+
     function readPerspective() {
+      const urlPerspective = readPerspectiveFromUrl();
+      if (urlPerspective) {
+        storeValue(perspectiveKey, urlPerspective);
+        return urlPerspective;
+      }
+
       try {
         const storedPerspective = sessionStorage.getItem(perspectiveKey);
-        if (storedPerspective === "practical") {
-          sessionStorage.setItem(perspectiveKey, defaultPerspective);
-          return defaultPerspective;
+        const normalizedPerspective = normalizePerspective(storedPerspective);
+        if (normalizedPerspective) {
+          if (storedPerspective !== normalizedPerspective) {
+            sessionStorage.setItem(perspectiveKey, normalizedPerspective);
+          }
+          return normalizedPerspective;
         }
-        return perspectives.includes(storedPerspective) ? storedPerspective : defaultPerspective;
+        return defaultPerspective;
       } catch {
         return defaultPerspective;
       }
     }
 
     function readDetail() {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const searchDetail = params.get("detail");
+        const resolvedDetail = searchDetail === "regular" ? defaultDetail : searchDetail;
+        if (details.includes(resolvedDetail)) {
+          sessionStorage.setItem(detailKey, resolvedDetail);
+          return resolvedDetail;
+        }
+      } catch {
+        // URL state is optional when history APIs are unavailable.
+      }
+
       try {
         const storedDetail = sessionStorage.getItem(detailKey);
         if (storedDetail === "regular") {
@@ -83,8 +145,9 @@
     }
 
     function updateContent(container) {
+      const visiblePerspective = resolveVisiblePerspective(globalPerspective);
       container.querySelectorAll("[data-perspective][data-detail]").forEach((element) => {
-        element.hidden = element.dataset.perspective !== globalPerspective || element.dataset.detail !== globalDetail;
+        element.hidden = element.dataset.perspective !== visiblePerspective || element.dataset.detail !== globalDetail;
       });
       container.querySelectorAll("[data-detail-content]").forEach((element) => {
         element.hidden = element.dataset.detailContent !== globalDetail;
@@ -92,8 +155,9 @@
     }
 
     function updateApproachHeadings() {
+      const visiblePerspective = resolveVisiblePerspective(globalPerspective);
       document.querySelectorAll("[data-perspective-heading]").forEach((heading) => {
-        heading.hidden = heading.dataset.perspectiveHeading !== globalPerspective;
+        heading.hidden = heading.dataset.perspectiveHeading !== visiblePerspective;
       });
     }
 
@@ -142,9 +206,9 @@
     }
 
     function formatCollapsedView() {
-      if (globalPerspective === "general" && globalDetail === "regular") return "Regular";
-      if (globalDetail === "regular") return capitalize(globalPerspective);
-      return `${capitalize(globalPerspective)} · ${capitalize(globalDetail)}`;
+      if (globalPerspective === "design-philosophy" && globalDetail === "regular") return "Regular";
+      if (globalDetail === "regular") return perspectiveLabel(globalPerspective);
+      return `${perspectiveLabel(globalPerspective)} · ${capitalize(globalDetail)}`;
     }
 
     function updateViewControlsToggle() {
@@ -198,18 +262,20 @@
       if (!perspectives.includes(perspective)) return;
       globalPerspective = perspective;
       storeValue(perspectiveKey, perspective);
+      writePerspectiveToUrl();
       transitionContent({ includeApproachHeading: true, includeDetailOnlyGroups: false });
       setButtonState(perspectiveButtons, perspective, "globalLens");
       requestAnimationFrame(updateMobileHeaderDivider);
       updateViewControlsToggle();
       updateContextToggles();
-      if (announce) announcement.textContent = `Site perspective: ${capitalize(perspective)}.`;
+      if (announce) announcement.textContent = `Site perspective: ${perspectiveLabel(perspective)}.`;
     }
 
     function setGlobalDetail(detail, { announce = true } = {}) {
       if (!details.includes(detail)) return;
       globalDetail = detail;
       storeValue(detailKey, detail);
+      writePerspectiveToUrl();
       transitionContent();
       setButtonState(detailButtons, detail, "globalDetail");
       updateViewControlsToggle();
@@ -253,6 +319,7 @@
     setButtonState(perspectiveButtons, globalPerspective, "globalLens");
     updateMobileHeaderDivider();
     setButtonState(detailButtons, globalDetail, "globalDetail");
+    writePerspectiveToUrl();
     updateContextToggles();
     setControlsCollapsed(controlsCollapsed, { persist: false });
   };
