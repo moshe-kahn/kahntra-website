@@ -20,7 +20,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="styles.css?v=mobile-crop-fixed-1">
+  <link rel="stylesheet" href="styles.css?v=task-0060-cache-8">
 </head>
 
 <body>
@@ -181,6 +181,75 @@
         </div>
       </section>
 
+      <section class="decision-demo section" data-tech-demo aria-labelledby="decision-demo-title">
+        <div class="decision-demo__heading">
+          <p class="eyebrow">A reusable decision demo</p>
+          <h2 id="decision-demo-title" tabindex="-1">Make a visual direction feel intentional.</h2>
+          <p>Move between comfort and stimulation, then tune a bounded visual-composition model without losing the underlying evidence.</p>
+        </div>
+
+        <div class="decision-demo__workspace">
+          <form class="decision-demo__controls" data-decision-controls data-fallback-controls>
+            <fieldset>
+              <legend>Desired feeling</legend>
+              <label class="decision-demo__range-label" for="decision-feeling">
+                <span>Comfort</span>
+                <strong data-feeling-label>Balanced</strong>
+                <span>Stimulation</span>
+              </label>
+              <input id="decision-feeling" name="feeling" type="range" min="0" max="100" value="50" data-decision-feeling aria-describedby="decision-feeling-note" disabled>
+              <p id="decision-feeling-note" class="decision-demo__control-note">A continuous preference, not a fixed category.</p>
+            </fieldset>
+
+            <fieldset>
+              <legend>Emphasize (soft preferences)</legend>
+              <div class="decision-demo__soft-tags" data-decision-soft-tags aria-label="Adaptive soft preferences">
+                <button type="button" data-soft-preference="calm" aria-pressed="false" disabled>Calm field</button>
+                <button type="button" data-soft-preference="clarity" aria-pressed="false" disabled>Clear hierarchy</button>
+                <button type="button" data-soft-preference="warmth" aria-pressed="false" disabled>Warm tone</button>
+                <button type="button" data-soft-preference="energy" aria-pressed="false" disabled>Active rhythm</button>
+              </div>
+              <p class="decision-demo__control-note">These tags adjust weighted targets; they do not remove alternatives.</p>
+            </fieldset>
+
+            <fieldset>
+              <legend>Keep in the frame</legend>
+              <div class="decision-demo__checks">
+                <label><input type="checkbox" data-decision-constraint="quiet" disabled> Low visual noise</label>
+                <label><input type="checkbox" data-decision-constraint="accessible" disabled> Strong text contrast</label>
+              </div>
+            </fieldset>
+
+            <details class="decision-demo__data">
+              <summary>View data</summary>
+              <p data-decision-data-intro>This local model exposes every composition, intrinsic dimension, constraint decision, and retained scoring component.</p>
+              <div class="decision-demo__data-table-wrap"><table data-decision-data-list><thead><tr><th>Composition</th><th>Intrinsic dimensions</th><th>Metadata</th><th>Eligibility</th><th>Score components</th></tr></thead><tbody></tbody></table></div>
+            </details>
+          </form>
+
+          <div class="decision-demo__results" aria-labelledby="decision-results-title">
+            <div class="decision-demo__results-heading">
+              <p class="eyebrow" id="decision-results-title">Ranked directions</p>
+              <p data-decision-summary aria-live="polite">Static example: three directions for a balanced brief.</p>
+            </div>
+            <ol data-decision-results>
+              <li class="decision-result">
+                <span class="decision-result__rank">01</span>
+                <div><h3>Balanced Weave</h3><p>Measured movement with a warm, readable structure.</p><ul class="decision-result__tags"><li>Balanced</li><li>Warm tone</li></ul></div>
+              </li>
+              <li class="decision-result">
+                <span class="decision-result__rank">02</span>
+                <div><h3>Open Signal</h3><p>Balanced field with clear contrast.</p><ul class="decision-result__tags"><li>Balanced</li><li>High contrast</li></ul></div>
+              </li>
+              <li class="decision-result">
+                <span class="decision-result__rank">03</span>
+                <div><h3>Paper Orbit</h3><p>Comfort-forward structure with a warm, readable orbit.</p><ul class="decision-result__tags"><li>Balanced</li><li>Warm tone</li></ul></div>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
       <section class="approach section" aria-label="Our approach">
         <div class="approach-copy">
           <p class="eyebrow">Our approach</p>
@@ -261,6 +330,8 @@
   </div>
 
   <p class="sr-only" id="perspective-announcement" role="status" aria-live="polite" aria-atomic="true"></p>
-  <script src="welcome-overlay.js?v=desktop-context-toggle-1" defer></script>
+  <script src="welcome-overlay.js?v=task-0060-cache-8" defer></script>
+  <script src="decision-engine.js?v=task-0060-cache-8" defer></script>
+  <script src="decision-demo.js?v=task-0060-cache-8" defer></script>
 </body>
 </html>

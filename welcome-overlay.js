@@ -303,6 +303,7 @@
       requestAnimationFrame(updateMobileHeaderDivider);
       updateViewControlsToggle();
       updateContextToggles();
+      window.dispatchEvent(new CustomEvent("kahntra-perspective-change", { detail: { perspective } }));
       if (announce) announcement.textContent = `Site perspective: ${perspectiveLabel(perspective)}.`;
     }
 
@@ -357,6 +358,7 @@
     writePerspectiveToUrl();
     updateContextToggles();
     setControlsCollapsed(controlsCollapsed, { persist: false });
+    window.dispatchEvent(new CustomEvent("kahntra-perspective-change", { detail: { perspective: globalPerspective } }));
   };
 
   if (document.readyState === "loading") {
