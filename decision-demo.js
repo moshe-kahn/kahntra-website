@@ -1,18 +1,392 @@
 (() => {
-  const rows = [["Quiet Field",82,22,18,76,88,72,"a"],["Soft Grid",70,38,28,84,76,58,"b"],["Open Signal",54,56,42,90,70,52,"c"],["Balanced Weave",56,52,36,86,72,76,"d"],["Paper Orbit",62,44,30,82,68,80,"e"],["Low Tide",78,26,20,78,84,66,"f"],["Warm Measure",64,46,34,80,74,90,"g"],["Calm Marker",74,34,24,88,80,62,"h"],["Color Current",38,72,56,72,54,78,"i"],["Bright Interval",48,80,44,86,62,64,"j"],["Signal Bloom",42,68,48,84,60,86,"k"],["Pulse Ledger",34,78,50,90,58,50,"l"],["Kinetic Fold",30,84,60,78,46,68,"m"],["Dense Rhythm",26,88,76,68,38,60,"n"],["Vivid Trace",40,74,52,82,56,72,"o"],["Clear Current",50,64,38,92,66,56,"p"],["Amber Span",58,58,40,84,64,94,"q"],["Still Lattice",76,30,22,90,82,70,"r"]];
-  const items = rows.map(([name,comfort,stimulation,noise,contrast,order,warmth,variant], index) => ({ id:`composition-${index + 1}`, name, variant, attributes:{comfort,stimulation,noise,contrast,order,warmth}, metadata:{lowNoise:noise <= 45, strongContrast:contrast >= 80}, description:`${comfort > 60 ? "Comfort-forward" : stimulation > 65 ? "Active" : "Balanced"} composition with ${order > 70 ? "a clear structure" : "a flexible rhythm"}.` }));
-  const preferences = {calm:{id:"calm",label:"Calm field",target:{noise:22,comfort:74},weights:{noise:1.8,comfort:0.8},weight:1},clarity:{id:"clarity",label:"Clear hierarchy",target:{contrast:90,order:84},weights:{contrast:1.4,order:1.5},weight:1},warmth:{id:"warmth",label:"Warm tone",target:{warmth:90,comfort:62},weights:{warmth:1.5,comfort:0.4},weight:1},energy:{id:"energy",label:"Active rhythm",target:{stimulation:82,order:58},weights:{stimulation:1.3,order:0.5},weight:1}};
-  const constraints = [{id:"quiet",test:item=>item.metadata.lowNoise},{id:"accessible",test:item=>item.metadata.strongContrast}];
-  const profileFor = feeling => ({comfort:{value:100-feeling,weight:0.6},stimulation:{value:feeling,weight:0.9},noise:{value:42,weight:0.25},contrast:{value:82,weight:0.35},order:{value:68,weight:0.25},warmth:{value:68,weight:0.2}});
-  const labelFor = value => value < 35 ? "Comfort-led" : value > 65 ? "Stimulation-led" : "Balanced";
-  const candidatesFor = value => value <= 20 ? ["calm","clarity"] : value < 55 ? ["calm","clarity","warmth"] : value <= 60 ? ["calm","clarity","energy"] : value < 72 ? ["clarity","warmth","energy"] : ["clarity","energy"];
-  const esc = value => String(value).replace(/[&<>"']/g, char => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[char]));
-  const init = () => { const root=document.querySelector("[data-tech-demo]"); if(!root||!globalThis.DecisionEngine)return; const input=root.querySelector("[data-decision-feeling]"),form=root.querySelector("[data-decision-controls]"),results=root.querySelector("[data-decision-results]"),tbody=root.querySelector("[data-decision-data-list] tbody"),summary=root.querySelector("[data-decision-summary]"),label=root.querySelector("[data-feeling-label]"); form.querySelectorAll("input,button").forEach(el=>el.disabled=false);root.querySelectorAll("[data-soft-preference]").forEach(el=>{el.hidden=true;el.tabIndex=-1;});
-    const read=()=>({feeling:Number(input.value),soft:[...root.querySelectorAll("[data-soft-preference][aria-pressed='true']")].map(el=>preferences[el.dataset.softPreference]),hard:constraints.filter(c=>root.querySelector(`[data-decision-constraint="${c.id}"]`).checked)});
-    const transitionState=new WeakMap();const duration=el=>Math.max(...getComputedStyle(el).transitionDuration.split(",").map(value=>parseFloat(value)*(/ms/.test(value)?1:1000)),0);const clearExit=el=>{const state=transitionState.get(el);if(!state)return;el.removeEventListener("transitionend",state.end);el.removeEventListener("transitioncancel",state.cancel);clearTimeout(state.timer);transitionState.delete(el);};const finalizeExit=(el,version,reconcile=true)=>{const state=transitionState.get(el);if(!state||state.version!==version)return;clearExit(el);if(el.getAttribute("aria-pressed")==="true"){el.classList.remove("is-leaving");el.hidden=false;el.removeAttribute("aria-hidden");el.tabIndex=0;requestAnimationFrame(()=>el.classList.add("is-band-visible"));}else{el.classList.remove("is-leaving","is-band-visible");el.hidden=true;el.setAttribute("aria-hidden","true");el.tabIndex=-1;}if(reconcile&&!root.hidden)requestAnimationFrame(render);};const setTagVisibility=(el,visible)=>{const selected=el.getAttribute("aria-pressed")==="true",show=visible||selected;clearExit(el);const version=(el.dataset.transitionVersion|0)+1;el.dataset.transitionVersion=version;if(show){el.hidden=false;el.removeAttribute("aria-hidden");el.tabIndex=0;el.classList.remove("is-leaving","is-band-visible");requestAnimationFrame(()=>{if(Number(el.dataset.transitionVersion)===version&&!el.hidden)el.classList.add("is-band-visible");});return;}if(el.hidden)return;el.tabIndex=-1;el.setAttribute("aria-hidden","true");el.classList.add("is-leaving");el.classList.remove("is-band-visible");const end=event=>{if(event.target===el&&event.propertyName==="opacity")finalizeExit(el,version);};const cancel=event=>{if(event.target===el)finalizeExit(el,version);};const state={version,end,cancel,timer:0};transitionState.set(el,state);el.addEventListener("transitionend",end);el.addEventListener("transitioncancel",cancel);const wait=duration(el);if(wait===0)requestAnimationFrame(()=>finalizeExit(el,version));else state.timer=setTimeout(()=>finalizeExit(el,version),wait+80);};
-    const render=()=>{const state=read(),rank=DecisionEngine.rank({items,targetProfile:profileFor(state.feeling),selectedSoftPreferences:state.soft,hardConstraints:state.hard,limit:3}),top=new Set(rank.results.map(x=>x.item.id)),candidates=new Set(candidatesFor(state.feeling)),tags=[...root.querySelectorAll("[data-soft-preference]")];label.textContent=labelFor(state.feeling);tags.filter(el=>!el.hidden&&!candidates.has(el.dataset.softPreference)&&el.getAttribute("aria-pressed")!=="true").forEach(el=>setTagVisibility(el,false));const hasLeaving=tags.some(el=>el.classList.contains("is-leaving"));tags.filter(el=>candidates.has(el.dataset.softPreference)||el.getAttribute("aria-pressed")==="true").forEach(el=>{if(el.getAttribute("aria-pressed")==="true"||!hasLeaving)setTagVisibility(el,true);});const effects=rank.effects.flatMap(effect=>effect.dimensions.map(dimension=>`${preferences[effect.id].label}: ${dimension.dimension} ${dimension.targetDelta > 0 ? "+" : ""}${dimension.targetDelta}`));summary.textContent=`${rank.results.length} ranked directions from ${rank.all.filter(x=>x.eligible).length} eligible compositions${effects.length?`; calculated target effects: ${effects.join(", ")}`:""}.`;root.querySelector("[data-decision-data-intro]").textContent=effects.length?`Calculated soft-preference effects: ${effects.join("; ")}. Every row retains the final target-weighted components below.`:"This local model exposes every composition, intrinsic dimension, constraint decision, and retained scoring component.";
-      results.replaceChildren(...rank.results.map((entry,index)=>{const li=document.createElement("li");li.className="decision-result";li.innerHTML=`<span class="decision-result__rank">${String(index+1).padStart(2,"0")}</span><div><div class="decision-result__top"><span class="decision-result__thumb decision-result__thumb--${entry.item.variant}" aria-hidden="true"></span><h3>${esc(entry.item.name)}</h3></div><p>${esc(entry.item.description)}</p><ul class="decision-result__tags"><li>${labelFor(state.feeling)}</li>${state.soft.map(x=>`<li>${esc(x.label)}</li>`).join("")}</ul></div>`;return li;}));
-      tbody.replaceChildren(...rank.all.map(entry=>{const tr=document.createElement("tr"),a=entry.item.attributes;tr.classList.toggle("is-top-result",top.has(entry.item.id));tr.classList.toggle("is-ineligible",!entry.eligible);tr.innerHTML=`<th scope="row"><span class="decision-result__thumb decision-result__thumb--${entry.item.variant}" aria-hidden="true"></span>${esc(entry.item.name)}${top.has(entry.item.id)?" <em>Top result</em>":""}</th><td>comfort ${a.comfort} · stimulation ${a.stimulation} · noise ${a.noise} · contrast ${a.contrast} · order ${a.order} · warmth ${a.warmth}</td><td>${entry.item.metadata.lowNoise?"low-noise ":""}${entry.item.metadata.strongContrast?"strong-contrast":""}</td><td>${entry.eligible?"Eligible":`Excluded: ${entry.failedConstraints.join(", ")}`}</td><td>${entry.totalScore} (${entry.components.map(c=>`${c.dimension} ${c.score}`).join(", ")})</td>`;return tr;}));};
-    input.addEventListener("input",render);root.querySelectorAll("[data-decision-constraint]").forEach(el=>el.addEventListener("change",render));root.querySelectorAll("[data-soft-preference]").forEach(el=>el.addEventListener("click",()=>{el.setAttribute("aria-pressed",String(el.getAttribute("aria-pressed")!=="true"));render();}));const show=perspective=>{const visible=perspective==="technical";if(!visible)root.querySelectorAll("[data-soft-preference]").forEach(el=>{const state=transitionState.get(el);if(state)finalizeExit(el,state.version,false);});root.hidden=!visible;root.inert=!visible;if(visible)render();};window.addEventListener("kahntra-perspective-change",event=>show(event.detail.perspective));show(document.querySelector('[data-global-lens="technical"]')?.getAttribute("aria-pressed")==="true"?"technical":"design-philosophy");render();};
-  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});else init();
+  "use strict";
+
+  const clamp = value => Math.max(0, Math.min(100, Number(value)));
+  const round = value => Number(value.toFixed(2));
+  const weighted = (values, weights) => round(values.reduce((sum, value, index) => sum + value * weights[index], 0));
+  const esc = value => String(value).replace(/[&<>"']/g, character => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[character]));
+
+  const signalDefinitions = Object.freeze([
+    ["focalDominance", "Focal dominance"], ["contrastSeparation", "Contrast separation"], ["formWeight", "Form weight"],
+    ["elementDensity", "Element density"], ["directionalEnergy", "Directional energy"], ["rhythmicVariation", "Rhythmic variation"],
+    ["chroma", "Chroma"], ["paletteSeparation", "Palette separation"], ["colorCoverage", "Color coverage"]
+  ]);
+  const categoryDefinitions = Object.freeze([
+    ["open", "Open"], ["layered", "Layered"], ["intricate", "Intricate"], ["textural", "Textural"],
+    ["organic", "Organic"], ["structured", "Structured"], ["graphic", "Graphic"], ["fluid", "Fluid"],
+    ["atmospheric", "Atmospheric"], ["kinetic", "Kinetic"], ["chromatic", "Chromatic"], ["forceful", "Forceful"]
+  ]);
+  const familyProfiles = Object.freeze([
+    { id: "open-field", label: "Open field", hue: 188, temperature: "cool", form: "organic", depth: "open", categories: { open: 92, layered: 42, intricate: 18, textural: 28, organic: 72, structured: 20, graphic: 24, fluid: 80, atmospheric: 88, kinetic: 34, chromatic: 34, forceful: 14 } },
+    { id: "measured-planes", label: "Measured planes", hue: 202, temperature: "neutral", form: "geometric", depth: "shallow", categories: { open: 44, layered: 50, intricate: 34, textural: 20, organic: 12, structured: 91, graphic: 88, fluid: 16, atmospheric: 24, kinetic: 38, chromatic: 48, forceful: 54 } },
+    { id: "tactile-layers", label: "Tactile layers", hue: 28, temperature: "warm", form: "organic", depth: "layered", categories: { open: 36, layered: 91, intricate: 66, textural: 94, organic: 82, structured: 34, graphic: 28, fluid: 58, atmospheric: 62, kinetic: 36, chromatic: 52, forceful: 38 } },
+    { id: "driven-shapes", label: "Driven shapes", hue: 8, temperature: "warm", form: "graphic", depth: "compressed", categories: { open: 24, layered: 48, intricate: 46, textural: 38, organic: 28, structured: 72, graphic: 94, fluid: 44, atmospheric: 22, kinetic: 94, chromatic: 88, forceful: 92 } },
+    { id: "horizon-bands", label: "Horizon bands", hue: 48, temperature: "warm", form: "atmospheric", depth: "layered", categories: { open: 78, layered: 68, intricate: 26, textural: 42, organic: 58, structured: 32, graphic: 46, fluid: 70, atmospheric: 82, kinetic: 30, chromatic: 62, forceful: 22 } },
+    { id: "radial-orbit", label: "Radial orbit", hue: 266, temperature: "cool", form: "graphic", depth: "focused", categories: { open: 52, layered: 54, intricate: 58, textural: 32, organic: 38, structured: 64, graphic: 76, fluid: 46, atmospheric: 38, kinetic: 66, chromatic: 72, forceful: 62 } },
+    { id: "modular-grid", label: "Modular grid", hue: 154, temperature: "neutral", form: "geometric", depth: "structured", categories: { open: 30, layered: 62, intricate: 72, textural: 34, organic: 16, structured: 94, graphic: 78, fluid: 18, atmospheric: 20, kinetic: 42, chromatic: 56, forceful: 56 } },
+    { id: "framed-void", label: "Framed void", hue: 214, temperature: "cool", form: "architectural", depth: "open", categories: { open: 88, layered: 34, intricate: 24, textural: 18, organic: 20, structured: 78, graphic: 64, fluid: 22, atmospheric: 60, kinetic: 22, chromatic: 38, forceful: 42 } },
+    { id: "folded-paper", label: "Folded paper", hue: 18, temperature: "warm", form: "sculptural", depth: "layered", categories: { open: 46, layered: 74, intricate: 54, textural: 72, organic: 42, structured: 70, graphic: 56, fluid: 30, atmospheric: 36, kinetic: 48, chromatic: 48, forceful: 58 } },
+    { id: "contour-map", label: "Contour map", hue: 174, temperature: "cool", form: "organic", depth: "deep", categories: { open: 64, layered: 82, intricate: 78, textural: 64, organic: 84, structured: 36, graphic: 42, fluid: 74, atmospheric: 68, kinetic: 52, chromatic: 54, forceful: 30 } },
+    { id: "editorial-blocks", label: "Editorial blocks", hue: 330, temperature: "neutral", form: "graphic", depth: "shallow", categories: { open: 42, layered: 44, intricate: 38, textural: 20, organic: 14, structured: 86, graphic: 92, fluid: 20, atmospheric: 26, kinetic: 44, chromatic: 74, forceful: 72 } },
+    { id: "constellation", label: "Constellation", hue: 238, temperature: "cool", form: "pointillist", depth: "open", categories: { open: 82, layered: 52, intricate: 82, textural: 58, organic: 52, structured: 48, graphic: 44, fluid: 52, atmospheric: 88, kinetic: 50, chromatic: 48, forceful: 20 } }
+  ]);
+  const realizationProfiles = Object.freeze([
+    { shifts: [-5, 4, -3], boldPattern: [4, -3, -2.2], activityPattern: [4, -3, -2.2], colorPattern: [4, -3, -3.6] },
+    { shifts: [5, -4, 4], boldPattern: [-4, 3, 2.2], activityPattern: [-4, 3, 2.2], colorPattern: [-4, 3, 3.6] },
+    { shifts: [-2, 2, -6], boldPattern: [2, 4, -8.8], activityPattern: [2, 4, -8.8], colorPattern: [2, 4, -8.4] },
+    { shifts: [6, -1, 6], boldPattern: [-2, -4, 8.8], activityPattern: [-2, -4, 8.8], colorPattern: [-2, -4, 8.4] }
+  ]);
+
+  const boldnessWord = value => value < 34 ? "Soft" : value < 67 ? "Defined" : "Bold";
+  const activityWord = value => value < 34 ? "Calm" : value < 67 ? "Active" : "Dynamic";
+  const colorWord = value => value < 34 ? "Subdued" : value < 67 ? "Expressive" : "Vibrant";
+  const deriveAttributes = signals => {
+    const boldness = weighted([signals.focalDominance, signals.contrastSeparation, signals.formWeight], [0.4, 0.35, 0.25]);
+    const activity = weighted([signals.elementDensity, signals.directionalEnergy, signals.rhythmicVariation], [0.4, 0.35, 0.25]);
+    const colorIntensity = weighted([signals.chroma, signals.paletteSeparation, signals.colorCoverage], [0.45, 0.3, 0.25]);
+    return { boldness, activity, colorIntensity, stimulation: weighted([activity, boldness, colorIntensity], [0.45, 0.35, 0.2]) };
+  };
+  const deriveCategories = (signals, attributes, family) => {
+    const base = family.categories;
+    const blend = (key, observed) => round(clamp(base[key] * 0.65 + observed * 0.35));
+    const openness = 100 - weighted([signals.elementDensity, signals.focalDominance, signals.formWeight], [0.45, 0.3, 0.25]);
+    const layered = weighted([signals.elementDensity, signals.rhythmicVariation, signals.formWeight], [0.35, 0.35, 0.3]);
+    const intricate = weighted([signals.elementDensity, signals.rhythmicVariation, signals.focalDominance], [0.45, 0.35, 0.2]);
+    const graphic = weighted([signals.contrastSeparation, signals.formWeight, signals.focalDominance], [0.4, 0.35, 0.25]);
+    return {
+      open: blend("open", openness), layered: blend("layered", layered), intricate: blend("intricate", intricate),
+      textural: blend("textural", weighted([signals.elementDensity, signals.rhythmicVariation, base.textural], [0.25, 0.2, 0.55])),
+      organic: blend("organic", weighted([base.organic, 100 - signals.formWeight, signals.rhythmicVariation], [0.55, 0.25, 0.2])),
+      structured: blend("structured", weighted([base.structured, signals.formWeight, 100 - signals.rhythmicVariation], [0.55, 0.25, 0.2])),
+      graphic: blend("graphic", graphic),
+      fluid: blend("fluid", weighted([signals.directionalEnergy, signals.rhythmicVariation, base.fluid], [0.3, 0.25, 0.45])),
+      atmospheric: blend("atmospheric", weighted([openness, 100 - signals.contrastSeparation, base.atmospheric], [0.3, 0.25, 0.45])),
+      kinetic: blend("kinetic", weighted([signals.directionalEnergy, attributes.activity, base.kinetic], [0.35, 0.3, 0.35])),
+      chromatic: blend("chromatic", weighted([attributes.colorIntensity, signals.paletteSeparation, base.chromatic], [0.35, 0.3, 0.35])),
+      forceful: blend("forceful", weighted([signals.formWeight, signals.focalDominance, signals.contrastSeparation, base.forceful], [0.25, 0.2, 0.2, 0.35]))
+    };
+  };
+  const trio = (target, pattern) => pattern.map(offset => round(clamp(target + offset)));
+  const makeItem = ({ profileIndex, realizationIndex, boldness, activity, colorIntensity }) => {
+    const realization = realizationProfiles[realizationIndex];
+    const serial = profileIndex * 4 + realizationIndex + 1;
+    const family = familyProfiles[(serial - 1) % familyProfiles.length];
+    const bold = trio(boldness + realization.shifts[0], realization.boldPattern);
+    const active = trio(activity + realization.shifts[1], realization.activityPattern);
+    const color = trio(colorIntensity + realization.shifts[2], realization.colorPattern);
+    const signals = { focalDominance: bold[0], contrastSeparation: bold[1], formWeight: bold[2], elementDensity: active[0], directionalEnergy: active[1], rhythmicVariation: active[2], chroma: color[0], paletteSeparation: color[1], colorCoverage: color[2] };
+    const derived = deriveAttributes(signals);
+    const categories = deriveCategories(signals, derived, family);
+    return {
+      id: `image-${String(serial).padStart(3, "0")}`, name: `Image ${String(serial).padStart(3, "0")}`,
+      profileId: `P${String(profileIndex + 1).padStart(2, "0")}`, realization: realizationIndex + 1,
+      signals, attributes: { ...derived, ...categories }, categories,
+      artDirection: { family: family.id, temperature: family.temperature, form: family.form, depth: family.depth, hue: (family.hue + profileIndex * 7) % 360 },
+      metadata: {
+        openTextArea: categories.open >= 32 || realizationIndex === 1,
+        strongTextContrast: signals.contrastSeparation >= 45 || categories.graphic >= 62,
+        kahntraFit: family.id !== "editorial-blocks" && (family.id !== "driven-shapes" || categories.forceful < 80) && (categories.open >= 32 || categories.textural >= 30 || categories.structured >= 45)
+      },
+      description: `${activityWord(derived.activity)} · ${boldnessWord(derived.boldness)} · ${colorWord(derived.colorIntensity)}`
+    };
+  };
+  const items = [];
+  let profileIndex = 0;
+  [18, 50, 82].forEach(boldness => [16, 51, 84].forEach(activity => [20, 48, 80].forEach(colorIntensity => {
+    for (let realizationIndex = 0; realizationIndex < 4; realizationIndex += 1) items.push(makeItem({ profileIndex, realizationIndex, boldness, activity, colorIntensity }));
+    profileIndex += 1;
+  })));
+
+  const tagRecipes = Object.freeze([
+    ["spacious-atmosphere", "Spacious atmosphere", "Not spacious or atmospheric enough", ["open", "atmospheric"], { open: 86, atmospheric: 84 }, 16],
+    ["organic-flow", "Organic flow", "Not organic or fluid enough", ["organic", "fluid"], { organic: 88, fluid: 78 }, 28],
+    ["tactile-layers", "Tactile layers", "Not tactile or layered enough", ["layered", "textural", "intricate"], { layered: 82, textural: 88, intricate: 72 }, 46],
+    ["structured-clarity", "Structured clarity", "Not structured or graphic enough", ["structured", "graphic"], { structured: 88, graphic: 86 }, 52],
+    ["color-led-atmosphere", "Color-led atmosphere", "Not color-led or atmospheric enough", ["chromatic", "atmospheric", "open"], { chromatic: 88, atmospheric: 72, open: 68 }, 62],
+    ["natural-movement", "Natural movement", "Not naturally dynamic enough", ["kinetic", "fluid", "organic"], { kinetic: 76, fluid: 86, organic: 78 }, 64],
+    ["graphic-momentum", "Graphic momentum", "Not graphic or kinetic enough", ["kinetic", "structured", "graphic"], { kinetic: 86, structured: 72, graphic: 78 }, 77],
+    ["bold-focal-form", "Bold focal form", "Not bold or focal enough", ["forceful", "graphic", "structured"], { forceful: 90, graphic: 86, structured: 74 }, 88]
+  ].map(([id, label, exclusionLabel, categories, target, stimulationCenter]) => ({ id, label, exclusionLabel, categories, target, stimulationCenter, weight: 1, weights: Object.fromEntries(categories.map(category => [category, 0.75])) })));
+  const constraints = Object.freeze([
+    { id: "text-ready", label: "needs space for text", exclusionLabel: "Does not accommodate text", test: item => item.metadata.openTextArea && item.metadata.strongTextContrast },
+    { id: "fits-kahntra", label: "fits Kahntra", exclusionLabel: "Does not fit Kahntra", test: item => item.metadata.kahntraFit },
+    { id: "palette-cool", group: "palette", label: "cool palette", exclusionLabel: "Not a cool palette", test: item => item.artDirection.temperature === "cool" },
+    { id: "palette-neutral", group: "palette", label: "neutral palette", exclusionLabel: "Not a neutral palette", test: item => item.artDirection.temperature === "neutral" },
+    { id: "palette-warm", group: "palette", label: "warm palette", exclusionLabel: "Not a warm palette", test: item => item.artDirection.temperature === "warm" }
+  ]);
+  const targetProfileFor = stimulation => ({ stimulation: { value: stimulation, weight: 1.75 }, boldness: { value: 18 + stimulation * 0.64, weight: 0.12 }, activity: { value: 16 + stimulation * 0.68, weight: 0.12 }, colorIntensity: { value: 20 + stimulation * 0.6, weight: 0.1 } });
+
+  const svgData = item => {
+    const s = item.signals;
+    const recipe = item.artDirection;
+    const hue = recipe.hue;
+    const saturation = 12 + s.chroma * 0.68;
+    const accentHue = (hue + 35 + s.paletteSeparation * 0.9) % 360;
+    const background = `hsl(${hue} ${Math.max(8, saturation - 35)}% ${Math.min(96, 82 + (100 - s.colorCoverage) * 0.1)}%)`;
+    const primary = `hsl(${hue} ${saturation}% ${Math.max(22, 76 - s.contrastSeparation * 0.42)}%)`;
+    const accent = `hsl(${accentHue} ${Math.min(92, saturation + 10)}% ${Math.max(30, 78 - s.contrastSeparation * 0.34)}%)`;
+    const opacity = (0.24 + s.formWeight / 155).toFixed(2);
+    let forms = "";
+    if (recipe.family === "open-field") {
+      const rise = 290 - s.directionalEnergy * 1.4;
+      forms = `<path d="M-80 330 C220 ${rise},390 ${rise + 90},650 ${rise + 10} S1040 ${rise - 80},1280 ${rise + 5} L1280 460 L-80 460Z" fill="${primary}" opacity="${opacity}"/><path d="M-60 365 C260 ${rise + 35},520 ${rise - 45},790 ${rise + 30} S1100 ${rise + 70},1280 ${rise - 20}" fill="none" stroke="${accent}" stroke-width="${12 + s.formWeight * 0.22}" opacity="0.42"/>`;
+    } else if (recipe.family === "measured-planes") {
+      const width = 150 + s.focalDominance * 3.2;
+      forms = `<rect x="${90 + s.rhythmicVariation}" y="46" width="${width}" height="280" fill="${primary}" opacity="${opacity}"/><rect x="${520 - s.elementDensity}" y="95" width="${210 + s.formWeight * 1.8}" height="215" fill="${accent}" opacity="0.72"/><path d="M780 400 L${840 + s.directionalEnergy * 2} 90 L1200 90 L1200 400Z" fill="${primary}" opacity="0.44"/>`;
+    } else if (recipe.family === "tactile-layers") {
+      const count = 3 + Math.round(s.elementDensity / 28);
+      forms = Array.from({ length: count }, (_, index) => { const x = -80 + index * (1180 / Math.max(1, count - 1)); const y = 115 + ((index * 67 + s.rhythmicVariation) % 150); const rx = 210 + ((s.focalDominance + index * 23) % 130); return `<ellipse cx="${x}" cy="${y}" rx="${rx}" ry="${105 + s.formWeight}" fill="${index % 2 ? accent : primary}" opacity="${(0.22 + index * 0.06).toFixed(2)}" transform="rotate(${index % 2 ? -12 : 10} ${x} ${y})"/>`; }).join("");
+      forms += `<filter id="grain"><feTurbulence baseFrequency="0.7" numOctaves="2" seed="${item.realization + Number(item.profileId.slice(1))}"/><feBlend mode="multiply" in2="SourceGraphic"/></filter><rect width="1200" height="400" filter="url(#grain)" opacity="0.08"/>`;
+    } else if (recipe.family === "driven-shapes") {
+      const thrust = 220 + s.directionalEnergy * 3.4;
+      forms = `<polygon points="-40,380 ${thrust},25 ${thrust + 190},25 250,400" fill="${primary}" opacity="0.94"/><polygon points="240,400 ${thrust + 250},0 ${thrust + 430},0 520,400" fill="${accent}" opacity="0.9"/><polygon points="610,400 ${780 + s.focalDominance * 2},25 1220,25 1220,400" fill="hsl(${(accentHue + 55) % 360} ${saturation}% 22%)" opacity="${opacity}"/>`;
+    } else if (recipe.family === "horizon-bands") {
+      const horizon = 220 + (s.formWeight - 50) * 0.7;
+      forms = `<rect y="${horizon}" width="1200" height="${400 - horizon}" fill="${primary}" opacity="0.72"/><path d="M-30 ${horizon - 14} C260 ${horizon - 75},470 ${horizon + 25},760 ${horizon - 34} S1060 ${horizon - 2},1230 ${horizon - 72}" fill="none" stroke="${accent}" stroke-width="${16 + s.paletteSeparation * 0.22}" opacity="0.58"/><path d="M-30 ${horizon + 64} C250 ${horizon + 8},510 ${horizon + 104},810 ${horizon + 33} S1080 ${horizon + 80},1230 ${horizon + 14}" fill="none" stroke="hsl(${(accentHue + 40) % 360} ${saturation}% 74%)" stroke-width="${8 + s.rhythmicVariation * 0.15}" opacity="0.56"/>`;
+    } else if (recipe.family === "radial-orbit") {
+      const radius = 70 + s.focalDominance * 1.2;
+      const cx = 600 + (s.directionalEnergy - 50) * 4;
+      const cy = 205 + (s.rhythmicVariation - 50) * 1.5;
+      forms = `<circle cx="${cx}" cy="${cy}" r="${radius}" fill="${primary}" opacity="0.72"/><circle cx="${cx}" cy="${cy}" r="${radius + 48 + s.paletteSeparation}" fill="none" stroke="${accent}" stroke-width="${10 + s.contrastSeparation * 0.12}" opacity="0.55"/><path d="M80 345 C250 40,920 40,1120 320" fill="none" stroke="hsl(${(accentHue + 75) % 360} ${saturation}% 46%)" stroke-width="${7 + s.directionalEnergy * 0.13}" opacity="0.48"/>`;
+    } else if (recipe.family === "modular-grid") {
+      const columns = 4 + Math.round(s.elementDensity / 28);
+      const rows = 2 + Math.round(s.rhythmicVariation / 42);
+      const cells = Array.from({ length: columns * rows }, (_, index) => { const column = index % columns; const row = Math.floor(index / columns); const x = 52 + column * (1090 / columns); const y = 36 + row * (320 / rows); const active = (index + Math.round(s.focalDominance / 20)) % 3 === 0; return `<rect x="${x}" y="${y}" width="${(1030 / columns).toFixed(1)}" height="${(265 / rows).toFixed(1)}" fill="${active ? accent : primary}" opacity="${active ? "0.72" : "0.28"}"/>`; }).join("");
+      forms = `${cells}<path d="M48 352 L1150 352" stroke="hsl(${(accentHue + 40) % 360} ${saturation}% 42%)" stroke-width="7" opacity="0.42"/>`;
+    } else if (recipe.family === "framed-void") {
+      const inset = 65 + s.elementDensity * 0.7;
+      const blockWidth = 140 + s.focalDominance * 2.5;
+      forms = `<rect x="${inset}" y="${inset * 0.58}" width="${1200 - inset * 2}" height="${400 - inset * 1.16}" fill="none" stroke="${primary}" stroke-width="${10 + s.formWeight * 0.12}" opacity="0.64"/><rect x="${100 + s.directionalEnergy * 2}" y="${115 + s.rhythmicVariation}" width="${blockWidth}" height="${95 + s.formWeight}" fill="${accent}" opacity="0.62"/><path d="M850 40 L1120 40 L1120 315" fill="none" stroke="hsl(${(accentHue + 56) % 360} ${saturation}% 40%)" stroke-width="16" opacity="0.36"/>`;
+    } else if (recipe.family === "folded-paper") {
+      const fold = 260 + s.directionalEnergy * 4;
+      forms = `<polygon points="0,0 ${fold},0 560,400 0,400" fill="${primary}" opacity="0.5"/><polygon points="${fold},0 830,0 560,400" fill="${accent}" opacity="0.72"/><polygon points="830,0 1200,0 1200,400 560,400" fill="hsl(${(accentHue + 70) % 360} ${saturation}% 34%)" opacity="0.48"/><path d="M${fold} 0 L560 400 L830 0" fill="none" stroke="hsl(${hue} ${Math.max(12, saturation - 30)}% 92%)" stroke-width="${7 + s.contrastSeparation * 0.12}" opacity="0.78"/>`;
+    } else if (recipe.family === "contour-map") {
+      const rings = 3 + Math.round(s.elementDensity / 24);
+      forms = Array.from({ length: rings }, (_, index) => { const rx = 150 + index * 82 + s.focalDominance * 0.6; const ry = 52 + index * 26 + s.formWeight * 0.25; const x = 330 + ((index * 169 + s.directionalEnergy * 3) % 520); const y = 208 + ((index % 2 ? -1 : 1) * (20 + s.rhythmicVariation * 0.4)); return `<ellipse cx="${x}" cy="${y}" rx="${rx}" ry="${ry}" fill="none" stroke="${index % 2 ? accent : primary}" stroke-width="${4 + index * 2}" opacity="${(0.28 + index * 0.08).toFixed(2)}" transform="rotate(${index % 2 ? -14 : 11} ${x} ${y})"/>`; }).join("");
+    } else if (recipe.family === "editorial-blocks") {
+      const width = 220 + s.focalDominance * 3;
+      forms = `<rect x="80" y="68" width="${width}" height="${190 + s.formWeight}" fill="${primary}" opacity="0.78"/><rect x="${390 + s.directionalEnergy * 2}" y="${110 + s.rhythmicVariation}" width="${230 + s.elementDensity * 1.6}" height="${100 + s.paletteSeparation}" fill="${accent}" opacity="0.62"/><path d="M980 0 L1200 0 L1200 400 L${960 - s.directionalEnergy} 400Z" fill="hsl(${(accentHue + 38) % 360} ${saturation}% 40%)" opacity="0.46"/>`;
+    } else {
+      const count = 10 + Math.round(s.elementDensity / 8);
+      forms = Array.from({ length: count }, (_, index) => { const x = 90 + ((index * 89 + s.directionalEnergy * 5) % 1010); const y = 60 + ((index * 53 + s.rhythmicVariation * 3) % 280); const r = 3 + ((index + s.focalDominance) % 11); return `<circle cx="${x}" cy="${y}" r="${r}" fill="${index % 3 ? primary : accent}" opacity="${(0.28 + (index % 4) * 0.12).toFixed(2)}"/>`; }).join("");
+      forms += `<path d="M100 300 L${360 + s.directionalEnergy * 2} ${110 + s.rhythmicVariation} L${710 + s.focalDominance * 2} 265 L1100 85" fill="none" stroke="${accent}" stroke-width="3" opacity="0.4"/>`;
+    }
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMid slice"><rect width="1200" height="400" fill="${background}"/>${forms}</svg>`;
+    return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
+  };
+
+  globalThis.DecisionDemoModel = Object.freeze({ items, signalDefinitions, categoryDefinitions, tagRecipes, constraints, deriveAttributes, targetProfileFor, svgData });
+  if (typeof document === "undefined") return;
+
+  const init = () => {
+    const root = document.querySelector("[data-tech-demo]");
+    if (!root || !globalThis.DecisionEngine) return;
+    const label = document.querySelector("[data-tech-demo-label]");
+    const banner = document.querySelector("[data-tech-demo-banner]");
+    const method = root.querySelector("[data-decision-method]");
+    const input = root.querySelector("[data-decision-feeling]");
+    const form = root.querySelector("[data-decision-controls]");
+    const tagContainer = root.querySelector("[data-decision-soft-tags]");
+    const results = root.querySelector("[data-decision-results]");
+    const resultsHeading = root.querySelector(".decision-demo__results-heading");
+    const summary = root.querySelector("[data-decision-summary]");
+    const exclusionsPanel = root.querySelector("[data-decision-exclusions-panel]");
+    const exclusions = root.querySelector("[data-decision-exclusions]");
+    const excludedCount = root.querySelector("[data-decision-excluded-count]");
+    const goodCount = root.querySelector("[data-decision-good-count]");
+    const wedge = root.querySelector("[data-decision-wedge]");
+    const methodButtons = [...root.querySelectorAll("[data-method-step-button]")];
+    const methodPanels = [...root.querySelectorAll("[data-method-step]")];
+    const methodSignalBody = root.querySelector("[data-method-signal-body]");
+    const methodAttributeBody = root.querySelector("[data-method-attribute-body]");
+    const methodCategoryList = root.querySelector("[data-method-category-list]");
+    const note = root.querySelector("[data-decision-tech-note]");
+    const refineNote = root.querySelector("[data-decision-refine-note]");
+    const constraintNote = root.querySelector("[data-decision-constraint-note]");
+    const externalBanner = banner?.querySelector("[data-decision-external-banner]");
+    const selectedIds = new Set();
+    const suppressedIds = new Set();
+    const tagButtons = new Map();
+    const slots = new Map();
+    const transitions = new Map();
+    let currentCandidates = [];
+    let lastCandidateDial = Number(input.value);
+    let currentMethodStep = 0;
+    let selectedImageId = null;
+    let currentMatches = [];
+    let currentEntries = new Map();
+    let galleryPage = 0;
+    let showingExclusions = false;
+    const exclusionPages = new Map();
+    const wedgeRadius = 18;
+    const visibleTagLimit = 4;
+
+    form.querySelectorAll("input,button").forEach(control => { control.disabled = false; });
+    const preferenceFor = id => tagRecipes.find(recipe => recipe.id === id);
+    const readState = () => ({ stimulation: Number(input.value), preferences: [...selectedIds].map(preferenceFor), hardConstraints: constraints.filter(constraint => root.querySelector(`[data-decision-constraint="${constraint.id}"]`)?.checked) });
+    const freeSlot = () => { for (let slot = 0; slot < visibleTagLimit; slot += 1) if (![...slots.values()].includes(slot)) return slot; return slots.size; };
+    const effectiveDuration = element => { const style = getComputedStyle(element); const durations = style.transitionDuration.split(",").map(value => parseFloat(value) * (value.includes("ms") ? 1 : 1000)); const delays = style.transitionDelay.split(",").map(value => parseFloat(value) * (value.includes("ms") ? 1 : 1000)); return Math.max(0, ...durations.map((duration, index) => duration + (delays[index] || delays[0] || 0))); };
+    const cancelTransition = button => { const transition = transitions.get(button); if (!transition) return; button.removeEventListener("transitionend", transition.end); button.removeEventListener("transitioncancel", transition.cancel); clearTimeout(transition.timer); transitions.delete(button); };
+    const finalizeExit = (button, version, reconcile = true) => { const transition = transitions.get(button); if (!transition || transition.version !== version) return; cancelTransition(button); const id = button.dataset.softPreference; if (selectedIds.has(id) || currentCandidates.includes(id)) { button.hidden = false; button.removeAttribute("aria-hidden"); button.tabIndex = 0; button.classList.remove("is-leaving"); requestAnimationFrame(() => button.classList.add("is-band-visible")); } else { button.hidden = true; button.setAttribute("aria-hidden", "true"); button.tabIndex = -1; button.classList.remove("is-leaving", "is-band-visible"); slots.delete(id); } if (reconcile && !root.hidden) requestAnimationFrame(reconcileTags); };
+    const showTag = button => { const alreadySettled = !button.hidden && button.classList.contains("is-band-visible") && !button.classList.contains("is-leaving"); cancelTransition(button); const id = button.dataset.softPreference; if (!slots.has(id)) slots.set(id, freeSlot()); const slot = slots.get(id); button.style.gridRow = String(Math.floor(slot / 2) + 1); button.style.gridColumn = String(slot % 2 + 1); button.hidden = false; button.removeAttribute("aria-hidden"); button.tabIndex = 0; button.classList.remove("is-leaving"); if (alreadySettled) return; button.classList.remove("is-band-visible"); requestAnimationFrame(() => { if (!button.hidden && (selectedIds.has(id) || currentCandidates.includes(id))) button.classList.add("is-band-visible"); }); };
+    const hideTag = button => { if (button.hidden || button.classList.contains("is-leaving")) return; cancelTransition(button); const version = Number(button.dataset.transitionVersion || 0) + 1; button.dataset.transitionVersion = String(version); button.tabIndex = -1; button.setAttribute("aria-hidden", "true"); button.classList.add("is-leaving"); button.classList.remove("is-band-visible"); const end = event => { if (event.target === button && event.propertyName === "opacity") finalizeExit(button, version); }; const cancel = event => { if (event.target === button) finalizeExit(button, version); }; const duration = effectiveDuration(button); const transition = { version, end, cancel, timer: 0 }; transitions.set(button, transition); button.addEventListener("transitionend", end); button.addEventListener("transitioncancel", cancel); if (duration === 0) requestAnimationFrame(() => finalizeExit(button, version)); else transition.timer = setTimeout(() => finalizeExit(button, version), duration + 80); };
+
+    const ensureButtons = () => {
+      tagContainer.replaceChildren();
+      tagRecipes.forEach(recipe => {
+        const button = document.createElement("button");
+        button.type = "button"; button.dataset.softPreference = recipe.id; button.dataset.tagMotif = recipe.id; button.setAttribute("aria-pressed", "false"); button.setAttribute("aria-hidden", "true"); button.tabIndex = -1; button.hidden = true; button.disabled = false; button.innerHTML = `<span class="decision-demo__tag-mark" aria-hidden="true"></span><span class="decision-demo__tag-label">${esc(recipe.label)}</span>`;
+        button.addEventListener("click", () => { if (selectedIds.has(recipe.id)) { selectedIds.delete(recipe.id); suppressedIds.add(recipe.id); } else if (selectedIds.size < visibleTagLimit) { selectedIds.add(recipe.id); suppressedIds.delete(recipe.id); } button.setAttribute("aria-pressed", String(selectedIds.has(recipe.id))); reconcileTags(); render(true); });
+        tagButtons.set(recipe.id, button); tagContainer.append(button);
+      });
+    };
+    const methodItems = [items[0], items[1], items[2], items[52], items[53], items[54]];
+    const renderMethod = () => {
+      const signalOrder = ["focalDominance", "elementDensity", "chroma", "contrastSeparation", "directionalEnergy", "paletteSeparation", "formWeight", "rhythmicVariation", "colorCoverage"];
+      methodSignalBody.replaceChildren(...methodItems.map(item => { const row = document.createElement("tr"); row.innerHTML = `<th scope="row"><span class="decision-result__thumb" aria-hidden="true"></span>${esc(item.name)}</th>${signalOrder.map(id => `<td>${item.signals[id].toFixed(0)}</td>`).join("")}`; paint(row.querySelector(".decision-result__thumb"), item); return row; }));
+      methodAttributeBody.replaceChildren(...methodItems.map(item => { const row = document.createElement("tr"); row.innerHTML = `<th scope="row"><span class="decision-result__thumb" aria-hidden="true"></span>${esc(item.name)}</th><td>${item.attributes.boldness.toFixed(1)} · ${boldnessWord(item.attributes.boldness)}</td><td>${item.attributes.activity.toFixed(1)} · ${activityWord(item.attributes.activity)}</td><td>${item.attributes.colorIntensity.toFixed(1)} · ${colorWord(item.attributes.colorIntensity)}</td><td>${item.attributes.stimulation.toFixed(1)}</td>`; paint(row.querySelector(".decision-result__thumb"), item); return row; }));
+      methodCategoryList.replaceChildren(...categoryDefinitions.map(([, label]) => { const item = document.createElement("li"); item.textContent = label; return item; }));
+    };
+    const showMethodStep = step => { currentMethodStep = step; methodButtons.forEach(button => button.setAttribute("aria-current", String(Number(button.dataset.methodStepButton) === step))); methodPanels.forEach(panel => { panel.hidden = Number(panel.dataset.methodStep) !== step; }); };
+    const neighborhood = stimulation => { const nearby = items.filter(item => Math.abs(item.attributes.stimulation - stimulation) <= 15); return nearby.length >= 18 ? nearby : [...items].sort((left, right) => Math.abs(left.attributes.stimulation - stimulation) - Math.abs(right.attributes.stimulation - stimulation)).slice(0, 28); };
+    const tagStrength = (item, recipe) => recipe.categories.reduce((sum, category) => sum + item.categories[category], 0) / recipe.categories.length;
+    const matchesSelectedTags = item => { if (!selectedIds.size) return true; const combinedStrength = [...selectedIds].reduce((sum, id) => sum + tagStrength(item, preferenceFor(id)), 0) / selectedIds.size; return combinedStrength >= 62; };
+    const tagScore = (recipe, candidates, stimulation) => { const strengths = candidates.map(item => recipe.categories.reduce((sum, category) => sum + item.categories[category], 0) / recipe.categories.length); const chosen = strengths.filter(value => value >= 62); const rejected = strengths.filter(value => value < 62); if (!chosen.length || !rejected.length) return -Infinity; const mean = values => values.reduce((sum, value) => sum + value, 0) / values.length; const coverage = chosen.length / strengths.length; const separation = mean(chosen) - mean(rejected); const balance = 1 - Math.min(1, Math.abs(coverage - 0.42) / 0.42); const overlapPenalty = [...selectedIds].reduce((penalty, id) => { const other = preferenceFor(id); const shared = recipe.categories.filter(category => other.categories.includes(category)).length; return penalty + shared / Math.max(recipe.categories.length, other.categories.length); }, 0); const relevance = Math.abs(stimulation - recipe.stimulationCenter) * 0.9; return separation * 0.55 + balance * 28 - overlapPenalty * 20 - relevance; };
+    const chooseCandidates = (stimulation, count) => { const rankRecipes = recipes => recipes.map(recipe => ({ id: recipe.id, score: tagScore(recipe, neighborhood(stimulation), stimulation) })).sort((left, right) => right.score - left.score || left.id.localeCompare(right.id)).map(entry => entry.id); const available = tagRecipes.filter(recipe => !selectedIds.has(recipe.id)); const preferred = rankRecipes(available.filter(recipe => !suppressedIds.has(recipe.id))); const fallback = rankRecipes(available.filter(recipe => suppressedIds.has(recipe.id))); return [...preferred, ...fallback].slice(0, count); };
+    function reconcileTags(force = false) { const stimulation = Number(input.value); const moved = Math.abs(stimulation - lastCandidateDial) >= 5; if (moved) suppressedIds.clear(); if (moved || !currentCandidates.length) { currentCandidates = [...selectedIds, ...chooseCandidates(stimulation, Math.max(0, visibleTagLimit - selectedIds.size))]; lastCandidateDial = stimulation; } const desired = new Set(currentCandidates); [...slots.entries()].filter(([id]) => !desired.has(id)).forEach(([id]) => slots.delete(id)); [...desired].filter(id => !slots.has(id)).forEach(id => slots.set(id, freeSlot())); tagButtons.forEach((button, id) => { if (desired.has(id)) showTag(button); else hideTag(button); }); }
+
+    const paint = (element, item) => { if (!element || !item) return; element.style.backgroundImage = svgData(item); element.dataset.imageId = item.id; };
+    const effectsText = rank => rank.effects.flatMap(effect => effect.dimensions.map(dimension => { const recipe = preferenceFor(effect.id); const label = categoryDefinitions.find(([id]) => id === dimension.dimension)?.[1] || dimension.dimension; return `${recipe.label}: ${label} ${dimension.targetDelta >= 0 ? "+" : ""}${dimension.targetDelta.toFixed(1)}`; }));
+    const visualDescription = item => `${activityWord(item.attributes.activity)} · ${boldnessWord(item.attributes.boldness)} · ${colorWord(item.attributes.colorIntensity)}`;
+    let galleryGroups = { good: [], excluded: [] };
+    let exclusionGroups = [];
+    let closestAvailableIds = new Set();
+    const selectImage = item => { if (!item) return; selectedImageId = item.id; paint(externalBanner, item); root.querySelectorAll("[data-gallery-image]").forEach(button => button.setAttribute("aria-pressed", String(button.dataset.galleryImage === selectedImageId))); };
+    const makeGalleryButton = (item, reasonLabel = "") => { const button = document.createElement("button"); const visual = document.createElement("span"); const caption = document.createElement("span"); const description = `${closestAvailableIds.has(item.id) ? "Closest · " : ""}${visualDescription(item)}`; button.type = "button"; button.className = "decision-demo__gallery-item"; button.dataset.galleryImage = item.id; button.setAttribute("aria-label", `Select ${item.name}: ${description}${reasonLabel ? `. ${reasonLabel}` : ""}`); button.setAttribute("aria-pressed", String(item.id === selectedImageId)); visual.className = "decision-demo__gallery-visual"; visual.setAttribute("aria-hidden", "true"); caption.className = "decision-demo__gallery-caption"; caption.textContent = description; paint(visual, item); button.append(visual, caption); button.addEventListener("click", () => selectImage(item)); return button; };
+    const makeExclusionReasonCard = group => { const item = group.representative; const button = document.createElement("button"); const visual = document.createElement("span"); const reason = document.createElement("span"); const caption = document.createElement("span"); const more = Math.max(0, group.items.length - 1); button.type = "button"; button.className = "decision-demo__gallery-item decision-demo__gallery-item--excluded"; button.dataset.galleryImage = item.id; button.setAttribute("aria-label", `Select ${item.name}. Ruled out for now: ${group.label}${more ? `, plus ${more} more` : ""}.`); button.setAttribute("aria-pressed", String(item.id === selectedImageId)); visual.className = "decision-demo__gallery-visual"; visual.setAttribute("aria-hidden", "true"); reason.className = "decision-demo__gallery-reason"; reason.textContent = group.label; if (more) { const count = document.createElement("span"); count.className = "decision-demo__gallery-reason-count"; count.textContent = `+${more} more`; reason.append(count); } caption.className = "decision-demo__gallery-caption"; caption.textContent = visualDescription(item); paint(visual, item); visual.append(reason); button.append(visual, caption); button.addEventListener("click", () => selectImage(item)); return button; };
+    const pageSize = kind => {
+      const compact = window.matchMedia("(max-width: 760px)").matches;
+      return kind === "matching" ? 3 : (compact ? 4 : 8);
+    };
+    const makePager = ({ page, pageCount, label, onPageChange }) => {
+      if (pageCount <= 1) return null;
+      const nav = document.createElement("nav");
+      const previous = document.createElement("button");
+      const status = document.createElement("span");
+      const next = document.createElement("button");
+      nav.className = "decision-demo__gallery-pager";
+      nav.setAttribute("aria-label", `${label} pages`);
+      previous.type = "button";
+      previous.className = "decision-demo__gallery-page-button";
+      previous.textContent = "← Previous";
+      previous.disabled = page === 0;
+      previous.addEventListener("click", () => onPageChange(page - 1));
+      status.className = "decision-demo__gallery-page-status";
+      status.textContent = `${page + 1} of ${pageCount}`;
+      next.type = "button";
+      next.className = "decision-demo__gallery-page-button";
+      next.textContent = "Next →";
+      next.disabled = page === pageCount - 1;
+      next.addEventListener("click", () => onPageChange(page + 1));
+      nav.append(previous, status, next);
+      return nav;
+    };
+    const returnToMatches = () => { exclusionsPanel.open = false; exclusionPages.clear(); galleryPage = 0; showingExclusions = false; };
+    const makeExclusionTile = () => { const button = document.createElement("button"); button.type = "button"; button.className = "decision-demo__gallery-item decision-demo__gallery-item--more"; button.innerHTML = `<span>Didn’t find what you wanted?</span><strong>See what was ruled out <span aria-hidden="true">→</span></strong>`; button.addEventListener("click", () => { showingExclusions = true; renderGallery(); }); return button; };
+    const appendExclusionGroups = target => {
+      const assignedIds = new Set();
+      const distanceFromCurrentResults = item => Math.min(...currentMatches.map(match => Math.hypot(...["stimulation", "boldness", "activity", "colorIntensity"].map(dimension => item.attributes[dimension] - match.attributes[dimension]))));
+      const groups = exclusionGroups.map(group => {
+        const representative = group.items
+          .filter(item => !assignedIds.has(item.id))
+          .sort((left, right) => distanceFromCurrentResults(left) - distanceFromCurrentResults(right) || (currentEntries.get(left.id)?.totalScore ?? Infinity) - (currentEntries.get(right.id)?.totalScore ?? Infinity) || left.id.localeCompare(right.id))[0];
+        if (!representative) return null;
+        assignedIds.add(representative.id);
+        return { ...group, representative };
+      }).filter(Boolean);
+      const cards = document.createElement("div");
+      cards.className = "decision-demo__exclusion-summary";
+      cards.append(...groups.map(makeExclusionReasonCard));
+      target.append(cards);
+    };
+    const renderExclusionPage = () => {
+      results.replaceChildren();
+      resultsHeading.hidden = true;
+      const heading = document.createElement("div");
+      const title = document.createElement("p");
+      const back = document.createElement("button");
+      heading.className = "decision-demo__exclusion-page-heading";
+      title.textContent = "Ruled out for now";
+      back.type = "button";
+      back.textContent = "← Back to results";
+      back.addEventListener("click", () => { showingExclusions = false; galleryPage = Math.max(0, Math.ceil(galleryGroups.good.length / pageSize("matching")) - 1); renderGallery(); });
+      heading.append(title, back);
+      results.append(heading);
+      appendExclusionGroups(results);
+      summary.textContent = `${galleryGroups.excluded.length} images ruled out for the current direction.`;
+    };
+    const renderGallery = () => {
+      exclusionsPanel.hidden = true;
+      exclusionsPanel.open = false;
+      if (showingExclusions) { renderExclusionPage(); return; }
+      resultsHeading.hidden = false;
+      results.replaceChildren();
+      const size = pageSize("matching");
+      const matchingPageCount = Math.max(1, Math.ceil(galleryGroups.good.length / size));
+      const finalMatchingPageSize = galleryGroups.good.length - ((matchingPageCount - 1) * size);
+      const hasExclusions = exclusionGroups.length > 0;
+      const hasStandaloneExclusionPage = hasExclusions && finalMatchingPageSize === size;
+      const pageCount = matchingPageCount + (hasStandaloneExclusionPage ? 1 : 0);
+      galleryPage = Math.max(0, Math.min(galleryPage, pageCount - 1));
+      const grid = document.createElement("div");
+      grid.className = "decision-demo__gallery-items";
+      if (hasStandaloneExclusionPage && galleryPage === matchingPageCount) {
+        grid.append(makeExclusionTile());
+      } else {
+        grid.append(...galleryGroups.good.slice(galleryPage * size, (galleryPage + 1) * size).map(item => makeGalleryButton(item)));
+        if (hasExclusions && !hasStandaloneExclusionPage && galleryPage === matchingPageCount - 1) grid.append(makeExclusionTile());
+      }
+      results.append(grid);
+      const pager = makePager({ page: galleryPage, pageCount, label: "Matching images", onPageChange: page => { galleryPage = page; renderGallery(); } });
+      if (pager) results.append(pager);
+      summary.textContent = `${galleryGroups.good.length} good options. ${currentMatches.find(item => item.id === selectedImageId)?.name || "No image"} selected.`;
+    };
+    const render = (resetSelection = false) => { const state = readState(); const rank = globalThis.DecisionEngine.rank({ items, targetProfile: targetProfileFor(state.stimulation), selectedSoftPreferences: state.preferences, hardConstraints: state.hardConstraints, limit: items.length }); const effects = effectsText(rank); currentEntries = new Map(rank.all.map(entry => [entry.item.id, entry])); const lowerBound = state.stimulation - wedgeRadius; const upperBound = state.stimulation + wedgeRadius; const inside = rank.all.filter(entry => entry.eligible && entry.item.attributes.stimulation >= lowerBound && entry.item.attributes.stimulation <= upperBound); const strictGood = inside.filter(entry => matchesSelectedTags(entry.item)); let goodEntries = strictGood; closestAvailableIds = new Set(); if (selectedIds.size && strictGood.length < Math.min(4, inside.length)) { goodEntries = inside.slice(0, Math.min(4, inside.length)); closestAvailableIds = new Set(goodEntries.filter(entry => !strictGood.includes(entry)).map(entry => entry.item.id)); } const goodIds = new Set(goodEntries.map(entry => entry.item.id)); const excludedEntries = rank.all.filter(entry => !goodIds.has(entry.item.id)); const excludedIds = new Set(excludedEntries.map(entry => entry.item.id)); const groupItems = test => rank.all.filter(entry => excludedIds.has(entry.item.id) && test(entry)).map(entry => entry.item); exclusionGroups = []; const addGroup = (id, label, actionLabel, action, test) => { const grouped = groupItems(test); if (grouped.length) exclusionGroups.push({ id, label, actionLabel, action, items: grouped }); }; addGroup("too-comforting", "Too comforting", "Nudge toward Comfort", () => { input.value = String(clamp(Number(input.value) - 8)); suppressedIds.clear(); reconcileTags(true); render(true); }, entry => entry.item.attributes.stimulation < lowerBound); addGroup("too-stimulating", "Too stimulating", "Nudge toward Stimulate", () => { input.value = String(clamp(Number(input.value) + 8)); suppressedIds.clear(); reconcileTags(true); render(true); }, entry => entry.item.attributes.stimulation > upperBound); [...selectedIds].map(preferenceFor).forEach(recipe => addGroup(`tag-${recipe.id}`, recipe.exclusionLabel, `Remove “${recipe.label}”`, () => tagButtons.get(recipe.id)?.click(), entry => tagStrength(entry.item, recipe) < 62)); state.hardConstraints.forEach(constraint => addGroup(`constraint-${constraint.id}`, constraint.exclusionLabel, "Remove limitation", () => { const control = root.querySelector(`[data-decision-constraint="${constraint.id}"]`); if (control) control.checked = false; render(true); }, entry => entry.failedConstraints.includes(constraint.id))); galleryGroups = { good: goodEntries.map(entry => entry.item), excluded: excludedEntries.map(entry => entry.item) }; currentMatches = galleryGroups.good; goodCount.textContent = galleryGroups.good.length; excludedCount.textContent = galleryGroups.excluded.length; if (resetSelection || !currentMatches.some(item => item.id === selectedImageId)) { selectedImageId = currentMatches[0]?.id || null; galleryPage = 0; showingExclusions = false; exclusionPages.clear(); } const wedgeStart = Math.max(0, state.stimulation - wedgeRadius); const wedgeEnd = Math.min(100, state.stimulation + wedgeRadius); wedge.style.setProperty("--wedge-start", `${wedgeStart}%`); wedge.style.setProperty("--wedge-width", `${wedgeEnd - wedgeStart}%`); root.querySelectorAll("[data-scale-label]").forEach(label => label.classList.toggle("is-active", label.dataset.scaleLabel === (state.stimulation < 50 ? "comfort" : "stimulation"))); renderGallery(); selectImage(currentMatches.find(item => item.id === selectedImageId)); if (effects.length) summary.textContent += ` Preferences: ${effects.join("; ")}.`; };
+    const updateDetail = detail => { const verbose = detail === "verbose"; root.classList.toggle("is-concise", !verbose); note.textContent = verbose ? "Consolidates multiple independent attributes into one continuous direction." : "Ranks image directions across multiple dimensions."; refineNote.textContent = verbose ? "Surfaces a limited set of relevant attributes to help refine the direction." : "Choose from relevant attributes."; constraintNote.textContent = verbose ? "Applies hard constraints to remove complete results that do not meet the selected conditions." : "Remove results that do not meet your limits."; root.querySelectorAll("[data-method-verbose-only]").forEach(element => { element.hidden = !verbose; }); const numbered = root.querySelectorAll("[data-method-step-number]"); if (numbered[0]) numbered[0].textContent = verbose ? "02" : "01"; if (numbered[1]) numbered[1].textContent = verbose ? "04" : "02"; const defineHeading = root.querySelector("[data-method-define-heading]"); const guideHeading = root.querySelector("[data-method-guide-heading]"); if (defineHeading) defineHeading.textContent = `${verbose ? "Step 2" : "Step 1"} — Define visual attributes`; if (guideHeading) guideHeading.textContent = `${verbose ? "Step 4" : "Step 2"} — Guide the choice`; if (!verbose && (currentMethodStep === 0 || currentMethodStep === 2)) showMethodStep(1); };
+    const setVisibility = perspective => { const visible = perspective === "technical"; [label, root, banner].forEach(element => { if (!element) return; element.hidden = !visible; element.inert = !visible; }); if (!visible) tagButtons.forEach(button => { const transition = transitions.get(button); if (transition) finalizeExit(button, transition.version, false); }); else { reconcileTags(true); render(); } };
+    ensureButtons(); renderMethod(); reconcileTags(true);
+    methodButtons.forEach(button => button.addEventListener("click", () => showMethodStep(Number(button.dataset.methodStepButton))));
+    input.addEventListener("input", () => { reconcileTags(); render(true); });
+    root.querySelectorAll("[data-decision-constraint]").forEach(control => control.addEventListener("change", () => render(true)));
+    const noPalettePreference = root.querySelector("[data-decision-palette-clear]");
+    const paletteControls = [...root.querySelectorAll('[data-decision-constraint^="palette-"]')];
+    let selectedPaletteId = paletteControls.find(control => control.checked)?.dataset.decisionConstraint || null;
+    const syncPaletteUI = () => {
+      paletteControls.forEach(control => control.closest("label")?.classList.toggle("is-selected", selectedPaletteId === control.dataset.decisionConstraint));
+      noPalettePreference.hidden = selectedPaletteId === null;
+    };
+    paletteControls.forEach(control => {
+      control.addEventListener("click", event => {
+        event.preventDefault();
+        const selectingCurrent = selectedPaletteId === control.dataset.decisionConstraint;
+        selectedPaletteId = selectingCurrent ? null : control.dataset.decisionConstraint;
+        paletteControls.forEach(option => { option.checked = !selectingCurrent && option === control; });
+        syncPaletteUI();
+        render(true);
+      });
+    });
+    noPalettePreference.addEventListener("click", event => {
+      event.preventDefault();
+      selectedPaletteId = null;
+      paletteControls.forEach(option => { option.checked = false; });
+      syncPaletteUI();
+      render(true);
+    });
+    syncPaletteUI();
+    window.addEventListener("kahntra-perspective-change", event => setVisibility(event.detail.perspective));
+    window.addEventListener("kahntra-detail-change", event => updateDetail(event.detail.detail));
+    updateDetail(document.querySelector('[data-global-detail="verbose"]')?.getAttribute("aria-pressed") === "true" ? "verbose" : "concise");
+    setVisibility(document.querySelector('[data-global-lens="technical"]')?.getAttribute("aria-pressed") === "true" ? "technical" : "design-philosophy");
+  };
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init, { once: true }); else init();
 })();

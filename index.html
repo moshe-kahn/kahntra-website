@@ -20,7 +20,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="styles.css?v=task-0060-cache-8">
+  <link rel="stylesheet" href="styles.css?v=task-0060-cache-199">
 </head>
 
 <body>
@@ -38,15 +38,15 @@
           </div>
           <button class="context-toggle desktop-context-toggle" type="button" data-context-toggle aria-pressed="false" aria-label="Show verbose details">
             <span class="context-toggle__paper" aria-hidden="true">
-              <span class="context-toggle__single-letter">a</span>
-              <span class="context-toggle__letter-grid"><span>a</span><span>a</span><span>a</span><span>a</span></span>
+              <span class="context-toggle__single-letter">?</span>
+              <span class="context-toggle__letter-grid"><span>t</span><span>l</span><span>d</span><span>r</span></span>
             </span>
           </button>
         </div>
         <button class="mobile-context-toggle" type="button" data-mobile-context-toggle aria-pressed="false" aria-label="Show verbose details">
           <span class="mobile-context-toggle__paper" aria-hidden="true">
-            <span class="mobile-context-toggle__single-letter">a</span>
-            <span class="mobile-context-toggle__letter-grid"><span>a</span><span>a</span><span>a</span><span>a</span></span>
+            <span class="mobile-context-toggle__single-letter">?</span>
+            <span class="mobile-context-toggle__letter-grid"><span>t</span><span>l</span><span>d</span><span>r</span></span>
           </span>
         </button>
         <div class="mobile-perspective-selector" role="group" aria-label="Perspective">
@@ -100,6 +100,7 @@
             <p data-perspective="technical" data-detail="regular" hidden>Human-centered software combining thoughtful interaction and practical use, with an emphasis on context-aware systems and adaptive behavior.</p>
             <p data-perspective="technical" data-detail="more" hidden>Human-centered software combining thoughtful interaction and practical use, with an emphasis on context-aware systems and adaptive behavior.</p>
           </div>
+          <button class="hero__about-link" type="button" data-about-open>Our approach <span aria-hidden="true">→</span></button>
         </div>
       </section>
 
@@ -121,13 +122,94 @@
           </div>
         </div>
 
-        <div class="product-grid">
+        <p class="eyebrow decision-demo__label" data-tech-demo-label>Experiment</p>
+        <section class="decision-demo section" data-tech-demo aria-labelledby="decision-demo-title">
+          <div class="decision-demo__heading">
+            <h2 id="decision-demo-title" class="decision-demo__prompt">What banner image fits this moment?</h2>
+          </div>
+          <div class="decision-demo__workspace">
+            <form class="decision-demo__controls" data-decision-controls data-fallback-controls>
+              <fieldset><legend>Shape the overall experience</legend><label class="decision-demo__range-label" for="decision-feeling"><span data-scale-label="comfort">Comfort</span><span data-scale-label="stimulation">Stimulate</span></label><div class="decision-demo__range-shell"><span class="decision-demo__range-wedge" data-decision-wedge aria-hidden="true"></span><input id="decision-feeling" name="feeling" type="range" min="0" max="100" value="50" data-decision-feeling aria-describedby="decision-feeling-note" disabled></div><p id="decision-feeling-note" class="decision-demo__control-note" data-decision-tech-note>Static example: the working model requires JavaScript.</p></fieldset>
+              <fieldset><legend>Choose what matters</legend><div class="decision-demo__soft-tags" data-decision-soft-tags aria-label="Adaptive refinements"><button type="button" aria-pressed="false" disabled>Structured clarity</button><button type="button" aria-pressed="false" disabled>Tactile layers</button><button type="button" aria-pressed="false" disabled>Color-led atmosphere</button><button type="button" aria-pressed="false" disabled>Natural movement</button></div><p class="decision-demo__control-note" data-decision-refine-note>Relevant choices appear for the current part of the image set.</p></fieldset>
+              <fieldset><legend>Set limitations</legend><div class="decision-demo__checks"><label><input type="checkbox" data-decision-constraint="text-ready" disabled> Needs space for text</label><label><input type="checkbox" data-decision-constraint="fits-kahntra" disabled> Fits Kahntra</label></div><div class="decision-demo__color-direction" role="radiogroup" aria-label="Palette"><div class="decision-demo__color-direction-heading"><span>Palette</span><button type="button" class="decision-demo__no-preference" data-decision-palette-clear hidden disabled>Clear selection</button></div><div class="decision-demo__color-options"><label><input type="radio" name="decision-color-direction" data-decision-constraint="palette-cool" disabled><span>Cool</span></label><label><input type="radio" name="decision-color-direction" data-decision-constraint="palette-neutral" disabled><span>Neutral</span></label><label><input type="radio" name="decision-color-direction" data-decision-constraint="palette-warm" disabled><span>Warm</span></label></div></div><p class="decision-demo__control-note" data-decision-constraint-note>Checked conditions remove images that cannot satisfy this banner.</p></fieldset>
+            </form>
+            <div class="decision-demo__results" aria-label="Matching images">
+              <div class="decision-demo__results-heading"><p class="decision-demo__results-count"><span data-decision-good-count>4</span> considerations</p></div>
+              <div class="decision-demo__gallery">
+                <div class="decision-demo__gallery-grid" data-decision-results role="group" aria-label="Current matching images">
+                  <div class="decision-demo__gallery-items">
+                  <button class="decision-demo__gallery-item" type="button" aria-label="Static example, Image 054" aria-pressed="true" disabled><span class="decision-demo__gallery-visual decision-result__thumb--a" aria-hidden="true"></span><span class="decision-demo__gallery-caption">Active · Defined · Expressive</span></button>
+                  <button class="decision-demo__gallery-item" type="button" aria-label="Static example, Image 053" aria-pressed="false" disabled><span class="decision-demo__gallery-visual decision-result__thumb--b" aria-hidden="true"></span><span class="decision-demo__gallery-caption">Active · Defined · Expressive</span></button>
+                  <button class="decision-demo__gallery-item" type="button" aria-label="Static example, Image 055" aria-pressed="false" disabled><span class="decision-demo__gallery-visual decision-result__thumb--c" aria-hidden="true"></span><span class="decision-demo__gallery-caption">Active · Defined · Expressive</span></button>
+                  <button class="decision-demo__gallery-item" type="button" aria-label="Static example, Image 056" aria-pressed="false" disabled><span class="decision-demo__gallery-visual decision-result__thumb--d" aria-hidden="true"></span><span class="decision-demo__gallery-caption">Active · Defined · Expressive</span></button>
+                  <button class="decision-demo__gallery-item" type="button" aria-label="Static example, Image 052" aria-pressed="false" disabled hidden><span class="decision-demo__gallery-visual decision-result__thumb--e" aria-hidden="true"></span><span class="decision-demo__gallery-caption">Active · Defined · Subdued</span></button>
+                  <button class="decision-demo__gallery-item" type="button" aria-label="Static example, Image 024" aria-pressed="false" disabled hidden><span class="decision-demo__gallery-visual decision-result__thumb--f" aria-hidden="true"></span><span class="decision-demo__gallery-caption">Active · Soft · Vibrant</span></button>
+                  <button class="decision-demo__gallery-item" type="button" aria-label="Static example, Image 028" aria-pressed="false" disabled hidden><span class="decision-demo__gallery-visual decision-result__thumb--g" aria-hidden="true"></span><span class="decision-demo__gallery-caption">Dynamic · Soft · Subdued</span></button>
+                  <button class="decision-demo__gallery-item" type="button" aria-label="Static example, Image 083" aria-pressed="false" disabled hidden><span class="decision-demo__gallery-visual decision-result__thumb--h" aria-hidden="true"></span><span class="decision-demo__gallery-caption">Calm · Bold · Vibrant</span></button>
+                  <button class="decision-demo__gallery-item" type="button" aria-label="Static example, Image 026" aria-pressed="false" disabled hidden><span class="decision-demo__gallery-visual decision-result__thumb--i" aria-hidden="true"></span><span class="decision-demo__gallery-caption">Dynamic · Soft · Subdued</span></button>
+                  <button class="decision-demo__gallery-item" type="button" aria-label="Static example, Image 081" aria-pressed="false" disabled hidden><span class="decision-demo__gallery-visual decision-result__thumb--j" aria-hidden="true"></span><span class="decision-demo__gallery-caption">Calm · Bold · Vibrant</span></button>
+                  <button class="decision-demo__gallery-item" type="button" aria-label="Static example, Image 050" aria-pressed="false" disabled hidden><span class="decision-demo__gallery-visual decision-result__thumb--k" aria-hidden="true"></span><span class="decision-demo__gallery-caption">Active · Defined · Subdued</span></button>
+                  <button class="decision-demo__gallery-item" type="button" aria-label="Static example, Image 080" aria-pressed="false" disabled hidden><span class="decision-demo__gallery-visual decision-result__thumb--l" aria-hidden="true"></span><span class="decision-demo__gallery-caption">Calm · Bold · Expressive</span></button>
+                  </div>
+                </div>
+                <details class="decision-demo__exclusions" data-decision-exclusions-panel hidden>
+                  <summary>Didn’t find one? See what was ruled out <span data-decision-excluded-count>0</span></summary>
+                  <div class="decision-demo__exclusion-groups" data-decision-exclusions aria-live="polite"></div>
+                </details>
+              </div>
+              <p class="sr-only" data-decision-summary aria-live="polite">Static example: four matching images.</p>
+            </div>
+          </div>
+          <details class="decision-demo__method" data-decision-method>
+            <summary>Our method</summary>
+            <div class="decision-demo__method-content">
+              <p class="decision-demo__method-intro">See how a bounded image set becomes the guided model above.</p>
+              <ol class="decision-demo__stages" aria-label="Method steps">
+                <li data-method-verbose-only><button type="button" data-method-step-button="0" aria-current="true"><span>01</span>Record</button></li>
+                <li><button type="button" data-method-step-button="1"><span data-method-step-number>02</span>Define</button></li>
+                <li data-method-verbose-only><button type="button" data-method-step-button="2"><span>03</span>Interpret</button></li>
+                <li><button type="button" data-method-step-button="3"><span data-method-step-number>04</span>Guide</button></li>
+              </ol>
+
+              <section class="decision-demo__method-panel" data-method-step="0">
+                <div class="decision-demo__stage-heading"><p class="eyebrow">Step 1 — Record the signals</p><p>Start with a bounded set of images and record nine observable signals for every image.</p></div>
+                <details class="decision-demo__measurements"><summary>How the signals are measured</summary><dl class="decision-demo__signal-key"><div><dt>A</dt><dd>Focal dominance</dd></div><div><dt>B</dt><dd>Contrast separation</dd></div><div><dt>C</dt><dd>Form weight</dd></div><div><dt>D</dt><dd>Element density</dd></div><div><dt>E</dt><dd>Directional energy</dd></div><div><dt>F</dt><dd>Rhythmic variation</dd></div><div><dt>G</dt><dd>Chroma</dd></div><div><dt>H</dt><dd>Palette separation</dd></div><div><dt>I</dt><dd>Color coverage</dd></div></dl></details>
+                <div class="decision-demo__signal-table-shell"><div class="decision-demo__signal-table-wrap" tabindex="0" role="region" aria-label="Sample image signal records"><table><thead><tr><th>Image</th><th>A</th><th>D</th><th>G</th><th>B</th><th>E</th><th>H</th><th>C</th><th>F</th><th>I</th></tr></thead><tbody data-method-signal-body></tbody></table></div></div>
+              </section>
+
+              <section class="decision-demo__method-panel" data-method-step="1" hidden>
+                <div class="decision-demo__stage-heading"><p class="eyebrow" data-method-define-heading>Step 2 — Define visual attributes</p><p>Group related signals, then derive three continuous visual attributes from their weighted values.</p></div>
+                <div class="decision-demo__signal-formulas"><p class="eyebrow">Attribute formulas</p><p><strong>Boldness</strong><br>.40A + .35B + .25C</p><p><strong>Activity</strong><br>.40D + .35E + .25F</p><p><strong>Color intensity</strong><br>.45G + .30H + .25I</p></div>
+                <div class="decision-demo__signal-table-shell"><div class="decision-demo__signal-table-wrap" tabindex="0" role="region" aria-label="Sample derived visual attributes"><table><thead><tr><th>Image</th><th>Boldness</th><th>Activity</th><th>Color intensity</th><th>Stimulation</th></tr></thead><tbody data-method-attribute-body></tbody></table></div></div>
+              </section>
+
+              <section class="decision-demo__method-panel" data-method-step="2" hidden>
+                <div class="decision-demo__stage-heading"><p class="eyebrow">Step 3 — Interpret experiential patterns</p><p>Identify recurring visual patterns, normalize them as category scores, and test combinations that distinguish useful subsets of the image set.</p></div>
+                <div class="decision-demo__experience-map"><article><p class="eyebrow">Normalized categories</p><p>Stable visual vocabulary scored for every image.</p><ul data-method-category-list></ul></article><article><p class="eyebrow">Contextual tags</p><p>Readable choices combine several categories and appear only where they help distinguish nearby images.</p><ul><li>Open + Atmospheric → Let it breathe</li><li>Kinetic + Structured + Graphic → Give it momentum</li><li>Layered + Textural + Intricate → Bring out texture</li></ul></article></div>
+              </section>
+
+              <section class="decision-demo__method-panel" data-method-step="3" hidden>
+                <div class="decision-demo__stage-heading"><p class="eyebrow" data-method-guide-heading>Step 4 — Guide the choice</p><p>Present the richer model through a continuous target, a few contextual refinements, explicit limitations, and ranked alternatives.</p></div>
+                <div class="decision-demo__experience-map"><article><p class="eyebrow">Continuous target</p><p>Comfort ↔ Stimulate sets the initial multidimensional profile.</p></article><article><p class="eyebrow">Adaptive refinements</p><p>The most useful tag recipes adjust category targets without becoming another full taxonomy.</p></article><article><p class="eyebrow">Hard limitations</p><p>Ineligible image records are removed before scoring.</p></article><article><p class="eyebrow">Ranked alternatives</p><p>The engine retains eligibility, total scores, components, and calculated preference effects.</p></article></div>
+              </section>
+            </div>
+          </details>
+        </section>
+
+        <figure class="decision-demo__banner" data-tech-demo-banner hidden>
+          <div class="decision-demo__comparison-preview" data-decision-external-banner role="img" aria-label="Selected banner image"></div>
+        </figure>
+
+        <div class="product-groups">
+          <section class="product-group" aria-labelledby="products-development-title">
+            <h3 class="product-group__title" id="products-development-title">In development</h3>
+            <div class="product-grid">
           <article class="product-card" data-project-id="momomovies">
             <div class="product-card__meta">
-              <p class="stage">In development</p>
-              <p class="availability">Temporarily unavailable</p>
+              <p class="stage">Beta</p>
+              <p class="availability">Public access</p>
             </div>
-            <h3>MomoMovies</h3>
+            <h4 class="product-card__title">MomoMovies</h4>
             <div class="product-card__description" data-content-group>
               <p data-perspective="philosophy" data-detail="less" hidden>MomoMovies treats choosing a film as a human decision shaped by mood, context, and the people watching.</p>
               <p data-perspective="philosophy" data-detail="regular" hidden>Choosing a film is rarely about genre or ratings alone. MomoMovies treats discovery as a human decision: mood, context, and the people watching matter.</p>
@@ -139,6 +221,13 @@
               <p data-perspective="technical" data-detail="regular" hidden>MomoMovies is an active product experiment combining curated discovery, Vibes-based browsing, streaming-availability work, and private data and analysis pipelines. Some enrichment and ranking work remains experimental.</p>
               <p data-perspective="technical" data-detail="more" hidden>MomoMovies combines Vibes-based browsing with structured dimensions and filters, streaming-availability work, and curated ordering experiments. Private enrichment and data pipelines support analysis and discovery research. Ranking work and some enrichment capabilities remain experimental.</p>
             </div>
+            <div class="product-card__actions">
+              <details class="product-card__more">
+                <summary>Learn more <span aria-hidden="true">→</span></summary>
+                <p>Beta access is being refined around Vibes-based discovery and streaming availability.</p>
+              </details>
+              <button class="product-card__external product-card__external--disabled" type="button" disabled>Visit MomoMovies <span>Temporarily unavailable</span></button>
+            </div>
           </article>
 
           <article class="product-card" data-project-id="listenlab">
@@ -146,7 +235,7 @@
               <p class="stage">Prototype</p>
               <p class="availability">Public repository</p>
             </div>
-            <h3>ListenLab</h3>
+            <h4 class="product-card__title">ListenLab</h4>
             <div class="product-card__description" data-content-group>
               <p data-perspective="philosophy" data-detail="less" hidden>ListenLab reveals music relationships that ordinary streaming interfaces leave behind.</p>
               <p data-perspective="philosophy" data-detail="regular" hidden>ListenLab explores how music collections can reveal connections that ordinary streaming interfaces flatten or hide: alternate releases, performances, covers, album context, and personally meaningful organization.</p>
@@ -158,156 +247,208 @@
               <p data-perspective="technical" data-detail="regular" hidden>ListenLab is a private prototype exploring music metadata relationships through interface experiments around playlist organization, alternate recordings, and release context.</p>
               <p data-perspective="technical" data-detail="more" hidden>ListenLab is a private prototype exploring music metadata relationships through interface experiments around playlist organization, alternate recordings, and release context. The work tests how those connections can be made legible without presenting a public production service.</p>
             </div>
+            <div class="product-card__actions">
+              <details class="product-card__more">
+                <summary>Learn more <span aria-hidden="true">→</span></summary>
+                <p>Explore the prototype’s connected view of recordings, releases, and playlists.</p>
+              </details>
+              <a class="product-card__external" href="https://github.com/moshe-kahn/listen-labs" target="_blank" rel="noreferrer">View repository <span aria-hidden="true">↗</span></a>
+            </div>
           </article>
+
+          <article class="product-card" data-project-id="momentum-management">
+            <div class="product-card__meta">
+              <p class="stage">Pilot</p>
+              <p class="availability">Private access</p>
+            </div>
+            <h4 class="product-card__title">Momentum Management</h4>
+            <div class="product-card__description" data-content-group>
+              <p data-perspective="philosophy" data-detail="less" hidden>Momentum Management helps make ongoing work visible without losing the context around it.</p>
+              <p data-perspective="philosophy" data-detail="regular" hidden>Momentum Management explores a calmer way to see and organize ongoing work, preserving the context that makes priorities meaningful.</p>
+              <p data-perspective="philosophy" data-detail="more" hidden>Momentum Management explores how ongoing work can stay legible without reducing it to an endless task list. It keeps the relationships around priorities, commitments, and attention in view.</p>
+              <p data-perspective="general" data-detail="less" hidden>Momentum Management is a private prototype for seeing active work with more context.</p>
+              <p data-perspective="general" data-detail="regular" hidden>Momentum Management is a private prototype for organizing active work, its relationships, and the attention it needs.</p>
+              <p data-perspective="general" data-detail="more" hidden>Momentum Management is a private prototype for organizing active work with clearer context. It brings priorities, relationships, and current attention into one view without treating every item as equivalent.</p>
+              <p data-perspective="technical" data-detail="less">Momentum Management prototypes a shared model for active work and its context.</p>
+              <p data-perspective="technical" data-detail="regular" hidden>Momentum Management is a private prototype for a read-only view of active work, its relationships, and current attention across a shared system.</p>
+              <p data-perspective="technical" data-detail="more" hidden>Momentum Management is a private prototype for a read-only view of active work, its relationships, and current attention across a shared system. It tests how those connected records can remain legible without turning the interface into a collection of separate dashboards.</p>
+            </div>
+            <div class="product-card__actions">
+              <details class="product-card__more">
+                <summary>Learn more <span aria-hidden="true">→</span></summary>
+                <p>A private pilot for keeping active work, relationships, and current attention in one view.</p>
+              </details>
+            </div>
+          </article>
+            </div>
+          </section>
+
+          <section class="product-group" aria-labelledby="products-concepts-title">
+            <h3 class="product-group__title" id="products-concepts-title">Concepts</h3>
+            <div class="product-grid">
 
           <article class="product-card" data-project-id="meal-match">
-            <div class="product-card__meta">
-              <p class="stage">Concept</p>
-              <p class="availability">Not yet available</p>
-            </div>
-            <h3>Meal Match</h3>
+            <h4 class="product-card__title">Meal Match</h4>
             <div class="product-card__description" data-content-group>
               <p data-perspective="philosophy" data-detail="less" hidden>Meal Match treats choosing what to eat as a shared decision shaped by real constraints.</p>
-              <p data-perspective="philosophy" data-detail="regular" hidden>Choosing what to eat is often a coordination and decision problem rather than a lack of options. Preferences, energy, dietary constraints, time, and the people involved all shape the choice.</p>
-              <p data-perspective="philosophy" data-detail="more" hidden>Choosing what to eat is often a coordination and decision problem rather than a lack of options. A good choice has to work for preferences, dietary needs, time, energy, and the people involved.</p>
+              <p data-perspective="philosophy" data-detail="regular" hidden>Choosing what to eat is often a coordination problem rather than a lack of options. Meal Match explores how preferences, energy, dietary constraints, time, and the people involved can shape a workable choice.</p>
+              <p data-perspective="philosophy" data-detail="more" hidden>Choosing what to eat is often a coordination problem rather than a lack of options. Meal Match explores how preferences, energy, dietary constraints, time, and the people involved can shape a workable choice.</p>
               <p data-perspective="general" data-detail="less" hidden>Meal Match is an early concept for making food decisions around real constraints.</p>
-              <p data-perspective="general" data-detail="regular" hidden>Meal Match is an early product concept for helping individuals or groups decide what to eat by narrowing options around preferences, context, and practical constraints.</p>
-              <p data-perspective="general" data-detail="more" hidden>Meal Match is an early product concept for helping individuals or groups decide what to eat. It would narrow a broad set of options through preferences, context, and practical constraints, helping one person or a group move from indecision toward a workable choice.</p>
+              <p data-perspective="general" data-detail="regular" hidden>Meal Match is an early concept for helping individuals or groups decide what to eat. It would bring preferences, context, and practical constraints together to move from indecision toward a workable choice.</p>
+              <p data-perspective="general" data-detail="more" hidden>Meal Match is an early concept for helping individuals or groups decide what to eat. It would bring preferences, context, and practical constraints together to move from indecision toward a workable choice.</p>
               <p data-perspective="technical" data-detail="less">Meal Match is early research into structured food-decision systems.</p>
-              <p data-perspective="technical" data-detail="regular" hidden>Meal Match is early product research and system design exploring structured preference inputs, constraint matching, shared decisions, and recommendation logic. No application or functional prototype is available yet.</p>
-              <p data-perspective="technical" data-detail="more" hidden>Meal Match is early product research and system design exploring structured preference inputs, constraint matching, shared decisions, and recommendation logic. It is examining how those elements might support the choice before any application or functional prototype exists.</p>
+              <p data-perspective="technical" data-detail="regular" hidden>Meal Match is early product research into structured preference inputs, constraint matching, shared decisions, and recommendation logic. No application or functional prototype is available yet.</p>
+              <p data-perspective="technical" data-detail="more" hidden>Meal Match is early product research into structured preference inputs, constraint matching, shared decisions, and recommendation logic. No application or functional prototype is available yet.</p>
             </div>
           </article>
-        </div>
-      </section>
 
-      <section class="decision-demo section" data-tech-demo aria-labelledby="decision-demo-title">
-        <div class="decision-demo__heading">
-          <p class="eyebrow">A reusable decision demo</p>
-          <h2 id="decision-demo-title" tabindex="-1">Make a visual direction feel intentional.</h2>
-          <p>Move between comfort and stimulation, then tune a bounded visual-composition model without losing the underlying evidence.</p>
-        </div>
-
-        <div class="decision-demo__workspace">
-          <form class="decision-demo__controls" data-decision-controls data-fallback-controls>
-            <fieldset>
-              <legend>Desired feeling</legend>
-              <label class="decision-demo__range-label" for="decision-feeling">
-                <span>Comfort</span>
-                <strong data-feeling-label>Balanced</strong>
-                <span>Stimulation</span>
-              </label>
-              <input id="decision-feeling" name="feeling" type="range" min="0" max="100" value="50" data-decision-feeling aria-describedby="decision-feeling-note" disabled>
-              <p id="decision-feeling-note" class="decision-demo__control-note">A continuous preference, not a fixed category.</p>
-            </fieldset>
-
-            <fieldset>
-              <legend>Emphasize (soft preferences)</legend>
-              <div class="decision-demo__soft-tags" data-decision-soft-tags aria-label="Adaptive soft preferences">
-                <button type="button" data-soft-preference="calm" aria-pressed="false" disabled>Calm field</button>
-                <button type="button" data-soft-preference="clarity" aria-pressed="false" disabled>Clear hierarchy</button>
-                <button type="button" data-soft-preference="warmth" aria-pressed="false" disabled>Warm tone</button>
-                <button type="button" data-soft-preference="energy" aria-pressed="false" disabled>Active rhythm</button>
-              </div>
-              <p class="decision-demo__control-note">These tags adjust weighted targets; they do not remove alternatives.</p>
-            </fieldset>
-
-            <fieldset>
-              <legend>Keep in the frame</legend>
-              <div class="decision-demo__checks">
-                <label><input type="checkbox" data-decision-constraint="quiet" disabled> Low visual noise</label>
-                <label><input type="checkbox" data-decision-constraint="accessible" disabled> Strong text contrast</label>
-              </div>
-            </fieldset>
-
-            <details class="decision-demo__data">
-              <summary>View data</summary>
-              <p data-decision-data-intro>This local model exposes every composition, intrinsic dimension, constraint decision, and retained scoring component.</p>
-              <div class="decision-demo__data-table-wrap"><table data-decision-data-list><thead><tr><th>Composition</th><th>Intrinsic dimensions</th><th>Metadata</th><th>Eligibility</th><th>Score components</th></tr></thead><tbody></tbody></table></div>
-            </details>
-          </form>
-
-          <div class="decision-demo__results" aria-labelledby="decision-results-title">
-            <div class="decision-demo__results-heading">
-              <p class="eyebrow" id="decision-results-title">Ranked directions</p>
-              <p data-decision-summary aria-live="polite">Static example: three directions for a balanced brief.</p>
+          <article class="product-card" data-project-id="pathwise">
+            <h4 class="product-card__title">PathWise</h4>
+            <div class="product-card__description" data-content-group>
+              <p data-perspective="philosophy" data-detail="less" hidden>PathWise is an early idea about making route choices feel less demanding.</p>
+              <p data-perspective="philosophy" data-detail="regular" hidden>PathWise is an early concept for thinking about route choice in terms of the experience of getting there, not only the arrival time. Its questions and boundaries are still being defined.</p>
+              <p data-perspective="philosophy" data-detail="more" hidden>PathWise is an early concept for thinking about route choice in terms of the experience of getting there, not only the arrival time. Its questions and boundaries are still being defined.</p>
+              <p data-perspective="general" data-detail="less" hidden>PathWise is an early concept for more considered route choices.</p>
+              <p data-perspective="general" data-detail="regular" hidden>PathWise is an early concept exploring how route choices might better reflect the conditions of a particular trip. Its identity, inputs, and product boundaries remain open.</p>
+              <p data-perspective="general" data-detail="more" hidden>PathWise is an early concept exploring how route choices might better reflect the conditions of a particular trip. Its identity, inputs, and product boundaries remain open.</p>
+              <p data-perspective="technical" data-detail="less">PathWise is early research into context-aware route-choice systems.</p>
+              <p data-perspective="technical" data-detail="regular" hidden>PathWise is early product research into context-aware route choice. Its name, data assumptions, safety framing, and implementation boundaries remain open.</p>
+              <p data-perspective="technical" data-detail="more" hidden>PathWise is early product research into context-aware route choice. Its name, data assumptions, safety framing, and implementation boundaries remain open.</p>
             </div>
-            <ol data-decision-results>
-              <li class="decision-result">
-                <span class="decision-result__rank">01</span>
-                <div><h3>Balanced Weave</h3><p>Measured movement with a warm, readable structure.</p><ul class="decision-result__tags"><li>Balanced</li><li>Warm tone</li></ul></div>
-              </li>
-              <li class="decision-result">
-                <span class="decision-result__rank">02</span>
-                <div><h3>Open Signal</h3><p>Balanced field with clear contrast.</p><ul class="decision-result__tags"><li>Balanced</li><li>High contrast</li></ul></div>
-              </li>
-              <li class="decision-result">
-                <span class="decision-result__rank">03</span>
-                <div><h3>Paper Orbit</h3><p>Comfort-forward structure with a warm, readable orbit.</p><ul class="decision-result__tags"><li>Balanced</li><li>Warm tone</li></ul></div>
-              </li>
-            </ol>
-          </div>
+          </article>
+
+          <article class="product-card" data-project-id="momentum-tasks">
+            <h4 class="product-card__title">Chore Thing</h4>
+            <div class="product-card__description" data-content-group>
+              <p data-perspective="philosophy" data-detail="less" hidden>Chore Thing is an early idea about making household chores easier to choose and share.</p>
+              <p data-perspective="philosophy" data-detail="regular" hidden>Chore Thing is an early concept for making household chores easier to choose and share. Its questions around ownership, privacy, and collaboration are still open.</p>
+              <p data-perspective="philosophy" data-detail="more" hidden>Chore Thing is an early concept for making household chores easier to choose and share. Its questions around ownership, privacy, and collaboration are still open.</p>
+              <p data-perspective="general" data-detail="less" hidden>Chore Thing is an early concept for context-aware household chores.</p>
+              <p data-perspective="general" data-detail="regular" hidden>Chore Thing is an early concept exploring how household chores might adapt to changing context. Its product identity and collaboration boundaries are still being defined.</p>
+              <p data-perspective="general" data-detail="more" hidden>Chore Thing is an early concept exploring how household chores might adapt to changing context. Its product identity and collaboration boundaries are still being defined.</p>
+              <p data-perspective="technical" data-detail="less">Chore Thing is early research into context-adaptive household chore decisions.</p>
+              <p data-perspective="technical" data-detail="regular" hidden>Chore Thing is early research into context-adaptive household chore decisions. Its identity, privacy, ownership, and collaboration boundaries remain open.</p>
+              <p data-perspective="technical" data-detail="more" hidden>Chore Thing is early research into context-adaptive household chore decisions. Its identity, privacy, ownership, and collaboration boundaries remain open.</p>
+            </div>
+          </article>
+            </div>
+          </section>
         </div>
+
       </section>
 
-      <section class="approach section" aria-label="Our approach">
+      <section class="showcase section" aria-labelledby="showcase-title">
+        <div class="showcase__heading">
+          <h2 id="showcase-title" tabindex="-1">Showcase</h2>
+          <p>Selected visual work and experiments from across Kahntra.</p>
+        </div>
+        <article class="showcase__card" aria-labelledby="momo-editions-title">
+          <div class="showcase__card-heading">
+            <h3 id="momo-editions-title">Momo Editions</h3>
+            <p>An authored collection of original poster studies that evoke why a film matters through one emotional thesis and a single visual idea.</p>
+          </div>
+          <div class="showcase__gallery" aria-label="Momo Editions artwork samples">
+            <figure class="showcase__poster">
+              <img src="assets/momo-editions/gladiator.webp" alt="A laurel wreath and red cloth on a sunlit desert floor.">
+              <figcaption><span>Gladiator</span><span>2000</span></figcaption>
+            </figure>
+            <figure class="showcase__poster">
+              <img src="assets/momo-editions/the-fall.webp" alt="A small pair beneath an arch across a stylized desert landscape.">
+              <figcaption><span>The Fall</span><span>2006</span></figcaption>
+            </figure>
+            <figure class="showcase__poster">
+              <img src="assets/momo-editions/school-of-rock.webp" alt="A chalk waveform rises from a classroom chalkboard.">
+              <figcaption><span>School of Rock</span><span>2003</span></figcaption>
+            </figure>
+            <figure class="showcase__poster">
+              <img src="assets/momo-editions/arrival.webp" alt="A black painted circle floats over reflective water.">
+              <figcaption><span>Arrival</span><span>2016</span></figcaption>
+            </figure>
+            <figure class="showcase__poster">
+              <img src="assets/momo-editions/big-fish.webp" alt="A small paper fish casts the shadow of a large shark above an open book.">
+              <figcaption><span>Big Fish</span><span>2003</span></figcaption>
+            </figure>
+            <figure class="showcase__poster">
+              <img src="assets/momo-editions/midnight-in-paris.webp" alt="Two eras of cars meet across the pages of an open book at night.">
+              <figcaption><span>Midnight in Paris</span><span>2011</span></figcaption>
+            </figure>
+            <figure class="showcase__poster">
+              <img src="assets/momo-editions/inside-man.webp" alt="An open safe recedes into a sequence of smaller safes.">
+              <figcaption><span>Inside Man</span><span>2006</span></figcaption>
+            </figure>
+          </div>
+        </article>
+      </section>
+
+      <dialog class="about-dialog" id="about-dialog" aria-labelledby="about-dialog-title">
+        <div class="about-dialog__surface">
+          <div class="about-dialog__content">
+          <div class="about-dialog__header">
+            <h2 class="sr-only" id="about-dialog-title">About</h2>
+            <button class="about-dialog__close" type="button" data-about-close aria-label="Close About">×</button>
+          </div>
+          <div class="about-dialog__tabs" role="tablist" aria-label="About">
+            <button type="button" id="about-kahntra-tab" role="tab" aria-selected="true" aria-controls="about-kahntra-panel" data-about-tab="kahntra">Kahntra</button>
+            <button type="button" id="about-moshe-tab" role="tab" aria-selected="false" aria-controls="about-moshe-panel" data-about-tab="moshe">Moshe Kahn</button>
+          </div>
+      <section class="approach section about-dialog__approach" id="about-kahntra-panel" role="tabpanel" aria-labelledby="about-kahntra-tab" data-about-panel="kahntra" aria-label="About Kahntra">
         <div class="approach-copy">
           <p class="eyebrow">Our approach</p>
-          <h2 tabindex="-1" data-perspective-heading="philosophy" hidden>Software begins with the person using it.</h2>
-          <h2 tabindex="-1" data-perspective-heading="general" hidden>Useful software begins by paying attention.</h2>
-          <h2 tabindex="-1" data-perspective-heading="technical">Useful systems earn their complexity.</h2>
+          <h2 tabindex="-1" data-perspective-heading="philosophy" hidden>Tools should fit the work.</h2>
+          <h2 tabindex="-1" data-perspective-heading="general" hidden>Tools should fit the work.</h2>
+          <h2 tabindex="-1" data-perspective-heading="technical">Tools should fit the work.</h2>
           <div class="approach-followup">
           <div class="approach-body approach-body--mobile" data-content-group>
-            <p data-perspective="philosophy" data-detail="less" hidden>We begin with the context and uncertainty around a real decision.</p>
-            <p data-perspective="philosophy" data-detail="regular" hidden>We look closely at the context, uncertainty, and habits around a decision before deciding what a tool should do.</p>
-            <p data-perspective="philosophy" data-detail="more" hidden>We look closely at the context, uncertainty, and habits around a decision before deciding what a tool should do. That work helps define the tool before implementation choices take over.</p>
-            <p data-perspective="general" data-detail="less" hidden>We turn overlooked decision details into focused, useful tools.</p>
-            <p data-perspective="general" data-detail="regular" hidden>We explore the details that shape everyday decisions, then turn them into thoughtful, focused tools.</p>
-            <p data-perspective="general" data-detail="more" hidden>We explore the details that shape everyday decisions, then turn them into thoughtful, focused tools. The goal is not more software, but a clearer path through the choice at hand.</p>
-            <p data-perspective="technical" data-detail="less">We test focused ideas and build only what improves a real experience.</p>
-            <p data-perspective="technical" data-detail="regular" hidden>We test ideas in bounded experiments, preserve what we learn, and build only the systems that improve a real experience.</p>
-            <p data-perspective="technical" data-detail="more" hidden>We test ideas in bounded experiments, preserve what we learn, and build only the systems that improve a real experience. This keeps the work grounded in evidence and limits complexity to what the experience genuinely needs.</p>
+            <p data-perspective="philosophy" data-detail="less" hidden>We shape tools around the people and situations they serve.</p>
+            <p data-perspective="philosophy" data-detail="regular" hidden>We stay close to the people and situations a tool serves, refining it until it fits the work already happening.</p>
+            <p data-perspective="philosophy" data-detail="more" hidden>We stay close to the people and situations a tool serves, refining it until it fits the work already happening. That means learning from use before deciding that a first answer is final.</p>
+            <p data-perspective="general" data-detail="less" hidden>We test and refine tools until they fit the work.</p>
+            <p data-perspective="general" data-detail="regular" hidden>We stay close to the work, testing and refining until a tool fits the people using it.</p>
+            <p data-perspective="general" data-detail="more" hidden>We stay close to the work, testing and refining until a tool fits the people using it. The point is not to add features, but to keep adjusting until the experience becomes clearer.</p>
+            <p data-perspective="technical" data-detail="less">We prototype in context and keep only what improves the work.</p>
+            <p data-perspective="technical" data-detail="regular" hidden>We test each iteration in context, preserve the improvements it produces, and remove complexity that does not help.</p>
+            <p data-perspective="technical" data-detail="more" hidden>We test each iteration in context, preserve the improvements it produces, and remove complexity that does not help. That keeps the system accountable to the experience instead of to a fixed feature list.</p>
           </div>
           <div class="approach-body approach-body--desktop" data-content-group>
-            <p data-perspective="philosophy" data-detail="less" hidden>We begin with the context and uncertainty around a real decision.</p>
-            <p data-perspective="philosophy" data-detail="regular" hidden>We begin with the context and uncertainty around a real decision.</p>
+            <p data-perspective="philosophy" data-detail="less" hidden>We shape tools around the people and situations they serve.</p>
+            <p data-perspective="philosophy" data-detail="regular" hidden>We shape tools around the people and situations they serve.</p>
             <div data-perspective="philosophy" data-detail="more" hidden>
-              <p>We begin with the context and uncertainty around a real decision.</p>
-              <p class="approach-body__extra">Before choosing an implementation, we consider the habits and constraints already present in the situation.</p>
+              <p>We stay close to the people and situations a tool serves.</p>
+              <p class="approach-body__extra">Learning from use helps the tool fit the work already happening, rather than forcing the work to fit the tool.</p>
             </div>
-            <p data-perspective="general" data-detail="less" hidden>We turn overlooked decision details into focused, useful tools.</p>
-            <p data-perspective="general" data-detail="regular" hidden>We turn overlooked decision details into focused, useful tools.</p>
+            <p data-perspective="general" data-detail="less" hidden>We test and refine tools until they fit the work.</p>
+            <p data-perspective="general" data-detail="regular" hidden>We test and refine tools until they fit the work.</p>
             <div data-perspective="general" data-detail="more" hidden>
-              <p>We turn overlooked decision details into focused, useful tools.</p>
-              <p class="approach-body__extra">The point is not more software, but a clearer path through the choice at hand.</p>
+              <p>We stay close to the work, testing and refining until a tool fits the people using it.</p>
+              <p class="approach-body__extra">The point is not to add features, but to keep adjusting until the experience becomes clearer.</p>
             </div>
-            <p data-perspective="technical" data-detail="less">We test focused ideas and build only what improves a real experience.</p>
-            <p data-perspective="technical" data-detail="regular" hidden>We test focused ideas and build only what improves a real experience.</p>
+            <p data-perspective="technical" data-detail="less">We prototype in context and keep only what improves the work.</p>
+            <p data-perspective="technical" data-detail="regular" hidden>We prototype in context and keep only what improves the work.</p>
             <div data-perspective="technical" data-detail="more" hidden>
-              <p>We test focused ideas and build only what improves a real experience.</p>
-              <p class="approach-body__extra">Bounded experiments preserve what we learn and keep complexity tied to a real improvement in the experience.</p>
+              <p>We test each iteration in context, preserve the improvements it produces, and remove complexity that does not help.</p>
+              <p class="approach-body__extra">That keeps the system accountable to the experience instead of to a fixed feature list.</p>
             </div>
           </div>
             <ol class="approach-process" aria-label="Kahntra approach">
               <li>
                 <span class="approach-process__mark" aria-hidden="true">01</span>
                 <div>
-                  <h3>Notice context</h3>
-                  <p>Start with the habits, constraints, and uncertainty around the choice.</p>
+                  <h3>Stay close to the work</h3>
+                  <p>Start with the people, materials, habits, and constraints already shaping the situation.</p>
                 </div>
               </li>
               <li>
                 <span class="approach-process__mark" aria-hidden="true">02</span>
                 <div>
-                  <h3>Test in context</h3>
-                  <p>Use focused experiments to learn what improves a real experience.</p>
+                  <h3>Refine in use</h3>
+                  <p>Test and adjust the interaction as real use reveals what matters.</p>
                 </div>
               </li>
               <li>
                 <span class="approach-process__mark" aria-hidden="true">03</span>
                 <div>
-                  <h3>Keep what helps</h3>
-                  <p>Preserve what works and let unnecessary complexity fall away.</p>
+                  <h3>Keep what fits</h3>
+                  <p>Retain the structure that genuinely helps and let unnecessary complexity fall away.</p>
                 </div>
               </li>
             </ol>
@@ -321,17 +462,33 @@
           </picture>
         </figure>
       </section>
+          <section class="about-dialog__moshe" id="about-moshe-panel" role="tabpanel" aria-labelledby="about-moshe-tab" data-about-panel="moshe" hidden>
+            <h2>Designer and developer.</h2>
+            <div class="about-dialog__moshe-body">
+              <figure class="about-dialog__portrait">
+                <img src="assets/moshe-kahn-portrait.jpg" width="400" height="400" loading="lazy" alt="Moshe Kahn wearing glasses.">
+              </figure>
+              <p class="about-dialog__lead">I build independent products, experiments, and client tools through close attention to how people actually use them.</p>
+            </div>
+          </section>
+          </div>
+          <footer class="about-dialog__footer">
+            <a href="mailto:contact@kahntra.com">Send an email to contact@kahntra.com <span aria-hidden="true">→</span></a>
+          </footer>
+        </div>
+      </dialog>
     </main>
 
-    <footer class="site-footer" id="contact">
-      <a id="contact-link" href="mailto:contact@kahntra.com">contact@kahntra.com</a>
-      <p>© <span id="year">2026</span> Kahntra Productions.</p>
+    <footer class="site-footer">
+      <nav class="site-footer__links" aria-label="Footer">
+        <button type="button" data-about-open>Learn more about our approach and get in touch <span aria-hidden="true">→</span></button>
+      </nav>
     </footer>
   </div>
 
   <p class="sr-only" id="perspective-announcement" role="status" aria-live="polite" aria-atomic="true"></p>
-  <script src="welcome-overlay.js?v=task-0060-cache-8" defer></script>
-  <script src="decision-engine.js?v=task-0060-cache-8" defer></script>
-  <script src="decision-demo.js?v=task-0060-cache-8" defer></script>
+  <script src="welcome-overlay.js?v=task-0060-cache-199" defer></script>
+  <script src="decision-engine.js?v=task-0060-cache-199" defer></script>
+  <script src="decision-demo.js?v=task-0060-cache-199" defer></script>
 </body>
 </html>

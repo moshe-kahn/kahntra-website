@@ -34,6 +34,10 @@
     const contextToggles = [...document.querySelectorAll("[data-context-toggle], [data-mobile-context-toggle]")];
     const mobilePerspectiveSelector = document.querySelector(".mobile-perspective-selector");
     const siteHeaderSystem = document.querySelector(".site-header-system");
+    const aboutDialog = document.querySelector("#about-dialog");
+    const aboutOpenButtons = [...document.querySelectorAll("[data-about-open]")];
+    const aboutCloseButton = document.querySelector("[data-about-close]");
+    const aboutTabs = [...document.querySelectorAll("[data-about-tab]")];
 
     if (!announcement || !perspectiveButtons.length || !detailButtons.length || !siteToolbar || !viewControls || !viewControlsToggle) return;
 
@@ -42,6 +46,7 @@
     let controlsCollapsed = readControlsCollapsed();
     let contentTransitionTimer = null;
     let contentTransitionVersion = 0;
+    let aboutOpener = null;
     const contentFadeOutDuration = 220;
     const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
@@ -310,12 +315,14 @@
     function setGlobalDetail(detail, { announce = true } = {}) {
       if (!details.includes(detail)) return;
       globalDetail = detail;
+      document.documentElement.dataset.detailMode = detail;
       storeValue(detailKey, detail);
       writePerspectiveToUrl();
       transitionContent();
       setButtonState(detailButtons, detail, "globalDetail");
       updateViewControlsToggle();
       updateContextToggles();
+      window.dispatchEvent(new CustomEvent("kahntra-detail-change", { detail: { detail } }));
       if (announce) announcement.textContent = `Detail: ${capitalize(detail)}.`;
     }
 
@@ -332,6 +339,46 @@
       }
     }
 
+    function setAboutTab(tabName) {
+      if (!aboutTabs.length) return;
+
+      aboutTabs.forEach((tab) => {
+        const selected = tab.dataset.aboutTab === tabName;
+        tab.setAttribute("aria-selected", String(selected));
+      });
+      document.querySelectorAll("[data-about-panel]").forEach((panel) => {
+        panel.hidden = panel.dataset.aboutPanel !== tabName;
+      });
+    }
+
+    function closeAbout() {
+      if (aboutDialog?.open) aboutDialog.close();
+    }
+
+    function openAbout(event) {
+      if (!aboutDialog) return;
+      aboutOpener = event.currentTarget;
+      setAboutTab("kahntra");
+      if (!aboutDialog.open) aboutDialog.showModal();
+      requestAnimationFrame(() => aboutCloseButton?.focus());
+    }
+
+    function handleAboutTabKeydown(event) {
+      if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+      const currentIndex = aboutTabs.indexOf(event.currentTarget);
+      if (currentIndex === -1) return;
+
+      event.preventDefault();
+      const nextIndex = event.key === "Home"
+        ? 0
+        : event.key === "End"
+          ? aboutTabs.length - 1
+          : (currentIndex + (event.key === "ArrowRight" ? 1 : -1) + aboutTabs.length) % aboutTabs.length;
+      const nextTab = aboutTabs[nextIndex];
+      setAboutTab(nextTab.dataset.aboutTab);
+      nextTab.focus();
+    }
+
     perspectiveButtons.forEach((button) => {
       button.addEventListener("click", () => setGlobalPerspective(button.dataset.globalLens));
     });
@@ -346,6 +393,21 @@
     viewControlsToggle.addEventListener("click", () => {
       setControlsCollapsed(!controlsCollapsed);
     });
+    aboutOpenButtons.forEach((button) => {
+      button.addEventListener("click", openAbout);
+    });
+    aboutCloseButton?.addEventListener("click", closeAbout);
+    aboutTabs.forEach((tab) => {
+      tab.addEventListener("click", () => setAboutTab(tab.dataset.aboutTab));
+      tab.addEventListener("keydown", handleAboutTabKeydown);
+    });
+    aboutDialog?.addEventListener("click", (event) => {
+      if (event.target === aboutDialog) closeAbout();
+    });
+    aboutDialog?.addEventListener("close", () => {
+      aboutOpener?.focus({ preventScroll: true });
+      aboutOpener = null;
+    });
     document.addEventListener("pointerdown", handleDocumentPointerDown);
     document.addEventListener("keydown", handleDocumentKeydown);
     window.addEventListener("resize", updateMobileHeaderDivider);
@@ -355,10 +417,12 @@
     setButtonState(perspectiveButtons, globalPerspective, "globalLens");
     updateMobileHeaderDivider();
     setButtonState(detailButtons, globalDetail, "globalDetail");
+    document.documentElement.dataset.detailMode = globalDetail;
     writePerspectiveToUrl();
     updateContextToggles();
     setControlsCollapsed(controlsCollapsed, { persist: false });
     window.dispatchEvent(new CustomEvent("kahntra-perspective-change", { detail: { perspective: globalPerspective } }));
+    window.dispatchEvent(new CustomEvent("kahntra-detail-change", { detail: { detail: globalDetail } }));
   };
 
   if (document.readyState === "loading") {
