@@ -186,6 +186,11 @@
     const method = root.querySelector("[data-decision-method]");
     const input = root.querySelector("[data-decision-feeling]");
     const form = root.querySelector("[data-decision-controls]");
+    const refinements = root.querySelector(".decision-demo__refinements");
+    const intro = root.querySelector("[data-decision-intro]");
+    const workspace = root.querySelector("[data-decision-workspace]");
+    const prompt = root.querySelector("[data-decision-prompt]");
+    const choiceButtons = [...root.querySelectorAll("[data-decision-choice]")];
     const tagContainer = root.querySelector("[data-decision-soft-tags]");
     const results = root.querySelector("[data-decision-results]");
     const resultsHeading = root.querySelector(".decision-demo__results-heading");
@@ -204,6 +209,8 @@
     const refineNote = root.querySelector("[data-decision-refine-note]");
     const constraintNote = root.querySelector("[data-decision-constraint-note]");
     const externalBanner = banner?.querySelector("[data-decision-external-banner]");
+    const selectedSample = root.querySelector("[data-decision-selected-sample]");
+    const choicePreviews = [...root.querySelectorAll("[data-decision-choice-preview]")];
     const selectedIds = new Set();
     const suppressedIds = new Set();
     const tagButtons = new Map();
@@ -213,9 +220,12 @@
     let lastCandidateDial = Number(input.value);
     let currentMethodStep = 0;
     let selectedImageId = null;
+    let selectionRequired = false;
+    let initialBannerPicked = false;
     let currentMatches = [];
     let currentEntries = new Map();
     let galleryPage = 0;
+    let renderedMatchingPageSize = 1;
     let showingExclusions = false;
     const exclusionPages = new Map();
     const wedgeRadius = 18;
@@ -250,7 +260,8 @@
     const showMethodStep = step => { currentMethodStep = step; methodButtons.forEach(button => button.setAttribute("aria-current", String(Number(button.dataset.methodStepButton) === step))); methodPanels.forEach(panel => { panel.hidden = Number(panel.dataset.methodStep) !== step; }); };
     const neighborhood = stimulation => { const nearby = items.filter(item => Math.abs(item.attributes.stimulation - stimulation) <= 15); return nearby.length >= 18 ? nearby : [...items].sort((left, right) => Math.abs(left.attributes.stimulation - stimulation) - Math.abs(right.attributes.stimulation - stimulation)).slice(0, 28); };
     const tagStrength = (item, recipe) => recipe.categories.reduce((sum, category) => sum + item.categories[category], 0) / recipe.categories.length;
-    const matchesSelectedTags = item => { if (!selectedIds.size) return true; const combinedStrength = [...selectedIds].reduce((sum, id) => sum + tagStrength(item, preferenceFor(id)), 0) / selectedIds.size; return combinedStrength >= 62; };
+    const selectedTagMatchCount = item => [...selectedIds].filter(id => tagStrength(item, preferenceFor(id)) >= 62).length;
+    const matchesSelectedTags = item => !selectedIds.size || selectedTagMatchCount(item) > 0;
     const tagScore = (recipe, candidates, stimulation) => { const strengths = candidates.map(item => recipe.categories.reduce((sum, category) => sum + item.categories[category], 0) / recipe.categories.length); const chosen = strengths.filter(value => value >= 62); const rejected = strengths.filter(value => value < 62); if (!chosen.length || !rejected.length) return -Infinity; const mean = values => values.reduce((sum, value) => sum + value, 0) / values.length; const coverage = chosen.length / strengths.length; const separation = mean(chosen) - mean(rejected); const balance = 1 - Math.min(1, Math.abs(coverage - 0.42) / 0.42); const overlapPenalty = [...selectedIds].reduce((penalty, id) => { const other = preferenceFor(id); const shared = recipe.categories.filter(category => other.categories.includes(category)).length; return penalty + shared / Math.max(recipe.categories.length, other.categories.length); }, 0); const relevance = Math.abs(stimulation - recipe.stimulationCenter) * 0.9; return separation * 0.55 + balance * 28 - overlapPenalty * 20 - relevance; };
     const chooseCandidates = (stimulation, count) => { const rankRecipes = recipes => recipes.map(recipe => ({ id: recipe.id, score: tagScore(recipe, neighborhood(stimulation), stimulation) })).sort((left, right) => right.score - left.score || left.id.localeCompare(right.id)).map(entry => entry.id); const available = tagRecipes.filter(recipe => !selectedIds.has(recipe.id)); const preferred = rankRecipes(available.filter(recipe => !suppressedIds.has(recipe.id))); const fallback = rankRecipes(available.filter(recipe => suppressedIds.has(recipe.id))); return [...preferred, ...fallback].slice(0, count); };
     function reconcileTags(force = false) { const stimulation = Number(input.value); const moved = Math.abs(stimulation - lastCandidateDial) >= 5; if (moved) suppressedIds.clear(); if (moved || !currentCandidates.length) { currentCandidates = [...selectedIds, ...chooseCandidates(stimulation, Math.max(0, visibleTagLimit - selectedIds.size))]; lastCandidateDial = stimulation; } const desired = new Set(currentCandidates); [...slots.entries()].filter(([id]) => !desired.has(id)).forEach(([id]) => slots.delete(id)); [...desired].filter(id => !slots.has(id)).forEach(id => slots.set(id, freeSlot())); tagButtons.forEach((button, id) => { if (desired.has(id)) showTag(button); else hideTag(button); }); }
@@ -261,12 +272,12 @@
     let galleryGroups = { good: [], excluded: [] };
     let exclusionGroups = [];
     let closestAvailableIds = new Set();
-    const selectImage = item => { if (!item) return; selectedImageId = item.id; paint(externalBanner, item); root.querySelectorAll("[data-gallery-image]").forEach(button => button.setAttribute("aria-pressed", String(button.dataset.galleryImage === selectedImageId))); };
+    const selectImage = item => { if (!item) return; selectedImageId = item.id; if (banner) banner.hidden = false; paint(externalBanner, item); paint(selectedSample, item); root.querySelectorAll("[data-gallery-image]").forEach(button => button.setAttribute("aria-pressed", String(button.dataset.galleryImage === selectedImageId))); };
     const makeGalleryButton = (item, reasonLabel = "") => { const button = document.createElement("button"); const visual = document.createElement("span"); const caption = document.createElement("span"); const description = `${closestAvailableIds.has(item.id) ? "Closest · " : ""}${visualDescription(item)}`; button.type = "button"; button.className = "decision-demo__gallery-item"; button.dataset.galleryImage = item.id; button.setAttribute("aria-label", `Select ${item.name}: ${description}${reasonLabel ? `. ${reasonLabel}` : ""}`); button.setAttribute("aria-pressed", String(item.id === selectedImageId)); visual.className = "decision-demo__gallery-visual"; visual.setAttribute("aria-hidden", "true"); caption.className = "decision-demo__gallery-caption"; caption.textContent = description; paint(visual, item); button.append(visual, caption); button.addEventListener("click", () => selectImage(item)); return button; };
     const makeExclusionReasonCard = group => { const item = group.representative; const button = document.createElement("button"); const visual = document.createElement("span"); const reason = document.createElement("span"); const caption = document.createElement("span"); const more = Math.max(0, group.items.length - 1); button.type = "button"; button.className = "decision-demo__gallery-item decision-demo__gallery-item--excluded"; button.dataset.galleryImage = item.id; button.setAttribute("aria-label", `Select ${item.name}. Ruled out for now: ${group.label}${more ? `, plus ${more} more` : ""}.`); button.setAttribute("aria-pressed", String(item.id === selectedImageId)); visual.className = "decision-demo__gallery-visual"; visual.setAttribute("aria-hidden", "true"); reason.className = "decision-demo__gallery-reason"; reason.textContent = group.label; if (more) { const count = document.createElement("span"); count.className = "decision-demo__gallery-reason-count"; count.textContent = `+${more} more`; reason.append(count); } caption.className = "decision-demo__gallery-caption"; caption.textContent = visualDescription(item); paint(visual, item); visual.append(reason); button.append(visual, caption); button.addEventListener("click", () => selectImage(item)); return button; };
     const pageSize = kind => {
       const compact = window.matchMedia("(max-width: 760px)").matches;
-      return kind === "matching" ? 3 : (compact ? 4 : 8);
+      return kind === "matching" ? (refinements?.open && !compact ? 6 : 4) : (compact ? 4 : 8);
     };
     const makePager = ({ page, pageCount, label, onPageChange }) => {
       if (pageCount <= 1) return null;
@@ -332,6 +343,7 @@
       resultsHeading.hidden = false;
       results.replaceChildren();
       const size = pageSize("matching");
+      renderedMatchingPageSize = size;
       const matchingPageCount = Math.max(1, Math.ceil(galleryGroups.good.length / size));
       const finalMatchingPageSize = galleryGroups.good.length - ((matchingPageCount - 1) * size);
       const hasExclusions = exclusionGroups.length > 0;
@@ -351,12 +363,52 @@
       if (pager) results.append(pager);
       summary.textContent = `${galleryGroups.good.length} good options. ${currentMatches.find(item => item.id === selectedImageId)?.name || "No image"} selected.`;
     };
-    const render = (resetSelection = false) => { const state = readState(); const rank = globalThis.DecisionEngine.rank({ items, targetProfile: targetProfileFor(state.stimulation), selectedSoftPreferences: state.preferences, hardConstraints: state.hardConstraints, limit: items.length }); const effects = effectsText(rank); currentEntries = new Map(rank.all.map(entry => [entry.item.id, entry])); const lowerBound = state.stimulation - wedgeRadius; const upperBound = state.stimulation + wedgeRadius; const inside = rank.all.filter(entry => entry.eligible && entry.item.attributes.stimulation >= lowerBound && entry.item.attributes.stimulation <= upperBound); const strictGood = inside.filter(entry => matchesSelectedTags(entry.item)); let goodEntries = strictGood; closestAvailableIds = new Set(); if (selectedIds.size && strictGood.length < Math.min(4, inside.length)) { goodEntries = inside.slice(0, Math.min(4, inside.length)); closestAvailableIds = new Set(goodEntries.filter(entry => !strictGood.includes(entry)).map(entry => entry.item.id)); } const goodIds = new Set(goodEntries.map(entry => entry.item.id)); const excludedEntries = rank.all.filter(entry => !goodIds.has(entry.item.id)); const excludedIds = new Set(excludedEntries.map(entry => entry.item.id)); const groupItems = test => rank.all.filter(entry => excludedIds.has(entry.item.id) && test(entry)).map(entry => entry.item); exclusionGroups = []; const addGroup = (id, label, actionLabel, action, test) => { const grouped = groupItems(test); if (grouped.length) exclusionGroups.push({ id, label, actionLabel, action, items: grouped }); }; addGroup("too-comforting", "Too comforting", "Nudge toward Comfort", () => { input.value = String(clamp(Number(input.value) - 8)); suppressedIds.clear(); reconcileTags(true); render(true); }, entry => entry.item.attributes.stimulation < lowerBound); addGroup("too-stimulating", "Too stimulating", "Nudge toward Stimulate", () => { input.value = String(clamp(Number(input.value) + 8)); suppressedIds.clear(); reconcileTags(true); render(true); }, entry => entry.item.attributes.stimulation > upperBound); [...selectedIds].map(preferenceFor).forEach(recipe => addGroup(`tag-${recipe.id}`, recipe.exclusionLabel, `Remove “${recipe.label}”`, () => tagButtons.get(recipe.id)?.click(), entry => tagStrength(entry.item, recipe) < 62)); state.hardConstraints.forEach(constraint => addGroup(`constraint-${constraint.id}`, constraint.exclusionLabel, "Remove limitation", () => { const control = root.querySelector(`[data-decision-constraint="${constraint.id}"]`); if (control) control.checked = false; render(true); }, entry => entry.failedConstraints.includes(constraint.id))); galleryGroups = { good: goodEntries.map(entry => entry.item), excluded: excludedEntries.map(entry => entry.item) }; currentMatches = galleryGroups.good; goodCount.textContent = galleryGroups.good.length; excludedCount.textContent = galleryGroups.excluded.length; if (resetSelection || !currentMatches.some(item => item.id === selectedImageId)) { selectedImageId = currentMatches[0]?.id || null; galleryPage = 0; showingExclusions = false; exclusionPages.clear(); } const wedgeStart = Math.max(0, state.stimulation - wedgeRadius); const wedgeEnd = Math.min(100, state.stimulation + wedgeRadius); wedge.style.setProperty("--wedge-start", `${wedgeStart}%`); wedge.style.setProperty("--wedge-width", `${wedgeEnd - wedgeStart}%`); root.querySelectorAll("[data-scale-label]").forEach(label => label.classList.toggle("is-active", label.dataset.scaleLabel === (state.stimulation < 50 ? "comfort" : "stimulation"))); renderGallery(); selectImage(currentMatches.find(item => item.id === selectedImageId)); if (effects.length) summary.textContent += ` Preferences: ${effects.join("; ")}.`; };
+    const render = (resetSelection = false) => {
+      const state = readState();
+      const rank = globalThis.DecisionEngine.rank({ items, targetProfile: targetProfileFor(state.stimulation), selectedSoftPreferences: state.preferences, hardConstraints: state.hardConstraints, limit: items.length });
+      const effects = effectsText(rank);
+      currentEntries = new Map(rank.all.map(entry => [entry.item.id, entry]));
+      const lowerBound = state.stimulation - wedgeRadius;
+      const upperBound = state.stimulation + wedgeRadius;
+      const inside = rank.all.filter(entry => entry.eligible && entry.item.attributes.stimulation >= lowerBound && entry.item.attributes.stimulation <= upperBound);
+      const goodEntries = inside.filter(entry => matchesSelectedTags(entry.item)).sort((left, right) => selectedTagMatchCount(right.item) - selectedTagMatchCount(left.item));
+      closestAvailableIds = new Set();
+      const goodIds = new Set(goodEntries.map(entry => entry.item.id));
+      const excludedEntries = rank.all.filter(entry => !goodIds.has(entry.item.id));
+      const excludedIds = new Set(excludedEntries.map(entry => entry.item.id));
+      const groupItems = test => rank.all.filter(entry => excludedIds.has(entry.item.id) && test(entry)).map(entry => entry.item);
+      exclusionGroups = [];
+      const addGroup = (id, label, actionLabel, action, test) => { const grouped = groupItems(test); if (grouped.length) exclusionGroups.push({ id, label, actionLabel, action, items: grouped }); };
+      addGroup("too-comforting", "Too comforting", "Nudge toward Comfort", () => { input.value = String(clamp(Number(input.value) - 8)); suppressedIds.clear(); reconcileTags(true); render(true); }, entry => entry.item.attributes.stimulation < lowerBound);
+      addGroup("too-stimulating", "Too stimulating", "Nudge toward Stimulate", () => { input.value = String(clamp(Number(input.value) + 8)); suppressedIds.clear(); reconcileTags(true); render(true); }, entry => entry.item.attributes.stimulation > upperBound);
+      [...selectedIds].map(preferenceFor).forEach(recipe => addGroup(`tag-${recipe.id}`, recipe.exclusionLabel, `Remove “${recipe.label}”`, () => tagButtons.get(recipe.id)?.click(), entry => tagStrength(entry.item, recipe) < 62));
+      state.hardConstraints.forEach(constraint => addGroup(`constraint-${constraint.id}`, constraint.exclusionLabel, "Remove limitation", () => { const control = root.querySelector(`[data-decision-constraint="${constraint.id}"]`); if (control) control.checked = false; render(true); }, entry => entry.failedConstraints.includes(constraint.id)));
+      galleryGroups = { good: goodEntries.map(entry => entry.item), excluded: excludedEntries.map(entry => entry.item) };
+      currentMatches = galleryGroups.good;
+      goodCount.textContent = galleryGroups.good.length;
+      excludedCount.textContent = galleryGroups.excluded.length;
+      if (!selectionRequired && (resetSelection || !currentMatches.some(item => item.id === selectedImageId))) { selectedImageId = currentMatches[0]?.id || null; galleryPage = 0; showingExclusions = false; exclusionPages.clear(); }
+      const wedgeStart = Math.max(0, state.stimulation - wedgeRadius);
+      const wedgeEnd = Math.min(100, state.stimulation + wedgeRadius);
+      wedge.style.setProperty("--wedge-start", `${wedgeStart}%`);
+      wedge.style.setProperty("--wedge-width", `${wedgeEnd - wedgeStart}%`);
+      root.querySelectorAll("[data-scale-label]").forEach(label => label.classList.toggle("is-active", label.dataset.scaleLabel === (state.stimulation < 50 ? "comfort" : "stimulation")));
+      renderGallery();
+      selectImage(currentMatches.find(item => item.id === selectedImageId));
+      if (effects.length) summary.textContent += ` Preferences: ${effects.join("; ")}.`;
+    };
     const updateDetail = detail => { const verbose = detail === "verbose"; root.classList.toggle("is-concise", !verbose); note.textContent = verbose ? "Consolidates multiple independent attributes into one continuous direction." : "Ranks image directions across multiple dimensions."; refineNote.textContent = verbose ? "Surfaces a limited set of relevant attributes to help refine the direction." : "Choose from relevant attributes."; constraintNote.textContent = verbose ? "Applies hard constraints to remove complete results that do not meet the selected conditions." : "Remove results that do not meet your limits."; root.querySelectorAll("[data-method-verbose-only]").forEach(element => { element.hidden = !verbose; }); const numbered = root.querySelectorAll("[data-method-step-number]"); if (numbered[0]) numbered[0].textContent = verbose ? "02" : "01"; if (numbered[1]) numbered[1].textContent = verbose ? "04" : "02"; const defineHeading = root.querySelector("[data-method-define-heading]"); const guideHeading = root.querySelector("[data-method-guide-heading]"); if (defineHeading) defineHeading.textContent = `${verbose ? "Step 2" : "Step 1"} — Define visual attributes`; if (guideHeading) guideHeading.textContent = `${verbose ? "Step 4" : "Step 2"} — Guide the choice`; if (!verbose && (currentMethodStep === 0 || currentMethodStep === 2)) showMethodStep(1); };
-    const setVisibility = perspective => { const visible = perspective === "technical"; [label, root, banner].forEach(element => { if (!element) return; element.hidden = !visible; element.inert = !visible; }); if (!visible) tagButtons.forEach(button => { const transition = transitions.get(button); if (transition) finalizeExit(button, transition.version, false); }); else { reconcileTags(true); render(); } };
-    ensureButtons(); renderMethod(); reconcileTags(true);
+    const choiceItems = Object.freeze({ calm: items.reduce((best, item) => Math.abs(item.attributes.stimulation - 14) < Math.abs(best.attributes.stimulation - 14) ? item : best, items[0]), middle: items.reduce((best, item) => Math.abs(item.attributes.stimulation - 50) < Math.abs(best.attributes.stimulation - 50) ? item : best, items[0]), stimulate: items.reduce((best, item) => Math.abs(item.attributes.stimulation - 86) < Math.abs(best.attributes.stimulation - 86) ? item : best, items[0]) });
+    const setVisibility = perspective => { const visible = perspective === "technical"; [label, root, banner].forEach(element => { if (!element) return; element.hidden = !visible; element.inert = !visible; }); if (!visible) tagButtons.forEach(button => { const transition = transitions.get(button); if (transition) finalizeExit(button, transition.version, false); }); else { reconcileTags(true); render(); if (!initialBannerPicked && currentMatches.length) { selectImage(currentMatches[Math.floor(Math.random() * currentMatches.length)]); initialBannerPicked = true; } } };
+    ensureButtons(); renderMethod(); reconcileTags(true); choicePreviews.forEach(preview => paint(preview, choiceItems[preview.dataset.decisionChoicePreview]));
     methodButtons.forEach(button => button.addEventListener("click", () => showMethodStep(Number(button.dataset.methodStepButton))));
-    input.addEventListener("input", () => { reconcileTags(); render(true); });
+    const preserveResultPosition = () => {
+      const firstVisibleResult = galleryPage * renderedMatchingPageSize;
+      galleryPage = Math.floor(firstVisibleResult / pageSize("matching"));
+    };
+    refinements?.addEventListener("toggle", () => { root.classList.toggle("has-extra-refinements", refinements.open); preserveResultPosition(); selectionRequired = refinements.open; selectedImageId = null; render(true); });
+    choiceButtons.forEach(button => button.addEventListener("click", () => { const choiceItem = choiceItems[button.dataset.decisionChoice]; if (!choiceItem) return; root.classList.add("is-interacting"); intro.hidden = true; workspace.hidden = false; method.hidden = false; input.value = String(Math.round(choiceItem.attributes.stimulation)); selectedImageId = choiceItem.id; selectionRequired = false; galleryPage = 0; reconcileTags(true); render(); const selectedIndex = currentMatches.findIndex(item => item.id === choiceItem.id); galleryPage = Math.max(0, Math.floor(Math.max(0, selectedIndex) / pageSize("matching"))); renderGallery(); selectImage(choiceItem); input.focus(); }));
+    input.addEventListener("input", () => { selectedImageId = null; selectionRequired = true; reconcileTags(); render(); });
     root.querySelectorAll("[data-decision-constraint]").forEach(control => control.addEventListener("change", () => render(true)));
     const noPalettePreference = root.querySelector("[data-decision-palette-clear]");
     const paletteControls = [...root.querySelectorAll('[data-decision-constraint^="palette-"]')];

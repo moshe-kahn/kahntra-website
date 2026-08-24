@@ -38,6 +38,7 @@
     const aboutOpenButtons = [...document.querySelectorAll("[data-about-open]")];
     const aboutCloseButton = document.querySelector("[data-about-close]");
     const aboutTabs = [...document.querySelectorAll("[data-about-tab]")];
+    const unavailableLinks = [...document.querySelectorAll(".product-card__unavailable")];
 
     if (!announcement || !perspectiveButtons.length || !detailButtons.length || !siteToolbar || !viewControls || !viewControlsToggle) return;
 
@@ -47,6 +48,7 @@
     let contentTransitionTimer = null;
     let contentTransitionVersion = 0;
     let aboutOpener = null;
+    const unavailableTimers = new WeakMap();
     const contentFadeOutDuration = 220;
     const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
@@ -330,6 +332,9 @@
       if (!controlsCollapsed && isCompactViewport() && !siteToolbar.contains(event.target)) {
         setControlsCollapsed(true);
       }
+      unavailableLinks.forEach((notice) => {
+        if (notice.open && !notice.contains(event.target)) notice.open = false;
+      });
     }
 
     function handleDocumentKeydown(event) {
@@ -407,6 +412,12 @@
     aboutDialog?.addEventListener("close", () => {
       aboutOpener?.focus({ preventScroll: true });
       aboutOpener = null;
+    });
+    unavailableLinks.forEach((notice) => {
+      notice.addEventListener("toggle", () => {
+        window.clearTimeout(unavailableTimers.get(notice));
+        if (notice.open) unavailableTimers.set(notice, window.setTimeout(() => { notice.open = false; }, 2000));
+      });
     });
     document.addEventListener("pointerdown", handleDocumentPointerDown);
     document.addEventListener("keydown", handleDocumentKeydown);

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="38 8 942 148" role="img" aria-labelledby="title desc">
+  <title id="title">ListenLab color wordmark for light backgrounds</title>
+  <desc id="desc">Uppercase LISTEN in Studio Ink followed by a Warm Copper instrument plug forming a capital L and a continuous cable forming lowercase a and b.</desc>
+  <metadata>LISTEN letter outlines derive from Bitstream Vera Sans Bold, Copyright (c) 2003 Bitstream, Inc., used under its bundled license. No font software or live text is embedded. Approved colors: Studio Ink #211611 and Warm Copper #A94712.</metadata>
+  <g fill="#211611">
+    <path transform="translate(30 150) scale(0.13599 -0.13599)" d="M91.80 729.00L279.79 729.00L279.79 142.09L609.86 142.09L609.86 0.00L91.80 0.00Z"/>
+    <path transform="translate(133.65 150) scale(0.13599 -0.13599)" d="M91.80 729.00L279.79 729.00L279.79 0.00L91.80 0.00Z"/>
+    <path transform="translate(201.25 150) scale(0.13599 -0.13599)" d="M599.12 706.05L599.12 551.76Q539.06 578.61 481.93 592.29Q424.80 605.96 374.02 605.96Q306.64 605.96 274.41 587.40Q242.19 568.85 242.19 529.79Q242.19 500.49 263.92 484.13Q285.64 467.77 342.77 456.05L422.85 439.94Q544.43 415.53 595.70 365.72Q646.97 315.92 646.97 224.12Q646.97 103.52 575.44 44.68Q503.91 -14.16 356.93 -14.16Q287.60 -14.16 217.77 -0.98Q147.95 12.21 78.12 38.09L78.12 196.78Q147.95 159.67 213.13 140.87Q278.32 122.07 338.87 122.07Q400.39 122.07 433.11 142.58Q465.82 163.09 465.82 201.17Q465.82 235.35 443.60 253.91Q421.39 272.46 354.98 287.11L282.23 303.22Q172.85 326.66 122.31 377.93Q71.78 429.20 71.78 516.11Q71.78 625.00 142.09 683.59Q212.40 742.19 344.24 742.19Q404.30 742.19 467.77 733.15Q531.25 724.12 599.12 706.05Z"/>
+    <path transform="translate(316.19 150) scale(0.13599 -0.13599)" d="M4.88 729.00L676.76 729.00L676.76 586.91L435.06 586.91L435.06 0.00L247.07 0.00L247.07 586.91L4.88 586.91Z"/>
+    <path transform="translate(425.95 150) scale(0.13599 -0.13599)" d="M91.80 729.00L599.12 729.00L599.12 586.91L279.79 586.91L279.79 451.17L580.08 451.17L580.08 309.08L279.79 309.08L279.79 142.09L609.86 142.09L609.86 0.00L91.80 0.00Z"/>
+    <path transform="translate(535.85 150) scale(0.13599 -0.13599)" d="M91.80 729.00L301.76 729.00L566.89 229.00L566.89 729.00L745.12 729.00L745.12 0.00L535.16 0.00L270.02 500.00L270.02 0.00L91.80 0.00Z"/>
+  </g>
+  <g fill="#A94712">
+    <path d="M690 14C695 19 698 24 698 29H682C682 24 685 19 690 14Z"/>
+    <path d="M682 33H698V42H682Z"/><path d="M682 46H698V101H682Z"/><path d="M675 101H705V139H675Z"/>
+  </g>
+  <g fill="none" stroke="#A94712" stroke-width="8.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M690 139V141Q690 145.25 699 145.25H792"/><ellipse cx="792" cy="114.25" rx="30" ry="31"/>
+    <path d="M822 88V132Q822 145.25 835 145.25H843Q856 145.25 856 132V50"/><ellipse cx="888" cy="114.25" rx="32" ry="31"/><path d="M888 145.25H970"/>
+  </g>
+</svg>

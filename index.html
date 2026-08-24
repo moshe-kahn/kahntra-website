@@ -20,7 +20,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="styles.css?v=task-0063-gallery-18">
+    <link rel="stylesheet" href="styles.css?v=task-0063-gallery-89">
   <link rel="stylesheet" href="momo-editions-gallery.css?v=task-0063-gallery-18">
 </head>
 
@@ -125,16 +125,34 @@
 
         <p class="eyebrow decision-demo__label" data-tech-demo-label>Experiment</p>
         <section class="decision-demo section" data-tech-demo aria-labelledby="decision-demo-title">
-          <div class="decision-demo__heading">
-            <h2 id="decision-demo-title" class="decision-demo__prompt">What banner image fits this moment?</h2>
+          <div class="decision-demo__opening">
+            <div class="decision-demo__opening-copy">
+              <div class="decision-demo__heading">
+                <h2 id="decision-demo-title" class="decision-demo__prompt" data-decision-prompt>Which feels better to you?</h2>
+              </div>
+              <div class="decision-demo__intro" data-decision-intro>
+                <div class="decision-demo__choice-grid" aria-label="Choose a visual direction">
+                  <button type="button" class="decision-demo__choice" data-decision-choice="calm" aria-label="Choose the calm direction"><span class="decision-demo__choice-preview" data-decision-choice-preview="calm" aria-hidden="true"></span></button>
+                  <button type="button" class="decision-demo__choice" data-decision-choice="middle" aria-label="Choose the middle direction"><span class="decision-demo__choice-preview" data-decision-choice-preview="middle" aria-hidden="true"></span></button>
+                  <button type="button" class="decision-demo__choice" data-decision-choice="stimulate" aria-label="Choose the stimulating direction"><span class="decision-demo__choice-preview" data-decision-choice-preview="stimulate" aria-hidden="true"></span></button>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="decision-demo__workspace">
+          <div class="decision-demo__workspace" data-decision-workspace hidden>
             <form class="decision-demo__controls" data-decision-controls data-fallback-controls>
-              <fieldset><legend>Shape the overall experience</legend><label class="decision-demo__range-label" for="decision-feeling"><span data-scale-label="comfort">Comfort</span><span data-scale-label="stimulation">Stimulate</span></label><div class="decision-demo__range-shell"><span class="decision-demo__range-wedge" data-decision-wedge aria-hidden="true"></span><input id="decision-feeling" name="feeling" type="range" min="0" max="100" value="50" data-decision-feeling aria-describedby="decision-feeling-note" disabled></div><p id="decision-feeling-note" class="decision-demo__control-note" data-decision-tech-note>Static example: the working model requires JavaScript.</p></fieldset>
-              <fieldset><legend>Choose what matters</legend><div class="decision-demo__soft-tags" data-decision-soft-tags aria-label="Adaptive refinements"><button type="button" aria-pressed="false" disabled>Structured clarity</button><button type="button" aria-pressed="false" disabled>Tactile layers</button><button type="button" aria-pressed="false" disabled>Color-led atmosphere</button><button type="button" aria-pressed="false" disabled>Natural movement</button></div><p class="decision-demo__control-note" data-decision-refine-note>Relevant choices appear for the current part of the image set.</p></fieldset>
-              <fieldset><legend>Set limitations</legend><div class="decision-demo__checks"><label><input type="checkbox" data-decision-constraint="text-ready" disabled> Needs space for text</label><label><input type="checkbox" data-decision-constraint="fits-kahntra" disabled> Fits Kahntra</label></div><div class="decision-demo__color-direction" role="radiogroup" aria-label="Palette"><div class="decision-demo__color-direction-heading"><span>Palette</span><button type="button" class="decision-demo__no-preference" data-decision-palette-clear hidden disabled>Clear selection</button></div><div class="decision-demo__color-options"><label><input type="radio" name="decision-color-direction" data-decision-constraint="palette-cool" disabled><span>Cool</span></label><label><input type="radio" name="decision-color-direction" data-decision-constraint="palette-neutral" disabled><span>Neutral</span></label><label><input type="radio" name="decision-color-direction" data-decision-constraint="palette-warm" disabled><span>Warm</span></label></div></div><p class="decision-demo__control-note" data-decision-constraint-note>Checked conditions remove images that cannot satisfy this banner.</p></fieldset>
+              <fieldset class="decision-demo__primary-control"><legend>Shape the overall experience</legend><label class="decision-demo__range-label" for="decision-feeling"><span data-scale-label="comfort">Comfort</span><span data-scale-label="stimulation">Stimulate</span></label><div class="decision-demo__range-shell"><span class="decision-demo__range-wedge" data-decision-wedge aria-hidden="true"></span><input id="decision-feeling" name="feeling" type="range" min="0" max="100" value="50" data-decision-feeling aria-describedby="decision-feeling-note" disabled></div><div class="decision-demo__color-direction" role="radiogroup" aria-label="Palette"><div class="decision-demo__color-direction-heading"><span>Palette</span><button type="button" class="decision-demo__no-preference" data-decision-palette-clear hidden disabled>Clear selection</button></div><div class="decision-demo__color-options"><label><input type="radio" name="decision-color-direction" data-decision-constraint="palette-cool" disabled><span>Cool</span></label><label><input type="radio" name="decision-color-direction" data-decision-constraint="palette-neutral" disabled><span>Neutral</span></label><label><input type="radio" name="decision-color-direction" data-decision-constraint="palette-warm" disabled><span>Warm</span></label></div></div><p id="decision-feeling-note" class="decision-demo__control-note" data-decision-tech-note hidden>Static example: the working model requires JavaScript.</p></fieldset>
+              <fieldset class="decision-demo__tag-controls"><legend>Visual preferences</legend><div class="decision-demo__soft-tags" data-decision-soft-tags aria-label="Adaptive refinements"><button type="button" aria-pressed="false" disabled>Structured clarity</button><button type="button" aria-pressed="false" disabled>Tactile layers</button><button type="button" aria-pressed="false" disabled>Color-led atmosphere</button><button type="button" aria-pressed="false" disabled>Natural movement</button></div><p class="decision-demo__control-note" data-decision-refine-note>Relevant choices appear for the current part of the image set.</p></fieldset>
+              <details class="decision-demo__refinements">
+                <summary>More refinements</summary>
+                <div class="decision-demo__refinement-controls">
+              <fieldset><legend>Optional conditions</legend><div class="decision-demo__checks"><label><input type="checkbox" data-decision-constraint="text-ready" disabled> Needs space for text</label><label><input type="checkbox" data-decision-constraint="fits-kahntra" disabled> Fits Kahntra</label></div><p class="decision-demo__control-note" data-decision-constraint-note>Checked conditions remove images that cannot satisfy this banner.</p></fieldset>
+                </div>
+              </details>
             </form>
-            <div class="decision-demo__results" aria-label="Matching images">
+            <div class="decision-demo__results-column">
+              <div class="decision-demo__selected-sample"><span data-decision-selected-sample aria-hidden="true"></span></div>
+              <div class="decision-demo__results" aria-label="Matching images">
               <div class="decision-demo__results-heading"><p class="decision-demo__results-count"><span data-decision-good-count>4</span> considerations</p></div>
               <div class="decision-demo__gallery">
                 <div class="decision-demo__gallery-grid" data-decision-results role="group" aria-label="Current matching images">
@@ -159,12 +177,12 @@
                 </details>
               </div>
               <p class="sr-only" data-decision-summary aria-live="polite">Static example: four matching images.</p>
+              </div>
             </div>
           </div>
-          <details class="decision-demo__method" data-decision-method>
-            <summary>Our method</summary>
+          <details class="decision-demo__method" data-decision-method hidden>
+            <summary>How this works</summary>
             <div class="decision-demo__method-content">
-              <p class="decision-demo__method-intro">See how a bounded image set becomes the guided model above.</p>
               <ol class="decision-demo__stages" aria-label="Method steps">
                 <li data-method-verbose-only><button type="button" data-method-step-button="0" aria-current="true"><span>01</span>Record</button></li>
                 <li><button type="button" data-method-step-button="1"><span data-method-step-number>02</span>Define</button></li>
@@ -197,20 +215,16 @@
           </details>
         </section>
 
-        <figure class="decision-demo__banner" data-tech-demo-banner hidden>
-          <div class="decision-demo__comparison-preview" data-decision-external-banner role="img" aria-label="Selected banner image"></div>
-        </figure>
-
         <div class="product-groups">
           <section class="product-group" aria-labelledby="products-development-title">
-            <h3 class="product-group__title" id="products-development-title">In development</h3>
+            <h3 class="product-group__title" id="products-development-title">Projects in development</h3>
             <div class="product-grid">
           <article class="product-card" data-project-id="momomovies">
             <div class="product-card__meta">
               <p class="stage">Beta</p>
               <p class="availability">Public access</p>
             </div>
-            <h4 class="product-card__title">MomoMovies</h4>
+            <h4 class="product-card__title product-card__title--logo"><img src="assets/momo-movies-logo-transparent.svg" alt="Momo Movies"></h4>
             <div class="product-card__description" data-content-group>
               <p data-perspective="philosophy" data-detail="less" hidden>MomoMovies treats choosing a film as a human decision shaped by mood, context, and the people watching.</p>
               <p data-perspective="philosophy" data-detail="regular" hidden>Choosing a film is rarely about genre or ratings alone. MomoMovies treats discovery as a human decision: mood, context, and the people watching matter.</p>
@@ -222,12 +236,12 @@
               <p data-perspective="technical" data-detail="regular" hidden>MomoMovies is an active product experiment combining curated discovery, Vibes-based browsing, streaming-availability work, and private data and analysis pipelines. Some enrichment and ranking work remains experimental.</p>
               <p data-perspective="technical" data-detail="more" hidden>MomoMovies combines Vibes-based browsing with structured dimensions and filters, streaming-availability work, and curated ordering experiments. Private enrichment and data pipelines support analysis and discovery research. Ranking work and some enrichment capabilities remain experimental.</p>
             </div>
-            <div class="product-card__actions">
-              <details class="product-card__more">
-                <summary>Learn more <span aria-hidden="true">→</span></summary>
-                <p>Beta access is being refined around Vibes-based discovery and streaming availability.</p>
+            <div class="product-card__footer">
+              <p class="product-card__platform">Web app</p>
+              <details class="product-card__unavailable">
+                <summary>Visit MomoMovies</summary>
+                <span>Temporarily unavailable</span>
               </details>
-              <button class="product-card__external product-card__external--disabled" type="button" disabled>Visit MomoMovies <span>Temporarily unavailable</span></button>
             </div>
           </article>
 
@@ -236,7 +250,7 @@
               <p class="stage">Prototype</p>
               <p class="availability">Public repository</p>
             </div>
-            <h4 class="product-card__title">ListenLab</h4>
+            <h4 class="product-card__title product-card__title--logo product-card__title--listenlab"><img src="assets/listenlab-wordmark-color-on-light.svg" alt="ListenLab"></h4>
             <div class="product-card__description" data-content-group>
               <p data-perspective="philosophy" data-detail="less" hidden>ListenLab reveals music relationships that ordinary streaming interfaces leave behind.</p>
               <p data-perspective="philosophy" data-detail="regular" hidden>ListenLab explores how music collections can reveal connections that ordinary streaming interfaces flatten or hide: alternate releases, performances, covers, album context, and personally meaningful organization.</p>
@@ -248,11 +262,8 @@
               <p data-perspective="technical" data-detail="regular" hidden>ListenLab is a private prototype exploring music metadata relationships through interface experiments around playlist organization, alternate recordings, and release context.</p>
               <p data-perspective="technical" data-detail="more" hidden>ListenLab is a private prototype exploring music metadata relationships through interface experiments around playlist organization, alternate recordings, and release context. The work tests how those connections can be made legible without presenting a public production service.</p>
             </div>
-            <div class="product-card__actions">
-              <details class="product-card__more">
-                <summary>Learn more <span aria-hidden="true">→</span></summary>
-                <p>Explore the prototype’s connected view of recordings, releases, and playlists.</p>
-              </details>
+            <div class="product-card__footer">
+              <p class="product-card__platform">Web app</p>
               <a class="product-card__external" href="https://github.com/moshe-kahn/listen-labs" target="_blank" rel="noreferrer">View repository <span aria-hidden="true">↗</span></a>
             </div>
           </article>
@@ -262,7 +273,7 @@
               <p class="stage">Pilot</p>
               <p class="availability">Private access</p>
             </div>
-            <h4 class="product-card__title">Momentum Management</h4>
+            <h4 class="product-card__title product-card__title--logo product-card__title--momentum"><img src="assets/momentum-management-primary-navy-transparent-1400.png" alt="Momentum Management"></h4>
             <div class="product-card__description" data-content-group>
               <p data-perspective="philosophy" data-detail="less" hidden>Momentum Management helps make ongoing work visible without losing the context around it.</p>
               <p data-perspective="philosophy" data-detail="regular" hidden>Momentum Management explores a calmer way to see and organize ongoing work, preserving the context that makes priorities meaningful.</p>
@@ -274,11 +285,8 @@
               <p data-perspective="technical" data-detail="regular" hidden>Momentum Management is a private prototype for a read-only view of active work, its relationships, and current attention across a shared system.</p>
               <p data-perspective="technical" data-detail="more" hidden>Momentum Management is a private prototype for a read-only view of active work, its relationships, and current attention across a shared system. It tests how those connected records can remain legible without turning the interface into a collection of separate dashboards.</p>
             </div>
-            <div class="product-card__actions">
-              <details class="product-card__more">
-                <summary>Learn more <span aria-hidden="true">→</span></summary>
-                <p>A private pilot for keeping active work, relationships, and current attention in one view.</p>
-              </details>
+            <div class="product-card__footer">
+              <p class="product-card__platform">macOS app</p>
             </div>
           </article>
             </div>
@@ -301,6 +309,7 @@
               <p data-perspective="technical" data-detail="regular" hidden>Meal Match is early product research into structured preference inputs, constraint matching, shared decisions, and recommendation logic. No application or functional prototype is available yet.</p>
               <p data-perspective="technical" data-detail="more" hidden>Meal Match is early product research into structured preference inputs, constraint matching, shared decisions, and recommendation logic. No application or functional prototype is available yet.</p>
             </div>
+            <p class="concept-card__status">Concept study</p>
           </article>
 
           <article class="product-card" data-project-id="pathwise">
@@ -316,6 +325,7 @@
               <p data-perspective="technical" data-detail="regular" hidden>PathWise is early product research into context-aware route choice. Its name, data assumptions, safety framing, and implementation boundaries remain open.</p>
               <p data-perspective="technical" data-detail="more" hidden>PathWise is early product research into context-aware route choice. Its name, data assumptions, safety framing, and implementation boundaries remain open.</p>
             </div>
+            <p class="concept-card__status">Exploratory direction</p>
           </article>
 
           <article class="product-card" data-project-id="momentum-tasks">
@@ -331,6 +341,7 @@
               <p data-perspective="technical" data-detail="regular" hidden>Chore Thing is early research into context-adaptive household chore decisions. Its identity, privacy, ownership, and collaboration boundaries remain open.</p>
               <p data-perspective="technical" data-detail="more" hidden>Chore Thing is early research into context-adaptive household chore decisions. Its identity, privacy, ownership, and collaboration boundaries remain open.</p>
             </div>
+            <p class="concept-card__status">Product concept</p>
           </article>
             </div>
           </section>
@@ -339,12 +350,19 @@
       </section>
 
       <section class="showcase section" aria-labelledby="showcase-title">
+        <figure class="decision-demo__banner decision-demo__showcase-banner" data-tech-demo-banner hidden>
+          <div class="decision-demo__comparison-preview" data-decision-external-banner role="img" aria-label="Selected banner image"></div>
+          <figcaption><a href="#decision-demo-title">The experiment <span aria-hidden="true">↑</span></a></figcaption>
+        </figure>
         <div class="showcase__heading">
           <h2 id="showcase-title" tabindex="-1">Showcase</h2>
           <p>Selected visual work and experiments from across Kahntra.</p>
         </div>
         <article class="showcase__card showcase__card--momo" aria-labelledby="momo-editions-title">
-          <h3 id="momo-editions-title" class="momo-gallery__card-title">Momo Editions</h3>
+          <div class="momo-gallery__anchor">
+            <h3 id="momo-editions-title">Momo Editions</h3>
+            <p>Authored alternate poster studies</p>
+          </div>
           <div class="momo-gallery-portal" data-momo-gallery-portal>
             <div
               id="momo-editions-gallery"
@@ -375,7 +393,7 @@
               </span>
             </button>
           </div>
-          <p class="momo-gallery__note">Momo Editions is one aspect of an evolving project to make original movie posters for the MomoMovies app.</p>
+          <p class="momo-gallery__note">One aspect of an evolving project for the MomoMovies app.</p>
         </article>
       </section>
 
@@ -486,9 +504,9 @@
   </div>
 
   <p class="sr-only" id="perspective-announcement" role="status" aria-live="polite" aria-atomic="true"></p>
-  <script src="welcome-overlay.js?v=task-0060-cache-199" defer></script>
+  <script src="welcome-overlay.js?v=task-0060-cache-200" defer></script>
   <script src="decision-engine.js?v=task-0060-cache-199" defer></script>
-  <script src="decision-demo.js?v=task-0060-cache-199" defer></script>
+    <script src="decision-demo.js?v=task-0060-cache-225" defer></script>
   <script type="module" src="momo-editions-gallery.js?v=task-0063-gallery-13"></script>
 </body>
 </html>
