@@ -514,7 +514,9 @@ function renderGallery(root, manifest) {
     pointerStart = null;
   });
 
-  void select(0, { initial: true });
+  // The first frame is already rendered in place. Avoid scrollIntoView here so
+  // loading the page does not pull the viewport down to the gallery.
+  void select(0, { initial: true, center: false });
 }
 
 async function mountGallery(root) {
