@@ -20,7 +20,8 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="styles.css?v=task-0060-cache-199">
+  <link rel="stylesheet" href="styles.css?v=task-0063-gallery-18">
+  <link rel="stylesheet" href="momo-editions-gallery.css?v=task-0063-gallery-18">
 </head>
 
 <body>
@@ -342,41 +343,39 @@
           <h2 id="showcase-title" tabindex="-1">Showcase</h2>
           <p>Selected visual work and experiments from across Kahntra.</p>
         </div>
-        <article class="showcase__card" aria-labelledby="momo-editions-title">
-          <div class="showcase__card-heading">
-            <h3 id="momo-editions-title">Momo Editions</h3>
-            <p>An authored collection of original poster studies that evoke why a film matters through one emotional thesis and a single visual idea.</p>
+        <article class="showcase__card showcase__card--momo" aria-labelledby="momo-editions-title">
+          <h3 id="momo-editions-title" class="momo-gallery__card-title">Momo Editions</h3>
+          <div class="momo-gallery-portal" data-momo-gallery-portal>
+            <div
+              id="momo-editions-gallery"
+              data-momo-editions-gallery
+              data-manifest="data/momo-editions-gallery.json"
+              data-asset-prefix="assets/momo-editions/"
+              aria-live="polite"
+            >
+              <figure class="momo-gallery-fallback">
+                <img src="assets/momo-editions/arrival.webp" width="720" height="1080" loading="lazy" alt="A black painted circle floats over reflective water.">
+                <figcaption>Momo Editions — 29 authored alternate poster studies.</figcaption>
+              </figure>
+            </div>
+            <button
+              class="momo-gallery-curtain"
+              type="button"
+              data-momo-gallery-curtain
+              data-momo-gallery-enter
+              aria-controls="momo-editions-gallery"
+              aria-expanded="false"
+              aria-label="Enter Momo Editions gallery"
+              hidden
+            >
+              <span class="momo-gallery-curtain__content">
+                <span class="momo-gallery-curtain__title">Momo Editions</span>
+                <span class="momo-gallery-curtain__description">A collection of original movie poster studies</span>
+                <span class="momo-gallery-curtain__entry">Enter gallery <span aria-hidden="true">→</span></span>
+              </span>
+            </button>
           </div>
-          <div class="showcase__gallery" aria-label="Momo Editions artwork samples">
-            <figure class="showcase__poster">
-              <img src="assets/momo-editions/gladiator.webp" alt="A laurel wreath and red cloth on a sunlit desert floor.">
-              <figcaption><span>Gladiator</span><span>2000</span></figcaption>
-            </figure>
-            <figure class="showcase__poster">
-              <img src="assets/momo-editions/the-fall.webp" alt="A small pair beneath an arch across a stylized desert landscape.">
-              <figcaption><span>The Fall</span><span>2006</span></figcaption>
-            </figure>
-            <figure class="showcase__poster">
-              <img src="assets/momo-editions/school-of-rock.webp" alt="A chalk waveform rises from a classroom chalkboard.">
-              <figcaption><span>School of Rock</span><span>2003</span></figcaption>
-            </figure>
-            <figure class="showcase__poster">
-              <img src="assets/momo-editions/arrival.webp" alt="A black painted circle floats over reflective water.">
-              <figcaption><span>Arrival</span><span>2016</span></figcaption>
-            </figure>
-            <figure class="showcase__poster">
-              <img src="assets/momo-editions/big-fish.webp" alt="A small paper fish casts the shadow of a large shark above an open book.">
-              <figcaption><span>Big Fish</span><span>2003</span></figcaption>
-            </figure>
-            <figure class="showcase__poster">
-              <img src="assets/momo-editions/midnight-in-paris.webp" alt="Two eras of cars meet across the pages of an open book at night.">
-              <figcaption><span>Midnight in Paris</span><span>2011</span></figcaption>
-            </figure>
-            <figure class="showcase__poster">
-              <img src="assets/momo-editions/inside-man.webp" alt="An open safe recedes into a sequence of smaller safes.">
-              <figcaption><span>Inside Man</span><span>2006</span></figcaption>
-            </figure>
-          </div>
+          <p class="momo-gallery__note">Momo Editions is one aspect of an evolving project to make original movie posters for the MomoMovies app.</p>
         </article>
       </section>
 
@@ -490,5 +489,6 @@
   <script src="welcome-overlay.js?v=task-0060-cache-199" defer></script>
   <script src="decision-engine.js?v=task-0060-cache-199" defer></script>
   <script src="decision-demo.js?v=task-0060-cache-199" defer></script>
+  <script type="module" src="momo-editions-gallery.js?v=task-0063-gallery-13"></script>
 </body>
 </html>

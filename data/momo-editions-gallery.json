@@ -1,0 +1,835 @@
+{
+  "schemaVersion": 6,
+  "collection": {
+    "eyebrow": "Momo Editions",
+    "title": "One film. One emotional thesis. One visual idea.",
+    "introduction": "Momo Editions are authored alternate poster studies. Each image reduces a film to the feeling or idea that remains after the plot details fade."
+  },
+  "items": [
+    {
+      "id": "arrival",
+      "sourceUid": 77,
+      "title": "Arrival",
+      "year": 2016,
+      "contentRating": "PG-13",
+      "genres": [
+        "Drama",
+        "Mystery",
+        "Sci-Fi"
+      ],
+      "runtimeMinutes": 116,
+      "director": "Denis Villeneuve",
+      "actors": [
+        "Amy Adams",
+        "Jeremy Renner",
+        "Forest Whitaker",
+        "Michael Stuhlbarg"
+      ],
+      "image": "assets/arrival.webp",
+      "railImage": "assets/arrival.webp",
+      "alt": "A black painted circle floats over reflective water.",
+      "order": 1,
+      "railFraming": {
+        "focalX": 50,
+        "focalY": 33,
+        "cropZoom": 1
+      }
+    },
+    {
+      "id": "beginners",
+      "sourceUid": 618,
+      "title": "Beginners",
+      "year": 2010,
+      "contentRating": "R",
+      "genres": [
+        "Comedy",
+        "Drama",
+        "Romance"
+      ],
+      "runtimeMinutes": 104,
+      "director": "Mike Mills",
+      "actors": [
+        "Ewan McGregor",
+        "Christopher Plummer",
+        "Mélanie Laurent",
+        "Goran Višnjić"
+      ],
+      "image": "assets/beginners.webp",
+      "railImage": "assets/beginners.webp",
+      "alt": "An original Momo Editions visual study for Beginners.",
+      "order": 2,
+      "railFraming": {
+        "focalX": 50,
+        "focalY": 26,
+        "cropZoom": 1
+      }
+    },
+    {
+      "id": "big-fish",
+      "sourceUid": 625,
+      "title": "Big Fish",
+      "year": 2003,
+      "contentRating": "PG-13",
+      "genres": [
+        "Adventure",
+        "Drama",
+        "Fantasy"
+      ],
+      "runtimeMinutes": 125,
+      "director": "Tim Burton",
+      "actors": [
+        "Ewan McGregor",
+        "Albert Finney",
+        "Billy Crudup",
+        "Jessica Lange"
+      ],
+      "image": "assets/big-fish.webp",
+      "railImage": "assets/big-fish.webp",
+      "alt": "A small paper fish casts the shadow of a large shark above an open book.",
+      "order": 3,
+      "railFraming": {
+        "focalX": 50,
+        "focalY": 81,
+        "cropZoom": 1.72
+      }
+    },
+    {
+      "id": "children-of-men",
+      "sourceUid": 528,
+      "title": "Children of Men",
+      "year": 2006,
+      "contentRating": "R",
+      "genres": [
+        "Drama",
+        "Sci-Fi",
+        "Thriller"
+      ],
+      "runtimeMinutes": 109,
+      "director": "Alfonso Cuarón",
+      "actors": [
+        "Clive Owen",
+        "Julianne Moore",
+        "Michael Caine",
+        "Chiwetel Ejiofor"
+      ],
+      "image": "assets/children-of-men.webp",
+      "railImage": "assets/children-of-men.webp",
+      "alt": "An original Momo Editions visual study for Children of Men.",
+      "order": 4,
+      "railFraming": {
+        "focalX": 70,
+        "focalY": 69,
+        "cropZoom": 1.84
+      }
+    },
+    {
+      "id": "eternal-sunshine",
+      "sourceUid": 529,
+      "title": "Eternal Sunshine of the Spotless Mind",
+      "year": 2004,
+      "contentRating": "R",
+      "genres": [
+        "Drama",
+        "Romance",
+        "Sci-Fi"
+      ],
+      "runtimeMinutes": 108,
+      "director": "Michel Gondry",
+      "actors": [
+        "Jim Carrey",
+        "Kate Winslet",
+        "Kirsten Dunst",
+        "Mark Ruffalo"
+      ],
+      "image": "assets/eternal-sunshine.webp",
+      "railImage": "assets/eternal-sunshine.webp",
+      "alt": "An erased charcoal heart, a crayon, and eraser rest in a notebook beside a snowy train window.",
+      "order": 5,
+      "railFraming": {
+        "focalX": 50,
+        "focalY": 56,
+        "cropZoom": 1.83
+      }
+    },
+    {
+      "id": "ex-machina",
+      "sourceUid": 486,
+      "title": "Ex Machina",
+      "year": 2014,
+      "contentRating": "R",
+      "genres": [
+        "Drama",
+        "Sci-Fi",
+        "Thriller"
+      ],
+      "runtimeMinutes": 108,
+      "director": "Alex Garland",
+      "actors": [
+        "Domhnall Gleeson",
+        "Alicia Vikander",
+        "Oscar Isaac"
+      ],
+      "image": "assets/ex-machina.webp",
+      "railImage": "assets/ex-machina.webp",
+      "alt": "An original Momo Editions visual study for Ex Machina.",
+      "order": 6,
+      "railFraming": {
+        "focalX": 76,
+        "focalY": 60,
+        "cropZoom": 1.86
+      }
+    },
+    {
+      "id": "eyes-wide-shut",
+      "sourceUid": 138,
+      "title": "Eyes Wide Shut",
+      "year": 1999,
+      "contentRating": "R",
+      "genres": [
+        "Drama",
+        "Mystery",
+        "Thriller"
+      ],
+      "runtimeMinutes": 159,
+      "director": "Stanley Kubrick",
+      "actors": [
+        "Tom Cruise",
+        "Nicole Kidman",
+        "Sydney Pollack",
+        "Marie Richardson"
+      ],
+      "image": "assets/eyes-wide-shut.webp",
+      "railImage": "assets/eyes-wide-shut.webp",
+      "alt": "An original Momo Editions visual study for Eyes Wide Shut.",
+      "order": 7,
+      "railFraming": {
+        "focalX": 50,
+        "focalY": 64,
+        "cropZoom": 1
+      }
+    },
+    {
+      "id": "gladiator",
+      "sourceUid": 92,
+      "title": "Gladiator",
+      "year": 2000,
+      "contentRating": "R",
+      "genres": [
+        "Action",
+        "Adventure",
+        "Drama"
+      ],
+      "runtimeMinutes": 155,
+      "director": "Ridley Scott",
+      "actors": [
+        "Russell Crowe",
+        "Joaquin Phoenix",
+        "Connie Nielsen",
+        "Oliver Reed"
+      ],
+      "image": "assets/gladiator.webp",
+      "railImage": "assets/gladiator.webp",
+      "alt": "A laurel wreath and red cloth on a sunlit desert floor.",
+      "order": 8,
+      "railFraming": {
+        "focalX": 50,
+        "focalY": 93,
+        "cropZoom": 1
+      }
+    },
+    {
+      "id": "grand-budapest-hotel",
+      "sourceUid": 39,
+      "title": "The Grand Budapest Hotel",
+      "year": 2014,
+      "contentRating": "R",
+      "genres": [
+        "Comedy",
+        "Drama"
+      ],
+      "runtimeMinutes": 100,
+      "director": "Wes Anderson",
+      "actors": [
+        "Ralph Fiennes",
+        "F. Murray Abraham",
+        "Mathieu Amalric",
+        "Adrien Brody"
+      ],
+      "image": "assets/grand-budapest-hotel.webp",
+      "railImage": "assets/grand-budapest-hotel.webp",
+      "alt": "An original Momo Editions visual study for The Grand Budapest Hotel.",
+      "order": 9,
+      "railFraming": {
+        "focalX": 50,
+        "focalY": 89,
+        "cropZoom": 1
+      }
+    },
+    {
+      "id": "hell-or-high-water",
+      "sourceUid": 222,
+      "title": "Hell or High Water",
+      "year": 2016,
+      "contentRating": "R",
+      "genres": [
+        "Crime",
+        "Drama",
+        "Thriller"
+      ],
+      "runtimeMinutes": 102,
+      "director": "David Mackenzie",
+      "actors": [
+        "Jeff Bridges",
+        "Chris Pine",
+        "Ben Foster",
+        "Gil Birmingham"
+      ],
+      "image": "assets/hell-or-high-water.webp",
+      "railImage": "assets/hell-or-high-water.webp",
+      "alt": "A white farmhouse, lone tree, and police car sit beneath a vast pale sky.",
+      "order": 10,
+      "railFraming": {
+        "focalX": 50,
+        "focalY": 81,
+        "cropZoom": 1
+      }
+    },
+    {
+      "id": "hot-fuzz",
+      "sourceUid": 298,
+      "title": "Hot Fuzz",
+      "year": 2007,
+      "contentRating": "R",
+      "genres": [
+        "Action",
+        "Comedy",
+        "Mystery"
+      ],
+      "runtimeMinutes": 121,
+      "director": "Edgar Wright",
+      "actors": [
+        "Simon Pegg",
+        "Nick Frost",
+        "Jim Broadbent"
+      ],
+      "image": "assets/hot-fuzz.webp",
+      "railImage": "assets/hot-fuzz.webp",
+      "alt": "A crossword-style black firearm lies between a pint of beer and a glass of red wine.",
+      "order": 11,
+      "railFraming": {
+        "focalX": 58,
+        "focalY": 53,
+        "cropZoom": 1.5
+      }
+    },
+    {
+      "id": "in-bruges",
+      "sourceUid": 112,
+      "title": "In Bruges",
+      "year": 2008,
+      "contentRating": "R",
+      "genres": [
+        "Comedy",
+        "Crime",
+        "Drama"
+      ],
+      "runtimeMinutes": 107,
+      "director": "Martin McDonagh",
+      "actors": [
+        "Colin Farrell",
+        "Brendan Gleeson",
+        "Ralph Fiennes",
+        "Clémence Poésy"
+      ],
+      "image": "assets/in-bruges.webp",
+      "railImage": "assets/in-bruges.webp",
+      "alt": "An original Momo Editions visual study for In Bruges.",
+      "order": 12,
+      "railFraming": {
+        "focalX": 50,
+        "focalY": 8,
+        "cropZoom": 1
+      }
+    },
+    {
+      "id": "inside-man",
+      "sourceUid": 289,
+      "title": "Inside Man",
+      "year": 2006,
+      "contentRating": "R",
+      "genres": [
+        "Crime",
+        "Drama",
+        "Mystery"
+      ],
+      "runtimeMinutes": 129,
+      "director": "Spike Lee",
+      "actors": [
+        "Denzel Washington",
+        "Clive Owen",
+        "Jodie Foster",
+        "Christopher Plummer"
+      ],
+      "image": "assets/inside-man.webp",
+      "railImage": "assets/inside-man.webp",
+      "alt": "An open safe recedes into a sequence of smaller safes.",
+      "order": 13,
+      "railFraming": {
+        "focalX": 50,
+        "focalY": 59,
+        "cropZoom": 1
+      }
+    },
+    {
+      "id": "into-the-wild",
+      "sourceUid": 460,
+      "title": "Into the Wild",
+      "year": 2007,
+      "contentRating": "R",
+      "genres": [
+        "Adventure",
+        "Biography",
+        "Drama"
+      ],
+      "runtimeMinutes": 148,
+      "director": "Sean Penn",
+      "actors": [
+        "Emile Hirsch",
+        "Marcia Gay Harden",
+        "William Hurt",
+        "Jena Malone"
+      ],
+      "image": "assets/into-the-wild.webp",
+      "railImage": "assets/into-the-wild.webp",
+      "alt": "An original Momo Editions visual study for Into the Wild.",
+      "order": 14,
+      "railFraming": {
+        "focalX": 50,
+        "focalY": 42,
+        "cropZoom": 1
+      }
+    },
+    {
+      "id": "the-master",
+      "sourceUid": 338,
+      "title": "The Master",
+      "year": 2012,
+      "contentRating": "R",
+      "genres": [
+        "Drama"
+      ],
+      "runtimeMinutes": 137,
+      "director": "Paul Thomas Anderson",
+      "actors": [
+        "Joaquin Phoenix",
+        "Philip Seymour Hoffman",
+        "Amy Adams"
+      ],
+      "image": "assets/the-master.webp",
+      "railImage": "assets/the-master.webp",
+      "alt": "A lone motorcyclist rides across dunes while a reel-to-reel recorder rests in the foreground.",
+      "order": 15,
+      "railFraming": {
+        "focalX": 50,
+        "focalY": 53,
+        "cropZoom": 1
+      }
+    },
+    {
+      "id": "men-who-stare-at-goats",
+      "sourceUid": 433,
+      "title": "The Men Who Stare at Goats",
+      "year": 2009,
+      "contentRating": "R",
+      "genres": [
+        "Comedy",
+        "War"
+      ],
+      "runtimeMinutes": 94,
+      "director": "Grant Heslov",
+      "actors": [
+        "George Clooney",
+        "Jeff Bridges",
+        "Ewan McGregor",
+        "Kevin Spacey"
+      ],
+      "image": "assets/men-who-stare-at-goats.webp",
+      "railImage": "assets/men-who-stare-at-goats.webp",
+      "alt": "An original Momo Editions visual study for The Men Who Stare at Goats.",
+      "order": 16,
+      "railFraming": {
+        "focalX": 50,
+        "focalY": 70,
+        "cropZoom": 1
+      }
+    },
+    {
+      "id": "midnight-in-paris",
+      "sourceUid": 350,
+      "title": "Midnight in Paris",
+      "year": 2011,
+      "contentRating": "PG-13",
+      "genres": [
+        "Comedy",
+        "Fantasy",
+        "Romance"
+      ],
+      "runtimeMinutes": 94,
+      "director": "Woody Allen",
+      "actors": [
+        "Kathy Bates",
+        "Adrien Brody",
+        "Carla Bruni",
+        "Marion Cotillard"
+      ],
+      "image": "assets/midnight-in-paris.webp",
+      "railImage": "assets/midnight-in-paris.webp",
+      "alt": "Two eras of cars meet across the pages of an open book at night.",
+      "order": 17,
+      "railFraming": {
+        "focalX": 50,
+        "focalY": 58,
+        "cropZoom": 1.54
+      }
+    },
+    {
+      "id": "the-prestige",
+      "sourceUid": 373,
+      "title": "The Prestige",
+      "year": 2006,
+      "contentRating": "PG-13",
+      "genres": [
+        "Drama",
+        "Mystery",
+        "Sci-Fi"
+      ],
+      "runtimeMinutes": 130,
+      "director": "Christopher Nolan",
+      "actors": [
+        "Hugh Jackman",
+        "Christian Bale",
+        "Michael Caine",
+        "Scarlett Johansson"
+      ],
+      "image": "assets/the-prestige.webp",
+      "railImage": "assets/the-prestige.webp",
+      "alt": "A golden birdcage under a spotlight appears above its collapsed counterpart.",
+      "order": 18,
+      "railFraming": {
+        "focalX": 46,
+        "focalY": 64,
+        "cropZoom": 1.35
+      }
+    },
+    {
+      "id": "prince-of-egypt",
+      "sourceUid": 327,
+      "title": "The Prince of Egypt",
+      "year": 1998,
+      "contentRating": "PG",
+      "genres": [
+        "Adventure",
+        "Animation",
+        "Drama"
+      ],
+      "runtimeMinutes": 99,
+      "director": "Brenda Chapman",
+      "actors": [
+        "Val Kilmer",
+        "Ralph Fiennes",
+        "Michelle Pfeiffer",
+        "Sandra Bullock"
+      ],
+      "image": "assets/prince-of-egypt.webp",
+      "railImage": "assets/prince-of-egypt.webp",
+      "alt": "An original Momo Editions visual study for The Prince of Egypt.",
+      "order": 19,
+      "railFraming": {
+        "focalX": 50,
+        "focalY": 13,
+        "cropZoom": 1
+      }
+    },
+    {
+      "id": "school-of-rock",
+      "sourceUid": 923,
+      "title": "School of Rock",
+      "year": 2003,
+      "contentRating": "PG-13",
+      "genres": [
+        "Comedy",
+        "Music"
+      ],
+      "runtimeMinutes": 109,
+      "director": "Richard Linklater",
+      "actors": [
+        "Jack Black",
+        "Joan Cusack",
+        "Mike White",
+        "Sarah Silverman"
+      ],
+      "image": "assets/school-of-rock.webp",
+      "railImage": "assets/school-of-rock.webp",
+      "alt": "A chalk waveform rises from a classroom chalkboard.",
+      "order": 20,
+      "railFraming": {
+        "focalX": 50,
+        "focalY": 32,
+        "cropZoom": 1.28
+      }
+    },
+    {
+      "id": "the-secret-life-of-walter-mitty",
+      "sourceUid": 1750,
+      "title": "The Secret Life of Walter Mitty",
+      "year": 2013,
+      "contentRating": "PG",
+      "genres": [
+        "Adventure",
+        "Comedy",
+        "Drama"
+      ],
+      "runtimeMinutes": 114,
+      "director": "Ben Stiller",
+      "actors": [
+        "Ben Stiller",
+        "Kristen Wiig",
+        "Shirley MacLaine",
+        "Adam Scott"
+      ],
+      "image": "assets/the-secret-life-of-walter-mitty.webp",
+      "railImage": "assets/the-secret-life-of-walter-mitty.webp",
+      "alt": "An original Momo Editions visual study for The Secret Life of Walter Mitty.",
+      "order": 21,
+      "railFraming": {
+        "focalX": 33,
+        "focalY": 72,
+        "cropZoom": 1.19
+      }
+    },
+    {
+      "id": "sound-of-metal",
+      "sourceUid": 426,
+      "title": "Sound of Metal",
+      "year": 2019,
+      "contentRating": "R",
+      "genres": [
+        "Drama",
+        "Music"
+      ],
+      "runtimeMinutes": 120,
+      "director": "Darius Marder",
+      "actors": [
+        "Riz Ahmed",
+        "Olivia Cooke",
+        "Paul Raci"
+      ],
+      "image": "assets/sound-of-metal.webp",
+      "railImage": "assets/sound-of-metal.webp",
+      "alt": "An original Momo Editions visual study for Sound of Metal.",
+      "order": 22,
+      "railFraming": {
+        "focalX": 50,
+        "focalY": 98,
+        "cropZoom": 1
+      }
+    },
+    {
+      "id": "the-fall",
+      "sourceUid": 144,
+      "title": "The Fall",
+      "year": 2006,
+      "contentRating": "R",
+      "genres": [
+        "Adventure",
+        "Drama",
+        "Fantasy"
+      ],
+      "runtimeMinutes": 117,
+      "director": "Tarsem Singh",
+      "actors": [
+        "Lee Pace",
+        "Catinca Untaru",
+        "Justine Waddell"
+      ],
+      "image": "assets/the-fall.webp",
+      "railImage": "assets/the-fall.webp",
+      "alt": "A small pair beneath an arch across a stylized desert landscape.",
+      "order": 23,
+      "railFraming": {
+        "focalX": 50,
+        "focalY": 3,
+        "cropZoom": 1
+      }
+    },
+    {
+      "id": "truman-show",
+      "sourceUid": 1050,
+      "title": "The Truman Show",
+      "year": 1998,
+      "contentRating": "PG",
+      "genres": [
+        "Comedy",
+        "Drama"
+      ],
+      "runtimeMinutes": 103,
+      "director": "Peter Weir",
+      "actors": [
+        "Jim Carrey",
+        "Laura Linney",
+        "Noah Emmerich",
+        "Natascha McElhone"
+      ],
+      "image": "assets/truman-show.webp",
+      "railImage": "assets/truman-show.webp",
+      "alt": "An original Momo Editions visual study for The Truman Show.",
+      "order": 24,
+      "railFraming": {
+        "focalX": 56,
+        "focalY": 47,
+        "cropZoom": 1.98
+      }
+    },
+    {
+      "id": "50-first-dates",
+      "sourceUid": 559,
+      "title": "50 First Dates",
+      "year": 2004,
+      "contentRating": "PG-13",
+      "genres": [
+        "Comedy",
+        "Drama",
+        "Romance"
+      ],
+      "runtimeMinutes": 99,
+      "director": "Peter Segal",
+      "actors": [
+        "Adam Sandler",
+        "Drew Barrymore",
+        "Rob Schneider",
+        "Sean Astin"
+      ],
+      "image": "assets/50-first-dates.webp",
+      "railImage": "assets/50-first-dates.webp",
+      "alt": "An original Momo Editions visual study for 50 First Dates.",
+      "order": 25,
+      "railFraming": {
+        "focalX": 50,
+        "focalY": 58,
+        "cropZoom": 1
+      }
+    },
+    {
+      "id": "blue-valentine",
+      "sourceUid": 150,
+      "title": "Blue Valentine",
+      "year": 2010,
+      "contentRating": "R",
+      "genres": [
+        "Drama",
+        "Romance"
+      ],
+      "runtimeMinutes": 112,
+      "director": "Derek Cianfrance",
+      "actors": [
+        "Ryan Gosling",
+        "Michelle Williams"
+      ],
+      "image": "assets/blue-valentine.webp",
+      "railImage": "assets/blue-valentine.webp",
+      "alt": "An original Momo Editions visual study for Blue Valentine.",
+      "order": 26,
+      "railFraming": {
+        "focalX": 50,
+        "focalY": 50,
+        "cropZoom": 1
+      }
+    },
+    {
+      "id": "drive",
+      "sourceUid": 184,
+      "title": "Drive",
+      "year": 2011,
+      "contentRating": "R",
+      "genres": [
+        "Action",
+        "Drama"
+      ],
+      "runtimeMinutes": 100,
+      "director": "Nicolas Winding Refn",
+      "actors": [
+        "Ryan Gosling",
+        "Carey Mulligan",
+        "Bryan Cranston",
+        "Christina Hendricks"
+      ],
+      "image": "assets/drive.webp",
+      "railImage": "assets/drive.webp",
+      "alt": "An original Momo Editions visual study for Drive.",
+      "order": 27,
+      "railFraming": {
+        "focalX": 50,
+        "focalY": 68,
+        "cropZoom": 1
+      }
+    },
+    {
+      "id": "dark-knight",
+      "sourceUid": 355,
+      "title": "The Dark Knight",
+      "year": 2008,
+      "contentRating": "PG-13",
+      "genres": [
+        "Action",
+        "Crime",
+        "Drama"
+      ],
+      "runtimeMinutes": 152,
+      "director": "Christopher Nolan",
+      "actors": [
+        "Christian Bale",
+        "Michael Caine",
+        "Heath Ledger",
+        "Gary Oldman"
+      ],
+      "image": "assets/dark-knight.webp",
+      "railImage": "assets/dark-knight.webp",
+      "alt": "An original Momo Editions visual study for The Dark Knight.",
+      "order": 28,
+      "railFraming": {
+        "focalX": 50,
+        "focalY": 78,
+        "cropZoom": 1
+      }
+    },
+    {
+      "id": "nice-guys",
+      "sourceUid": 177,
+      "title": "The Nice Guys",
+      "year": 2016,
+      "contentRating": "R",
+      "genres": [
+        "Action",
+        "Comedy",
+        "Crime"
+      ],
+      "runtimeMinutes": 116,
+      "director": "Shane Black",
+      "actors": [
+        "Russell Crowe",
+        "Ryan Gosling",
+        "Angourie Rice",
+        "Matt Bomer"
+      ],
+      "image": "assets/nice-guys.webp",
+      "railImage": "assets/nice-guys.webp",
+      "alt": "An original Momo Editions visual study for The Nice Guys.",
+      "order": 29,
+      "railFraming": {
+        "focalX": 50,
+        "focalY": 64,
+        "cropZoom": 1
+      }
+    }
+  ]
+}
