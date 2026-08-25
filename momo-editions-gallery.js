@@ -135,6 +135,15 @@ function preloadImage(src) {
   });
 }
 
+function setGalleryAccess(root, interactive) {
+  root.toggleAttribute('inert', !interactive);
+  if (interactive) root.removeAttribute('aria-hidden');
+  else root.setAttribute('aria-hidden', 'true');
+  root.querySelectorAll('button').forEach((button) => {
+    button.disabled = !interactive;
+  });
+}
+
 function renderGallery(root, manifest) {
   const items = manifest.items.slice().sort((a, b) => a.order - b.order);
   const assetPrefix = root.dataset.assetPrefix || '';
@@ -238,6 +247,7 @@ function renderGallery(root, manifest) {
 
   shell.append(rail, stage);
   root.append(accessibleHeader, instructions, shell);
+  if (root.hasAttribute('inert')) setGalleryAccess(root, false);
 
   let selectedIndex = 0;
   let mode = 'base';
@@ -544,15 +554,15 @@ for (const root of document.querySelectorAll(ROOT_SELECTOR)) {
   const portal = root.closest('[data-momo-gallery-portal]');
   const curtain = portal?.querySelector('[data-momo-gallery-curtain]');
   const enterButton = portal?.querySelector('[data-momo-gallery-enter]');
+  if (portal && curtain && enterButton) setGalleryAccess(root, false);
   const ready = mountGallery(root);
 
   if (portal && curtain && enterButton) {
-    root.setAttribute('inert', '');
     curtain.hidden = false;
     enterButton.addEventListener('click', async () => {
       try {
         await ready;
-        root.removeAttribute('inert');
+        setGalleryAccess(root, true);
         enterButton.setAttribute('aria-expanded', 'true');
         portal.classList.add('is-entered');
         curtain.hidden = true;
@@ -564,7 +574,7 @@ for (const root of document.querySelectorAll(ROOT_SELECTOR)) {
   }
 
   ready.catch((error) => {
-    root.removeAttribute('inert');
+    setGalleryAccess(root, true);
     root.replaceChildren(element('p', 'momo-gallery__error', error.message));
     if (curtain) curtain.hidden = true;
   });
