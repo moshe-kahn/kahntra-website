@@ -2787,24 +2787,6 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
   vertical-align: middle;
 }
 
-.decision-result__thumb--a { background: linear-gradient(135deg, #dce7e1 0%, #a7c8c1 52%, #f8f6f0 100%); }
-.decision-result__thumb--b { background: linear-gradient(#f8f6f0cc 1px, transparent 1px), linear-gradient(90deg, #f8f6f0cc 1px, transparent 1px), #7da9a3; background-size: 18% 18%; }
-.decision-result__thumb--c { background: radial-gradient(circle at 28% 28%, #f5d68e 0 12%, transparent 13%), linear-gradient(135deg, #216f6b, #d9e4da); }
-.decision-result__thumb--d { background: linear-gradient(45deg, #d76f52 0 24%, #f8f6f0 24% 44%, #216f6b 44% 68%, #e5c18a 68%); }
-.decision-result__thumb--e { background: radial-gradient(circle at 50% 50%, transparent 0 27%, #216f6b 28% 31%, transparent 32% 47%, #e5c18a 48% 51%, transparent 52%), #f8f6f0; }
-.decision-result__thumb--f { background: linear-gradient(#d9e4da 0 25%, #a8c7c0 25% 48%, #216f6b 48% 64%, #f8f6f0 64%); }
-.decision-result__thumb--g { background: linear-gradient(90deg, #e5c18a 0 17%, #f8f6f0 17% 32%, #d76f52 32% 48%, #f8f6f0 48% 63%, #216f6b 63% 100%); }
-.decision-result__thumb--h { background: radial-gradient(circle at 68% 33%, #f5d68e 0 9%, transparent 10%), linear-gradient(135deg, #e4ece6, #709d96); }
-.decision-result__thumb--i { background: linear-gradient(160deg, transparent 0 36%, #f5d68e 37% 45%, transparent 46%), linear-gradient(25deg, #216f6b 0 42%, #d9e4da 43% 65%, #d76f52 66%); }
-.decision-result__thumb--j { background: linear-gradient(90deg, #216f6b 0 35%, #f8f6f0 35% 45%, #f5d68e 45% 57%, #f8f6f0 57% 67%, #7aa8a0 67%); }
-.decision-result__thumb--k { background: radial-gradient(circle at 50% 50%, #f5d68e 0 13%, #d76f52 14% 24%, transparent 25%), linear-gradient(135deg, #d9e4da, #216f6b); }
-.decision-result__thumb--l { background: repeating-linear-gradient(90deg, #216f6b 0 8%, #f8f6f0 8% 16%, #e5c18a 16% 23%, #f8f6f0 23% 31%); }
-.decision-result__thumb--m { background: linear-gradient(145deg, #216f6b 0 39%, transparent 40%), linear-gradient(35deg, #e5c18a 0 48%, #d76f52 49% 61%, #d9e4da 62%); }
-.decision-result__thumb--n { background: repeating-linear-gradient(90deg, #1f5e5a 0 4%, #e5c18a 4% 8%, #f8f6f0 8% 11%, #216f6b 11% 16%); }
-.decision-result__thumb--o { background: linear-gradient(120deg, #d76f52 0%, #f5d68e 33%, #d9e4da 34% 62%, #216f6b 63%); }
-.decision-result__thumb--p { background: linear-gradient(90deg, #f8f6f0 0 19%, #216f6b 19% 29%, #d9e4da 29% 53%, #e5c18a 53% 64%, #f8f6f0 64%); }
-.decision-result__thumb--q { background: repeating-linear-gradient(90deg, #e5c18a 0 7%, #f8f6f0 7% 13%, #216f6b 13% 19%, #f8f6f0 19% 25%); }
-.decision-result__thumb--r { background: linear-gradient(#f8f6f0b3 1px, transparent 1px), linear-gradient(90deg, #f8f6f0b3 1px, transparent 1px), #91b9b1; background-size: 24% 24%; }
 
 .decision-result p {
   margin: 0 0 0.75rem;
@@ -3129,14 +3111,17 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
 
 .about-dialog__header {
   display: flex;
-  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 1rem;
   min-height: 2.25rem;
+  margin-bottom: clamp(2rem, 4vw, 3.5rem);
+  border-bottom: 1px solid var(--line);
 }
 
 .about-dialog__close {
   display: grid;
-  width: 2.25rem;
-  height: 2.25rem;
+  width: 1.8rem;
+  height: 1.8rem;
   place-items: center;
   padding: 0;
   border: 1px solid var(--line);
@@ -3144,7 +3129,7 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
   background: transparent;
   cursor: pointer;
   font: inherit;
-  font-size: 1.45rem;
+  font-size: 1.15rem;
   line-height: 1;
 }
 
@@ -3156,9 +3141,10 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
 
 .about-dialog__tabs {
   display: flex;
+  flex: 1;
   gap: 1.1rem;
-  margin-bottom: clamp(2rem, 4vw, 3.5rem);
-  border-bottom: 1px solid var(--line);
+  margin: 0;
+  border: 0;
 }
 
 .about-dialog__tabs button {
@@ -3647,6 +3633,14 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
   .decision-demo__workspace {
     grid-template-columns: 1fr;
     gap: 2.5rem;
+  }
+
+  .decision-demo__results-column > .decision-demo__results {
+    order: 1;
+  }
+
+  .decision-demo__results-column > .decision-demo__selected-sample {
+    order: 2;
   }
 
 

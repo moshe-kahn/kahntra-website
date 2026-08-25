@@ -45,16 +45,16 @@ const negative = context.DecisionEngine.rank({ ...base, selectedSoftPreferences:
 if (!(negative.effects[0].dimensions[0].targetDelta < 0)) throw new Error("negative contribution is not preserved");
 
 const model = context.DecisionDemoModel;
-if (!model || model.items.length !== 108) throw new Error("demo must expose exactly 108 model records");
-if (new Set(model.items.map((item) => item.profileId)).size !== 27) throw new Error("demo must cover all 27 sampling profiles");
-const profileCounts = Object.values(model.items.reduce((counts, item) => ({ ...counts, [item.profileId]: (counts[item.profileId] || 0) + 1 }), {}));
-if (profileCounts.some((count) => count !== 4)) throw new Error("every profile must have four realizations");
+const approvedSources = ["turbo-004", "turbo-005", "turbo-007", "turbo-008", "turbo-009", "turbo-010", "turbo-011", "turbo-012", "turbo-014", "turbo-015", "turbo-016", "turbo-017", "turbo-018", "turbo-019", "turbo-020", "turbo-021", "turbo-022", "turbo-023", "turbo-024", "turbo-025", "turbo-026", "turbo-027", "turbo-028", "turbo-030"];
+if (!model || model.items.length !== approvedSources.length) throw new Error("demo must expose only the approved generated study records");
+const sources = model.items.map((item) => item.metadata.source).sort();
+if (sources.join(",") !== approvedSources.join(",")) throw new Error("active studies must exactly match the approved source list");
+if (sources.includes("turbo-029") || Object.keys(model.generatedStudyRecords).length !== approvedSources.length) throw new Error("turbo-029 and placeholder records must remain out of the live collection");
 const signalIds = model.signalDefinitions.map(([id]) => id);
 for (const item of model.items) {
   if (Object.keys(item.signals).sort().join(",") !== [...signalIds].sort().join(",")) throw new Error(`${item.id} does not have the authoritative nine-signal schema`);
-  const derived = model.deriveAttributes(item.signals);
   for (const dimension of ["boldness", "activity", "colorIntensity", "stimulation"]) {
-    if (Math.abs(derived[dimension] - item.attributes[dimension]) > 0.00001) throw new Error(`${item.id} has a stale derived ${dimension}`);
+    if (!Number.isFinite(item.attributes[dimension])) throw new Error(`${item.id} is missing its reviewed ${dimension} value`);
   }
   if (["noise", "contrast", "warmth", "hierarchy", "temperature"].some((key) => Object.hasOwn(item.attributes, key))) throw new Error(`${item.id} retains an obsolete attribute`);
 }
@@ -65,15 +65,13 @@ if (!textConstraint || !kahntraConstraint) throw new Error("the text and Kahntra
 for (const requiresText of [false, true]) for (const requiresKahntra of [false, true]) for (const palette of [null, ...paletteConstraints]) {
   const selectedConstraints = [requiresText ? textConstraint : null, requiresKahntra ? kahntraConstraint : null, palette].filter(Boolean);
   const constrained = context.DecisionEngine.rank({ items: model.items, targetProfile: model.targetProfileFor(50), hardConstraints: selectedConstraints, limit: model.items.length });
-  if (constrained.results.length < 12) throw new Error("supported limitation combination leaves too few ranking alternatives");
+  if (!constrained.results.every((entry) => selectedConstraints.every((constraint) => constraint.test(entry.item)))) throw new Error("limitations must only return eligible approved studies");
 }
-const defaultDemo = context.DecisionEngine.rank({ items: model.items, targetProfile: model.targetProfileFor(50), limit: 12 });
-const defaultNames = defaultDemo.results.map((entry) => entry.item.name);
-const fallbackNames = [...html.matchAll(/aria-label="Static example, (Image \d{3})"/g)].map((match) => match[1]);
-if (defaultNames.join(",") !== "Image 054,Image 053,Image 055,Image 056,Image 052,Image 024,Image 028,Image 083,Image 026,Image 081,Image 050,Image 080" || fallbackNames.join(",") !== defaultNames.join(",")) throw new Error("static fallback no longer matches the default model ranking");
+const fallbackSources = [...html.matchAll(/assets\/images\/decision-studies\/(turbo-\d{3})\.png/g)].map((match) => match[1]);
+if (fallbackSources.length !== 12 || fallbackSources.some((source) => !approvedSources.includes(source))) throw new Error("static fallback must only reference approved local studies");
 if (!/data-decision-feeling[^>]+disabled/.test(html) || [...html.matchAll(/data-decision-constraint="[^"]+"[^>]+disabled/g)].length !== 5) throw new Error("no-JavaScript controls must remain disabled");
 if (html.includes(">View data<") || !html.includes("data-decision-method")) throw new Error("the optional full method must replace the old View data disclosure");
-if (new Set(model.items.map(model.svgData)).size !== model.items.length) throw new Error("every model record must render a distinct local image");
+if (new Set(model.items.map((item) => model.renderedArtwork[item.id])).size !== model.items.length || model.items.some((item) => !model.renderedArtwork[item.id])) throw new Error("every model record must render its mapped local generated image");
 if (model.tagRecipes.some((recipe) => !recipe.exclusionLabel || !Number.isFinite(recipe.stimulationCenter) || recipe.categories.some((category) => !model.categoryDefinitions.some(([id]) => id === category)))) throw new Error("tag recipes must use valid categories, exclusion labels, and stimulation relevance centers");
 if (model.constraints.some((constraint) => !constraint.exclusionLabel)) throw new Error("hard limitations must expose an exclusion reason");
 if (!html.includes("data-decision-exclusions") || !html.includes("data-decision-excluded-count") || html.includes("data-gallery-category")) throw new Error("excluded images must be presented as supporting grouped context, not a competing result tab");

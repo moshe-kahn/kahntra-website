@@ -365,7 +365,7 @@
       aboutOpener = event.currentTarget;
       setAboutTab("kahntra");
       if (!aboutDialog.open) aboutDialog.showModal();
-      requestAnimationFrame(() => aboutCloseButton?.focus());
+      requestAnimationFrame(() => aboutTabs[0]?.focus());
     }
 
     function handleAboutTabKeydown(event) {
@@ -407,7 +407,11 @@
       tab.addEventListener("keydown", handleAboutTabKeydown);
     });
     aboutDialog?.addEventListener("click", (event) => {
-      if (event.target === aboutDialog) closeAbout();
+      const bounds = aboutDialog.getBoundingClientRect();
+      const clickedBackdrop = event.target === aboutDialog
+        || event.clientX < bounds.left || event.clientX > bounds.right
+        || event.clientY < bounds.top || event.clientY > bounds.bottom;
+      if (clickedBackdrop) closeAbout();
     });
     aboutDialog?.addEventListener("close", () => {
       aboutOpener?.focus({ preventScroll: true });

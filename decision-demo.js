@@ -97,6 +97,79 @@
     profileIndex += 1;
   })));
 
+  // This is the complete, reviewed live collection. Synthetic studies above only
+  // provide an internal record shape; they are removed below and are never ranked
+  // or rendered. Keep regions with few or no approved studies empty: that is useful
+  // feedback for the next generation pass.
+  const renderedArtwork = Object.freeze({
+    "image-002": "assets/images/decision-studies/turbo-026.png",
+    "image-003": "assets/images/decision-studies/turbo-027.png",
+    "image-004": "assets/images/decision-studies/turbo-004.png",
+    "image-007": "assets/images/decision-studies/turbo-030.png",
+    "image-016": "assets/images/decision-studies/turbo-023.png",
+    "image-018": "assets/images/decision-studies/turbo-024.png",
+    "image-020": "assets/images/decision-studies/turbo-008.png",
+    "image-024": "assets/images/decision-studies/turbo-012.png",
+    "image-026": "assets/images/decision-studies/turbo-025.png",
+    "image-028": "assets/images/decision-studies/turbo-018.png",
+    "image-037": "assets/images/decision-studies/turbo-014.png",
+    "image-041": "assets/images/decision-studies/turbo-028.png",
+    "image-050": "assets/images/decision-studies/turbo-005.png",
+    "image-052": "assets/images/decision-studies/turbo-017.png",
+    "image-053": "assets/images/decision-studies/turbo-015.png",
+    "image-054": "assets/images/decision-studies/turbo-016.png",
+    "image-055": "assets/images/decision-studies/turbo-021.png",
+    "image-056": "assets/images/decision-studies/turbo-010.png",
+    "image-058": "assets/images/decision-studies/turbo-022.png",
+    "image-080": "assets/images/decision-studies/turbo-019.png",
+    "image-081": "assets/images/decision-studies/turbo-007.png",
+    "image-083": "assets/images/decision-studies/turbo-020.png",
+    "image-085": "assets/images/decision-studies/turbo-009.png",
+    "image-087": "assets/images/decision-studies/turbo-011.png"
+  });
+  const generatedStudyRecords = Object.freeze({
+    "image-002": { source: "turbo-026", signals: [22, 22, 22, 15, 15, 18, 18, 18, 18], qualities: ["open", "atmospheric", "organic"], palette: "neutral", kahntraFit: true, textReady: true, reviewNote: "A genuinely quiet, low-contrast paper study with a large uninterrupted text field." },
+    "image-003": { source: "turbo-027", signals: [16, 16, 16, 18, 18, 18, 8, 8, 8], qualities: ["open", "structured", "atmospheric"], palette: "neutral", kahntraFit: true, textReady: true, reviewNote: "Soft layered bands create a calm structured route without introducing a hard tonal split." },
+    "image-004": { source: "turbo-004", signals: [24, 20, 35, 30, 22, 45, 24, 45, 35], qualities: ["open", "atmospheric", "fluid"], palette: "neutral", kahntraFit: true, textReady: true, reviewNote: "A quiet open study that keeps the center calm while remaining visibly fluid." },
+    "image-007": { source: "turbo-030", signals: [43, 43, 43, 38, 38, 38, 38, 38, 38], qualities: ["structured", "layered", "textural", "open"], palette: "warm", kahntraFit: true, textReady: true, reviewNote: "Medium-energy Kahntra study: layered tactile forms with a clear hierarchy and open field, without a hard left/right split." },
+    "image-016": { source: "turbo-023", signals: [38, 40, 42, 28, 48, 62, 32, 38, 28], qualities: ["atmospheric", "organic", "textural", "open"], palette: "cool", kahntraFit: true, textReady: true, reviewNote: "Cool ink-and-wash material route with a contiguous quiet field for text." },
+    "image-018": { source: "turbo-024", signals: [26, 28, 35, 25, 38, 42, 58, 55, 52], qualities: ["chromatic", "atmospheric", "organic", "open"], palette: "warm", kahntraFit: true, textReady: true, reviewNote: "Warm chromatic route with low form pressure and a clear text field." },
+    "image-020": { source: "turbo-008", signals: [32, 28, 45, 40, 38, 65, 50, 62, 60], qualities: ["chromatic", "atmospheric", "open"], palette: "mixed", kahntraFit: true, textReady: false, reviewNote: "Translucent colored forms make a color-led atmosphere, but do not leave one reliably calm text field." },
+    "image-024": { source: "turbo-012", signals: [55, 58, 60, 75, 72, 82, 42, 45, 68], qualities: ["intricate", "textural", "kinetic"], palette: "cool", kahntraFit: true, textReady: true, reviewNote: "Recalibrated upward: the dense dispersal, marks, and irregular rhythm make this materially more stimulating than an average midrange study." },
+    "image-026": { source: "turbo-025", signals: [75, 68, 70, 70, 60, 64, 72, 70, 68], qualities: ["fluid", "layered", "kinetic", "chromatic"], palette: "warm", kahntraFit: true, textReady: true, reviewNote: "Recalibrated upward: multiple strong color bands and directional movement make this a high-energy route, despite its calm paper palette." },
+    "image-028": { source: "turbo-018", signals: [75, 68, 74, 82, 70, 82, 62, 65, 62], qualities: ["layered", "textural", "intricate", "kinetic"], palette: "warm", kahntraFit: true, textReady: true, reviewNote: "Recalibrated upward: fragmented forms, dense layering, and directional instability place it firmly on the stimulating side." },
+    "image-037": { source: "turbo-014", signals: [62, 75, 80, 40, 36, 30, 20, 40, 20], qualities: ["structured", "open"], palette: "neutral", kahntraFit: true, textReady: true, reviewNote: "Recalibrated after visual review: its large left/right tonal split and strong stacked forms give it substantially more visual force than a low-stimulation reading suggested." },
+    "image-041": { source: "turbo-028", signals: [28, 28, 28, 30, 30, 30, 42, 42, 42], qualities: ["organic", "layered", "chromatic", "atmospheric", "open"], palette: "warm", kahntraFit: true, textReady: true, reviewNote: "Warm translucent forms make a gentle color-led atmosphere while preserving a calm text field." },
+    "image-050": { source: "turbo-005", signals: [52, 60, 58, 35, 38, 42, 24, 22, 20], qualities: ["structured", "graphic", "open"], palette: "warm", kahntraFit: true, textReady: true, reviewNote: "Recalibrated after visual review: repeated measured marks read as clinical or stitched rather than comforting, so it should not sit at the calm end." },
+    "image-052": { source: "turbo-017", signals: [95, 90, 85, 95, 80, 90, 90, 88, 90], qualities: ["kinetic", "graphic", "forceful", "chromatic"], palette: "warm", kahntraFit: true, textReady: true, reviewNote: "Recalibrated upward: the twisting high-chroma ribbons have strong directional force and belong near the stimulating end." },
+    "image-053": { source: "turbo-015", signals: [50, 51, 50, 53, 52, 52, 48, 50, 44], attributes: [50.2, 52.7, 48, 51.5], qualities: ["fluid", "layered", "textural", "open"], palette: "neutral", kahntraFit: true, textReady: true },
+    "image-054": { source: "turbo-016", signals: [37, 36, 40, 51, 52, 50, 67, 62, 72], attributes: [37.1, 51.2, 67.1, 49.7], qualities: ["chromatic", "atmospheric", "fluid", "open"], palette: "neutral", kahntraFit: true, textReady: true },
+    "image-055": { source: "turbo-021", signals: [58, 58, 60, 64, 60, 62, 66, 66, 70], qualities: ["layered", "structured", "textural", "chromatic"], palette: "neutral", kahntraFit: true, textReady: false, reviewNote: "Recalibrated upward: the busy overlapping fields have more density, rhythm, and chromatic pressure than a midpoint reading." },
+    "image-056": { source: "turbo-010", signals: [32, 30, 36, 42, 42, 40, 38, 40, 36], attributes: [32.2, 41.5, 38.4, 37.6], qualities: ["fluid", "organic", "atmospheric"], palette: "warm", kahntraFit: true, textReady: true },
+    "image-058": { source: "turbo-022", signals: [50, 48, 55, 38, 42, 35, 95, 75, 90], qualities: ["chromatic", "graphic", "open"], palette: "cool", kahntraFit: false, textReady: true, reviewNote: "A deliberately polished digital counterexample: technically usable, but outside the Kahntra material language." },
+    "image-080": { source: "turbo-019", signals: [69, 66, 73, 23, 23, 20, 39, 42, 33], attributes: [69.1, 22.5, 38.8, 37.2], qualities: ["structured", "graphic", "open"], palette: "warm", kahntraFit: true, textReady: true },
+    "image-081": { source: "turbo-007", signals: [35, 34, 35, 48, 48, 47, 31, 32, 30], attributes: [34.6, 47.8, 31.3, 39.9], qualities: ["layered", "textural", "open"], palette: "neutral", kahntraFit: true, textReady: true },
+    "image-083": { source: "turbo-020", signals: [28, 27, 31, 31, 31, 30, 42, 44, 38], attributes: [28.2, 30.5, 41.6, 31.3], qualities: ["organic", "textural", "atmospheric", "open"], palette: "neutral", kahntraFit: true, textReady: true },
+    "image-085": { source: "turbo-009", signals: [92, 90, 90, 95, 65, 85, 65, 60, 70], qualities: ["kinetic", "graphic", "forceful"], palette: "neutral", kahntraFit: false, textReady: true, reviewNote: "Sharp arrow forms make this a useful contextual mismatch rather than a Kahntra-fit recommendation; its points and directional force place it on the stimulating side." },
+    "image-087": { source: "turbo-011", signals: [78, 86, 65, 34, 72, 40, 15, 25, 18], qualities: ["structured", "graphic", "forceful"], palette: "neutral", kahntraFit: false, textReady: false, reviewNote: "A hard-edged architectural counterexample: strong structural contrast, but not an open or materially warm option." }
+  });
+  const applyGeneratedStudyData = (item, record) => {
+    const [formWeight, contrastSeparation, focalDominance, directionalEnergy, elementDensity, rhythmicVariation, chroma, colorCoverage, paletteSeparation] = record.signals;
+    const signals = { focalDominance, contrastSeparation, formWeight, elementDensity, directionalEnergy, rhythmicVariation, chroma, paletteSeparation, colorCoverage };
+    const categories = Object.fromEntries(categoryDefinitions.map(([id]) => [id, record.qualities.includes(id) ? 88 : 16]));
+    const calculated = deriveAttributes(signals);
+    const [boldness, activity, colorIntensity, stimulation] = record.attributes || [calculated.boldness, calculated.activity, calculated.colorIntensity, calculated.stimulation];
+    const attributes = { boldness, activity, colorIntensity, stimulation };
+    item.signals = signals;
+    item.categories = categories;
+    item.attributes = { ...attributes, ...categories };
+    item.description = `${activityWord(attributes.activity)} · ${boldnessWord(attributes.boldness)} · ${colorWord(attributes.colorIntensity)}`;
+    item.artDirection = { ...item.artDirection, temperature: record.palette };
+    item.metadata = { ...item.metadata, source: record.source, kahntraFit: record.kahntraFit, openTextArea: record.textReady, strongTextContrast: record.textReady, reviewNote: record.reviewNote || "" };
+  };
+  Object.entries(generatedStudyRecords).forEach(([id, record]) => applyGeneratedStudyData(items.find(item => item.id === id), record));
+  items.splice(0, items.length, ...Object.keys(generatedStudyRecords).map(id => items.find(item => item.id === id)));
+
   const tagRecipes = Object.freeze([
     ["spacious-atmosphere", "Spacious atmosphere", "Not spacious or atmospheric enough", ["open", "atmospheric"], { open: 86, atmospheric: 84 }, 16],
     ["organic-flow", "Organic flow", "Not organic or fluid enough", ["organic", "fluid"], { organic: 88, fluid: 78 }, 28],
@@ -175,7 +248,7 @@
     return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
   };
 
-  globalThis.DecisionDemoModel = Object.freeze({ items, signalDefinitions, categoryDefinitions, tagRecipes, constraints, deriveAttributes, targetProfileFor, svgData });
+  globalThis.DecisionDemoModel = Object.freeze({ items, renderedArtwork, generatedStudyRecords, signalDefinitions, categoryDefinitions, tagRecipes, constraints, deriveAttributes, targetProfileFor, svgData });
   if (typeof document === "undefined") return;
 
   const init = () => {
@@ -222,6 +295,7 @@
     let selectedImageId = null;
     let selectionRequired = false;
     let initialBannerPicked = false;
+    let currentPerspective = "technical";
     let currentMatches = [];
     let currentEntries = new Map();
     let galleryPage = 0;
@@ -246,11 +320,11 @@
       tagRecipes.forEach(recipe => {
         const button = document.createElement("button");
         button.type = "button"; button.dataset.softPreference = recipe.id; button.dataset.tagMotif = recipe.id; button.setAttribute("aria-pressed", "false"); button.setAttribute("aria-hidden", "true"); button.tabIndex = -1; button.hidden = true; button.disabled = false; button.innerHTML = `<span class="decision-demo__tag-mark" aria-hidden="true"></span><span class="decision-demo__tag-label">${esc(recipe.label)}</span>`;
-        button.addEventListener("click", () => { if (selectedIds.has(recipe.id)) { selectedIds.delete(recipe.id); suppressedIds.add(recipe.id); } else if (selectedIds.size < visibleTagLimit) { selectedIds.add(recipe.id); suppressedIds.delete(recipe.id); } button.setAttribute("aria-pressed", String(selectedIds.has(recipe.id))); reconcileTags(); render(true); });
+        button.addEventListener("click", () => { if (selectedIds.has(recipe.id)) { selectedIds.delete(recipe.id); suppressedIds.add(recipe.id); } else if (selectedIds.size < visibleTagLimit) { selectedIds.add(recipe.id); suppressedIds.delete(recipe.id); } button.setAttribute("aria-pressed", String(selectedIds.has(recipe.id))); reconcileTags(); render(); });
         tagButtons.set(recipe.id, button); tagContainer.append(button);
       });
     };
-    const methodItems = [items[0], items[1], items[2], items[52], items[53], items[54]];
+    const methodItems = items.slice(0, 6);
     const renderMethod = () => {
       const signalOrder = ["focalDominance", "elementDensity", "chroma", "contrastSeparation", "directionalEnergy", "paletteSeparation", "formWeight", "rhythmicVariation", "colorCoverage"];
       methodSignalBody.replaceChildren(...methodItems.map(item => { const row = document.createElement("tr"); row.innerHTML = `<th scope="row"><span class="decision-result__thumb" aria-hidden="true"></span>${esc(item.name)}</th>${signalOrder.map(id => `<td>${item.signals[id].toFixed(0)}</td>`).join("")}`; paint(row.querySelector(".decision-result__thumb"), item); return row; }));
@@ -266,7 +340,7 @@
     const chooseCandidates = (stimulation, count) => { const rankRecipes = recipes => recipes.map(recipe => ({ id: recipe.id, score: tagScore(recipe, neighborhood(stimulation), stimulation) })).sort((left, right) => right.score - left.score || left.id.localeCompare(right.id)).map(entry => entry.id); const available = tagRecipes.filter(recipe => !selectedIds.has(recipe.id)); const preferred = rankRecipes(available.filter(recipe => !suppressedIds.has(recipe.id))); const fallback = rankRecipes(available.filter(recipe => suppressedIds.has(recipe.id))); return [...preferred, ...fallback].slice(0, count); };
     function reconcileTags(force = false) { const stimulation = Number(input.value); const moved = Math.abs(stimulation - lastCandidateDial) >= 5; if (moved) suppressedIds.clear(); if (moved || !currentCandidates.length) { currentCandidates = [...selectedIds, ...chooseCandidates(stimulation, Math.max(0, visibleTagLimit - selectedIds.size))]; lastCandidateDial = stimulation; } const desired = new Set(currentCandidates); [...slots.entries()].filter(([id]) => !desired.has(id)).forEach(([id]) => slots.delete(id)); [...desired].filter(id => !slots.has(id)).forEach(id => slots.set(id, freeSlot())); tagButtons.forEach((button, id) => { if (desired.has(id)) showTag(button); else hideTag(button); }); }
 
-    const paint = (element, item) => { if (!element || !item) return; element.style.backgroundImage = svgData(item); element.dataset.imageId = item.id; };
+    const paint = (element, item) => { if (!element || !item) return; element.style.backgroundImage = `url("${renderedArtwork[item.id]}")`; element.dataset.imageId = item.id; };
     const effectsText = rank => rank.effects.flatMap(effect => effect.dimensions.map(dimension => { const recipe = preferenceFor(effect.id); const label = categoryDefinitions.find(([id]) => id === dimension.dimension)?.[1] || dimension.dimension; return `${recipe.label}: ${label} ${dimension.targetDelta >= 0 ? "+" : ""}${dimension.targetDelta.toFixed(1)}`; }));
     const visualDescription = item => `${activityWord(item.attributes.activity)} · ${boldnessWord(item.attributes.boldness)} · ${colorWord(item.attributes.colorIntensity)}`;
     let galleryGroups = { good: [], excluded: [] };
@@ -361,7 +435,7 @@
       results.append(grid);
       const pager = makePager({ page: galleryPage, pageCount, label: "Matching images", onPageChange: page => { galleryPage = page; renderGallery(); } });
       if (pager) results.append(pager);
-      summary.textContent = `${galleryGroups.good.length} good options. ${currentMatches.find(item => item.id === selectedImageId)?.name || "No image"} selected.`;
+      summary.textContent = `${galleryGroups.good.length} good options. ${items.find(item => item.id === selectedImageId)?.name || "No image"} selected.`;
     };
     const render = (resetSelection = false) => {
       const state = readState();
@@ -387,7 +461,7 @@
       currentMatches = galleryGroups.good;
       goodCount.textContent = galleryGroups.good.length;
       excludedCount.textContent = galleryGroups.excluded.length;
-      if (!selectionRequired && (resetSelection || !currentMatches.some(item => item.id === selectedImageId))) { selectedImageId = currentMatches[0]?.id || null; galleryPage = 0; showingExclusions = false; exclusionPages.clear(); }
+      if (!selectionRequired && resetSelection) { selectedImageId = currentMatches[0]?.id || null; galleryPage = 0; showingExclusions = false; exclusionPages.clear(); }
       const wedgeStart = Math.max(0, state.stimulation - wedgeRadius);
       const wedgeEnd = Math.min(100, state.stimulation + wedgeRadius);
       wedge.style.setProperty("--wedge-start", `${wedgeStart}%`);
@@ -399,7 +473,7 @@
     };
     const updateDetail = detail => { const verbose = detail === "verbose"; root.classList.toggle("is-concise", !verbose); note.textContent = verbose ? "Consolidates multiple independent attributes into one continuous direction." : "Ranks image directions across multiple dimensions."; refineNote.textContent = verbose ? "Surfaces a limited set of relevant attributes to help refine the direction." : "Choose from relevant attributes."; constraintNote.textContent = verbose ? "Applies hard constraints to remove complete results that do not meet the selected conditions." : "Remove results that do not meet your limits."; root.querySelectorAll("[data-method-verbose-only]").forEach(element => { element.hidden = !verbose; }); const numbered = root.querySelectorAll("[data-method-step-number]"); if (numbered[0]) numbered[0].textContent = verbose ? "02" : "01"; if (numbered[1]) numbered[1].textContent = verbose ? "04" : "02"; const defineHeading = root.querySelector("[data-method-define-heading]"); const guideHeading = root.querySelector("[data-method-guide-heading]"); if (defineHeading) defineHeading.textContent = `${verbose ? "Step 2" : "Step 1"} — Define visual attributes`; if (guideHeading) guideHeading.textContent = `${verbose ? "Step 4" : "Step 2"} — Guide the choice`; if (!verbose && (currentMethodStep === 0 || currentMethodStep === 2)) showMethodStep(1); };
     const choiceItems = Object.freeze({ calm: items.reduce((best, item) => Math.abs(item.attributes.stimulation - 14) < Math.abs(best.attributes.stimulation - 14) ? item : best, items[0]), middle: items.reduce((best, item) => Math.abs(item.attributes.stimulation - 50) < Math.abs(best.attributes.stimulation - 50) ? item : best, items[0]), stimulate: items.reduce((best, item) => Math.abs(item.attributes.stimulation - 86) < Math.abs(best.attributes.stimulation - 86) ? item : best, items[0]) });
-    const setVisibility = perspective => { const visible = perspective === "technical"; [label, root, banner].forEach(element => { if (!element) return; element.hidden = !visible; element.inert = !visible; }); if (!visible) tagButtons.forEach(button => { const transition = transitions.get(button); if (transition) finalizeExit(button, transition.version, false); }); else { reconcileTags(true); render(); if (!initialBannerPicked && currentMatches.length) { selectImage(currentMatches[Math.floor(Math.random() * currentMatches.length)]); initialBannerPicked = true; } } };
+    const setVisibility = perspective => { currentPerspective = perspective; const visible = perspective === "technical" || perspective === "design-philosophy"; [label, root, banner].forEach(element => { if (!element) return; element.hidden = !visible; element.inert = !visible; }); method.hidden = perspective !== "technical" || !root.classList.contains("is-interacting"); if (!visible) tagButtons.forEach(button => { const transition = transitions.get(button); if (transition) finalizeExit(button, transition.version, false); }); else { reconcileTags(true); render(); if (!initialBannerPicked && currentMatches.length) { selectImage(currentMatches[Math.floor(Math.random() * currentMatches.length)]); initialBannerPicked = true; } } };
     ensureButtons(); renderMethod(); reconcileTags(true); choicePreviews.forEach(preview => paint(preview, choiceItems[preview.dataset.decisionChoicePreview]));
     methodButtons.forEach(button => button.addEventListener("click", () => showMethodStep(Number(button.dataset.methodStepButton))));
     const preserveResultPosition = () => {
@@ -407,7 +481,7 @@
       galleryPage = Math.floor(firstVisibleResult / pageSize("matching"));
     };
     refinements?.addEventListener("toggle", () => { root.classList.toggle("has-extra-refinements", refinements.open); preserveResultPosition(); selectionRequired = refinements.open; selectedImageId = null; render(true); });
-    choiceButtons.forEach(button => button.addEventListener("click", () => { const choiceItem = choiceItems[button.dataset.decisionChoice]; if (!choiceItem) return; root.classList.add("is-interacting"); intro.hidden = true; workspace.hidden = false; method.hidden = false; input.value = String(Math.round(choiceItem.attributes.stimulation)); selectedImageId = choiceItem.id; selectionRequired = false; galleryPage = 0; reconcileTags(true); render(); const selectedIndex = currentMatches.findIndex(item => item.id === choiceItem.id); galleryPage = Math.max(0, Math.floor(Math.max(0, selectedIndex) / pageSize("matching"))); renderGallery(); selectImage(choiceItem); input.focus(); }));
+    choiceButtons.forEach(button => button.addEventListener("click", () => { const choiceItem = choiceItems[button.dataset.decisionChoice]; if (!choiceItem) return; root.classList.add("is-interacting"); intro.hidden = true; workspace.hidden = false; method.hidden = currentPerspective !== "technical"; input.value = String(Math.round(choiceItem.attributes.stimulation)); selectedImageId = choiceItem.id; selectionRequired = false; galleryPage = 0; reconcileTags(true); render(); const selectedIndex = currentMatches.findIndex(item => item.id === choiceItem.id); galleryPage = Math.max(0, Math.floor(Math.max(0, selectedIndex) / pageSize("matching"))); renderGallery(); selectImage(choiceItem); input.focus(); }));
     input.addEventListener("input", () => { selectedImageId = null; selectionRequired = true; reconcileTags(); render(); });
     root.querySelectorAll("[data-decision-constraint]").forEach(control => control.addEventListener("change", () => render(true)));
     const noPalettePreference = root.querySelector("[data-decision-palette-clear]");
@@ -424,7 +498,7 @@
         selectedPaletteId = selectingCurrent ? null : control.dataset.decisionConstraint;
         paletteControls.forEach(option => { option.checked = !selectingCurrent && option === control; });
         syncPaletteUI();
-        render(true);
+        render();
       });
     });
     noPalettePreference.addEventListener("click", event => {
@@ -432,7 +506,7 @@
       selectedPaletteId = null;
       paletteControls.forEach(option => { option.checked = false; });
       syncPaletteUI();
-      render(true);
+      render();
     });
     syncPaletteUI();
     window.addEventListener("kahntra-perspective-change", event => setVisibility(event.detail.perspective));
