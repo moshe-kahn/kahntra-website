@@ -870,9 +870,10 @@
   }
 
   .momo-gallery__artwork {
-    width: min(100%, calc((100dvh - 220px) * 2 / 3));
-    height: auto;
-    max-height: none;
+    width: auto;
+    max-width: 100%;
+    height: min(calc(100% - var(--metadata-reserve)), calc((100vw - 36px) * 1.5));
+    max-height: min(calc(100% - var(--metadata-reserve)), calc((100vw - 36px) * 1.5));
     margin-bottom: var(--metadata-reserve);
   }
 
@@ -1019,7 +1020,8 @@
 
 @media (max-width: 650px) and (max-height: 720px) {
   .momo-gallery__artwork {
-    width: min(100%, calc((100dvh - 266px) * 2 / 3));
+    height: min(calc(100% - var(--metadata-reserve)), calc((100vw - 36px) * 1.5));
+    max-height: min(calc(100% - var(--metadata-reserve)), calc((100vw - 36px) * 1.5));
   }
 }
 

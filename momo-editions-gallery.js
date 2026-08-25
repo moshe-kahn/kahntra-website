@@ -373,11 +373,7 @@ function renderGallery(root, manifest) {
 
     if (options.center !== false) {
       programmaticScroll = true;
-      buttons[selectedIndex].scrollIntoView({
-        block: 'center',
-        inline: 'center',
-        behavior: options.initial || matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
-      });
+      centerSelectedFrame(options.initial || matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth');
       window.setTimeout(() => {
         programmaticScroll = false;
       }, 260);
@@ -408,6 +404,24 @@ function renderGallery(root, manifest) {
 
   function advance(delta) {
     void select(selectedIndex + delta);
+  }
+
+  function centerSelectedFrame(behavior = 'auto') {
+    const selectedButton = buttons[selectedIndex];
+    if (!selectedButton) return;
+
+    if (isMobile()) {
+      strip.scrollTo({
+        left: selectedButton.offsetLeft - (strip.clientWidth - selectedButton.offsetWidth) / 2,
+        behavior
+      });
+      return;
+    }
+
+    strip.scrollTo({
+      top: selectedButton.offsetTop - (strip.clientHeight - selectedButton.offsetHeight) / 2,
+      behavior
+    });
   }
 
   function activateArtwork() {
@@ -479,7 +493,7 @@ function renderGallery(root, manifest) {
     scheduleCreditFit();
     window.clearTimeout(resizeTimer);
     resizeTimer = window.setTimeout(() => {
-      buttons[selectedIndex].scrollIntoView({ block: 'center', inline: 'center', behavior: 'auto' });
+      centerSelectedFrame();
       window.setTimeout(() => {
         programmaticScroll = false;
       }, 100);
@@ -514,8 +528,7 @@ function renderGallery(root, manifest) {
     pointerStart = null;
   });
 
-  // The first frame is already rendered in place. Avoid scrollIntoView here so
-  // loading the page does not pull the viewport down to the gallery.
+  // The first frame is already rendered in place; loading must not move the page.
   void select(0, { initial: true, center: false });
 }
 
