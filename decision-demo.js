@@ -295,7 +295,7 @@
     let selectedImageId = null;
     let selectionRequired = false;
     let initialBannerPicked = false;
-    let currentPerspective = "technical";
+    let currentPerspective = "design-philosophy";
     let currentMatches = [];
     let currentEntries = new Map();
     let galleryPage = 0;

@@ -20,7 +20,7 @@
       }
     })();
   </script>
-    <link rel="stylesheet" href="styles.css?v=task-0063-gallery-93">
+    <link rel="stylesheet" href="styles.css?v=task-0063-gallery-95">
   <link rel="stylesheet" href="momo-editions-gallery.css?v=task-0063-gallery-19">
 </head>
 
@@ -34,8 +34,8 @@
         </a>
         <div class="desktop-header-controls">
           <div class="desktop-perspective-selector" role="group" aria-label="Perspective">
-            <button type="button" data-global-lens="technical" aria-pressed="true"><span>Tech</span></button>
-            <button type="button" data-global-lens="design-philosophy" aria-label="Design and Philosophy" aria-pressed="false"><span>Design &amp; Philosophy</span></button>
+            <button type="button" data-global-lens="technical" aria-pressed="false"><span>Tech</span></button>
+            <button type="button" data-global-lens="design-philosophy" aria-label="Design and Philosophy" aria-pressed="true"><span>Design &amp; Philosophy</span></button>
           </div>
           <button class="context-toggle desktop-context-toggle" type="button" data-context-toggle aria-pressed="false" aria-label="Show verbose details">
             <span class="context-toggle__paper" aria-hidden="true">
@@ -51,8 +51,8 @@
           </span>
         </button>
         <div class="mobile-perspective-selector" role="group" aria-label="Perspective">
-          <button type="button" data-global-lens="technical" aria-pressed="true"><span>Tech</span></button>
-          <button type="button" data-global-lens="design-philosophy" aria-label="Design and Philosophy" aria-pressed="false"><span>Design &amp; Philosophy</span></button>
+          <button type="button" data-global-lens="technical" aria-pressed="false"><span>Tech</span></button>
+          <button type="button" data-global-lens="design-philosophy" aria-label="Design and Philosophy" aria-pressed="true"><span>Design &amp; Philosophy</span></button>
         </div>
       </header>
 
@@ -61,8 +61,8 @@
           <div class="view-control-group perspective-bar">
             <span class="view-control-group__label">Perspective:</span>
             <div class="view-control-group__options" role="group" aria-label="Perspective">
-              <button type="button" data-global-lens="technical" aria-pressed="true">Technical</button>
-              <button type="button" data-global-lens="design-philosophy" aria-pressed="false">Design &amp; Philosophy</button>
+              <button type="button" data-global-lens="technical" aria-pressed="false">Technical</button>
+              <button type="button" data-global-lens="design-philosophy" aria-pressed="true">Design &amp; Philosophy</button>
             </div>
           </div>
           <div class="view-control-group detail-bar">
@@ -151,7 +151,7 @@
               </details>
             </form>
             <div class="decision-demo__results-column">
-              <div class="decision-demo__selected-sample"><span data-decision-selected-sample aria-hidden="true"></span></div>
+              <div class="decision-demo__selected-sample" aria-label="Current selection"><span data-decision-selected-sample aria-hidden="true"></span><span class="decision-demo__selected-label">Current selection</span></div>
               <div class="decision-demo__results" aria-label="Matching images">
               <div class="decision-demo__results-heading"><p class="decision-demo__results-count"><span data-decision-good-count>4</span> considerations</p></div>
               <div class="decision-demo__gallery">
@@ -217,7 +217,7 @@
 
         <div class="product-groups">
           <section class="product-group" aria-labelledby="products-development-title">
-            <h3 class="product-group__title" id="products-development-title">Projects in development</h3>
+            <h3 class="product-group__title" id="products-development-title">Projects</h3>
             <div class="product-grid">
           <article class="product-card" data-project-id="momomovies">
             <div class="product-card__meta">
@@ -504,7 +504,7 @@
   </div>
 
   <p class="sr-only" id="perspective-announcement" role="status" aria-live="polite" aria-atomic="true"></p>
-  <script src="welcome-overlay.js?v=task-0060-cache-201" defer></script>
+  <script src="welcome-overlay.js?v=task-0060-cache-202" defer></script>
   <script src="decision-engine.js?v=task-0060-cache-199" defer></script>
   <script src="decision-demo.js?v=task-0060-cache-227" defer></script>
   <script type="module" src="momo-editions-gallery.js?v=task-0063-gallery-15"></script>

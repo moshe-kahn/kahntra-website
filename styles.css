@@ -2457,6 +2457,8 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
 
 .decision-demo__results {
   --results-accent: var(--accent);
+  --decision-result-row-block: clamp(6.5rem, 10vw, 8.5rem);
+  --decision-results-utility-block: 2.1rem;
   display: flex;
   flex: initial;
   margin-top: auto;
@@ -2464,6 +2466,31 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
   flex-direction: column;
   border: 1px solid var(--line);
   align-self: stretch;
+}
+
+/* Keep the ordinary result panel steady while its preview rows adapt. */
+.decision-demo__results:has(.decision-demo__gallery) {
+  block-size: calc(
+    3.35rem +
+    var(--decision-result-row-block) +
+    var(--decision-result-row-block) +
+    0.65rem +
+    var(--decision-results-utility-block) +
+    1.1rem
+  );
+}
+
+/* Optional conditions earn one additional row and the corresponding space. */
+.decision-demo.has-extra-refinements .decision-demo__results:has(.decision-demo__gallery) {
+  block-size: calc(
+    3.35rem +
+    var(--decision-result-row-block) +
+    var(--decision-result-row-block) +
+    var(--decision-result-row-block) +
+    1.3rem +
+    var(--decision-results-utility-block) +
+    1.1rem
+  );
 }
 
 .decision-demo__gallery-grid {
@@ -2518,12 +2545,11 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
 }
 
 .decision-demo__gallery-items:not(:has(.decision-demo__gallery-item--more)) {
-  flex: 0 0 auto;
-  grid-template-rows: repeat(2, clamp(6.5rem, 10vw, 8.5rem));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
 }
 
 .decision-demo.has-extra-refinements .decision-demo__gallery-items:not(:has(.decision-demo__gallery-item--more)) {
-  grid-template-rows: repeat(3, clamp(6.5rem, 10vw, 8.5rem));
+  grid-template-rows: repeat(3, minmax(0, 1fr));
 }
 
 .decision-demo__gallery-pager {
@@ -2576,6 +2602,8 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
   display: grid;
   grid-template-rows: minmax(0, 1fr);
   width: 100%;
+  aspect-ratio: 16 / 7;
+  align-self: start;
   min-height: 0;
   padding: 0;
   overflow: hidden;
@@ -3695,7 +3723,11 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
   }
 
   .decision-demo__gallery-items {
-    grid-template-rows: repeat(2, minmax(8.5rem, auto));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+  }
+
+  .decision-demo.has-extra-refinements .decision-demo__gallery-items:not(:has(.decision-demo__gallery-item--more)) {
+    grid-template-rows: repeat(3, minmax(0, 1fr));
   }
 
   .decision-demo__gallery-item {
@@ -3807,8 +3839,9 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
   max-height: clamp(10rem, 18vw, 16rem);
   margin: 0;
   overflow: hidden;
-  border: 1px solid var(--accent);
+  border: 2px solid var(--accent);
   background: var(--card);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 16%, transparent);
 }
 
 .decision-demo__selected-sample > span:first-child {
@@ -3818,4 +3851,18 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.decision-demo__selected-label {
+  position: absolute;
+  right: 0.55rem;
+  bottom: 0.55rem;
+  padding: 0.3rem 0.45rem;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--card) 94%, transparent);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
 }

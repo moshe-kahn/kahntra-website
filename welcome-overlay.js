@@ -21,7 +21,7 @@
     regular: "verbose",
     more: "verbose",
   };
-  const defaultPerspective = "technical";
+  const defaultPerspective = "design-philosophy";
   const defaultDetail = "concise";
 
   const initialize = () => {
@@ -35,6 +35,7 @@
     const mobilePerspectiveSelector = document.querySelector(".mobile-perspective-selector");
     const siteHeaderSystem = document.querySelector(".site-header-system");
     const aboutDialog = document.querySelector("#about-dialog");
+    const aboutSurface = aboutDialog?.querySelector(".about-dialog__surface");
     const aboutOpenButtons = [...document.querySelectorAll("[data-about-open]")];
     const aboutCloseButton = document.querySelector("[data-about-close]");
     const aboutTabs = [...document.querySelectorAll("[data-about-tab]")];
@@ -406,12 +407,11 @@
       tab.addEventListener("click", () => setAboutTab(tab.dataset.aboutTab));
       tab.addEventListener("keydown", handleAboutTabKeydown);
     });
+    // Keep all taps within the panel from reaching the backdrop handler. This
+    // matters on mobile, where dialog click targets can be retargeted.
+    aboutSurface?.addEventListener("click", (event) => event.stopPropagation());
     aboutDialog?.addEventListener("click", (event) => {
-      const bounds = aboutDialog.getBoundingClientRect();
-      const clickedBackdrop = event.target === aboutDialog
-        || event.clientX < bounds.left || event.clientX > bounds.right
-        || event.clientY < bounds.top || event.clientY > bounds.bottom;
-      if (clickedBackdrop) closeAbout();
+      if (event.target === aboutDialog) closeAbout();
     });
     aboutDialog?.addEventListener("close", () => {
       aboutOpener?.focus({ preventScroll: true });
