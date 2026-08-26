@@ -223,11 +223,14 @@
 
 .momo-gallery__strip {
   height: 100%;
+  margin: 0;
   overflow-y: auto;
   overscroll-behavior: contain;
+  padding-block: 0;
   scrollbar-width: none;
   padding-inline: 6px;
   scroll-snap-type: y proximity;
+  list-style: none;
 }
 
 .momo-gallery__strip::-webkit-scrollbar {
@@ -237,6 +240,12 @@
 .momo-gallery__strip-spacer {
   height: 44vh;
   min-height: 240px;
+}
+
+.momo-gallery__frame-item {
+  display: flow-root;
+  width: 100%;
+  scroll-snap-align: center;
 }
 
 .momo-gallery__frame {
@@ -961,9 +970,14 @@
     min-height: 0;
   }
 
-  .momo-gallery__frame {
+  .momo-gallery__frame-item {
     flex: 0 0 140px;
     width: 140px;
+    height: 83px;
+  }
+
+  .momo-gallery__frame {
+    width: 100%;
     height: 83px;
     margin: 0;
   }

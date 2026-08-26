@@ -178,16 +178,17 @@ function renderGallery(root, manifest) {
     element('div', 'momo-gallery__film-code momo-gallery__film-code--roll', 'ROLL 01 · NEW')
   );
 
-  const strip = element('div', 'momo-gallery__strip');
-  strip.setAttribute('role', 'list');
+  const strip = element('ul', 'momo-gallery__strip');
   strip.setAttribute('aria-label', 'Edition previews');
-  strip.append(element('div', 'momo-gallery__strip-spacer'));
+  const startSpacer = element('li', 'momo-gallery__strip-spacer');
+  startSpacer.setAttribute('aria-hidden', 'true');
+  strip.append(startSpacer);
 
   const buttons = items.map((item, index) => {
+    const listItem = element('li', 'momo-gallery__frame-item');
     const button = element('button', 'momo-gallery__frame');
     button.type = 'button';
     button.dataset.index = String(index);
-    button.setAttribute('role', 'listitem');
     button.setAttribute('aria-label', `Select ${item.title}`);
 
     const imageWrap = element('span', 'momo-gallery__frame-image');
@@ -203,10 +204,13 @@ function renderGallery(root, manifest) {
     if (image.complete && image.naturalWidth) image.classList.add('is-loaded');
     imageWrap.append(image);
     button.append(imageWrap);
-    strip.append(button);
+    listItem.append(button);
+    strip.append(listItem);
     return button;
   });
-  strip.append(element('div', 'momo-gallery__strip-spacer'));
+  const endSpacer = element('li', 'momo-gallery__strip-spacer');
+  endSpacer.setAttribute('aria-hidden', 'true');
+  strip.append(endSpacer);
   rail.append(strip, element('div', 'momo-gallery__film-edge momo-gallery__film-edge--end'));
 
   const stage = element('section', 'momo-gallery__stage');
@@ -419,17 +423,19 @@ function renderGallery(root, manifest) {
   function centerSelectedFrame(behavior = 'auto') {
     const selectedButton = buttons[selectedIndex];
     if (!selectedButton) return;
+    const selectedFrame = selectedButton.closest('.momo-gallery__frame-item');
+    if (!selectedFrame) return;
 
     if (isMobile()) {
       strip.scrollTo({
-        left: selectedButton.offsetLeft - (strip.clientWidth - selectedButton.offsetWidth) / 2,
+        left: selectedFrame.offsetLeft - (strip.clientWidth - selectedFrame.offsetWidth) / 2,
         behavior
       });
       return;
     }
 
     strip.scrollTo({
-      top: selectedButton.offsetTop - (strip.clientHeight - selectedButton.offsetHeight) / 2,
+      top: selectedFrame.offsetTop - (strip.clientHeight - selectedFrame.offsetHeight) / 2,
       behavior
     });
   }
