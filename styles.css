@@ -977,6 +977,45 @@ html[data-view-controls="collapsed"] .view-controls {
   background: transparent;
 }
 
+.showcase__card--music {
+  margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+  padding: 0;
+  border: 0;
+  overflow: visible;
+  background: transparent;
+}
+
+.music-for-this-moment__anchor {
+  display: grid;
+  justify-items: end;
+  gap: 0.2rem;
+  margin-bottom: clamp(0.8rem, 1.5vw, 1.1rem);
+  color: #c8954e;
+  text-align: right;
+}
+
+.music-for-this-moment__anchor h3,
+.music-for-this-moment__anchor p {
+  margin: 0;
+}
+
+.music-for-this-moment__anchor h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.25rem, 2.1vw, 1.65rem);
+  font-weight: 400;
+  letter-spacing: -0.035em;
+  line-height: 1;
+}
+
+.music-for-this-moment__anchor p {
+  color: var(--muted-ink);
+  font-size: clamp(0.72rem, 1.1vw, 0.86rem);
+  font-weight: 700;
+  letter-spacing: 0.055em;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
 .momo-gallery__anchor {
   display: grid;
   justify-items: end;

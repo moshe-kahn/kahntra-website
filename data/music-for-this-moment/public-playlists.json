@@ -1,0 +1,623 @@
+{
+  "schemaVersion": "music-for-this-moment-public-v1",
+  "sourceHandoff": {
+    "task": "TASK-0066",
+    "marker": "public-picker-v1",
+    "commit": "63b487a968de32ee40e5cdc865c2cd069e5fa729"
+  },
+  "datasetVersion": "music-for-this-moment-public-v1-2026-08-26",
+  "playlists": [
+    {
+      "publicId": "balance-and-uplift",
+      "title": "Balance & Uplift",
+      "shortDescription": "An owner-curated Balance & Uplift playlist.",
+      "affinity": "Low",
+      "energy": "High",
+      "experienceConsistency": 40,
+      "ordering": "unordered",
+      "datasetVersion": "music-for-this-moment-public-v1-2026-08-26",
+      "artwork": {
+        "localPath": "assets/music-for-this-moment/artwork/balance-and-uplift.jpg",
+        "alt": "Artwork for the Balance & Uplift playlist.",
+        "credit": "Photo by Kahntra.",
+        "rightsStatement": "© Kahntra. All rights reserved; approved for public use in ListenLab and the related Kahntra showcase."
+      },
+      "outboundUrl": "https://open.spotify.com/playlist/3VaaFldgGfBrcUHMBOezVb"
+    },
+    {
+      "publicId": "boogie",
+      "title": "Boogie",
+      "shortDescription": "An owner-curated Boogie playlist.",
+      "affinity": "Low",
+      "energy": "High",
+      "experienceConsistency": 40,
+      "ordering": "unordered",
+      "datasetVersion": "music-for-this-moment-public-v1-2026-08-26",
+      "artwork": {
+        "localPath": "assets/music-for-this-moment/artwork/boogie.jpg",
+        "alt": "Artwork for the Boogie playlist.",
+        "credit": "Photo by Kahntra.",
+        "rightsStatement": "© Kahntra. All rights reserved; approved for public use in ListenLab and the related Kahntra showcase."
+      },
+      "outboundUrl": "https://open.spotify.com/playlist/3jQdVgBUSscmPqkBYzB1I1"
+    },
+    {
+      "publicId": "classical",
+      "title": "Classical",
+      "shortDescription": "An owner-curated Classical playlist.",
+      "affinity": "Low",
+      "energy": "Low",
+      "experienceConsistency": 20,
+      "ordering": "unordered",
+      "datasetVersion": "music-for-this-moment-public-v1-2026-08-26",
+      "artwork": {
+        "localPath": "assets/music-for-this-moment/artwork/classical.jpg",
+        "alt": "Artwork for the Classical playlist.",
+        "credit": "Photo by Kahntra.",
+        "rightsStatement": "© Kahntra. All rights reserved; approved for public use in ListenLab and the related Kahntra showcase."
+      },
+      "outboundUrl": "https://open.spotify.com/playlist/42SEBYaxqVfQDZ9du9qXfW"
+    },
+    {
+      "publicId": "console-head",
+      "title": "Console Head",
+      "shortDescription": "10 favorite Radiohead songs",
+      "affinity": "High",
+      "energy": "High",
+      "experienceConsistency": 100,
+      "ordering": "ordered",
+      "datasetVersion": "music-for-this-moment-public-v1-2026-08-26",
+      "artwork": {
+        "localPath": "assets/music-for-this-moment/artwork/console-head.jpg",
+        "alt": "Artwork for the Console Head playlist.",
+        "credit": "Photo by Kahntra.",
+        "rightsStatement": "© Kahntra. All rights reserved; approved for public use in ListenLab and the related Kahntra showcase."
+      },
+      "outboundUrl": "https://open.spotify.com/playlist/0wZXXJNAuqL3tXl8boxdXK"
+    },
+    {
+      "publicId": "dark-fantasy",
+      "title": "Dark Fantasy",
+      "shortDescription": "An owner-curated Dark Fantasy playlist.",
+      "affinity": "Medium",
+      "energy": "Low",
+      "experienceConsistency": 60,
+      "ordering": "unordered",
+      "datasetVersion": "music-for-this-moment-public-v1-2026-08-26",
+      "artwork": {
+        "localPath": "assets/music-for-this-moment/artwork/dark-fantasy.jpg",
+        "alt": "Artwork for the Dark Fantasy playlist.",
+        "credit": "Photo by Kahntra.",
+        "rightsStatement": "© Kahntra. All rights reserved; approved for public use in ListenLab and the related Kahntra showcase."
+      },
+      "outboundUrl": "https://open.spotify.com/playlist/1OAZDXXF9fNDGj7SD4uWnF"
+    },
+    {
+      "publicId": "delicate-coast",
+      "title": "Delicate Coast",
+      "shortDescription": "An owner-curated Delicate Coast playlist.",
+      "affinity": "Medium",
+      "energy": "Medium",
+      "experienceConsistency": 80,
+      "ordering": "unordered",
+      "datasetVersion": "music-for-this-moment-public-v1-2026-08-26",
+      "artwork": {
+        "localPath": "assets/music-for-this-moment/artwork/delicate-coast.jpg",
+        "alt": "Artwork for the Delicate Coast playlist.",
+        "credit": "Photo by Kahntra.",
+        "rightsStatement": "© Kahntra. All rights reserved; approved for public use in ListenLab and the related Kahntra showcase."
+      },
+      "outboundUrl": "https://open.spotify.com/playlist/0KeiTR9QV3VhZTC0QVYTpg"
+    },
+    {
+      "publicId": "electric-feels",
+      "title": "Electric Feels",
+      "shortDescription": "An owner-curated Electric Feels playlist.",
+      "affinity": "Medium",
+      "energy": "High",
+      "experienceConsistency": 50,
+      "ordering": "unordered",
+      "datasetVersion": "music-for-this-moment-public-v1-2026-08-26",
+      "artwork": {
+        "localPath": "assets/music-for-this-moment/artwork/electric-feels.jpg",
+        "alt": "Artwork for the Electric Feels playlist.",
+        "credit": "Photo by Kahntra.",
+        "rightsStatement": "© Kahntra. All rights reserved; approved for public use in ListenLab and the related Kahntra showcase."
+      },
+      "outboundUrl": "https://open.spotify.com/playlist/3JxYmVf9pkdFeNwQEKyzmm"
+    },
+    {
+      "publicId": "engagement",
+      "title": "Engagement",
+      "shortDescription": "Carefully crafted for engagement party",
+      "affinity": "High",
+      "energy": "Medium",
+      "experienceConsistency": 80,
+      "ordering": "ordered",
+      "datasetVersion": "music-for-this-moment-public-v1-2026-08-26",
+      "artwork": {
+        "localPath": "assets/music-for-this-moment/artwork/engagement.jpg",
+        "alt": "Artwork for the Engagement playlist.",
+        "credit": "Photo by Kahntra.",
+        "rightsStatement": "© Kahntra. All rights reserved; approved for public use in ListenLab and the related Kahntra showcase."
+      },
+      "outboundUrl": "https://open.spotify.com/playlist/4wlMsIliib1Ruzp9KqlVNV"
+    },
+    {
+      "publicId": "expansive",
+      "title": "Expansive",
+      "shortDescription": "An owner-curated Expansive playlist.",
+      "affinity": "Low",
+      "energy": "High",
+      "experienceConsistency": 40,
+      "ordering": "unordered",
+      "datasetVersion": "music-for-this-moment-public-v1-2026-08-26",
+      "artwork": {
+        "localPath": "assets/music-for-this-moment/artwork/expansive.jpg",
+        "alt": "Artwork for the Expansive playlist.",
+        "credit": "Photo by Kahntra.",
+        "rightsStatement": "© Kahntra. All rights reserved; approved for public use in ListenLab and the related Kahntra showcase."
+      },
+      "outboundUrl": "https://open.spotify.com/playlist/12kFb4O7O8StsgHnq11Xci"
+    },
+    {
+      "publicId": "fleeting-joy",
+      "title": "Fleeting Joy",
+      "shortDescription": "An owner-curated Fleeting Joy playlist.",
+      "affinity": "High",
+      "energy": "High",
+      "experienceConsistency": 80,
+      "ordering": "unordered",
+      "datasetVersion": "music-for-this-moment-public-v1-2026-08-26",
+      "artwork": {
+        "localPath": "assets/music-for-this-moment/artwork/fleeting-joy.jpg",
+        "alt": "Artwork for the Fleeting Joy playlist.",
+        "credit": "Photo by Kahntra.",
+        "rightsStatement": "© Kahntra. All rights reserved; approved for public use in ListenLab and the related Kahntra showcase."
+      },
+      "outboundUrl": "https://open.spotify.com/playlist/0PvrBAjiiqxkXXu0IJm8Oq"
+    },
+    {
+      "publicId": "frequency-flow",
+      "title": "Frequency Flow",
+      "shortDescription": "Mostly wordless/repetitive",
+      "affinity": "Medium",
+      "energy": "Medium",
+      "experienceConsistency": 80,
+      "ordering": "unordered",
+      "datasetVersion": "music-for-this-moment-public-v1-2026-08-26",
+      "artwork": {
+        "localPath": "assets/music-for-this-moment/artwork/frequency-flow.jpg",
+        "alt": "Artwork for the Frequency Flow playlist.",
+        "credit": "Photo by Kahntra.",
+        "rightsStatement": "© Kahntra. All rights reserved; approved for public use in ListenLab and the related Kahntra showcase."
+      },
+      "outboundUrl": "https://open.spotify.com/playlist/0U6OHvNclCmiuqYEk1qZmR"
+    },
+    {
+      "publicId": "fuck-bad-dreams",
+      "title": "Fuck Bad Dreams",
+      "shortDescription": "Play in order",
+      "affinity": "High",
+      "energy": "Low",
+      "experienceConsistency": 100,
+      "ordering": "ordered",
+      "datasetVersion": "music-for-this-moment-public-v1-2026-08-26",
+      "artwork": {
+        "localPath": "assets/music-for-this-moment/artwork/fuck-bad-dreams.jpg",
+        "alt": "Artwork for the Fuck Bad Dreams playlist.",
+        "credit": "Photo by Kahntra.",
+        "rightsStatement": "© Kahntra. All rights reserved; approved for public use in ListenLab and the related Kahntra showcase."
+      },
+      "outboundUrl": "https://open.spotify.com/playlist/459fCqrazDXRpAISfznqO2"
+    },
+    {
+      "publicId": "future-nostalgia",
+      "title": "Future Nostalgia",
+      "shortDescription": "An owner-curated Future Nostalgia playlist.",
+      "affinity": "High",
+      "energy": "Medium",
+      "experienceConsistency": 80,
+      "ordering": "partially ordered",
+      "datasetVersion": "music-for-this-moment-public-v1-2026-08-26",
+      "artwork": {
+        "localPath": "assets/music-for-this-moment/artwork/future-nostalgia.jpg",
+        "alt": "Artwork for the Future Nostalgia playlist.",
+        "credit": "Photo by Kahntra.",
+        "rightsStatement": "© Kahntra. All rights reserved; approved for public use in ListenLab and the related Kahntra showcase."
+      },
+      "outboundUrl": "https://open.spotify.com/playlist/5WLBNMtfXjkNIdaEc2NsVe"
+    },
+    {
+      "publicId": "grounded",
+      "title": "grounded",
+      "shortDescription": "An owner-curated grounded playlist.",
+      "affinity": "Medium",
+      "energy": "Low",
+      "experienceConsistency": 80,
+      "ordering": "unordered",
+      "datasetVersion": "music-for-this-moment-public-v1-2026-08-26",
+      "artwork": {
+        "localPath": "assets/music-for-this-moment/artwork/grounded.jpg",
+        "alt": "Artwork for the grounded playlist.",
+        "credit": "Photo by Kahntra.",
+        "rightsStatement": "© Kahntra. All rights reserved; approved for public use in ListenLab and the related Kahntra showcase."
+      },
+      "outboundUrl": "https://open.spotify.com/playlist/2DII2fD88v2hPPEp5xlCve"
+    },
+    {
+      "publicId": "hip-hop",
+      "title": "Hip Hop",
+      "shortDescription": "An owner-curated Hip Hop playlist.",
+      "affinity": "Low",
+      "energy": "Medium",
+      "experienceConsistency": 20,
+      "ordering": "unordered",
+      "datasetVersion": "music-for-this-moment-public-v1-2026-08-26",
+      "artwork": {
+        "localPath": "assets/music-for-this-moment/artwork/hip-hop.jpg",
+        "alt": "Artwork for the Hip Hop playlist.",
+        "credit": "Photo by Kahntra.",
+        "rightsStatement": "© Kahntra. All rights reserved; approved for public use in ListenLab and the related Kahntra showcase."
+      },
+      "outboundUrl": "https://open.spotify.com/playlist/403h6OKmwG1ikdAuRfNbT8"
+    },
+    {
+      "publicId": "hot-waves",
+      "title": "Hot Waves",
+      "shortDescription": "An owner-curated Hot Waves playlist.",
+      "affinity": "High",
+      "energy": "High",
+      "experienceConsistency": 80,
+      "ordering": "unordered",
+      "datasetVersion": "music-for-this-moment-public-v1-2026-08-26",
+      "artwork": {
+        "localPath": "assets/music-for-this-moment/artwork/hot-waves.jpg",
+        "alt": "Artwork for the Hot Waves playlist.",
+        "credit": "Photo by Kahntra.",
+        "rightsStatement": "© Kahntra. All rights reserved; approved for public use in ListenLab and the related Kahntra showcase."
+      },
+      "outboundUrl": "https://open.spotify.com/playlist/3tuOeLgU7AYwaTfAtslGaN"
+    },
+    {
+      "publicId": "huh",
+      "title": "huh",
+      "shortDescription": "Angsty rock",
+      "affinity": "High",
+      "energy": "High",
+      "experienceConsistency": 40,
+      "ordering": "unordered",
+      "datasetVersion": "music-for-this-moment-public-v1-2026-08-26",
+      "artwork": {
+        "localPath": "assets/music-for-this-moment/artwork/huh.jpg",
+        "alt": "Artwork for the huh playlist.",
+        "credit": "Photo by Kahntra.",
+        "rightsStatement": "© Kahntra. All rights reserved; approved for public use in ListenLab and the related Kahntra showcase."
+      },
+      "outboundUrl": "https://open.spotify.com/playlist/2x1fdP2blu5boyCLmAmqWY"
+    },
+    {
+      "publicId": "indie-angst",
+      "title": "Indie Angst",
+      "shortDescription": "Genre + mood hybrid",
+      "affinity": "Medium",
+      "energy": "Low",
+      "experienceConsistency": 50,
+      "ordering": "unordered",
+      "datasetVersion": "music-for-this-moment-public-v1-2026-08-26",
+      "artwork": {
+        "localPath": "assets/music-for-this-moment/artwork/indie-angst.jpg",
+        "alt": "Artwork for the Indie Angst playlist.",
+        "credit": "Photo by Kahntra.",
+        "rightsStatement": "© Kahntra. All rights reserved; approved for public use in ListenLab and the related Kahntra showcase."
+      },
+      "outboundUrl": "https://open.spotify.com/playlist/18HH3Y7MiHkaV0UiD7xCbk"
+    },
+    {
+      "publicId": "instrumental-chill",
+      "title": "Instrumental Chill",
+      "shortDescription": "Instrumental",
+      "affinity": "Low",
+      "energy": "Low",
+      "experienceConsistency": 60,
+      "ordering": "unordered",
+      "datasetVersion": "music-for-this-moment-public-v1-2026-08-26",
+      "artwork": {
+        "localPath": "assets/music-for-this-moment/artwork/instrumental-chill.jpg",
+        "alt": "Artwork for the Instrumental Chill playlist.",
+        "credit": "Photo by Kahntra.",
+        "rightsStatement": "© Kahntra. All rights reserved; approved for public use in ListenLab and the related Kahntra showcase."
+      },
+      "outboundUrl": "https://open.spotify.com/playlist/6PYV9JN1m9UdHixb59m99Z"
+    },
+    {
+      "publicId": "jazz",
+      "title": "Jazz",
+      "shortDescription": "An owner-curated Jazz playlist.",
+      "affinity": "Low",
+      "energy": "Medium",
+      "experienceConsistency": 20,
+      "ordering": "unordered",
+      "datasetVersion": "music-for-this-moment-public-v1-2026-08-26",
+      "artwork": {
+        "localPath": "assets/music-for-this-moment/artwork/jazz.jpg",
+        "alt": "Artwork for the Jazz playlist.",
+        "credit": "Photo by Kahntra.",
+        "rightsStatement": "© Kahntra. All rights reserved; approved for public use in ListenLab and the related Kahntra showcase."
+      },
+      "outboundUrl": "https://open.spotify.com/playlist/5RDscyLDBhWMejhW5go3kb"
+    },
+    {
+      "publicId": "lonely-night-ride",
+      "title": "Lonely Night Ride",
+      "shortDescription": "Ordered opening.",
+      "affinity": "High",
+      "energy": "Low",
+      "experienceConsistency": 80,
+      "ordering": "partially ordered",
+      "datasetVersion": "music-for-this-moment-public-v1-2026-08-26",
+      "artwork": {
+        "localPath": "assets/music-for-this-moment/artwork/lonely-night-ride.jpg",
+        "alt": "Artwork for the Lonely Night Ride playlist.",
+        "credit": "Photo by Kahntra.",
+        "rightsStatement": "© Kahntra. All rights reserved; approved for public use in ListenLab and the related Kahntra showcase."
+      },
+      "outboundUrl": "https://open.spotify.com/playlist/4UCImbMjml92xVCnKO9fxK"
+    },
+    {
+      "publicId": "mellow",
+      "title": "Mellow",
+      "shortDescription": "An owner-curated Mellow playlist.",
+      "affinity": "Medium",
+      "energy": "Medium",
+      "experienceConsistency": 60,
+      "ordering": "unordered",
+      "datasetVersion": "music-for-this-moment-public-v1-2026-08-26",
+      "artwork": {
+        "localPath": "assets/music-for-this-moment/artwork/mellow.jpg",
+        "alt": "Artwork for the Mellow playlist.",
+        "credit": "Photo by Kahntra.",
+        "rightsStatement": "© Kahntra. All rights reserved; approved for public use in ListenLab and the related Kahntra showcase."
+      },
+      "outboundUrl": "https://open.spotify.com/playlist/4h4pjkDXfQlIY9gZz58QmM"
+    },
+    {
+      "publicId": "opaque-fusion",
+      "title": "Opaque Fusion",
+      "shortDescription": "An owner-curated Opaque Fusion playlist.",
+      "affinity": "Medium",
+      "energy": "High",
+      "experienceConsistency": 60,
+      "ordering": "unordered",
+      "datasetVersion": "music-for-this-moment-public-v1-2026-08-26",
+      "artwork": {
+        "localPath": "assets/music-for-this-moment/artwork/opaque-fusion.jpg",
+        "alt": "Artwork for the Opaque Fusion playlist.",
+        "credit": "Photo by Kahntra.",
+        "rightsStatement": "© Kahntra. All rights reserved; approved for public use in ListenLab and the related Kahntra showcase."
+      },
+      "outboundUrl": "https://open.spotify.com/playlist/2ymKJSy3EpESNZeW348tUi"
+    },
+    {
+      "publicId": "poetry-and-speech",
+      "title": "Poetry + Speech",
+      "shortDescription": "Word-focused",
+      "affinity": "Low",
+      "energy": "Low",
+      "experienceConsistency": 100,
+      "ordering": "unordered",
+      "datasetVersion": "music-for-this-moment-public-v1-2026-08-26",
+      "artwork": {
+        "localPath": "assets/music-for-this-moment/artwork/poetry-and-speech.jpg",
+        "alt": "Artwork for the Poetry + Speech playlist.",
+        "credit": "Photo by Kahntra.",
+        "rightsStatement": "© Kahntra. All rights reserved; approved for public use in ListenLab and the related Kahntra showcase."
+      },
+      "outboundUrl": "https://open.spotify.com/playlist/2WE4iZMWECF4mrNJpt9TDI"
+    },
+    {
+      "publicId": "relax",
+      "title": "Relax",
+      "shortDescription": "An owner-curated Relax playlist.",
+      "affinity": "Medium",
+      "energy": "Low",
+      "experienceConsistency": 60,
+      "ordering": "unordered",
+      "datasetVersion": "music-for-this-moment-public-v1-2026-08-26",
+      "artwork": {
+        "localPath": "assets/music-for-this-moment/artwork/relax.jpg",
+        "alt": "Artwork for the Relax playlist.",
+        "credit": "Photo by Kahntra.",
+        "rightsStatement": "© Kahntra. All rights reserved; approved for public use in ListenLab and the related Kahntra showcase."
+      },
+      "outboundUrl": "https://open.spotify.com/playlist/6Jhkgkb8RTiM4eOnUGs2GA"
+    },
+    {
+      "publicId": "rock",
+      "title": "Rock",
+      "shortDescription": "An owner-curated Rock playlist.",
+      "affinity": "Low",
+      "energy": "Medium",
+      "experienceConsistency": 20,
+      "ordering": "unordered",
+      "datasetVersion": "music-for-this-moment-public-v1-2026-08-26",
+      "artwork": {
+        "localPath": "assets/music-for-this-moment/artwork/rock.jpg",
+        "alt": "Artwork for the Rock playlist.",
+        "credit": "Photo by Kahntra.",
+        "rightsStatement": "© Kahntra. All rights reserved; approved for public use in ListenLab and the related Kahntra showcase."
+      },
+      "outboundUrl": "https://open.spotify.com/playlist/7cSAbNYuGJIevRKvrWdJFA"
+    },
+    {
+      "publicId": "sad",
+      "title": "Sad",
+      "shortDescription": "An owner-curated Sad playlist.",
+      "affinity": "Low",
+      "energy": "Low",
+      "experienceConsistency": 50,
+      "ordering": "unordered",
+      "datasetVersion": "music-for-this-moment-public-v1-2026-08-26",
+      "artwork": {
+        "localPath": "assets/music-for-this-moment/artwork/sad.jpg",
+        "alt": "Artwork for the Sad playlist.",
+        "credit": "Photo by Kahntra.",
+        "rightsStatement": "© Kahntra. All rights reserved; approved for public use in ListenLab and the related Kahntra showcase."
+      },
+      "outboundUrl": "https://open.spotify.com/playlist/1sIyQxqBU5iLyonpLt8J8D"
+    },
+    {
+      "publicId": "soul-right",
+      "title": "Soul Right",
+      "shortDescription": "Soul genre bucket.",
+      "affinity": "Low",
+      "energy": "High",
+      "experienceConsistency": 20,
+      "ordering": "unordered",
+      "datasetVersion": "music-for-this-moment-public-v1-2026-08-26",
+      "artwork": {
+        "localPath": "assets/music-for-this-moment/artwork/soul-right.jpg",
+        "alt": "Artwork for the Soul Right playlist.",
+        "credit": "Photo by Kahntra.",
+        "rightsStatement": "© Kahntra. All rights reserved; approved for public use in ListenLab and the related Kahntra showcase."
+      },
+      "outboundUrl": "https://open.spotify.com/playlist/3FzQ6BynrNqAaPKqFDn8v3"
+    },
+    {
+      "publicId": "sounds-good",
+      "title": "Sounds Good",
+      "shortDescription": "An owner-curated Sounds Good playlist.",
+      "affinity": "Medium",
+      "energy": "Medium",
+      "experienceConsistency": 40,
+      "ordering": "unordered",
+      "datasetVersion": "music-for-this-moment-public-v1-2026-08-26",
+      "artwork": {
+        "localPath": "assets/music-for-this-moment/artwork/sounds-good.jpg",
+        "alt": "Artwork for the Sounds Good playlist.",
+        "credit": "Photo by Kahntra.",
+        "rightsStatement": "© Kahntra. All rights reserved; approved for public use in ListenLab and the related Kahntra showcase."
+      },
+      "outboundUrl": "https://open.spotify.com/playlist/2VzEI2MwJhq7EYh4inNR5M"
+    },
+    {
+      "publicId": "there",
+      "title": "THERE",
+      "shortDescription": "An owner-curated THERE playlist.",
+      "affinity": "High",
+      "energy": "Medium",
+      "experienceConsistency": 50,
+      "ordering": "partially ordered",
+      "datasetVersion": "music-for-this-moment-public-v1-2026-08-26",
+      "artwork": {
+        "localPath": "assets/music-for-this-moment/artwork/there.jpg",
+        "alt": "Artwork for the THERE playlist.",
+        "credit": "Photo by Kahntra.",
+        "rightsStatement": "© Kahntra. All rights reserved; approved for public use in ListenLab and the related Kahntra showcase."
+      },
+      "outboundUrl": "https://open.spotify.com/playlist/6NUjVQTNQv2HnHWmEj3qGU"
+    },
+    {
+      "publicId": "transcendent-melancholy",
+      "title": "Transcendent Melancholy",
+      "shortDescription": "An owner-curated Transcendent Melancholy playlist.",
+      "affinity": "High",
+      "energy": "Low",
+      "experienceConsistency": 50,
+      "ordering": "unordered",
+      "datasetVersion": "music-for-this-moment-public-v1-2026-08-26",
+      "artwork": {
+        "localPath": "assets/music-for-this-moment/artwork/transcendent-melancholy.jpg",
+        "alt": "Artwork for the Transcendent Melancholy playlist.",
+        "credit": "Photo by Kahntra.",
+        "rightsStatement": "© Kahntra. All rights reserved; approved for public use in ListenLab and the related Kahntra showcase."
+      },
+      "outboundUrl": "https://open.spotify.com/playlist/3ePsgbXomo1imH7BWMR8mK"
+    },
+    {
+      "publicId": "unsettling",
+      "title": "Unsettling",
+      "shortDescription": "An owner-curated Unsettling playlist.",
+      "affinity": "Low",
+      "energy": "Medium",
+      "experienceConsistency": 20,
+      "ordering": "unordered",
+      "datasetVersion": "music-for-this-moment-public-v1-2026-08-26",
+      "artwork": {
+        "localPath": "assets/music-for-this-moment/artwork/unsettling.jpg",
+        "alt": "Artwork for the Unsettling playlist.",
+        "credit": "Photo by Kahntra.",
+        "rightsStatement": "© Kahntra. All rights reserved; approved for public use in ListenLab and the related Kahntra showcase."
+      },
+      "outboundUrl": "https://open.spotify.com/playlist/4uCvoUIRp8ugH9Uzh5HXgb"
+    },
+    {
+      "publicId": "upbeat-indie",
+      "title": "Upbeat Indie",
+      "shortDescription": "Genre + mood hybrid",
+      "affinity": "Medium",
+      "energy": "High",
+      "experienceConsistency": 60,
+      "ordering": "unordered",
+      "datasetVersion": "music-for-this-moment-public-v1-2026-08-26",
+      "artwork": {
+        "localPath": "assets/music-for-this-moment/artwork/upbeat-indie.jpg",
+        "alt": "Artwork for the Upbeat Indie playlist.",
+        "credit": "Photo by Kahntra.",
+        "rightsStatement": "© Kahntra. All rights reserved; approved for public use in ListenLab and the related Kahntra showcase."
+      },
+      "outboundUrl": "https://open.spotify.com/playlist/4IKe31kYSBZhbTr6egr0li"
+    },
+    {
+      "publicId": "wandering-blues",
+      "title": "Wandering Blues",
+      "shortDescription": "An owner-curated Wandering Blues playlist.",
+      "affinity": "High",
+      "energy": "Low",
+      "experienceConsistency": 80,
+      "ordering": "partially ordered",
+      "datasetVersion": "music-for-this-moment-public-v1-2026-08-26",
+      "artwork": {
+        "localPath": "assets/music-for-this-moment/artwork/wandering-blues.jpg",
+        "alt": "Artwork for the Wandering Blues playlist.",
+        "credit": "Photo by Kahntra.",
+        "rightsStatement": "© Kahntra. All rights reserved; approved for public use in ListenLab and the related Kahntra showcase."
+      },
+      "outboundUrl": "https://open.spotify.com/playlist/29AjNHbIfs9sXk41z0Rwwi"
+    },
+    {
+      "publicId": "wedding-i",
+      "title": "Wedding I",
+      "shortDescription": "An owner-curated Wedding I playlist.",
+      "affinity": "High",
+      "energy": "Medium",
+      "experienceConsistency": 100,
+      "ordering": "ordered",
+      "datasetVersion": "music-for-this-moment-public-v1-2026-08-26",
+      "artwork": {
+        "localPath": "assets/music-for-this-moment/artwork/wedding-i.jpg",
+        "alt": "Artwork for the Wedding I playlist.",
+        "credit": "Photo by Kahntra.",
+        "rightsStatement": "© Kahntra. All rights reserved; approved for public use in ListenLab and the related Kahntra showcase."
+      },
+      "outboundUrl": "https://open.spotify.com/playlist/2tw10SOM1aELE2aLzwd18E"
+    },
+    {
+      "publicId": "world-trip",
+      "title": "World Trip",
+      "shortDescription": "An owner-curated World Trip playlist.",
+      "affinity": "Medium",
+      "energy": "High",
+      "experienceConsistency": 40,
+      "ordering": "unordered",
+      "datasetVersion": "music-for-this-moment-public-v1-2026-08-26",
+      "artwork": {
+        "localPath": "assets/music-for-this-moment/artwork/world-trip.jpg",
+        "alt": "Artwork for the World Trip playlist.",
+        "credit": "Photo by Kahntra.",
+        "rightsStatement": "© Kahntra. All rights reserved; approved for public use in ListenLab and the related Kahntra showcase."
+      },
+      "outboundUrl": "https://open.spotify.com/playlist/2D3SphVFFx1GWuJPiBSuj8"
+    }
+  ]
+}
