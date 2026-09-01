@@ -51,7 +51,7 @@ export function PlaylistCurationFocusDetails({
   };
   return (
     <section
-      aria-label="Single Affinity and Energy playlist result"
+      aria-label="Single Curation and Energy playlist result"
       className="music-moment-primary-focus-details"
       data-show-controls="false"
       ref={detailsRef}

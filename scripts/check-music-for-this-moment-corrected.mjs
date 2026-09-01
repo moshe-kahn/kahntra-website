@@ -31,5 +31,17 @@ if (!index.includes('data-mftm-primary-island') || !index.includes('music-for-th
   fail("primary picker island is not mounted in the Showcase");
 }
 if (index.includes("Previous explorations")) fail("experimental lower picker must not be mounted");
+if (!index.includes('class="showcase__card showcase__card--music"') || !index.includes('music-for-this-moment__anchor')) {
+  fail("picker needs its own Momo-style Showcase heading rather than a nested card");
+}
+
+const entry = await readFile(resolve(root, "music-for-this-moment/final-surface/entry.tsx"), "utf8");
+const picker = await readFile(resolve(root, "music-for-this-moment/final-surface/components/MusicForThisMomentPrimaryPicker.tsx"), "utf8");
+const pickerStyles = await readFile(resolve(root, "music-for-this-moment/final-surface/musicForThisMoment.css"), "utf8");
+if (entry.includes("No listening service is connected")) fail("removed boundary sentence is still mounted");
+if (!picker.includes("Curation × Energy") || picker.includes("Affinity × Energy")) fail("public axis language must use Curation");
+if (!pickerStyles.includes(".music-moment-primary-focus-card .music-moment-artwork-landscape {\n  height: 100%;\n  object-fit: cover;")) {
+  fail("focus artwork must use the approved 3:2 crop treatment");
+}
 
 console.log("TASK-0064 corrected picker: 36 public records, blank keyword slots, exact direct links, local artwork, and one primary mount verified.");

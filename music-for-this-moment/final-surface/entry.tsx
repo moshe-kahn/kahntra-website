@@ -35,19 +35,14 @@ function PublicPage() {
   };
 
   return (
-    <main className="music-moment-integration" data-music-moment-source="approved-static-public-v1">
-      <header className="music-moment-integration-header">
-        <h1 id="music-for-this-moment-title">Music for the Moment</h1>
-        <p className="music-moment-integration-subtitle">Interactive playlist guide</p>
-      </header>
+    <div className="music-moment-integration" data-music-moment-source="approved-static-public-v1">
       <div className="music-moment-curtain-stage" data-curtain-open={showCurtain || undefined}>
         <div aria-hidden={showCurtain} className="music-moment-curtain-stage-content" ref={stageRef}>
           {records ? <MusicForThisMomentPrimaryPicker pickerRef={pickerRef} records={records} /> : <p className={error ? "music-moment-state music-moment-state-error" : "music-moment-state"} role={error ? "alert" : "status"}>{error ?? "Loading the public playlist guide…"}</p>}
         </div>
         {showCurtain ? <MusicForThisMomentCurtain onExplore={dismissCurtain} /> : null}
       </div>
-      <p className="music-moment-kahntra-boundary">Public local artwork and metadata only. No listening service is connected.</p>
-    </main>
+    </div>
   );
 }
 

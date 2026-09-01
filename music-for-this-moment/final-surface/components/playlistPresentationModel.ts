@@ -34,7 +34,7 @@ export function createPlaylistPresentationModel(
       : cells.find((cell) => cell.id === DEFAULT_CELL_ID && cell.playlists.length > 0)
         ?? cells.find((cell) => cell.playlists.length > 0);
     if (!requested || requested.playlists.length === 0) {
-      return { status: "invalid", message: "Requested Affinity and Energy cell has no eligible playlists." };
+      return { status: "invalid", message: "Requested Curation and Energy cell has no eligible playlists." };
     }
     return {
       status: "ready",

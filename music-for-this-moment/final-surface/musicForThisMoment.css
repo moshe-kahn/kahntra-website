@@ -1,17 +1,7 @@
-html:has(.music-moment-integration) {
-  scrollbar-gutter: stable;
-}
-
 .music-moment-integration {
-  background:
-    radial-gradient(circle at 12% 0%, #58342f66, transparent 34rem),
-    #151312;
   color: #f8f2e8;
-  min-height: 100vh;
-  padding: clamp(1rem, 3vw, 2.5rem);
 }
 
-.music-moment-integration-header,
 .music-moment-picker {
   margin-inline: auto;
   max-width: 76rem;
@@ -148,25 +138,6 @@ html:has(.music-moment-integration) {
 
 .music-moment-reference-picker > .music-moment-eyebrow {
   margin: 0 0 0.75rem;
-}
-
-.music-moment-integration-header {
-  margin-bottom: 1.5rem;
-}
-
-.music-moment-integration-header h1 {
-  font-size: clamp(1.9rem, 4vw, 3.5rem);
-  letter-spacing: -0.04em;
-  margin: 0;
-}
-
-.music-moment-integration-subtitle {
-  color: #f2a774;
-  font-size: clamp(0.72rem, 1.2vw, 0.86rem);
-  font-weight: 700;
-  letter-spacing: 0.13em;
-  margin: 0.38rem 0 0;
-  text-transform: uppercase;
 }
 
 .music-moment-picker {
@@ -707,7 +678,7 @@ html:has(.music-moment-integration) {
 
 .music-moment-primary-focus-card .music-moment-artwork-landscape {
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   transition: filter 160ms ease;
   width: 100%;
 }
@@ -2439,10 +2410,6 @@ html:has(.music-moment-integration) {
 }
 
 @media (max-width: 520px) {
-  .music-moment-integration {
-    padding: 0.8rem;
-  }
-
   .music-moment-primary-focused-view {
     aspect-ratio: 3 / 2;
     min-height: 0;

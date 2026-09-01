@@ -64,10 +64,10 @@ export function PlaylistCurationEnergyGrid({
       data-zoom-display={displayMode === "clean" ? "axis" : displayMode}
     >
       <span aria-hidden="true" className="music-moment-zoom-axis" data-axis="energy">Energy →</span>
-      <span aria-hidden="true" className="music-moment-zoom-axis" data-axis="affinity">Affinity →</span>
+      <span aria-hidden="true" className="music-moment-zoom-axis" data-axis="affinity">Curation →</span>
       <div
         aria-describedby={describedBy}
-        aria-label="Affinity by Energy playlist regions"
+        aria-label="Curation by Energy playlist regions"
         className="music-moment-cell-grid"
         data-primary-curation-grid="true"
         data-view-mode="zoom"
@@ -80,7 +80,7 @@ export function PlaylistCurationEnergyGrid({
               const cell = cells.find((candidate) => candidate.affinity === affinity && candidate.energy === energy);
               if (!cell) return null;
               const affinityLabel = AFFINITY_LABELS[affinity];
-              const label = `${affinityLabel} Affinity, ${energy} Energy, ${cell.playlists.length} playlists`;
+              const label = `${affinityLabel} Curation, ${energy} Energy, ${cell.playlists.length} playlists`;
               const hovered = hoveredCellId === cell.id;
               return (
                 <span className="music-moment-gridcell" key={cell.id} role="gridcell">
@@ -126,7 +126,7 @@ export function PlaylistCurationEnergyGrid({
                       {displayMode !== "clean" ? (
                         <span className="music-moment-cell-postcard-coordinate-group">
                           <span className="music-moment-cell-postcard-coordinate" data-axis="energy">{energy} Energy</span>
-                          <span className="music-moment-cell-postcard-coordinate" data-axis="affinity">{affinityLabel} Affinity</span>
+                          <span className="music-moment-cell-postcard-coordinate" data-axis="affinity">{affinityLabel} Curation</span>
                         </span>
                       ) : null}
                     </button>

@@ -113,7 +113,7 @@ export function PlaylistCurationFocusView({
 
   return (
     <div
-      aria-label={`${cell.energy} Energy, ${affinityLabel} Affinity, 1 by 1 view. Use arrow keys for neighboring regions or Escape for the map.`}
+      aria-label={`${cell.energy} Energy, ${affinityLabel} Curation, 1 by 1 view. Use arrow keys for neighboring regions or Escape for the map.`}
       className="music-moment-primary-focused-view music-moment-primary-region-surface"
       data-curation={cell.affinity.toLowerCase()}
       data-energy={cell.energy.toLowerCase()}
@@ -130,7 +130,7 @@ export function PlaylistCurationFocusView({
           .filter((playlist) => playlist !== undefined);
         return (
           <button
-            aria-label={`Move ${direction} to ${neighborAffinityLabel} Affinity, ${neighbor.energy} Energy`}
+            aria-label={`Move ${direction} to ${neighborAffinityLabel} Curation, ${neighbor.energy} Energy`}
             className="music-moment-primary-neighbor music-moment-primary-region-surface"
             data-curation={neighbor.affinity.toLowerCase()}
             data-direction={direction}
