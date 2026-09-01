@@ -63,5 +63,8 @@ if (!picker.includes("Zoom into a random region")) fail("random-region control m
 if (!details.includes('className="playlist-title"') || !pickerStyles.includes('font-family: "Instrument Serif", serif;')) {
   fail("playlist titles must use the requested Instrument Serif treatment");
 }
+if (!pickerStyles.includes(".music-moment-curtain-explore {\n  border-bottom: 1px solid transparent;\n  color: var(--accent);") || !pickerStyles.includes("margin-top: clamp(7rem, 17vh, 11rem);")) {
+  fail("curtain Explore action must use the site teal and lower placement");
+}
 
 console.log("TASK-0064 corrected picker: 36 public records, blank keyword slots, exact direct links, local artwork, and one primary mount verified.");
