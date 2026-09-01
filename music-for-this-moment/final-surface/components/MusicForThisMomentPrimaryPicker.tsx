@@ -173,7 +173,7 @@ export function MusicForThisMomentPrimaryPicker({
                 >
                   <div className="music-moment-info-section">
                     <strong>Curation</strong>
-                    <span>Buckets are open groupings, Collections gather music around a shared idea, and Mixtapes are deliberately sequenced.</span>
+                    <span>Playlists are curated around an experience: Buckets are broad and mostly genre-based, Collections are more refined, and Mixtapes are the most cohesive.</span>
                   </div>
                   <div className="music-moment-info-section">
                     <strong>Energy</strong>

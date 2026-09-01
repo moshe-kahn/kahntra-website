@@ -50,7 +50,7 @@ const landscapeArtwork = await readFile(resolve(root, "music-for-this-moment/fin
 const curtain = await readFile(resolve(root, "music-for-this-moment/final-surface/components/MusicForThisMomentCurtain.tsx"), "utf8");
 if (entry.includes("No listening service is connected")) fail("removed boundary sentence is still mounted");
 if (!picker.includes("Curation × Energy") || picker.includes("Affinity × Energy")) fail("public axis language must use Curation");
-if (!picker.includes("Buckets are open groupings") || !picker.includes("Collections gather music") || !picker.includes("Mixtapes are deliberately sequenced") || picker.includes("Personal attachment and familiarity")) {
+if (!picker.includes("Playlists are curated around an experience: Buckets are broad and mostly genre-based, Collections are more refined, and Mixtapes are the most cohesive.") || picker.includes("Personal attachment and familiarity")) {
   fail("Curation needs Bucket, Collection, and Mixtape language rather than inherited Affinity copy");
 }
 if (!pickerStyles.includes(".music-moment-primary-focus-card .music-moment-artwork-landscape {\n  height: 100%;\n  object-fit: cover;")) {
