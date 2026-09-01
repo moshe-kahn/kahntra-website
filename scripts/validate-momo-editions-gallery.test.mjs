@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { execFile } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import { mkdtemp, readFile, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
@@ -16,6 +17,10 @@ const baseline = JSON.parse(
 
 function clone(value) {
   return JSON.parse(JSON.stringify(value));
+}
+
+function checksum(value) {
+  return createHash('sha256').update(JSON.stringify(value)).digest('hex');
 }
 
 async function validate(value) {
@@ -46,6 +51,15 @@ test('accepts the reviewed public manifest', async () => {
         .map((rating) => [rating, baseline.items.filter((item) => item.contentRating === rating).length])
     ),
     { PG: 3, 'PG-13': 7, R: 19 }
+  );
+  const ordered = baseline.items.slice().sort((a, b) => a.order - b.order);
+  assert.equal(
+    checksum(ordered.map((item) => ({ id: item.id, labels: item.keywords }))),
+    'dfdd70698ff71b1ebe910ece0222b53ad441922daa9c4cadbb6a1c003f0cf383'
+  );
+  assert.equal(
+    checksum(ordered.map((item) => ({ id: item.id, genres: item.genres }))),
+    '33b94de668f771ea174764e2e78096205c6b71f854599ae1262c3076733e965b'
   );
 });
 
@@ -87,6 +101,18 @@ test('rejects invalid categories, framing, and discontinuous ordering', async ()
   const genres = clone(baseline);
   genres.items[0].genres = [];
   await rejects(genres, /invalid genres/i);
+
+  const missingKeywords = clone(baseline);
+  delete missingKeywords.items[0].keywords;
+  await rejects(missingKeywords, /invalid keys/i);
+
+  const wrongKeywordCount = clone(baseline);
+  wrongKeywordCount.items[0].keywords = ['Existential', 'Meditative'];
+  await rejects(wrongKeywordCount, /invalid keywords/i);
+
+  const duplicateKeywords = clone(baseline);
+  duplicateKeywords.items[0].keywords = ['Existential', 'Existential', 'Poignant'];
+  await rejects(duplicateKeywords, /invalid keywords/i);
 
   const longScienceFiction = clone(baseline);
   longScienceFiction.items[0].genres = ['Science Fiction'];

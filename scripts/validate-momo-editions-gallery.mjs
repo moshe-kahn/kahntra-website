@@ -19,7 +19,7 @@ const assert = (condition, message) => {
 };
 
 assert(exact(manifest, ['collection', 'items', 'schemaVersion']), 'Invalid top-level keys.');
-assert(manifest.schemaVersion === 6, 'Unsupported schemaVersion.');
+assert(manifest.schemaVersion === 7, 'Unsupported schemaVersion.');
 assert(exact(manifest.collection, ['eyebrow', 'introduction', 'title']), 'Invalid collection keys.');
 assert(Object.values(manifest.collection).every(text), 'Collection copy must be nonblank.');
 assert(Array.isArray(manifest.items) && manifest.items.length > 0, 'At least one item is required.');
@@ -35,6 +35,7 @@ const itemKeys = [
   'genres',
   'id',
   'image',
+  'keywords',
   'order',
   'railFraming',
   'railImage',
@@ -62,6 +63,13 @@ for (const item of manifest.items) {
     `${item.id} has invalid genres.`
   );
   assert(!item.genres.includes('Science Fiction'), `${item.id} must use Sci-Fi instead of Science Fiction.`);
+  assert(
+    Array.isArray(item.keywords) &&
+      item.keywords.length === 3 &&
+      item.keywords.every(text) &&
+      new Set(item.keywords).size === item.keywords.length,
+    `${item.id} has invalid keywords.`
+  );
   assert(
     Array.isArray(item.actors) &&
       item.actors.length >= 1 &&

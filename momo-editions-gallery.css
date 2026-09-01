@@ -613,6 +613,29 @@
   opacity: 1;
 }
 
+.momo-gallery__genre-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 4px 9px;
+  margin-bottom: clamp(8px, 1.35vw, 14px);
+  color: rgb(226 177 111 / 92%);
+  font: 600 clamp(0.58rem, 0.92vw, 0.72rem) system-ui, sans-serif;
+  letter-spacing: 0.12em;
+  line-height: 1.25;
+  text-transform: uppercase;
+  text-shadow: 0 2px 12px rgb(0 0 0 / 72%);
+}
+
+.momo-gallery__genre-group[hidden] {
+  display: none;
+}
+
+.momo-gallery__genre-separator {
+  color: rgb(247 236 215 / 72%);
+}
+
 
 .momo-gallery__artwork-title {
   display: block;

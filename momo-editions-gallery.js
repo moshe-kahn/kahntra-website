@@ -8,6 +8,7 @@ const ITEM_KEYS = [
   'genres',
   'id',
   'image',
+  'keywords',
   'order',
   'railFraming',
   'railImage',
@@ -47,7 +48,7 @@ function validateManifest(manifest) {
   if (!hasExactKeys(manifest, ['collection', 'items', 'schemaVersion'])) {
     throw new Error('The gallery manifest has unknown or missing top-level fields.');
   }
-  if (manifest.schemaVersion !== 6 || !hasExactKeys(manifest.collection, COLLECTION_KEYS)) {
+  if (manifest.schemaVersion !== 7 || !hasExactKeys(manifest.collection, COLLECTION_KEYS)) {
     throw new Error('The gallery manifest version or collection fields are invalid.');
   }
   if (!COLLECTION_KEYS.every((key) => isText(manifest.collection[key]))) {
@@ -78,6 +79,10 @@ function validateManifest(manifest) {
       item.genres.length > 4 ||
       !item.genres.every(isText) ||
       new Set(item.genres).size !== item.genres.length ||
+      !Array.isArray(item.keywords) ||
+      item.keywords.length !== 3 ||
+      !item.keywords.every(isText) ||
+      new Set(item.keywords).size !== item.keywords.length ||
       !Number.isInteger(item.runtimeMinutes) ||
       item.runtimeMinutes < 1 ||
       item.runtimeMinutes > 1000 ||
@@ -168,6 +173,8 @@ function renderGallery(root, manifest) {
     'Use the artwork previews or arrow keys to choose an Edition. Select the large artwork to reveal its title and details.'
   );
   instructions.id = 'momo-gallery-instructions';
+  const keywordSummary = element('p', 'momo-gallery__accessible-header');
+  keywordSummary.id = 'momo-gallery-keyword-summary';
 
   const rail = element('aside', 'momo-gallery__film-rail');
   rail.setAttribute('aria-label', 'Momo Editions artwork');
@@ -219,6 +226,7 @@ function renderGallery(root, manifest) {
   const hitTarget = element('button', 'momo-gallery__artwork-hit-target');
   hitTarget.type = 'button';
   hitTarget.setAttribute('aria-expanded', 'false');
+  hitTarget.setAttribute('aria-describedby', 'momo-gallery-keyword-summary');
 
   const glow = element('span', 'momo-gallery__projector-field');
   const imageStack = element('span', 'momo-gallery__image-stack');
@@ -229,9 +237,11 @@ function renderGallery(root, manifest) {
 
   const information = element('span', 'momo-gallery__information');
   const titleBlock = element('span', 'momo-gallery__artwork-title-block');
+  const genreGroup = element('span', 'momo-gallery__genre-group');
+  genreGroup.hidden = true;
   const title = element('strong', 'momo-gallery__artwork-title');
   const year = element('span', 'momo-gallery__artwork-year');
-  titleBlock.append(title, year);
+  titleBlock.append(genreGroup, title, year);
   const details = element('span', 'momo-gallery__details');
   details.setAttribute('role', 'region');
   const director = element('span', 'momo-gallery__director');
@@ -250,7 +260,7 @@ function renderGallery(root, manifest) {
   stage.append(artwork);
 
   shell.append(rail, stage);
-  root.append(accessibleHeader, instructions, shell);
+  root.append(accessibleHeader, instructions, keywordSummary, shell);
   if (root.hasAttribute('inert')) setGalleryAccess(root, false);
 
   let selectedIndex = 0;
@@ -323,6 +333,7 @@ function renderGallery(root, manifest) {
 
   function setMode(nextMode) {
     mode = nextMode;
+    genreGroup.hidden = mode !== 'info';
     if (mode !== 'info') {
       details.style.removeProperty('max-height');
     }
@@ -363,7 +374,19 @@ function renderGallery(root, manifest) {
       ),
       ratingGroup
     );
-    const labels = item.genres;
+    genreGroup.setAttribute('aria-label', `Genres: ${item.genres.join(', ')}`);
+    genreGroup.replaceChildren(
+      ...item.genres.flatMap((genre, index) =>
+        index === 0
+          ? [element('span', 'momo-gallery__genre-tag', genre)]
+          : [
+              element('span', 'momo-gallery__genre-separator', '•'),
+              element('span', 'momo-gallery__genre-tag', genre)
+            ]
+      )
+    );
+    keywordSummary.textContent = `Keywords: ${item.keywords.join(', ')}.`;
+    const labels = item.keywords;
     metadataText.replaceChildren(
       ...labels.flatMap((label, index) =>
         index === 0 ? [element('span', '', label)] : [element('span', '', '•'), element('span', '', label)]
