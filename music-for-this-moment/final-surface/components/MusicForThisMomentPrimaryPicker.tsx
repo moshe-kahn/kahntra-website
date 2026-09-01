@@ -5,7 +5,7 @@ import {
   type SpatialRankingCategory,
 } from "../../features/musicForThisMoment/playlistSpace.js";
 import {
-  AFFINITY_LABELS,
+  CURATION_LABELS,
   PlaylistCurationEnergyGrid,
 } from "./PlaylistCurationEnergyGrid.js";
 import { PlaylistCurationFocusView } from "./PlaylistCurationFocusView.js";
@@ -93,8 +93,8 @@ export function MusicForThisMomentPrimaryPicker({
   }
 
   const selectedCell = presentation.selectedCell;
-  const affinityLabel = AFFINITY_LABELS[curation];
-  const primaryLocation = `${energy} Energy · ${affinityLabel} Curation`;
+  const curationLabel = CURATION_LABELS[curation];
+  const primaryLocation = `${energy} Energy · ${curationLabel}`;
   const exploreRandomCell = () => {
     const alternatives = presentation.cells.filter((cell) => cell.id !== revealedCellId);
     const candidates = alternatives.length > 0 ? alternatives : presentation.cells;
@@ -138,7 +138,7 @@ export function MusicForThisMomentPrimaryPicker({
       tabIndex={-1}
     >
       <p aria-live="polite" className="music-moment-live-status">
-        {`${affinityLabel} Curation, ${energy} Energy. ${selectedCell.playlists.length} playlists.`}
+        {`${curationLabel}, ${energy} Energy. ${selectedCell.playlists.length} playlists.`}
       </p>
       <section
         aria-labelledby={headingId}
@@ -173,7 +173,7 @@ export function MusicForThisMomentPrimaryPicker({
                 >
                   <div className="music-moment-info-section">
                     <strong>Curation</strong>
-                    <span>How intentionally the playlist has been selected and arranged. Low Curation indicates an open or evolving selection, not lower quality.</span>
+                    <span>Buckets are open groupings, Collections gather music around a shared idea, and Mixtapes are deliberately sequenced.</span>
                   </div>
                   <div className="music-moment-info-section">
                     <strong>Energy</strong>

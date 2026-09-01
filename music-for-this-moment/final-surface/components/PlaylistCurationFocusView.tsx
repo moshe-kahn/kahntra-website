@@ -5,7 +5,7 @@ import {
   type PlaylistGridCell,
 } from "../../features/musicForThisMoment/playlistSpace.js";
 import { PlaylistCurationFocusDetails } from "./PlaylistCurationFocusDetails.js";
-import { AFFINITY_LABELS } from "./PlaylistCurationEnergyGrid.js";
+import { CURATION_LABELS } from "./PlaylistCurationEnergyGrid.js";
 
 type NeighborDirection =
   | "top-left"
@@ -83,7 +83,7 @@ export function PlaylistCurationFocusView({
   onExit,
   onSelectCell,
 }: PlaylistCurationFocusViewProps) {
-  const affinityLabel = AFFINITY_LABELS[cell.affinity];
+  const curationLabel = CURATION_LABELS[cell.affinity];
 
   const selectNeighbor = (neighbor: PlaylistGridCell) => {
     onSelectCell(neighbor);
@@ -113,7 +113,7 @@ export function PlaylistCurationFocusView({
 
   return (
     <div
-      aria-label={`${cell.energy} Energy, ${affinityLabel} Curation, 1 by 1 view. Use arrow keys for neighboring regions or Escape for the map.`}
+      aria-label={`${cell.energy} Energy, ${curationLabel}, 1 by 1 view. Use arrow keys for neighboring regions or Escape for the map.`}
       className="music-moment-primary-focused-view music-moment-primary-region-surface"
       data-curation={cell.affinity.toLowerCase()}
       data-energy={cell.energy.toLowerCase()}
@@ -124,13 +124,13 @@ export function PlaylistCurationFocusView({
       {NEIGHBOR_DIRECTIONS.map((direction) => {
         const neighbor = neighborCell(cells, cell, direction);
         if (!neighbor) return null;
-        const neighborAffinityLabel = AFFINITY_LABELS[neighbor.affinity];
+        const neighborCurationLabel = CURATION_LABELS[neighbor.affinity];
         const visiblePlaylists = VISIBLE_PLAYLIST_INDEXES[direction]
           .map((index) => neighbor.playlists[index])
           .filter((playlist) => playlist !== undefined);
         return (
           <button
-            aria-label={`Move ${direction} to ${neighborAffinityLabel} Curation, ${neighbor.energy} Energy`}
+            aria-label={`Move ${direction} to ${neighborCurationLabel}, ${neighbor.energy} Energy`}
             className="music-moment-primary-neighbor music-moment-primary-region-surface"
             data-curation={neighbor.affinity.toLowerCase()}
             data-direction={direction}

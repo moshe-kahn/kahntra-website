@@ -9,10 +9,10 @@ import { nextCellIdForKey } from "./playlistPresentationModel.js";
 
 export type CurationGridDisplayMode = "clean" | "hybrid" | "labels";
 
-export const AFFINITY_LABELS: Record<SpatialRankingCategory, string> = {
-  Low: "Low",
-  Medium: "Medium",
-  High: "High",
+export const CURATION_LABELS: Record<SpatialRankingCategory, string> = {
+  Low: "Buckets",
+  Medium: "Collections",
+  High: "Mixtapes",
 };
 
 interface PlaylistCurationEnergyGridProps {
@@ -79,8 +79,8 @@ export function PlaylistCurationEnergyGrid({
             {AFFINITY_ORDER.map((affinity) => {
               const cell = cells.find((candidate) => candidate.affinity === affinity && candidate.energy === energy);
               if (!cell) return null;
-              const affinityLabel = AFFINITY_LABELS[affinity];
-              const label = `${affinityLabel} Curation, ${energy} Energy, ${cell.playlists.length} playlists`;
+              const curationLabel = CURATION_LABELS[affinity];
+              const label = `${curationLabel}, ${energy} Energy, ${cell.playlists.length} playlists`;
               const hovered = hoveredCellId === cell.id;
               return (
                 <span className="music-moment-gridcell" key={cell.id} role="gridcell">
@@ -126,7 +126,7 @@ export function PlaylistCurationEnergyGrid({
                       {displayMode !== "clean" ? (
                         <span className="music-moment-cell-postcard-coordinate-group">
                           <span className="music-moment-cell-postcard-coordinate" data-axis="energy">{energy} Energy</span>
-                          <span className="music-moment-cell-postcard-coordinate" data-axis="affinity">{affinityLabel} Curation</span>
+                          <span className="music-moment-cell-postcard-coordinate" data-axis="affinity">{curationLabel}</span>
                         </span>
                       ) : null}
                     </button>
