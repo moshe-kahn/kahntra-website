@@ -93,7 +93,7 @@ export function PlaylistCurationFocusDetails({
               </div>
               <div className="music-moment-primary-focus-caption">
                 <div className="music-moment-primary-focus-title-row">
-                  <h3>{playlist.title}</h3>
+                  <h3 className="playlist-title">{playlist.title}</h3>
                 </div>
               </div>
             </article>

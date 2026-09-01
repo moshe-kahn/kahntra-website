@@ -60,6 +60,8 @@ if (!entry.includes("owner-keywords.json") || !details.includes("music-moment-pr
 }
 if (details.includes("Experience consistency")) fail("focus cards must show titles without experience-consistency metadata");
 if (!picker.includes("Zoom into a random region")) fail("random-region control must explain its zoom behavior");
-if (!pickerStyles.includes('font-family: Georgia, "Times New Roman", serif;')) fail("playlist titles must use the Showcase serif display face");
+if (!details.includes('className="playlist-title"') || !pickerStyles.includes('font-family: "Instrument Serif", serif;')) {
+  fail("playlist titles must use the requested Instrument Serif treatment");
+}
 
 console.log("TASK-0064 corrected picker: 36 public records, blank keyword slots, exact direct links, local artwork, and one primary mount verified.");
