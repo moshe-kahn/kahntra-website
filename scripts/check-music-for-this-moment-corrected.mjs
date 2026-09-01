@@ -37,6 +37,11 @@ if (!index.includes('class="showcase__card showcase__card--music"') || !index.in
   fail("picker needs its own Momo-style Showcase heading rather than a nested card");
 }
 
+const siteStyles = await readFile(resolve(root, "styles.css"), "utf8");
+if (!siteStyles.includes(".showcase__card--music {\n  margin-bottom: clamp(2.5rem, 5vw, 4.5rem);")) {
+  fail("Music for the Moment needs breathing room before Momo Editions");
+}
+
 const entry = await readFile(resolve(root, "music-for-this-moment/final-surface/entry.tsx"), "utf8");
 const picker = await readFile(resolve(root, "music-for-this-moment/final-surface/components/MusicForThisMomentPrimaryPicker.tsx"), "utf8");
 const details = await readFile(resolve(root, "music-for-this-moment/final-surface/components/PlaylistCurationFocusDetails.tsx"), "utf8");
