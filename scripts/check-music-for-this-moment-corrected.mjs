@@ -63,6 +63,9 @@ if (!picker.includes("Zoom into a random region")) fail("random-region control m
 if (!details.includes('className="playlist-title"') || !pickerStyles.includes('font-family: "Instrument Serif", serif;')) {
   fail("playlist titles must use the requested Instrument Serif treatment");
 }
+if (!pickerStyles.includes("color: rgba(242, 235, 226, 0.86);") || !pickerStyles.includes("font-size: 19px;")) {
+  fail("playlist titles must remain secondary warm off-white labels");
+}
 if (!pickerStyles.includes(".music-moment-curtain-explore {\n  border-bottom: 1px solid transparent;\n  color: var(--accent);") || !pickerStyles.includes("margin-top: clamp(7rem, 17vh, 11rem);")) {
   fail("curtain Explore action must use the site teal and lower placement");
 }
