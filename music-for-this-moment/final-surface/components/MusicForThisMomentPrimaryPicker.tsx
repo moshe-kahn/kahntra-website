@@ -185,12 +185,12 @@ export function MusicForThisMomentPrimaryPicker({
             {viewMode === "1x1" ? <p className="music-moment-primary-location">{primaryLocation}</p> : <span aria-hidden="true" />}
             {viewMode === "3x3" ? (
               <button
-                aria-label="Focus a random playlist region"
+                aria-label="Zoom into a random region"
                 className="music-moment-primary-map-control music-moment-primary-map-control-explore"
                 onClick={exploreRandomCell}
                 type="button"
               >
-                <span>Focus a random region</span>
+                <span>Zoom into a random region</span>
                 <span aria-hidden="true" className="music-moment-primary-map-control-arrow">→</span>
               </button>
             ) : (

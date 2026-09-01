@@ -758,7 +758,10 @@
 }
 
 .music-moment-primary-focus-caption h3 {
+  font-family: Georgia, "Times New Roman", serif;
   font-size: clamp(0.62rem, 1.2vw, 0.86rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
   line-height: 1.08;
   margin: 0;
 }
