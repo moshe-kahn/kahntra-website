@@ -59,6 +59,7 @@ export function PlaylistCurationFocusDetails({
       <div className="music-moment-card-grid">
         {cell.playlists.map((playlist) => {
           const actionRevealed = selectedPlaylistId === playlist.publicId;
+          const keywords = playlist.keywords ?? [];
           return (
             <article
               className="music-moment-playlist-card music-moment-primary-focus-card"
@@ -85,6 +86,7 @@ export function PlaylistCurationFocusDetails({
                     rel="noopener noreferrer"
                     target="_blank"
                   >
+                    {keywords.length > 0 ? <span aria-hidden="true" className="music-moment-primary-keywords">{keywords.join(" · ")}</span> : null}
                     <SpotifyIcon />
                   </a>
                 ) : null}
@@ -93,10 +95,6 @@ export function PlaylistCurationFocusDetails({
                 <div className="music-moment-primary-focus-title-row">
                   <h3>{playlist.title}</h3>
                 </div>
-                <p className="music-moment-experience-consistency">
-                  <span>Experience consistency</span>
-                  <strong>{playlist.experienceConsistency} / 100</strong>
-                </p>
               </div>
             </article>
           );

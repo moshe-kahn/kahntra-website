@@ -39,6 +39,7 @@ if (!index.includes('class="showcase__card showcase__card--music"') || !index.in
 
 const entry = await readFile(resolve(root, "music-for-this-moment/final-surface/entry.tsx"), "utf8");
 const picker = await readFile(resolve(root, "music-for-this-moment/final-surface/components/MusicForThisMomentPrimaryPicker.tsx"), "utf8");
+const details = await readFile(resolve(root, "music-for-this-moment/final-surface/components/PlaylistCurationFocusDetails.tsx"), "utf8");
 const pickerStyles = await readFile(resolve(root, "music-for-this-moment/final-surface/musicForThisMoment.css"), "utf8");
 const landscapeArtwork = await readFile(resolve(root, "music-for-this-moment/final-surface/approvedPublicPlaylistLandscapeArtwork.ts"), "utf8");
 const curtain = await readFile(resolve(root, "music-for-this-moment/final-surface/components/MusicForThisMomentCurtain.tsx"), "utf8");
@@ -54,5 +55,9 @@ if (playlists.some((playlist) => !landscapeArtwork.includes(`assets/music-for-th
   fail("each playlist must resolve to its supplied 3:2 banner crop");
 }
 if (!curtain.includes("listenlab-wordmark-color-on-dark.svg")) fail("curtain must use the dark-background ListenLab wordmark");
+if (!entry.includes("owner-keywords.json") || !details.includes("music-moment-primary-keywords")) {
+  fail("owner-editable keywords must be ready for image-hover display");
+}
+if (details.includes("Experience consistency")) fail("focus cards must show titles without experience-consistency metadata");
 
 console.log("TASK-0064 corrected picker: 36 public records, blank keyword slots, exact direct links, local artwork, and one primary mount verified.");

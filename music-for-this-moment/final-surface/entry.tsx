@@ -21,12 +21,22 @@ function PublicPage() {
   }, [showCurtain]);
 
   useEffect(() => {
-    fetch("/data/music-for-this-moment/public-playlists.json?v=task-0064-public-links-1")
-      .then((response) => response.ok ? response.json() : Promise.reject(new Error(`Local data unavailable (${response.status}).`)))
-      .then((data) => setRecords((data.playlists as PublicPlaylistRecord[]).map((record) => ({
-        ...record,
-        tags: [`affinity-${record.affinity.toLowerCase()}`, `energy-${record.energy.toLowerCase()}`, record.ordering],
-      }))))
+    const readLocalJson = (path: string) => fetch(path)
+      .then((response) => response.ok ? response.json() : Promise.reject(new Error(`Local data unavailable (${response.status}).`)));
+    Promise.all([
+      readLocalJson("/data/music-for-this-moment/public-playlists.json?v=task-0064-public-links-1"),
+      readLocalJson("/data/music-for-this-moment/owner-keywords.json?v=task-0064-keyword-slots-1"),
+    ])
+      .then(([playlistData, keywordData]) => {
+        const keywordsByPlaylistId = new Map(
+          (keywordData.keywords as Array<{ publicId: string; keywords: readonly string[] }>).map((entry) => [entry.publicId, entry.keywords]),
+        );
+        setRecords((playlistData.playlists as PublicPlaylistRecord[]).map((record) => ({
+          ...record,
+          keywords: keywordsByPlaylistId.get(record.publicId) ?? [],
+          tags: [`affinity-${record.affinity.toLowerCase()}`, `energy-${record.energy.toLowerCase()}`, record.ordering],
+        })));
+      })
       .catch((cause: Error) => setError(cause.message));
   }, []);
 

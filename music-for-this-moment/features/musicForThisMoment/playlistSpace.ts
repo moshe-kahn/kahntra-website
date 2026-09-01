@@ -13,6 +13,7 @@ export interface PublicPlaylistRecord {
   title: string;
   shortDescription: string;
   outboundUrl?: string;
+  keywords?: readonly string[];
   affinity: SpatialRankingCategory;
   energy: SpatialRankingCategory;
   experienceConsistency: number;
