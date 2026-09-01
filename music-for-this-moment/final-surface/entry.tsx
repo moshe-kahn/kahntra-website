@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { MusicForThisMomentCurtain } from "./components/MusicForThisMomentCurtain.js";
 import { MusicForThisMomentPrimaryPicker } from "./components/MusicForThisMomentPrimaryPicker.js";
+import { approvedPublicPlaylistLandscapeArtwork } from "./approvedPublicPlaylistLandscapeArtwork.js";
 import type { PublicPlaylistRecord } from "../features/musicForThisMoment/playlistSpace.js";
 import "./musicForThisMoment.css";
 
@@ -38,7 +39,7 @@ function PublicPage() {
     <div className="music-moment-integration" data-music-moment-source="approved-static-public-v1">
       <div className="music-moment-curtain-stage" data-curtain-open={showCurtain || undefined}>
         <div aria-hidden={showCurtain} className="music-moment-curtain-stage-content" ref={stageRef}>
-          {records ? <MusicForThisMomentPrimaryPicker pickerRef={pickerRef} records={records} /> : <p className={error ? "music-moment-state music-moment-state-error" : "music-moment-state"} role={error ? "alert" : "status"}>{error ?? "Loading the public playlist guide…"}</p>}
+          {records ? <MusicForThisMomentPrimaryPicker landscapeArtworkByPlaylistId={approvedPublicPlaylistLandscapeArtwork} pickerRef={pickerRef} records={records} /> : <p className={error ? "music-moment-state music-moment-state-error" : "music-moment-state"} role={error ? "alert" : "status"}>{error ?? "Loading the public playlist guide…"}</p>}
         </div>
         {showCurtain ? <MusicForThisMomentCurtain onExplore={dismissCurtain} /> : null}
       </div>

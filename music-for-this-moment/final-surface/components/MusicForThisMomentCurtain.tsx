@@ -7,7 +7,7 @@ export function MusicForThisMomentCurtain({ onExplore }: MusicForThisMomentCurta
     <button aria-label="Explore Music for the Moment playlist guide" className="music-moment-curtain" onClick={onExplore} type="button">
       <span className="music-moment-curtain-credit">
         <span>A</span>
-        <img alt="ListenLab" src="/assets/listenlab-wordmark-color-on-light.svg" />
+        <img alt="ListenLab" src="/assets/music-for-this-moment/brand/listenlab-wordmark-color-on-dark.svg" />
         <span>experiment</span>
       </span>
       <span className="music-moment-curtain-content">
