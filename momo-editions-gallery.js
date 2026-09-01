@@ -277,23 +277,36 @@ function renderGallery(root, manifest) {
     return window.matchMedia('(max-width: 650px)').matches;
   }
 
-  function fitFacts() {
-    facts.classList.remove('is-stacked');
-    const visibleRuntime = [...facts.querySelectorAll('.momo-gallery__runtime')].find(
-      (runtime) => getComputedStyle(runtime).display !== 'none'
-    );
-    const ratingGroup = facts.querySelector('.momo-gallery__rating-group');
-    if (!visibleRuntime || !ratingGroup) return;
+  function titleLineCount() {
+    const lineHeight = Number.parseFloat(getComputedStyle(title).lineHeight);
+    if (!Number.isFinite(lineHeight) || lineHeight === 0) return 1;
+    return Math.ceil(title.getBoundingClientRect().height / lineHeight - 0.01);
+  }
 
-    const requiredWidth = visibleRuntime.getBoundingClientRect().width + ratingGroup.getBoundingClientRect().width;
-    facts.classList.toggle('is-stacked', requiredWidth > facts.clientWidth - 4);
+  function fitTitle() {
+    title.classList.remove('is-long-title', 'is-extra-long-title');
+    if (titleLineCount() > 2) title.classList.add('is-long-title');
+    if (titleLineCount() > 2) title.classList.add('is-extra-long-title');
+  }
+
+  function positionDetailsBelowTitle() {
+    details.style.removeProperty('top');
+    if (mode !== 'info') return;
+
+    const artworkBounds = artwork.getBoundingClientRect();
+    const titleBounds = titleBlock.getBoundingClientRect();
+    const defaultTop = details.getBoundingClientRect().top - artworkBounds.top;
+    const titleBottom = titleBounds.bottom - artworkBounds.top;
+    const clearance =
+      titleLineCount() > 1 ? Math.max(44, artwork.clientHeight * 0.075) : Math.max(16, artwork.clientHeight * 0.03);
+    details.style.top = `${Math.max(defaultTop, titleBottom + clearance)}px`;
   }
 
   function fitCredits() {
     creditFitFrame = undefined;
     if (mode !== 'info') return;
 
-    fitFacts();
+    fitTitle();
 
     const actorNames = [...actors.querySelectorAll('.momo-gallery__actor')];
     details.hidden = false;
@@ -302,6 +315,8 @@ function renderGallery(root, manifest) {
     actorNames.forEach((actor) => {
       actor.hidden = false;
     });
+
+    positionDetailsBelowTitle();
 
     const detailsTop = details.getBoundingClientRect().top;
     const factsTop = facts.getBoundingClientRect().top;
@@ -336,6 +351,7 @@ function renderGallery(root, manifest) {
     genreGroup.hidden = mode !== 'info';
     if (mode !== 'info') {
       details.style.removeProperty('max-height');
+      details.style.removeProperty('top');
     }
     artwork.classList.toggle('is-title-revealed', mode === 'title' || mode === 'info');
     artwork.classList.toggle('is-info-open', mode === 'info');
@@ -351,6 +367,7 @@ function renderGallery(root, manifest) {
     mainImage.src = imageSource(item.image);
     mainImage.alt = item.alt;
     title.textContent = item.title;
+    fitTitle();
     year.textContent = String(item.year);
     director.replaceChildren(
       element('span', 'momo-gallery__director-label', 'Directed by'),
@@ -389,7 +406,9 @@ function renderGallery(root, manifest) {
     const labels = item.keywords;
     metadataText.replaceChildren(
       ...labels.flatMap((label, index) =>
-        index === 0 ? [element('span', '', label)] : [element('span', '', '•'), element('span', '', label)]
+        index === 0
+          ? [element('span', '', label)]
+          : [element('span', 'momo-gallery__metadata-separator', '•'), element('span', '', label)]
       )
     );
     details.setAttribute('aria-label', `Details for ${item.title}`);
@@ -579,6 +598,25 @@ async function mountGallery(root) {
   renderGallery(root, validateManifest(await response.json()));
 }
 
+function addCurtainFeatureLockup(curtain) {
+  const content = curtain.querySelector('.momo-gallery-curtain__content');
+  if (!content || content.querySelector('.momo-gallery-curtain__feature')) return;
+
+  const feature = element('span', 'momo-gallery-curtain__feature');
+  feature.setAttribute('aria-hidden', 'true');
+  const mark = element('span', 'momo-gallery-curtain__feature-logo-mark');
+  const wordmark = document.createElement('img');
+  wordmark.className = 'momo-gallery-curtain__feature-logo';
+  wordmark.src = new URL('assets/momo-movies-logo-transparent.svg', window.location.href).href;
+  wordmark.alt = '';
+  wordmark.decoding = 'async';
+  const wordmarkHighlight = wordmark.cloneNode();
+  wordmarkHighlight.className = 'momo-gallery-curtain__feature-logo-momo';
+  mark.append(wordmark, wordmarkHighlight);
+  feature.append(element('span', '', 'A'), mark, element('span', '', 'feature'));
+  content.prepend(feature);
+}
+
 for (const root of document.querySelectorAll(ROOT_SELECTOR)) {
   const portal = root.closest('[data-momo-gallery-portal]');
   const curtain = portal?.querySelector('[data-momo-gallery-curtain]');
@@ -587,6 +625,7 @@ for (const root of document.querySelectorAll(ROOT_SELECTOR)) {
   const ready = mountGallery(root);
 
   if (portal && curtain && enterButton) {
+    addCurtainFeatureLockup(curtain);
     curtain.hidden = false;
     enterButton.addEventListener('click', async () => {
       try {
@@ -594,7 +633,15 @@ for (const root of document.querySelectorAll(ROOT_SELECTOR)) {
         setGalleryAccess(root, true);
         enterButton.setAttribute('aria-expanded', 'true');
         portal.classList.add('is-entered');
-        curtain.hidden = true;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          curtain.hidden = true;
+        } else {
+          curtain.classList.add('is-revealing');
+          window.setTimeout(() => {
+            curtain.hidden = true;
+            curtain.classList.remove('is-revealing');
+          }, 420);
+        }
         root.querySelector('.momo-gallery__frame.is-selected')?.focus();
       } catch {
         // The mounted error state below remains visible and explains the failure.
