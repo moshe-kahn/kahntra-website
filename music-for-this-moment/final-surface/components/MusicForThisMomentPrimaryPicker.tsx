@@ -173,7 +173,7 @@ export function MusicForThisMomentPrimaryPicker({
                 >
                   <div className="music-moment-info-section">
                     <strong>Curation</strong>
-                    <span>Personal attachment and familiarity. Low Curation does not mean dislike.</span>
+                    <span>How intentionally the playlist has been selected and arranged. Low Curation indicates an open or evolving selection, not lower quality.</span>
                   </div>
                   <div className="music-moment-info-section">
                     <strong>Energy</strong>
