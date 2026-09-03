@@ -153,7 +153,8 @@
 }
 
 .music-moment-picker button,
-.music-moment-picker a {
+.music-moment-picker a,
+.music-moment-curtain {
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -2644,6 +2645,63 @@
 
   .music-moment-primary-focused-view .music-moment-primary-focus-card {
     height: auto;
+  }
+
+  @media (hover: none), (pointer: coarse) {
+    .music-moment-curtain,
+    .music-moment-picker,
+    .music-moment-picker button,
+    .music-moment-picker a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .music-moment-curtain:focus,
+    .music-moment-picker:focus,
+    .music-moment-picker button:focus,
+    .music-moment-picker a:focus,
+    .music-moment-primary-focused-view:focus,
+    .music-moment-primary-image-link:focus {
+      outline: none;
+    }
+
+    .music-moment-curtain:focus-visible,
+    .music-moment-picker button:focus-visible,
+    .music-moment-picker a:focus-visible,
+    .music-moment-primary-focused-view:focus-visible,
+    .music-moment-primary-map-control:focus-visible,
+    .music-moment-primary-neighbor:focus-visible,
+    .music-moment-primary-image-link:focus-visible {
+      outline: none;
+    }
+
+    .music-moment-primary-grid-stage .music-moment-cell-postcard-summary:hover,
+    .music-moment-primary-grid-stage .music-moment-cell-postcard-summary:focus,
+    .music-moment-primary-grid-stage .music-moment-cell-postcard-summary:focus-visible {
+      border-color: transparent;
+      box-shadow: none;
+    }
+
+    .music-moment-primary-grid-stage .music-moment-cell-postcard-shell:focus-within {
+      z-index: auto;
+    }
+
+    .music-moment-primary-focus-card .music-moment-region-artwork:focus-within::after {
+      border-color: transparent;
+    }
+
+    .music-moment-primary-focus-card .music-moment-region-artwork:focus-within .music-moment-primary-keywords,
+    .music-moment-primary-focus-card .music-moment-region-artwork:focus-within .music-moment-primary-image-link .music-moment-spotify-icon {
+      opacity: 0;
+    }
+
+    .music-moment-primary-focus-card[data-action-revealed="true"] .music-moment-region-artwork::after {
+      border-color: #e8bd70;
+    }
+
+    .music-moment-primary-focus-card[data-action-revealed="true"] .music-moment-primary-keywords,
+    .music-moment-primary-focus-card[data-action-revealed="true"] .music-moment-primary-image-link .music-moment-spotify-icon {
+      opacity: 1;
+    }
   }
 }
 

@@ -16,9 +16,15 @@ export function PlaylistCurationFocusDetails({
   useMobilePresentation = false,
 }: PlaylistCurationFocusDetailsProps) {
   const detailsRef = useRef<HTMLElement>(null);
+  const lastImagePointerOriginRef = useRef<{ x: number; y: number } | undefined>();
+  const lastImagePointerMovedRef = useRef(false);
   const lastImagePointerTypeRef = useRef("mouse");
   const [selectedPlaylistId, setSelectedPlaylistId] = useState<string | undefined>();
   const playlists = useMobilePresentation ? mobileFocusPlaylists(cell) : cell.playlists;
+
+  useEffect(() => {
+    setSelectedPlaylistId(undefined);
+  }, [cell.id]);
 
   useEffect(() => {
     if (!selectedPlaylistId) return;
@@ -40,8 +46,22 @@ export function PlaylistCurationFocusDetails({
 
   const handleImagePointerDown = (event: PointerEvent<HTMLAnchorElement>) => {
     lastImagePointerTypeRef.current = event.pointerType;
+    lastImagePointerMovedRef.current = false;
+    lastImagePointerOriginRef.current = { x: event.clientX, y: event.clientY };
+  };
+  const handleImagePointerMove = (event: PointerEvent<HTMLAnchorElement>) => {
+    if (event.pointerType === "mouse") return;
+    const origin = lastImagePointerOriginRef.current;
+    if (!origin) return;
+    if (Math.hypot(event.clientX - origin.x, event.clientY - origin.y) > 8) {
+      lastImagePointerMovedRef.current = true;
+    }
   };
   const handleImageClick = (event: MouseEvent<HTMLAnchorElement>, playlistId: string) => {
+    if (lastImagePointerMovedRef.current) {
+      event.preventDefault();
+      return;
+    }
     if (event.detail === 0 || lastImagePointerTypeRef.current === "mouse") return;
     if (selectedPlaylistId === playlistId) return;
     event.preventDefault();
@@ -87,6 +107,7 @@ export function PlaylistCurationFocusDetails({
                     href={playlist.outboundUrl}
                     onClick={(event) => handleImageClick(event, playlist.publicId)}
                     onPointerDown={handleImagePointerDown}
+                    onPointerMove={handleImagePointerMove}
                     rel="noopener noreferrer"
                     target="_blank"
                   >
