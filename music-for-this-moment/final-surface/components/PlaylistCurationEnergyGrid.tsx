@@ -120,7 +120,10 @@ export function PlaylistCurationEnergyGrid({
                       aria-label={`Open ${label}`}
                       className="music-moment-cell-postcard-summary"
                       data-primary-curation-cell={cell.id}
-                      onClick={() => onActivateCell(cell)}
+                      onClick={(event) => {
+                        event.currentTarget.blur();
+                        onActivateCell(cell);
+                      }}
                       onKeyDown={(event) => handleKeyDown(event, cell.id)}
                       ref={(node) => {
                         if (node) buttonRefs.current.set(cell.id, node);

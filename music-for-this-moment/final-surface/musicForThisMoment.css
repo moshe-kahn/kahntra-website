@@ -2685,10 +2685,13 @@
       z-index: auto;
     }
 
+    .music-moment-primary-focus-card .music-moment-region-artwork:hover::after,
     .music-moment-primary-focus-card .music-moment-region-artwork:focus-within::after {
       border-color: transparent;
     }
 
+    .music-moment-primary-focus-card .music-moment-region-artwork:hover .music-moment-primary-keywords,
+    .music-moment-primary-focus-card .music-moment-region-artwork:hover .music-moment-primary-image-link .music-moment-spotify-icon,
     .music-moment-primary-focus-card .music-moment-region-artwork:focus-within .music-moment-primary-keywords,
     .music-moment-primary-focus-card .music-moment-region-artwork:focus-within .music-moment-primary-image-link .music-moment-spotify-icon {
       opacity: 0;
