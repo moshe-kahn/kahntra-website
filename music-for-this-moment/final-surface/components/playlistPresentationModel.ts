@@ -21,6 +21,22 @@ export type PlaylistPresentationModel =
 
 const DEFAULT_CELL_ID = playlistGridCellId("Medium", "Medium");
 
+const MOBILE_FOCUS_EXCLUDED_PLAYLIST_IDS = new Set([
+  "soul-right",
+  "world-trip",
+  "huh",
+  "unsettling",
+  "frequency-flow",
+  "there",
+  "classical",
+  "grounded",
+  "fuck-bad-dreams",
+]);
+
+export function mobileFocusPlaylists(cell: PlaylistGridCell): readonly PublicPlaylistRecord[] {
+  return cell.playlists.filter((playlist) => !MOBILE_FOCUS_EXCLUDED_PLAYLIST_IDS.has(playlist.publicId));
+}
+
 export function createPlaylistPresentationModel(
   records: readonly PublicPlaylistRecord[],
   requestedCellId?: string,

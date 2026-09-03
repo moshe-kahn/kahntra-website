@@ -642,7 +642,7 @@ for (const root of document.querySelectorAll(ROOT_SELECTOR)) {
             curtain.classList.remove('is-revealing');
           }, 420);
         }
-        root.querySelector('.momo-gallery__frame.is-selected')?.focus();
+        root.querySelector('.momo-gallery__frame.is-selected')?.focus({ preventScroll: true });
       } catch {
         // The mounted error state below remains visible and explains the failure.
       }

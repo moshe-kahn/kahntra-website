@@ -4,6 +4,7 @@ import {
   ENERGY_ORDER,
   type PlaylistGridCell,
 } from "../../features/musicForThisMoment/playlistSpace.js";
+import { mobileFocusPlaylists } from "./playlistPresentationModel.js";
 import { PlaylistCurationFocusDetails } from "./PlaylistCurationFocusDetails.js";
 import { CURATION_LABELS } from "./PlaylistCurationEnergyGrid.js";
 
@@ -57,6 +58,7 @@ interface PlaylistCurationFocusViewProps {
   landscapeArtworkByPlaylistId?: Readonly<Record<string, string>>;
   onExit: () => void;
   onSelectCell: (cell: PlaylistGridCell) => void;
+  useMobilePresentation?: boolean;
 }
 
 function neighborCell(
@@ -82,6 +84,7 @@ export function PlaylistCurationFocusView({
   landscapeArtworkByPlaylistId,
   onExit,
   onSelectCell,
+  useMobilePresentation = false,
 }: PlaylistCurationFocusViewProps) {
   const curationLabel = CURATION_LABELS[cell.affinity];
 
@@ -125,8 +128,9 @@ export function PlaylistCurationFocusView({
         const neighbor = neighborCell(cells, cell, direction);
         if (!neighbor) return null;
         const neighborCurationLabel = CURATION_LABELS[neighbor.affinity];
+        const neighborPlaylists = useMobilePresentation ? mobileFocusPlaylists(neighbor) : neighbor.playlists;
         const visiblePlaylists = VISIBLE_PLAYLIST_INDEXES[direction]
-          .map((index) => neighbor.playlists[index])
+          .map((index) => neighborPlaylists[index])
           .filter((playlist) => playlist !== undefined);
         return (
           <button
@@ -165,6 +169,7 @@ export function PlaylistCurationFocusView({
         <PlaylistCurationFocusDetails
           cell={cell}
           landscapeArtworkByPlaylistId={landscapeArtworkByPlaylistId}
+          useMobilePresentation={useMobilePresentation}
         />
       </div>
     </div>

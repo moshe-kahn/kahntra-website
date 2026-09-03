@@ -9,7 +9,10 @@ import {
   PlaylistCurationEnergyGrid,
 } from "./PlaylistCurationEnergyGrid.js";
 import { PlaylistCurationFocusView } from "./PlaylistCurationFocusView.js";
-import { createPlaylistPresentationModel } from "./playlistPresentationModel.js";
+import {
+  createPlaylistPresentationModel,
+  mobileFocusPlaylists,
+} from "./playlistPresentationModel.js";
 
 type PrimaryPickerViewMode = "1x1" | "3x3";
 
@@ -40,12 +43,21 @@ export function MusicForThisMomentPrimaryPicker({
   const [energy, setEnergy] = useState<SpatialRankingCategory>("Medium");
   const [revealedCellId, setRevealedCellId] = useState<string | undefined>();
   const [showInfo, setShowInfo] = useState(false);
+  const [useMobilePresentation, setUseMobilePresentation] = useState(false);
   const [viewMode, setViewMode] = useState<PrimaryPickerViewMode>(initialViewMode);
   const selectedCellId = playlistGridCellId(curation, energy);
   const presentation = useMemo(
     () => createPlaylistPresentationModel(records, selectedCellId, requireCompleteGrid),
     [records, requireCompleteGrid, selectedCellId],
   );
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 760px)");
+    const updateMobilePresentation = () => setUseMobilePresentation(mediaQuery.matches);
+    updateMobilePresentation();
+    mediaQuery.addEventListener("change", updateMobilePresentation);
+    return () => mediaQuery.removeEventListener("change", updateMobilePresentation);
+  }, []);
 
   useEffect(() => {
     if (!showInfo) return;
@@ -95,6 +107,15 @@ export function MusicForThisMomentPrimaryPicker({
   const selectedCell = presentation.selectedCell;
   const curationLabel = CURATION_LABELS[curation];
   const primaryLocation = `${energy} Energy · ${curationLabel}`;
+  const visiblePrimaryLocation = viewMode === "1x1" && useMobilePresentation
+    ? `${energy} Energy · ${curationLabel}`
+    : primaryLocation;
+  const primaryHeading = viewMode === "1x1" && useMobilePresentation
+    ? visiblePrimaryLocation
+    : "Curation × Energy";
+  const visiblePlaylistCount = viewMode === "1x1" && useMobilePresentation
+    ? mobileFocusPlaylists(selectedCell).length
+    : selectedCell.playlists.length;
   const exploreRandomCell = () => {
     const alternatives = presentation.cells.filter((cell) => cell.id !== revealedCellId);
     const candidates = alternatives.length > 0 ? alternatives : presentation.cells;
@@ -138,7 +159,7 @@ export function MusicForThisMomentPrimaryPicker({
       tabIndex={-1}
     >
       <p aria-live="polite" className="music-moment-live-status">
-        {`${curationLabel}, ${energy} Energy. ${selectedCell.playlists.length} playlists.`}
+        {`${curationLabel}, ${energy} Energy. ${visiblePlaylistCount} playlists.`}
       </p>
       <section
         aria-labelledby={headingId}
@@ -149,8 +170,8 @@ export function MusicForThisMomentPrimaryPicker({
         <header className="music-moment-section-heading">
           <div className="music-moment-primary-map-legend" data-view-mode={viewMode}>
             <div className="music-moment-map-title-row">
-              <h2 id={headingId}>Curation × Energy</h2>
-              <div className="music-moment-info-control">
+              <h2 id={headingId}>{primaryHeading}</h2>
+              <div className="music-moment-info-control" hidden={viewMode === "1x1" && useMobilePresentation}>
                 <button
                   aria-controls={helpId}
                   aria-expanded={showInfo}
@@ -182,19 +203,21 @@ export function MusicForThisMomentPrimaryPicker({
                 </div>
               </div>
             </div>
-            {viewMode === "1x1" ? <p className="music-moment-primary-location">{primaryLocation}</p> : <span aria-hidden="true" />}
-            {viewMode === "3x3" ? (
+            {viewMode === "1x1" && !useMobilePresentation ? <p className="music-moment-primary-location">{primaryLocation}</p> : <span aria-hidden="true" />}
+            {viewMode === "3x3" && !useMobilePresentation ? (
               <button
                 aria-label="Zoom into a random region"
                 className="music-moment-primary-map-control music-moment-primary-map-control-explore"
                 onClick={exploreRandomCell}
                 type="button"
               >
-                <span>Zoom into a random region</span>
+                <span>Zoom in</span>
                 <span aria-hidden="true" className="music-moment-primary-map-control-arrow">→</span>
               </button>
-            ) : (
+            ) : null}
+            {viewMode === "1x1" ? (
               <button
+                aria-label="Back to map"
                 className="music-moment-primary-map-control"
                 onClick={(event) => {
                   event.stopPropagation();
@@ -203,9 +226,9 @@ export function MusicForThisMomentPrimaryPicker({
                 type="button"
               >
                 <span aria-hidden="true" className="music-moment-primary-map-control-arrow">←</span>
-                <span>Back to map</span>
+                <span>{useMobilePresentation ? "map" : "Back to map"}</span>
               </button>
-            )}
+            ) : null}
           </div>
         </header>
 
@@ -228,6 +251,7 @@ export function MusicForThisMomentPrimaryPicker({
             }}
             revealedCellId={revealedCellId}
             selectedCellId={selectedCellId}
+            useMobilePresentation={useMobilePresentation}
           />
         ) : (
           <PlaylistCurationFocusView
@@ -241,6 +265,7 @@ export function MusicForThisMomentPrimaryPicker({
               setEnergy(cell.energy);
               setRevealedCellId(cell.id);
             }}
+            useMobilePresentation={useMobilePresentation}
           />
         )}
       </section>

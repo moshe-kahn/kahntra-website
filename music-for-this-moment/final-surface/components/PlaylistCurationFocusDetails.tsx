@@ -1,20 +1,24 @@
 import { useEffect, useRef, useState, type MouseEvent, type PointerEvent } from "react";
 import type { PlaylistGridCell } from "../../features/musicForThisMoment/playlistSpace.js";
 import { PlaylistArtwork } from "./PlaylistArtwork.js";
+import { mobileFocusPlaylists } from "./playlistPresentationModel.js";
 import { SpotifyIcon } from "./SpotifyIcon.js";
 
 interface PlaylistCurationFocusDetailsProps {
   cell: PlaylistGridCell;
   landscapeArtworkByPlaylistId?: Readonly<Record<string, string>>;
+  useMobilePresentation?: boolean;
 }
 
 export function PlaylistCurationFocusDetails({
   cell,
   landscapeArtworkByPlaylistId,
+  useMobilePresentation = false,
 }: PlaylistCurationFocusDetailsProps) {
   const detailsRef = useRef<HTMLElement>(null);
   const lastImagePointerTypeRef = useRef("mouse");
   const [selectedPlaylistId, setSelectedPlaylistId] = useState<string | undefined>();
+  const playlists = useMobilePresentation ? mobileFocusPlaylists(cell) : cell.playlists;
 
   useEffect(() => {
     if (!selectedPlaylistId) return;
@@ -57,7 +61,7 @@ export function PlaylistCurationFocusDetails({
       ref={detailsRef}
     >
       <div className="music-moment-card-grid">
-        {cell.playlists.map((playlist) => {
+        {playlists.map((playlist) => {
           const actionRevealed = selectedPlaylistId === playlist.publicId;
           const keywords = playlist.keywords ?? [];
           return (

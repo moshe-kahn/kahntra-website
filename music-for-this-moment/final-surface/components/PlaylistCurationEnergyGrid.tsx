@@ -5,7 +5,10 @@ import {
   type PlaylistGridCell,
   type SpatialRankingCategory,
 } from "../../features/musicForThisMoment/playlistSpace.js";
-import { nextCellIdForKey } from "./playlistPresentationModel.js";
+import {
+  mobileFocusPlaylists,
+  nextCellIdForKey,
+} from "./playlistPresentationModel.js";
 
 export type CurationGridDisplayMode = "clean" | "hybrid" | "labels";
 
@@ -24,6 +27,7 @@ interface PlaylistCurationEnergyGridProps {
   onNavigateCell: (cell: PlaylistGridCell) => void;
   revealedCellId?: string;
   selectedCellId: string;
+  useMobilePresentation?: boolean;
 }
 
 export function PlaylistCurationEnergyGrid({
@@ -35,6 +39,7 @@ export function PlaylistCurationEnergyGrid({
   onNavigateCell,
   revealedCellId,
   selectedCellId,
+  useMobilePresentation = false,
 }: PlaylistCurationEnergyGridProps) {
   const [hoveredCellId, setHoveredCellId] = useState<string | undefined>();
   const buttonRefs = useRef(new Map<string, HTMLButtonElement>());
@@ -80,7 +85,8 @@ export function PlaylistCurationEnergyGrid({
               const cell = cells.find((candidate) => candidate.affinity === affinity && candidate.energy === energy);
               if (!cell) return null;
               const curationLabel = CURATION_LABELS[affinity];
-              const label = `${curationLabel}, ${energy} Energy, ${cell.playlists.length} playlists`;
+              const playlists = useMobilePresentation ? mobileFocusPlaylists(cell) : cell.playlists;
+              const label = `${curationLabel}, ${energy} Energy, ${playlists.length} playlists`;
               const hovered = hoveredCellId === cell.id;
               return (
                 <span className="music-moment-gridcell" key={cell.id} role="gridcell">
@@ -94,7 +100,7 @@ export function PlaylistCurationEnergyGrid({
                     onPointerLeave={handlePointerLeave}
                   >
                     <span aria-hidden="true" className="music-moment-cell-postcard-preview">
-                      {cell.playlists.map((playlist) => {
+                      {playlists.map((playlist) => {
                         const landscapePath = landscapeArtworkByPlaylistId?.[playlist.publicId]
                           ?? playlist.artwork?.localPath;
                         return (

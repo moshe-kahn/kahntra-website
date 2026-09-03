@@ -464,7 +464,7 @@ html[data-view-controls="collapsed"] .view-controls {
 
   .hero__about-link {
     position: absolute;
-    right: 0;
+    right: 1rem;
     bottom: 0;
     margin: 0;
   }
@@ -3346,6 +3346,11 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
 }
 
 @media (max-width: 760px) {
+  .decision-demo__showcase-banner {
+    width: calc(100% + 2rem);
+    margin-left: -1rem;
+  }
+
   :root {
     --primary-header-height: 64px;
     --view-controls-expanded-height: 76px;
@@ -3422,6 +3427,15 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
     --view-controls-expanded-height: 0px;
     --view-controls-collapsed-height: 0px;
     --sticky-header-height: var(--primary-header-height);
+  }
+
+  html {
+    overflow-x: hidden;
+  }
+
+  body {
+    min-width: 0;
+    overflow-x: hidden;
   }
 
   .site-shell {
@@ -3670,6 +3684,7 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
 
   .hero__about-link {
     margin-left: auto;
+    margin-right: 1rem;
   }
 
   h1 {

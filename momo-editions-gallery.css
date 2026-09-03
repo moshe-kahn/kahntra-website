@@ -340,6 +340,7 @@
   background: transparent;
   cursor: pointer;
   scroll-snap-align: center;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .momo-gallery__frame::before {
@@ -425,8 +426,17 @@
 }
 
 .momo-gallery__frame:focus-visible {
-  outline: 1px solid rgb(232 177 106 / 72%);
-  outline-offset: 5px;
+  outline: 0;
+}
+
+.momo-gallery__frame:focus-visible::after {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  border: 3px solid #efe2c8;
+  border-radius: 6px;
+  content: "";
+  pointer-events: none;
 }
 
 .momo-gallery__film-edge {
@@ -555,6 +565,11 @@
   box-shadow: inset 0 0 0 1px rgb(9 7 5 / 34%);
   pointer-events: none;
   content: "";
+}
+
+.momo-gallery__artwork:focus-within::after {
+  border-width: 3px;
+  border-color: #efe2c8;
 }
 
 .momo-gallery__artwork.has-arrived::before,
@@ -906,6 +921,7 @@
   background: transparent;
   cursor: pointer;
   touch-action: pan-y;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .momo-gallery__metadata {
