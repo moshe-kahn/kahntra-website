@@ -147,8 +147,8 @@ a {
   right: 0;
   display: grid;
   width: min(17.5rem, calc(100vw - 2rem));
-  gap: 0.7rem;
-  padding: 0.7rem;
+  gap: 0.52rem;
+  padding: 0.62rem;
   border: 1px solid var(--line);
   border-radius: 6px;
   background: var(--card);
@@ -167,36 +167,70 @@ a {
 }
 
 .lens-panel__group legend {
-  margin-bottom: 0.32rem;
-  color: var(--muted-ink);
-  font-size: 0.64rem;
-  font-weight: 800;
-  letter-spacing: 0.11em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.34rem;
+  margin-bottom: 0.24rem;
+  color: color-mix(in srgb, var(--muted-ink) 86%, var(--ink));
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.015em;
   line-height: 1.25;
-  text-transform: uppercase;
+  text-transform: none;
+}
+
+.lens-panel__group legend::before {
+  display: inline-block;
+  flex: 0 0 auto;
+  width: 0.82rem;
+  height: 0.82rem;
+  opacity: 0.72;
+  content: "";
+}
+
+.lens-panel__group--perspective legend::before {
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  background:
+    linear-gradient(60deg, transparent 45%, currentColor 46% 54%, transparent 55%),
+    linear-gradient(120deg, transparent 45%, currentColor 46% 54%, transparent 55%);
+}
+
+.lens-panel__group--detail legend::before {
+  background:
+    linear-gradient(currentColor 0 0) 0 16% / 100% 1px no-repeat,
+    linear-gradient(currentColor 0 0) 0 50% / 76% 1px no-repeat,
+    linear-gradient(currentColor 0 0) 0 84% / 92% 1px no-repeat;
+}
+
+.lens-panel__group--order legend::before {
+  background:
+    linear-gradient(currentColor 0 0) 0 18% / 58% 1px no-repeat,
+    linear-gradient(currentColor 0 0) 42% 50% / 58% 1px no-repeat,
+    linear-gradient(currentColor 0 0) 0 82% / 72% 1px no-repeat;
 }
 
 .lens-panel__options {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   overflow: hidden;
-  border: 1px solid var(--line);
+  border: 1px solid color-mix(in srgb, var(--line) 82%, var(--card));
   border-radius: 5px;
-  background: color-mix(in srgb, var(--collection) 42%, var(--card));
+  background: color-mix(in srgb, var(--collection) 28%, var(--card));
 }
 
 .lens-panel__options button {
   min-width: 0;
-  min-height: 34px;
-  padding: 0.3rem 0.48rem;
+  min-height: 31px;
+  padding: 0.24rem 0.44rem;
   border: 0;
-  border-right: 1px solid var(--line);
+  border-right: 1px solid color-mix(in srgb, var(--line) 78%, var(--card));
   color: var(--ink);
   background: transparent;
   cursor: pointer;
   font: inherit;
-  font-size: 0.72rem;
-  font-weight: 650;
+  font-size: 0.71rem;
+  font-weight: 600;
 }
 
 .lens-panel__options button:last-child {
@@ -204,8 +238,9 @@ a {
 }
 
 .lens-panel__options button[aria-pressed="true"] {
-  color: var(--card);
-  background: var(--accent);
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 13%, var(--card));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 24%, transparent);
 }
 
 .hero {
