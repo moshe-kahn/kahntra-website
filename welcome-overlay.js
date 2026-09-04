@@ -292,7 +292,7 @@
         toggle.setAttribute("aria-pressed", String(showingVerbose));
         toggle.setAttribute(
           "aria-label",
-          showingVerbose ? "Show concise details" : "Show verbose details"
+          showingVerbose ? "Show concise view" : "Show detailed view"
         );
       });
     }
