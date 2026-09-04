@@ -71,13 +71,21 @@ a {
 }
 
 .wordmark {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.25rem;
-  font-weight: 700;
-  letter-spacing: -0.06em;
+  display: inline-flex;
+  align-items: center;
+  width: min(17.5rem, calc(100vw - 7rem));
+  min-width: 0;
 }
 
-.wordmark__compact,
+.wordmark img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 3.5rem;
+  object-fit: contain;
+  object-position: left center;
+}
+
 .desktop-header-controls,
 .mobile-perspective-selector,
 .mobile-context-toggle {
@@ -3574,19 +3582,11 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
     display: none;
   }
 
-  .wordmark__compact {
-    display: none;
-  }
-
-  .wordmark__full {
-    display: inline;
-  }
-
   .wordmark {
     grid-column: 1;
     grid-row: 1;
     align-self: center;
-    font-size: 1.25rem;
+    width: min(15.75rem, calc(100vw - 6rem));
   }
 
   .lens-control {
