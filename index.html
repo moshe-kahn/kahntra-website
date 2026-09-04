@@ -20,7 +20,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="styles.css?v=task-0080-mobile-2">
+  <link rel="stylesheet" href="styles.css?v=task-0073-lens-panel-step1">
   <link rel="stylesheet" href="momo-editions-gallery.css?v=task-0072-semantics-1">
   <link rel="stylesheet" href="music-for-this-moment/playlist-showcase.island.css?v=task-0080-mobile-showcase-1">
 </head>
@@ -33,6 +33,34 @@
           <span class="wordmark__full">Kahntra Productions</span>
           <span class="wordmark__compact">Kahntra</span>
         </a>
+        <div class="lens-control" data-lens-control>
+          <button class="lens-toggle" type="button" data-lens-toggle aria-controls="lens-panel" aria-expanded="false">
+            Lens
+          </button>
+          <div class="lens-panel" id="lens-panel" data-lens-panel hidden>
+            <fieldset class="lens-panel__group">
+              <legend>Focus</legend>
+              <div class="lens-panel__options" role="group" aria-label="Focus">
+                <button type="button" data-global-lens="technical" aria-pressed="false">Tech</button>
+                <button type="button" data-global-lens="design-philosophy" aria-label="Design and Philosophy" aria-pressed="true">Design &amp; Philosophy</button>
+              </div>
+            </fieldset>
+            <fieldset class="lens-panel__group">
+              <legend>Detail</legend>
+              <div class="lens-panel__options" role="group" aria-label="Detail">
+                <button type="button" data-global-detail="concise" aria-pressed="true">Concise</button>
+                <button type="button" data-global-detail="verbose" aria-pressed="false">Verbose</button>
+              </div>
+            </fieldset>
+            <fieldset class="lens-panel__group">
+              <legend>Order</legend>
+              <div class="lens-panel__options" role="group" aria-label="Order">
+                <button type="button" data-global-order="curated" aria-pressed="true">Curated</button>
+                <button type="button" data-global-order="grouped" aria-pressed="false">Grouped</button>
+              </div>
+            </fieldset>
+          </div>
+        </div>
         <div class="desktop-header-controls">
           <div class="desktop-perspective-selector" role="group" aria-label="Perspective">
             <button type="button" data-global-lens="technical" aria-pressed="false"><span>Tech</span></button>
@@ -518,7 +546,7 @@
   </div>
 
   <p class="sr-only" id="perspective-announcement" role="status" aria-live="polite" aria-atomic="true"></p>
-  <script src="welcome-overlay.js?v=task-0060-cache-202" defer></script>
+  <script src="welcome-overlay.js?v=task-0073-lens-panel-step1" defer></script>
   <script src="decision-engine.js?v=task-0060-cache-199" defer></script>
   <script src="decision-demo.js?v=task-0060-cache-227" defer></script>
   <script type="module" src="momo-editions-gallery.js?v=task-0072-semantics-1"></script>

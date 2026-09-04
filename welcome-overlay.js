@@ -1,6 +1,7 @@
 (() => {
   const perspectiveKey = "kahntra-site-perspective-v1";
   const detailKey = "kahntra-site-detail-v1";
+  const orderKey = "kahntra-site-order-v1";
   const controlsCollapsedKey = "kahntra-view-controls-collapsed-v1";
   const perspectives = ["technical", "design-philosophy"];
   const legacyPerspectiveAliases = {
@@ -23,11 +24,17 @@
   };
   const defaultPerspective = "design-philosophy";
   const defaultDetail = "concise";
+  const orders = ["curated", "grouped"];
+  const defaultOrder = "curated";
 
   const initialize = () => {
     const announcement = document.querySelector("#perspective-announcement");
     const perspectiveButtons = [...document.querySelectorAll("[data-global-lens]")];
     const detailButtons = [...document.querySelectorAll("[data-global-detail]")];
+    const orderButtons = [...document.querySelectorAll("[data-global-order]")];
+    const lensControl = document.querySelector("[data-lens-control]");
+    const lensToggle = document.querySelector("[data-lens-toggle]");
+    const lensPanel = document.querySelector("[data-lens-panel]");
     const siteToolbar = document.querySelector("[data-site-toolbar]");
     const viewControls = document.querySelector("#view-controls");
     const viewControlsToggle = document.querySelector("[data-view-controls-toggle]");
@@ -45,6 +52,8 @@
 
     let globalPerspective = readPerspective();
     let globalDetail = readDetail();
+    let globalOrder = readOrder();
+    let lensPanelOpen = false;
     let controlsCollapsed = readControlsCollapsed();
     let contentTransitionTimer = null;
     let contentTransitionVersion = 0;
@@ -66,14 +75,8 @@
     }
 
     function writePerspectiveToUrl() {
-      try {
-        const url = new URL(window.location.href);
-        url.searchParams.set("perspective", globalPerspective);
-        url.searchParams.set("detail", globalDetail);
-        history.replaceState({}, "", `${url.pathname}${url.search}${url.hash}`);
-      } catch {
-        // URL state is optional when the environment does not support it.
-      }
+      // Lens selections are session-only. Inbound query params still initialize
+      // the view, but changing controls should not rewrite the address.
     }
 
     function resolveVisiblePerspective(value) {
@@ -131,6 +134,15 @@
         return details.includes(resolvedDetail) ? resolvedDetail : defaultDetail;
       } catch {
         return defaultDetail;
+      }
+    }
+
+    function readOrder() {
+      try {
+        const storedOrder = sessionStorage.getItem(orderKey);
+        return orders.includes(storedOrder) ? storedOrder : defaultOrder;
+      } catch {
+        return defaultOrder;
       }
     }
 
@@ -277,6 +289,25 @@
       });
     }
 
+    function updateLensToggle() {
+      if (!lensToggle) return;
+      lensToggle.setAttribute("aria-expanded", String(lensPanelOpen));
+      lensToggle.setAttribute(
+        "aria-label",
+        `Lens. Focus: ${perspectiveLabel(globalPerspective)}. Detail: ${capitalize(globalDetail)}. Order: ${capitalize(globalOrder)}.`
+      );
+    }
+
+    function setLensPanelOpen(open, { returnFocus = false } = {}) {
+      if (!lensToggle || !lensPanel) return;
+      lensPanelOpen = open;
+      lensPanel.hidden = !open;
+      updateLensToggle();
+      if (!open && returnFocus) {
+        window.setTimeout(() => lensToggle.focus({ preventScroll: true }), 0);
+      }
+    }
+
     function updateMobileHeaderDivider() {
       if (!mobilePerspectiveSelector || !siteHeaderSystem || !window.matchMedia("(max-width: 640px)").matches) return;
       const activeButton = mobilePerspectiveSelector.querySelector('button[aria-pressed="true"]');
@@ -311,6 +342,7 @@
       requestAnimationFrame(updateMobileHeaderDivider);
       updateViewControlsToggle();
       updateContextToggles();
+      updateLensToggle();
       window.dispatchEvent(new CustomEvent("kahntra-perspective-change", { detail: { perspective } }));
       if (announce) announcement.textContent = `Site perspective: ${perspectiveLabel(perspective)}.`;
     }
@@ -325,11 +357,25 @@
       setButtonState(detailButtons, detail, "globalDetail");
       updateViewControlsToggle();
       updateContextToggles();
+      updateLensToggle();
       window.dispatchEvent(new CustomEvent("kahntra-detail-change", { detail: { detail } }));
       if (announce) announcement.textContent = `Detail: ${capitalize(detail)}.`;
     }
 
+    function setGlobalOrder(order, { announce = true } = {}) {
+      if (!orders.includes(order)) return;
+      globalOrder = order;
+      storeValue(orderKey, order);
+      setButtonState(orderButtons, order, "globalOrder");
+      updateLensToggle();
+      window.dispatchEvent(new CustomEvent("kahntra-order-change", { detail: { order } }));
+      if (announce) announcement.textContent = `Order: ${capitalize(order)}.`;
+    }
+
     function handleDocumentPointerDown(event) {
+      if (lensPanelOpen && lensControl && !lensControl.contains(event.target)) {
+        setLensPanelOpen(false, { returnFocus: true });
+      }
       if (!controlsCollapsed && isCompactViewport() && !siteToolbar.contains(event.target)) {
         setControlsCollapsed(true);
       }
@@ -339,6 +385,11 @@
     }
 
     function handleDocumentKeydown(event) {
+      if (event.key === "Escape" && lensPanelOpen) {
+        event.preventDefault();
+        setLensPanelOpen(false, { returnFocus: true });
+        return;
+      }
       if (event.key === "Escape" && !controlsCollapsed && isCompactViewport()) {
         event.preventDefault();
         setControlsCollapsed(true);
@@ -391,6 +442,12 @@
     detailButtons.forEach((button) => {
       button.addEventListener("click", () => setGlobalDetail(button.dataset.globalDetail));
     });
+    orderButtons.forEach((button) => {
+      button.addEventListener("click", () => setGlobalOrder(button.dataset.globalOrder));
+    });
+    lensToggle?.addEventListener("click", () => {
+      setLensPanelOpen(!lensPanelOpen);
+    });
     contextToggles.forEach((toggle) => {
       toggle.addEventListener("click", () => {
         setGlobalDetail(globalDetail === "verbose" ? "concise" : "verbose");
@@ -432,9 +489,11 @@
     setButtonState(perspectiveButtons, globalPerspective, "globalLens");
     updateMobileHeaderDivider();
     setButtonState(detailButtons, globalDetail, "globalDetail");
+    setButtonState(orderButtons, globalOrder, "globalOrder");
     document.documentElement.dataset.detailMode = globalDetail;
     writePerspectiveToUrl();
     updateContextToggles();
+    updateLensToggle();
     setControlsCollapsed(controlsCollapsed, { persist: false });
     window.dispatchEvent(new CustomEvent("kahntra-perspective-change", { detail: { perspective: globalPerspective } }));
     window.dispatchEvent(new CustomEvent("kahntra-detail-change", { detail: { detail: globalDetail } }));
