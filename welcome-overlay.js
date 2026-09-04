@@ -12,7 +12,7 @@
   };
   const perspectiveLabelMap = {
     technical: "Technical",
-    "design-philosophy": "Design & Philosophy",
+    "design-philosophy": "General",
   };
   const details = ["concise", "verbose"];
   const detailAliases = {
@@ -26,6 +26,10 @@
   const defaultDetail = "concise";
   const orders = ["curated", "grouped"];
   const defaultOrder = "curated";
+  const detailLabelMap = {
+    concise: "Concise",
+    verbose: "Detailed",
+  };
 
   const initialize = () => {
     const announcement = document.querySelector("#perspective-announcement");
@@ -85,6 +89,10 @@
 
     function perspectiveLabel(value) {
       return perspectiveLabelMap[value] || capitalize(value);
+    }
+
+    function detailLabel(value) {
+      return detailLabelMap[value] || capitalize(value);
     }
 
     function normalizeDetail(value) {
@@ -263,7 +271,7 @@
     }
 
     function formatCollapsedView() {
-      return `${perspectiveLabel(globalPerspective)} · ${capitalize(globalDetail)}`;
+      return `${perspectiveLabel(globalPerspective)} · ${detailLabel(globalDetail)}`;
     }
 
     function updateViewControlsToggle() {
@@ -294,7 +302,7 @@
       lensToggle.setAttribute("aria-expanded", String(lensPanelOpen));
       lensToggle.setAttribute(
         "aria-label",
-        `Lens. Focus: ${perspectiveLabel(globalPerspective)}. Detail: ${capitalize(globalDetail)}. Order: ${capitalize(globalOrder)}.`
+        `Lens. Perspective: ${perspectiveLabel(globalPerspective)}. Detail: ${detailLabel(globalDetail)}. Order: ${capitalize(globalOrder)}.`
       );
     }
 
@@ -359,7 +367,7 @@
       updateContextToggles();
       updateLensToggle();
       window.dispatchEvent(new CustomEvent("kahntra-detail-change", { detail: { detail } }));
-      if (announce) announcement.textContent = `Detail: ${capitalize(detail)}.`;
+      if (announce) announcement.textContent = `Detail: ${detailLabel(detail)}.`;
     }
 
     function setGlobalOrder(order, { announce = true } = {}) {
