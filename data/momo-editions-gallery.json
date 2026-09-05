@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 7,
+  "schemaVersion": 8,
   "collection": {
     "eyebrow": "Momo Editions",
     "title": "One film. One emotional thesis. One visual idea.",
@@ -9,6 +9,7 @@
     {
       "id": "arrival",
       "sourceUid": 77,
+      "showInGallery": true,
       "title": "Arrival",
       "year": 2016,
       "contentRating": "PG-13",
@@ -39,6 +40,7 @@
     {
       "id": "beginners",
       "sourceUid": 618,
+      "showInGallery": true,
       "title": "Beginners",
       "year": 2010,
       "contentRating": "R",
@@ -69,6 +71,7 @@
     {
       "id": "big-fish",
       "sourceUid": 625,
+      "showInGallery": true,
       "title": "Big Fish",
       "year": 2003,
       "contentRating": "PG-13",
@@ -99,6 +102,7 @@
     {
       "id": "children-of-men",
       "sourceUid": 528,
+      "showInGallery": true,
       "title": "Children of Men",
       "year": 2006,
       "contentRating": "R",
@@ -129,6 +133,7 @@
     {
       "id": "eternal-sunshine",
       "sourceUid": 529,
+      "showInGallery": true,
       "title": "Eternal Sunshine of the Spotless Mind",
       "year": 2004,
       "contentRating": "R",
@@ -159,6 +164,7 @@
     {
       "id": "ex-machina",
       "sourceUid": 486,
+      "showInGallery": true,
       "title": "Ex Machina",
       "year": 2014,
       "contentRating": "R",
@@ -188,6 +194,7 @@
     {
       "id": "eyes-wide-shut",
       "sourceUid": 138,
+      "showInGallery": true,
       "title": "Eyes Wide Shut",
       "year": 1999,
       "contentRating": "R",
@@ -218,6 +225,7 @@
     {
       "id": "gladiator",
       "sourceUid": 92,
+      "showInGallery": true,
       "title": "Gladiator",
       "year": 2000,
       "contentRating": "R",
@@ -248,6 +256,7 @@
     {
       "id": "grand-budapest-hotel",
       "sourceUid": 39,
+      "showInGallery": true,
       "title": "The Grand Budapest Hotel",
       "year": 2014,
       "contentRating": "R",
@@ -277,6 +286,7 @@
     {
       "id": "hell-or-high-water",
       "sourceUid": 222,
+      "showInGallery": true,
       "title": "Hell or High Water",
       "year": 2016,
       "contentRating": "R",
@@ -307,6 +317,7 @@
     {
       "id": "hot-fuzz",
       "sourceUid": 298,
+      "showInGallery": false,
       "title": "Hot Fuzz",
       "year": 2007,
       "contentRating": "R",
@@ -336,6 +347,7 @@
     {
       "id": "in-bruges",
       "sourceUid": 112,
+      "showInGallery": true,
       "title": "In Bruges",
       "year": 2008,
       "contentRating": "R",
@@ -366,6 +378,7 @@
     {
       "id": "inside-man",
       "sourceUid": 289,
+      "showInGallery": true,
       "title": "Inside Man",
       "year": 2006,
       "contentRating": "R",
@@ -396,6 +409,7 @@
     {
       "id": "into-the-wild",
       "sourceUid": 460,
+      "showInGallery": true,
       "title": "Into the Wild",
       "year": 2007,
       "contentRating": "R",
@@ -426,6 +440,7 @@
     {
       "id": "the-master",
       "sourceUid": 338,
+      "showInGallery": true,
       "title": "The Master",
       "year": 2012,
       "contentRating": "R",
@@ -453,6 +468,7 @@
     {
       "id": "men-who-stare-at-goats",
       "sourceUid": 433,
+      "showInGallery": true,
       "title": "The Men Who Stare at Goats",
       "year": 2009,
       "contentRating": "R",
@@ -482,6 +498,7 @@
     {
       "id": "midnight-in-paris",
       "sourceUid": 350,
+      "showInGallery": true,
       "title": "Midnight in Paris",
       "year": 2011,
       "contentRating": "PG-13",
@@ -512,6 +529,7 @@
     {
       "id": "the-prestige",
       "sourceUid": 373,
+      "showInGallery": true,
       "title": "The Prestige",
       "year": 2006,
       "contentRating": "PG-13",
@@ -542,6 +560,7 @@
     {
       "id": "prince-of-egypt",
       "sourceUid": 327,
+      "showInGallery": true,
       "title": "The Prince of Egypt",
       "year": 1998,
       "contentRating": "PG",
@@ -572,6 +591,7 @@
     {
       "id": "school-of-rock",
       "sourceUid": 923,
+      "showInGallery": true,
       "title": "School of Rock",
       "year": 2003,
       "contentRating": "PG-13",
@@ -601,6 +621,7 @@
     {
       "id": "the-secret-life-of-walter-mitty",
       "sourceUid": 1750,
+      "showInGallery": true,
       "title": "The Secret Life of Walter Mitty",
       "year": 2013,
       "contentRating": "PG",
@@ -631,6 +652,7 @@
     {
       "id": "sound-of-metal",
       "sourceUid": 426,
+      "showInGallery": false,
       "title": "Sound of Metal",
       "year": 2019,
       "contentRating": "R",
@@ -659,6 +681,7 @@
     {
       "id": "the-fall",
       "sourceUid": 144,
+      "showInGallery": true,
       "title": "The Fall",
       "year": 2006,
       "contentRating": "R",
@@ -688,6 +711,7 @@
     {
       "id": "truman-show",
       "sourceUid": 1050,
+      "showInGallery": true,
       "title": "The Truman Show",
       "year": 1998,
       "contentRating": "PG",
@@ -717,6 +741,7 @@
     {
       "id": "50-first-dates",
       "sourceUid": 559,
+      "showInGallery": false,
       "title": "50 First Dates",
       "year": 2004,
       "contentRating": "PG-13",
@@ -747,6 +772,7 @@
     {
       "id": "blue-valentine",
       "sourceUid": 150,
+      "showInGallery": true,
       "title": "Blue Valentine",
       "year": 2010,
       "contentRating": "R",
@@ -774,6 +800,7 @@
     {
       "id": "drive",
       "sourceUid": 184,
+      "showInGallery": false,
       "title": "Drive",
       "year": 2011,
       "contentRating": "R",
@@ -803,6 +830,7 @@
     {
       "id": "dark-knight",
       "sourceUid": 355,
+      "showInGallery": false,
       "title": "The Dark Knight",
       "year": 2008,
       "contentRating": "PG-13",
@@ -833,6 +861,7 @@
     {
       "id": "nice-guys",
       "sourceUid": 177,
+      "showInGallery": true,
       "title": "The Nice Guys",
       "year": 2016,
       "contentRating": "R",

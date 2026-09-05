@@ -36,7 +36,7 @@ async function rejects(value, pattern) {
 
 test('accepts the reviewed public manifest', async () => {
   const { stdout } = await validate(baseline);
-  assert.match(stdout, /Validated 29 public Momo Editions\./);
+  assert.match(stdout, /Validated 29 public Momo Editions; 24 selected for gallery display\./);
   assert.deepEqual(
     baseline.items.slice().sort((a, b) => a.order - b.order).map((item) => item.sourceUid),
     [
@@ -44,6 +44,11 @@ test('accepts the reviewed public manifest', async () => {
       433, 350, 373, 327, 923, 1750, 426, 144, 1050, 559, 150, 184, 355, 177
     ]
   );
+  assert.deepEqual(
+    baseline.items.filter((item) => item.showInGallery === false).map((item) => item.id).sort(),
+    ['50-first-dates', 'dark-knight', 'drive', 'hot-fuzz', 'sound-of-metal']
+  );
+  assert.equal(baseline.items.filter((item) => item.showInGallery !== false).length, 24);
   assert.deepEqual(
     Object.fromEntries(
       [...new Set(baseline.items.map((item) => item.contentRating))]
@@ -109,6 +114,16 @@ test('rejects invalid categories, framing, and discontinuous ordering', async ()
   const wrongKeywordCount = clone(baseline);
   wrongKeywordCount.items[0].keywords = ['Existential', 'Meditative'];
   await rejects(wrongKeywordCount, /invalid keywords/i);
+
+  const invalidDisplayFlag = clone(baseline);
+  invalidDisplayFlag.items[0].showInGallery = 'yes';
+  await rejects(invalidDisplayFlag, /showInGallery/i);
+
+  const noDisplaySelection = clone(baseline);
+  noDisplaySelection.items.forEach((item) => {
+    item.showInGallery = false;
+  });
+  await rejects(noDisplaySelection, /selected for display/i);
 
   const duplicateKeywords = clone(baseline);
   duplicateKeywords.items[0].keywords = ['Existential', 'Existential', 'Poignant'];

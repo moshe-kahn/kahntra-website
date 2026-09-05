@@ -13,6 +13,7 @@ const ITEM_KEYS = [
   'railFraming',
   'railImage',
   'runtimeMinutes',
+  'showInGallery',
   'sourceUid',
   'title',
   'year'
@@ -48,7 +49,7 @@ function validateManifest(manifest) {
   if (!hasExactKeys(manifest, ['collection', 'items', 'schemaVersion'])) {
     throw new Error('The gallery manifest has unknown or missing top-level fields.');
   }
-  if (manifest.schemaVersion !== 7 || !hasExactKeys(manifest.collection, COLLECTION_KEYS)) {
+  if (manifest.schemaVersion !== 8 || !hasExactKeys(manifest.collection, COLLECTION_KEYS)) {
     throw new Error('The gallery manifest version or collection fields are invalid.');
   }
   if (!COLLECTION_KEYS.every((key) => isText(manifest.collection[key]))) {
@@ -70,6 +71,7 @@ function validateManifest(manifest) {
       !/^[a-z0-9-]+$/.test(item.id) ||
       !Number.isInteger(item.sourceUid) ||
       item.sourceUid < 1 ||
+      typeof item.showInGallery !== 'boolean' ||
       !isText(item.title) ||
       !Number.isInteger(item.year) ||
       item.year < 1888 ||
@@ -121,6 +123,9 @@ function validateManifest(manifest) {
       throw new Error(`Edition ${item.id} has invalid framing.`);
     }
   }
+  if (!manifest.items.some((item) => item.showInGallery)) {
+    throw new Error('The gallery must contain at least one display-selected Edition.');
+  }
   return manifest;
 }
 
@@ -150,7 +155,9 @@ function setGalleryAccess(root, interactive) {
 }
 
 function renderGallery(root, manifest) {
-  const items = manifest.items.slice().sort((a, b) => a.order - b.order);
+  const items = manifest.items
+    .filter((item) => item.showInGallery !== false)
+    .sort((a, b) => a.order - b.order);
   const assetPrefix = root.dataset.assetPrefix || '';
   const imageSource = (path) => `${assetPrefix}${path.replace(/^assets\//, '')}`;
   root.replaceChildren();

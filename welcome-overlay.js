@@ -3,6 +3,7 @@
   const detailKey = "kahntra-site-detail-v1";
   const orderKey = "kahntra-site-order-v1";
   const controlsCollapsedKey = "kahntra-view-controls-collapsed-v1";
+  const orderRestoreKey = "kahntra-order-restore-v1";
   const perspectives = ["technical", "design-philosophy"];
   const legacyPerspectiveAliases = {
     philosophy: "design-philosophy",
@@ -52,6 +53,7 @@
     const aboutCloseButton = document.querySelector("[data-about-close]");
     const aboutTabs = [...document.querySelectorAll("[data-about-tab]")];
     const unavailableLinks = [...document.querySelectorAll(".product-card__unavailable")];
+    const projectTabGroups = [...document.querySelectorAll("[data-project-tabs]")];
 
     if (!announcement || !perspectiveButtons.length || !detailButtons.length || !siteToolbar || !viewControls || !viewControlsToggle) return;
 
@@ -148,6 +150,15 @@
 
     function readOrder() {
       try {
+        const params = new URLSearchParams(window.location.search);
+        const urlOrder = params.get("view") === "grouped" ? "grouped" : defaultOrder;
+        storeValue(orderKey, urlOrder);
+        return urlOrder;
+      } catch {
+        // URL state is optional when history APIs are unavailable.
+      }
+
+      try {
         const storedOrder = sessionStorage.getItem(orderKey);
         return orders.includes(storedOrder) ? storedOrder : defaultOrder;
       } catch {
@@ -190,6 +201,24 @@
       }
     }
 
+    function readStickyHeaderHeight() {
+      const value = Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--sticky-header-height"));
+      return Number.isFinite(value) ? value : 0;
+    }
+
+    function storeOrderRestoreState(targetOrder) {
+      const payload = {
+        targetView: targetOrder === "grouped" ? "grouped" : "sequence",
+        restoreTarget: "moments-directory",
+      };
+
+      try {
+        sessionStorage.setItem(orderRestoreKey, JSON.stringify(payload));
+      } catch {
+        // Order switching still works when storage is unavailable.
+      }
+    }
+
     function updateContent(container) {
       const visiblePerspective = resolveVisiblePerspective(globalPerspective);
       const detailCandidates = mappedDetailOrder(globalDetail);
@@ -224,6 +253,88 @@
       const visiblePerspective = resolveVisiblePerspective(globalPerspective);
       document.querySelectorAll("[data-perspective-heading]").forEach((heading) => {
         heading.hidden = heading.dataset.perspectiveHeading !== visiblePerspective;
+      });
+    }
+
+    function defaultProjectTab() {
+      return globalPerspective === "technical" ? "technical" : "features";
+    }
+
+    function shouldAutoExpandProjectDetails() {
+      return globalDetail === "verbose";
+    }
+
+    function setProjectTab(group, tabName) {
+      const buttons = [...group.querySelectorAll("[data-project-tab-button]")];
+      const panels = [...group.querySelectorAll("[data-project-tab-panel]")];
+      if (!buttons.length || !panels.length) return;
+      const selectedTab = buttons.some((button) => button.dataset.projectTabButton === tabName)
+        ? tabName
+        : buttons[0].dataset.projectTabButton;
+
+      buttons.forEach((button) => {
+        const active = button.dataset.projectTabButton === selectedTab;
+        button.setAttribute("aria-selected", String(active));
+        button.tabIndex = active ? 0 : -1;
+      });
+      panels.forEach((panel) => {
+        panel.hidden = panel.dataset.projectTabPanel !== selectedTab;
+      });
+    }
+
+    function setProjectDetailsExpanded(group, expanded) {
+      const card = group.closest(".product-card");
+      const moreButton = card?.querySelector("[data-project-more]");
+      group.hidden = !expanded;
+      if (moreButton) {
+        moreButton.hidden = expanded;
+        moreButton.setAttribute("aria-expanded", String(expanded));
+      }
+    }
+
+    function updateProjectTabsForPerspective() {
+      projectTabGroups.forEach((group) => {
+        setProjectTab(group, defaultProjectTab());
+      });
+    }
+
+    function updateProjectDetailsForDetail() {
+      projectTabGroups.forEach((group) => {
+        setProjectTab(group, defaultProjectTab());
+        setProjectDetailsExpanded(group, shouldAutoExpandProjectDetails());
+      });
+    }
+
+    function initializeProjectTabs() {
+      projectTabGroups.forEach((group) => {
+        setProjectTab(group, defaultProjectTab());
+        setProjectDetailsExpanded(group, shouldAutoExpandProjectDetails());
+        group.closest(".product-card")?.querySelector("[data-project-more]")?.addEventListener("click", () => {
+          setProjectTab(group, defaultProjectTab());
+          setProjectDetailsExpanded(group, true);
+        });
+        group.querySelectorAll("[data-project-tab-button]").forEach((button) => {
+          button.addEventListener("click", () => {
+            setProjectTab(group, button.dataset.projectTabButton);
+          });
+          button.addEventListener("keydown", (event) => {
+            if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+            const buttons = [...group.querySelectorAll("[data-project-tab-button]")];
+            const currentIndex = buttons.indexOf(event.currentTarget);
+            if (currentIndex === -1) return;
+
+            event.preventDefault();
+            let nextIndex = currentIndex;
+            if (event.key === "Home") nextIndex = 0;
+            else if (event.key === "End") nextIndex = buttons.length - 1;
+            else if (event.key === "ArrowLeft") nextIndex = (currentIndex - 1 + buttons.length) % buttons.length;
+            else if (event.key === "ArrowRight") nextIndex = (currentIndex + 1) % buttons.length;
+
+            const nextButton = buttons[nextIndex];
+            setProjectTab(group, nextButton.dataset.projectTabButton);
+            nextButton.focus({ preventScroll: true });
+          });
+        });
       });
     }
 
@@ -348,6 +459,7 @@
       globalPerspective = perspective;
       storeValue(perspectiveKey, perspective);
       writePerspectiveToUrl();
+      updateProjectTabsForPerspective();
       transitionContent({ includeApproachHeading: true, includeDetailOnlyGroups: false });
       setButtonState(perspectiveButtons, perspective, "globalLens");
       requestAnimationFrame(updateMobileHeaderDivider);
@@ -364,6 +476,7 @@
       document.documentElement.dataset.detailMode = detail;
       storeValue(detailKey, detail);
       writePerspectiveToUrl();
+      updateProjectDetailsForDetail();
       transitionContent();
       setButtonState(detailButtons, detail, "globalDetail");
       updateViewControlsToggle();
@@ -381,6 +494,22 @@
       updateLensToggle();
       window.dispatchEvent(new CustomEvent("kahntra-order-change", { detail: { order } }));
       if (announce) announcement.textContent = `Order: ${capitalize(order)}.`;
+
+      try {
+        const url = new URL(window.location.href);
+        if (order === "grouped") {
+          url.searchParams.set("view", "grouped");
+        } else {
+          url.searchParams.delete("view");
+        }
+        url.hash = "";
+        if (url.href !== window.location.href) {
+          storeOrderRestoreState(order);
+          window.location.assign(url.href);
+        }
+      } catch {
+        // The control state still updates when URL rewriting is unavailable.
+      }
     }
 
     function handleDocumentPointerDown(event) {
@@ -436,7 +565,10 @@
       if (!aboutDialog) return;
       aboutOpener = event.currentTarget;
       setAboutTab("kahntra");
-      if (!aboutDialog.open) aboutDialog.showModal();
+      if (!aboutDialog.open) {
+        aboutDialog.showModal();
+        document.documentElement.dataset.aboutDialog = "open";
+      }
       requestAnimationFrame(() => aboutTabs[0]?.focus());
     }
 
@@ -492,6 +624,7 @@
       if (event.target === aboutDialog) closeAbout();
     });
     aboutDialog?.addEventListener("close", () => {
+      delete document.documentElement.dataset.aboutDialog;
       aboutOpener?.focus({ preventScroll: true });
       aboutOpener = null;
     });
@@ -506,6 +639,7 @@
     window.addEventListener("resize", updateMobileHeaderDivider);
 
     siteToolbar.hidden = false;
+    initializeProjectTabs();
     updateAllContent();
     setButtonState(perspectiveButtons, globalPerspective, "globalLens");
     updateMobileHeaderDivider();
