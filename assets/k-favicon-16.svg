@@ -3,5 +3,5 @@
   <desc id="desc">16 pixel K underscore favicon drawing simplified for legibility.</desc>
   <rect width="512" height="512" fill="#f8f6f0"/>
   <text x="70" y="358" fill="#1c211f" font-family="Athelas, Georgia, Times New Roman, serif" font-size="352" font-weight="700" letter-spacing="-18">K</text>
-  <rect x="224" y="384" width="136" height="38" fill="#216f6b"/>
+  <rect x="224" y="384" width="204" height="38" fill="#216f6b"/>
 </svg>
