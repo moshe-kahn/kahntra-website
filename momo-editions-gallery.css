@@ -1018,16 +1018,32 @@
   }
 
   .momo-gallery__details {
+    top: clamp(178px, 35cqh, 240px);
     right: 18px;
     left: 18px;
+    gap: clamp(8px, 2.2cqh, 16px);
   }
 
   .momo-gallery__artwork.is-info-open .momo-gallery__details {
-    max-height: min(230px, 48%);
+    max-height: min(275px, 56%);
   }
 
   .momo-gallery__facts {
+    bottom: clamp(14px, 5cqh, 34px);
     font-size: 0.62rem;
+  }
+
+  .momo-gallery__artwork.is-info-open .momo-gallery__artwork-year {
+    margin-top: clamp(5px, 1cqh, 9px);
+  }
+
+  .momo-gallery__director,
+  .momo-gallery__actors {
+    gap: 2px;
+  }
+
+  .momo-gallery__actors {
+    line-height: 1.22;
   }
 
   .momo-gallery__metadata {

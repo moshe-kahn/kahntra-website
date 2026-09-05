@@ -19,7 +19,7 @@ const assert = (condition, message) => {
 };
 
 assert(exact(manifest, ['collection', 'items', 'schemaVersion']), 'Invalid top-level keys.');
-assert(manifest.schemaVersion === 7, 'Unsupported schemaVersion.');
+assert(manifest.schemaVersion === 8, 'Unsupported schemaVersion.');
 assert(exact(manifest.collection, ['eyebrow', 'introduction', 'title']), 'Invalid collection keys.');
 assert(Object.values(manifest.collection).every(text), 'Collection copy must be nonblank.');
 assert(Array.isArray(manifest.items) && manifest.items.length > 0, 'At least one item is required.');
@@ -40,6 +40,7 @@ const itemKeys = [
   'railFraming',
   'railImage',
   'runtimeMinutes',
+  'showInGallery',
   'sourceUid',
   'title',
   'year'
@@ -48,6 +49,7 @@ for (const item of manifest.items) {
   assert(exact(item, itemKeys), `${item.id || 'Unknown item'} has invalid keys.`);
   assert(text(item.id) && /^[a-z0-9-]+$/.test(item.id), 'Invalid item ID.');
   assert(Number.isInteger(item.sourceUid) && item.sourceUid > 0, `${item.id} has an invalid sourceUid.`);
+  assert(typeof item.showInGallery === 'boolean', `${item.id} has an invalid showInGallery flag.`);
   assert(
     text(item.title) &&
       text(item.alt) &&
@@ -114,4 +116,6 @@ for (const item of manifest.items) {
 
 const continuousOrders = [...orders].sort((a, b) => a - b).every((value, index) => value === index + 1);
 assert(continuousOrders, 'Orders must form one continuous sequence beginning at 1.');
-console.log(`Validated ${manifest.items.length} public Momo Editions.`);
+const displaySelected = manifest.items.filter((item) => item.showInGallery !== false).length;
+assert(displaySelected > 0, 'At least one Edition must be selected for display.');
+console.log(`Validated ${manifest.items.length} public Momo Editions; ${displaySelected} selected for gallery display.`);
