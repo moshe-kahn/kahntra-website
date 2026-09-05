@@ -224,7 +224,7 @@ a {
 
 @media (min-width: 761px) {
   .wordmark {
-    transform: translateY(6.25px);
+    transform: translateY(5.25px);
   }
 
   .lens-toggle {
@@ -3570,7 +3570,7 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
 
 @media (max-width: 760px) {
   :root {
-    --primary-header-height: 54px;
+    --primary-header-height: 52px;
     --view-controls-expanded-height: 0px;
     --view-controls-collapsed-height: 0px;
     --sticky-header-height: var(--primary-header-height);
@@ -3630,6 +3630,7 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
     justify-self: start;
     width: auto;
     max-width: calc(100vw - 5.75rem);
+    transform: translateY(1px);
   }
 
   .lens-control {
