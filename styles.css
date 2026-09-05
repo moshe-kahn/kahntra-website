@@ -180,6 +180,9 @@ a {
 }
 
 .lens-panel__group legend {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.36rem;
   margin-bottom: 0.32rem;
   color: color-mix(in srgb, var(--muted-ink) 86%, var(--ink));
   font-size: 0.74rem;
@@ -187,6 +190,18 @@ a {
   letter-spacing: 0.01em;
   line-height: 1.25;
   text-transform: none;
+}
+
+.lens-panel__icon {
+  width: 0.86rem;
+  height: 0.86rem;
+  flex: 0 0 auto;
+  color: color-mix(in srgb, var(--muted-ink) 82%, var(--line));
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.15;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .lens-panel__options {
