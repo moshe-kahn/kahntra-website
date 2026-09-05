@@ -38,50 +38,67 @@
           </button>
           <div class="lens-panel" id="lens-panel" data-lens-panel hidden>
             <fieldset class="lens-panel__group">
-              <legend>
-                <svg class="lens-panel__icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                  <path d="M6.2 3.1 8.4 1.9 10.9 3.1"/>
-                  <path d="M12.1 4.2 13.1 6.4 12.1 9.1"/>
-                  <path d="M11.1 11.1 8.5 12.4 5.9 11.8"/>
-                  <path d="M3.6 10.3 2.6 7.8 3.5 5.3"/>
-                  <path d="M4.7 4 6.8 5.1 9.1 5"/>
-                </svg>
-                <span>Perspective</span>
-              </legend>
+              <legend>Perspective</legend>
               <div class="lens-panel__options" role="group" aria-label="Perspective">
-                <button type="button" data-global-lens="design-philosophy" aria-pressed="true">General</button>
-                <button type="button" data-global-lens="technical" aria-pressed="false">Technical</button>
+                <button type="button" data-global-lens="design-philosophy" aria-pressed="true">
+                  <svg class="lens-option__icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                    <path d="M6 3.5H3.5v9H6"/>
+                    <path d="M10 3.5h2.5v9H10"/>
+                  </svg>
+                  <span>General</span>
+                </button>
+                <button type="button" data-global-lens="technical" aria-pressed="false">
+                  <svg class="lens-option__icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                    <path d="M6.4 3.4H5.2c-.8 0-1.2.4-1.2 1.2v1.6c0 .8-.4 1.2-1.2 1.2.8 0 1.2.4 1.2 1.2v1.8c0 .8.4 1.2 1.2 1.2h1.2"/>
+                    <path d="M9.6 3.4h1.2c.8 0 1.2.4 1.2 1.2v1.6c0 .8.4 1.2 1.2 1.2-.8 0-1.2.4-1.2 1.2v1.8c0 .8-.4 1.2-1.2 1.2H9.6"/>
+                  </svg>
+                  <span>Technical</span>
+                </button>
               </div>
             </fieldset>
             <fieldset class="lens-panel__group">
-              <legend>
-                <svg class="lens-panel__icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                  <path d="M3.2 3.6h5.8"/>
-                  <path d="M3.2 6.3h7.4"/>
-                  <path d="M3.2 9h9"/>
-                  <path d="M3.2 11.1h9.6"/>
-                  <path d="M3.2 12.8h9.6"/>
-                </svg>
-                <span>Detail</span>
-              </legend>
+              <legend>Detail</legend>
               <div class="lens-panel__options" role="group" aria-label="Detail">
-                <button type="button" data-global-detail="concise" aria-pressed="true">Concise</button>
-                <button type="button" data-global-detail="verbose" aria-pressed="false">Detailed</button>
+                <button type="button" data-global-detail="concise" aria-pressed="true">
+                  <svg class="lens-option__icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                    <path d="M3.2 5h8.4"/>
+                    <path d="M3.2 8h9.6"/>
+                    <path d="M3.2 11h9.6"/>
+                  </svg>
+                  <span>Concise</span>
+                </button>
+                <button type="button" data-global-detail="verbose" aria-pressed="false">
+                  <svg class="lens-option__icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                    <path d="M3.2 4.4h7.8"/>
+                    <path d="M3.2 7h8.8"/>
+                    <path d="M3.2 9.6h9.6"/>
+                    <path d="M3.2 12.2h9.6"/>
+                  </svg>
+                  <span>Detailed</span>
+                </button>
               </div>
             </fieldset>
             <fieldset class="lens-panel__group">
-              <legend>
-                <svg class="lens-panel__icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                  <path d="M3.2 4.2h9.4"/>
-                  <path d="M3.2 6.9h7.2"/>
-                  <path d="M3.2 9.6h5.4"/>
-                  <path d="M3.2 12.3h3.8"/>
-                </svg>
-                <span>Order</span>
-              </legend>
+              <legend>Order</legend>
               <div class="lens-panel__options" role="group" aria-label="Order">
-                <button type="button" data-global-order="curated" aria-pressed="true">Curated</button>
-                <button type="button" data-global-order="grouped" aria-pressed="false">Grouped</button>
+                <button type="button" data-global-order="curated" aria-pressed="true">
+                  <svg class="lens-option__icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                    <path d="M3.2 4.4h8.8"/>
+                    <path d="M3.2 7h5.4"/>
+                    <path d="M3.2 9.6h9.6"/>
+                    <path d="M3.2 12.2h6.8"/>
+                  </svg>
+                  <span>Curated</span>
+                </button>
+                <button type="button" data-global-order="grouped" aria-pressed="false">
+                  <svg class="lens-option__icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                    <path d="M3.2 4.6h8.8"/>
+                    <path d="M3.2 7.2h8.8"/>
+                    <path d="M3.2 9.8h5.6"/>
+                    <path d="M3.2 12.4h5.6"/>
+                  </svg>
+                  <span>Grouped</span>
+                </button>
               </div>
             </fieldset>
           </div>
