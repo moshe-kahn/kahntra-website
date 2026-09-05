@@ -8,7 +8,7 @@
   --card: #fbfaf6;
   --collection: #eee9df;
   --header: #f8f6f0;
-  --primary-header-height: 60px;
+  --primary-header-height: 54px;
   --view-controls-expanded-height: 40px;
   --view-controls-collapsed-height: 36px;
   --sticky-header-height: calc(var(--primary-header-height) + var(--view-controls-expanded-height));
