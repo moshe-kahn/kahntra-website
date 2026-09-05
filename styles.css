@@ -8,7 +8,7 @@
   --card: #fbfaf6;
   --collection: #eee9df;
   --header: #f8f6f0;
-  --primary-header-height: 58px;
+  --primary-header-height: 70px;
   --view-controls-expanded-height: 40px;
   --view-controls-collapsed-height: 36px;
   --sticky-header-height: calc(var(--primary-header-height) + var(--view-controls-expanded-height));
@@ -66,6 +66,7 @@ a {
 
 .site-header {
   position: relative;
+  height: var(--primary-header-height);
   min-height: var(--primary-header-height);
   border-bottom: 0;
 }
@@ -93,7 +94,7 @@ a {
 }
 
 .lens-control {
-  position: relative;
+  position: static;
   margin-left: auto;
 }
 
@@ -143,7 +144,7 @@ a {
 .lens-panel {
   position: absolute;
   z-index: calc(var(--layer-sticky-header) + 1);
-  top: calc(100% + 0.95rem);
+  top: calc(100% + 0.35rem);
   right: 0;
   display: grid;
   width: min(17.5rem, calc(100vw - 2rem));
@@ -3622,7 +3623,7 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
   }
 
   .lens-panel {
-    top: calc(100% + 0.9rem);
+    top: calc(100% + 0.4rem);
     right: 0;
   }
 
