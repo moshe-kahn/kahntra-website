@@ -223,11 +223,11 @@ a {
 
 @media (min-width: 761px) {
   .wordmark {
-    transform: translateY(9.75px);
+    transform: translateY(6.25px);
   }
 
   .lens-toggle {
-    transform: translateY(6px);
+    transform: translateY(2.5px);
   }
 }
 
@@ -3569,7 +3569,7 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
 
 @media (max-width: 760px) {
   :root {
-    --primary-header-height: 60px;
+    --primary-header-height: 54px;
     --view-controls-expanded-height: 0px;
     --view-controls-collapsed-height: 0px;
     --sticky-header-height: var(--primary-header-height);
