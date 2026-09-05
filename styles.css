@@ -112,8 +112,9 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 0.32rem;
-  min-height: 30px;
-  padding: 0 0.42rem;
+  height: 26px;
+  min-height: 0;
+  padding: 0 0.5rem;
   border: 1px solid transparent;
   border-radius: 5px;
   color: var(--ink);
@@ -3640,7 +3641,8 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
   }
 
   .lens-toggle {
-    min-height: 32px;
+    height: 30px;
+    min-height: 0;
     padding-inline: 0.44rem;
     font-size: 0.72rem;
   }
