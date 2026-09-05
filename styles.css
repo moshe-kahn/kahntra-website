@@ -79,16 +79,18 @@ a {
 .wordmark {
   display: inline-flex;
   align-items: center;
-  width: min(15rem, calc(100vw - 7rem));
+  width: auto;
+  height: 1.45rem;
   min-width: 0;
   line-height: 0;
 }
 
 .wordmark img {
   display: block;
-  width: 100%;
-  height: auto;
-  max-height: 3rem;
+  width: auto;
+  height: 100%;
+  max-width: calc(100vw - 7rem);
+  max-height: none;
   object-fit: contain;
   object-position: left center;
 }
@@ -221,7 +223,7 @@ a {
 
 @media (min-width: 761px) {
   .wordmark {
-    transform: translateY(8px);
+    transform: translateY(9.75px);
   }
 
   .lens-toggle {
@@ -3624,7 +3626,9 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
     grid-column: 1;
     grid-row: 1;
     align-self: center;
-    width: min(14rem, calc(100vw - 5.75rem));
+    justify-self: start;
+    width: auto;
+    max-width: calc(100vw - 5.75rem);
   }
 
   .lens-control {
