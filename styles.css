@@ -207,7 +207,7 @@ a {
 .lens-panel__options button[aria-pressed="true"] {
   color: var(--ink);
   background: color-mix(in srgb, var(--accent) 8%, white);
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 14%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 26%, var(--line));
 }
 
 @media (min-width: 761px) {
