@@ -7,12 +7,17 @@
   --line: #cfcec5;
   --card: #fbfaf6;
   --collection: #eee9df;
+  --curated-portfolio-field: #f0efea;
+  --grouped-projects-field: #f4f1ea;
+  --grouped-concepts-field: #e9ebe6;
+  --grouped-explorations-field: #f1eee7;
   --header: #f8f6f0;
   --primary-header-height: 54px;
   --view-controls-expanded-height: 40px;
   --view-controls-collapsed-height: 36px;
   --sticky-header-height: calc(var(--primary-header-height) + var(--view-controls-expanded-height));
   --layer-sticky-header: 20;
+  --content-column-width: 54rem;
 }
 
 * {
@@ -22,6 +27,11 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--sticky-header-height) + 1rem);
+  scrollbar-gutter: stable;
+}
+
+html[data-about-dialog="open"] {
+  overflow: hidden;
 }
 
 body {
@@ -82,6 +92,7 @@ a {
   width: auto;
   height: 1.45rem;
   min-width: 0;
+  cursor: pointer;
   line-height: 0;
 }
 
@@ -91,6 +102,7 @@ a {
   height: 100%;
   max-width: calc(100vw - 7rem);
   max-height: none;
+  cursor: inherit;
   object-fit: contain;
   object-position: left center;
 }
@@ -258,7 +270,8 @@ a {
 .hero {
   position: relative;
   isolation: isolate;
-  max-width: 830px;
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
   padding: clamp(6.5rem, 15vw, 11.5rem) 0 clamp(5.5rem, 12vw, 9rem);
 }
 
@@ -279,6 +292,8 @@ a {
   align-content: start;
   position: relative;
   z-index: 1;
+  width: min(calc(100% - 48px), var(--content-column-width));
+  margin-inline: auto;
 }
 
 .hero__title h1,
@@ -356,6 +371,7 @@ h1 {
 
 .products.section {
   position: relative;
+  padding-top: clamp(3rem, 5vw, 5rem);
   background: var(--card);
   box-shadow: 0 0 0 100vmax var(--card);
   clip-path: inset(0 -100vmax);
@@ -372,10 +388,11 @@ h1 {
 
 .section-heading {
   display: flex;
+  width: min(100%, var(--content-column-width));
   align-items: center;
   justify-content: space-between;
   gap: 2rem;
-  margin-bottom: 1.25rem;
+  margin: 0 auto clamp(2.75rem, 4vw, 3.25rem);
 }
 
 .products .section-heading > div {
@@ -411,6 +428,62 @@ h1 {
 
 .section-heading__support p {
   margin: 0;
+}
+
+.moments-directory {
+  display: grid;
+  max-width: 38rem;
+  margin: 0.85rem 0 0;
+  gap: 0.12rem;
+}
+
+.moments-directory a {
+  display: flex;
+  width: fit-content;
+  max-width: 100%;
+  align-items: baseline;
+  gap: 0.32rem;
+  color: var(--muted-ink);
+  font-size: 0.78rem;
+  line-height: 1.35;
+  text-decoration: none;
+}
+
+.moments-directory__code {
+  flex: 0 0 auto;
+  color: color-mix(in srgb, var(--accent) 86%, var(--muted-ink));
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.075em;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+.moments-directory__separator,
+.moments-directory__descriptor {
+  min-width: 0;
+  color: inherit;
+  font-weight: 400;
+}
+
+.moments-directory__separator {
+  color: color-mix(in srgb, var(--muted-ink) 70%, var(--line));
+}
+
+.moments-directory a:hover,
+.moments-directory a:focus-visible {
+  color: var(--accent);
+}
+
+.moments-directory a:focus-visible {
+  border-radius: 2px;
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+html[data-portfolio-layout="grouped"] .moments-directory a:nth-child(4),
+html[data-portfolio-layout="grouped"] .moments-directory a:nth-child(7) {
+  margin-top: 0.38rem;
 }
 
 h2 {
@@ -618,16 +691,16 @@ html[data-view-controls="collapsed"] .view-controls {
   }
 
   .hero {
-    max-width: none;
+    width: 100vw;
     height: clamp(19rem, 25vw, 21.5rem);
     min-height: 0;
-    margin-inline: calc((100vw - 100%) / -2);
+    margin-inline: calc(50% - 50vw);
     padding: clamp(3.75rem, 6vw, 5rem) 0 clamp(2.75rem, 4vw, 3.75rem);
   }
 
   .hero__title {
     position: relative;
-    width: min(100% - 48px, 1180px);
+    width: min(calc(100% - 48px), var(--content-column-width));
     height: 100%;
     margin-inline: auto;
   }
@@ -795,6 +868,11 @@ html[data-view-controls="collapsed"] .view-controls {
   scroll-margin-top: calc(var(--sticky-header-height) + 1rem);
 }
 
+.portfolio-item[id],
+[data-tech-demo-locator][id] {
+  scroll-margin-top: calc(var(--sticky-header-height) + 1rem);
+}
+
 .product-groups {
   display: grid;
   width: min(100% - clamp(1.5rem, 5vw, 4rem), 67.5rem);
@@ -835,9 +913,13 @@ html[data-view-controls="collapsed"] .view-controls {
 
 .product-group[aria-labelledby="products-development-title"] .product-card {
   border: 0;
-  background:
-    linear-gradient(rgb(251 250 246 / 22%), rgb(251 250 246 / 22%)),
-    #dfc49a url("assets/kahntra-card-paper-v2.png") center / 185% auto;
+  background-color: #bcae95;
+  background-image:
+    linear-gradient(rgb(195 187 170 / 72%), rgb(195 187 170 / 72%)),
+    url("assets/kahntra-card-paper-v2.png");
+  background-position: center top, var(--project-paper-position, center top);
+  background-repeat: repeat;
+  background-size: auto, 1080px 1080px;
 }
 
 .product-group[aria-labelledby="products-development-title"] .product-card__title {
@@ -847,11 +929,11 @@ html[data-view-controls="collapsed"] .view-controls {
 }
 
 .product-card[data-project-id="listenlab"] {
-  background-position: 20% 32%;
+  --project-paper-position: 20% 0%;
 }
 
 .product-card[data-project-id="momentum-management"] {
-  background-position: 77% 18%;
+  --project-paper-position: 77% 0%;
 }
 
 .product-card[data-project-id="meal-match"] {
@@ -866,12 +948,76 @@ html[data-view-controls="collapsed"] .view-controls {
   background-position: 12% 88%;
 }
 
+.product-card[data-project-id="momomovies"],
+.product-card[data-project-id="listenlab"],
+.product-card[data-project-id="momentum-management"] {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.product-card[data-project-id="momomovies"]::before,
+.product-card[data-project-id="listenlab"]::before,
+.product-card[data-project-id="momentum-management"]::before {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 42rem 13rem at 17rem 15.9rem, rgb(236 230 217 / 40%) 0 17%, rgb(236 230 217 / 22%) 41%, transparent 76%),
+    radial-gradient(ellipse 34rem 11rem at 36rem 15.2rem, rgb(236 230 217 / 27%) 0 17%, rgb(236 230 217 / 13%) 40%, transparent 72%),
+    radial-gradient(ellipse 30rem 10rem at 13rem 20rem, rgb(236 230 217 / 20%) 0 16%, transparent 63%),
+    radial-gradient(ellipse 22rem 8rem at 26rem 13.4rem, rgb(236 230 217 / 12%) 0 14%, transparent 58%),
+    radial-gradient(ellipse 38rem 15rem at 22rem 25rem, rgb(236 230 217 / 18%) 0 17%, rgb(236 230 217 / 9%) 42%, transparent 74%),
+    radial-gradient(ellipse 40rem 18rem at 25rem 34rem, rgb(236 230 217 / 20%) 0 18%, rgb(236 230 217 / 10%) 43%, transparent 75%),
+    radial-gradient(ellipse 30rem 14rem at 40rem 32rem, rgb(236 230 217 / 12%) 0 16%, transparent 66%),
+    radial-gradient(ellipse 34rem 18rem at 19rem 44rem, rgb(236 230 217 / 13%) 0 17%, rgb(236 230 217 / 6%) 40%, transparent 72%);
+  content: "";
+  pointer-events: none;
+  z-index: 0;
+}
+
+.product-card[data-project-id="momomovies"]:has(.project-tabs:not([hidden]))::before,
+.product-card[data-project-id="listenlab"]:has(.project-tabs:not([hidden]))::before,
+.product-card[data-project-id="momentum-management"]:has(.project-tabs:not([hidden]))::before {
+  background:
+    radial-gradient(ellipse 42rem 13rem at 17rem 15.9rem, rgb(236 230 217 / 40%) 0 17%, rgb(236 230 217 / 22%) 41%, transparent 76%),
+    radial-gradient(ellipse 34rem 11rem at 36rem 15.2rem, rgb(236 230 217 / 27%) 0 17%, rgb(236 230 217 / 13%) 40%, transparent 72%),
+    radial-gradient(ellipse 30rem 10rem at 13rem 20rem, rgb(236 230 217 / 20%) 0 16%, transparent 63%),
+    radial-gradient(ellipse 22rem 8rem at 26rem 13.4rem, rgb(236 230 217 / 12%) 0 14%, transparent 58%),
+    radial-gradient(ellipse 48rem 24rem at 22rem 26rem, rgb(236 230 217 / 21%) 0 19%, rgb(236 230 217 / 11%) 45%, transparent 77%),
+    radial-gradient(ellipse 54rem 32rem at 28rem calc(100% - 10rem), rgb(236 230 217 / 24%) 0 22%, rgb(236 230 217 / 14%) 48%, transparent 82%),
+    radial-gradient(ellipse 36rem 28rem at 48rem calc(100% - 8rem), rgb(236 230 217 / 15%) 0 20%, transparent 76%),
+    radial-gradient(ellipse 34rem 26rem at 12rem calc(100% - 4rem), rgb(236 230 217 / 16%) 0 18%, rgb(236 230 217 / 8%) 42%, transparent 74%);
+}
+
+.product-card[data-project-id="momomovies"] > *,
+.product-card[data-project-id="listenlab"] > *,
+.product-card[data-project-id="momentum-management"] > * {
+  position: relative;
+  z-index: 1;
+}
+
 .product-card__meta {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 0.35rem 0.65rem;
+  position: relative;
+}
+
+.product-card__meta-stack {
+  display: grid;
+  justify-items: end;
+  gap: 0.32rem;
+  margin-left: auto;
+  text-align: right;
+}
+
+.product-card[data-project-id="momomovies"] .product-card__meta,
+.product-card[data-project-id="listenlab"] .product-card__meta,
+.product-card[data-project-id="momentum-management"] .product-card__meta {
+  min-height: 1.25rem;
+  margin-bottom: clamp(1.35rem, 2.6vw, 1.9rem);
 }
 
 .availability {
@@ -882,8 +1028,17 @@ html[data-view-controls="collapsed"] .view-controls {
   text-align: right;
 }
 
+.product-card__meta-stack .availability {
+  margin-left: 0;
+}
+
 .stage {
   color: var(--accent);
+}
+
+.product-card .stage,
+.product-card .availability {
+  letter-spacing: 0.065em;
 }
 
 .product-card__title {
@@ -907,18 +1062,29 @@ html[data-view-controls="collapsed"] .view-controls {
 
 .product-card__title--momentum {
   width: min(100%, 18rem);
-  aspect-ratio: 1120 / 256;
-  overflow: hidden;
+  aspect-ratio: auto;
+  overflow: visible;
 }
 
 .product-card__title--momentum img {
-  width: 125%;
-  max-width: none;
-  transform: translate(-1.8%, 32%);
+  width: 100%;
+  max-width: 100%;
+  transform: none;
 }
 
 .product-card__title--listenlab {
   width: min(100%, 15rem);
+}
+
+.product-card[data-project-id="momomovies"] .product-card__title--logo,
+.product-card[data-project-id="listenlab"] .product-card__title--logo,
+.product-card[data-project-id="momentum-management"] .product-card__title--logo {
+  display: grid;
+  align-content: start;
+  justify-items: start;
+  width: min(100%, 42rem);
+  min-height: 6.35rem;
+  margin: 0;
 }
 
 .product-card__description {
@@ -941,12 +1107,28 @@ html[data-view-controls="collapsed"] .view-controls {
   margin-top: auto;
 }
 
+.product-card[data-project-id="momomovies"] .product-card__description,
+.product-card[data-project-id="listenlab"] .product-card__description,
+.product-card[data-project-id="momentum-management"] .product-card__description {
+  max-width: 34rem;
+  min-height: 3.7rem;
+  margin: clamp(1.15rem, 2vw, 1.45rem) 0 1rem;
+  color: #333936;
+}
+
+.product-card[data-project-id="momomovies"] .product-card__footer,
+.product-card[data-project-id="listenlab"] .product-card__footer,
+.product-card[data-project-id="momentum-management"] .product-card__footer {
+  justify-content: flex-start;
+  margin: 0 0 clamp(1.45rem, 2.4vw, 1.85rem);
+}
+
 .product-card__platform {
   margin: 0;
   color: var(--muted-ink);
   font-size: 0.68rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.045em;
   text-transform: uppercase;
 }
 
@@ -958,9 +1140,17 @@ html[data-view-controls="collapsed"] .view-controls {
   color: var(--accent);
   font-size: 0.9rem;
   font-weight: 700;
+  text-decoration: none;
+}
+
+.product-card__external-label {
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.25rem;
+}
+
+.product-card__external-icon {
+  text-decoration: none;
 }
 
 .product-card__more summary {
@@ -973,6 +1163,7 @@ html[data-view-controls="collapsed"] .view-controls {
 }
 
 .product-card__more summary:focus-visible,
+.product-card__more-info:focus-visible,
 .product-card__external:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
@@ -992,16 +1183,68 @@ html[data-view-controls="collapsed"] .view-controls {
   font-family: inherit;
 }
 
+.product-card__more-info {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.28rem;
+  width: fit-content;
+  margin-top: clamp(0.2rem, 0.8vw, 0.5rem);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: color-mix(in srgb, var(--ink) 66%, var(--muted-ink));
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.product-card__more-info[hidden] {
+  display: none;
+}
+
+.product-card__more-info:hover,
+.product-card__more-info:focus-visible {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.product-card__more-info:hover .product-card__more-info-label,
+.product-card__more-info:focus-visible .product-card__more-info-label {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22rem;
+}
+
 .product-card__unavailable {
   position: relative;
   color: var(--muted-ink);
 }
 
 .product-card__unavailable summary {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.3rem;
   cursor: pointer;
+  color: var(--accent);
   font-size: 0.9rem;
   font-weight: 700;
   list-style: none;
+  text-decoration: none;
+}
+
+.product-card__unavailable--meta summary {
+  color: color-mix(in srgb, var(--accent) 74%, var(--muted-ink));
+  font-size: 0.74rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.product-card__unavailable--meta {
+  position: absolute;
+  top: 1.05rem;
+  right: 0;
 }
 
 .product-card__unavailable summary::-webkit-details-marker {
@@ -1039,6 +1282,172 @@ html[data-view-controls="collapsed"] .view-controls {
   transform: translateY(0);
 }
 
+.project-tabs {
+  display: grid;
+  width: 100%;
+  max-width: 34rem;
+  gap: clamp(1.15rem, 2.2vw, 1.55rem);
+  margin-top: clamp(1.45rem, 2.4vw, 1.85rem);
+  padding-top: clamp(1rem, 1.8vw, 1.25rem);
+  border-top: 1px solid color-mix(in srgb, var(--ink) 13%, transparent);
+}
+
+.project-tabs[hidden] {
+  display: none;
+}
+
+.project-tabs__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(0.85rem, 2vw, 1.25rem);
+  align-items: end;
+}
+
+.project-tabs__tab {
+  position: relative;
+  padding: 0 0 0.48rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--muted-ink);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.86rem;
+  font-weight: 600;
+  letter-spacing: 0.005em;
+  line-height: 1.25;
+  text-align: left;
+}
+
+.project-tabs__tab + .project-tabs__tab {
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.project-tabs__tab::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background: var(--accent);
+  opacity: 0;
+  content: "";
+}
+
+.project-tabs__tab[aria-selected="true"] {
+  color: color-mix(in srgb, var(--accent) 82%, var(--ink));
+}
+
+.project-tabs__tab[aria-selected="true"]::after {
+  opacity: 1;
+}
+
+.project-tabs__tab:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--accent) 66%, transparent);
+  outline-offset: 4px;
+}
+
+.project-tabs__panel {
+  max-width: 34rem;
+  color: #333936;
+  font-size: 0.92rem;
+}
+
+.project-tabs__panel h5 {
+  margin: 0 0 0.55rem;
+  color: var(--accent);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.project-tabs__panel h5:not(:first-child) {
+  margin-top: 1rem;
+}
+
+.project-tabs__panel ul {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0;
+  padding-left: 1.05rem;
+}
+
+.project-tabs__panel li {
+  padding-left: 0.15rem;
+}
+
+.project-tabs__panel .product-card__external {
+  margin-top: 0.9rem;
+}
+
+.project-demo-preview {
+  display: grid;
+  width: min(100%, 28rem);
+  gap: 0.55rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.project-demo-preview__media {
+  display: block;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--ink) 92%, var(--card));
+}
+
+.project-demo-preview__media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  transition: transform 180ms ease, filter 180ms ease;
+}
+
+.project-demo-preview:hover .project-demo-preview__media img,
+.project-demo-preview:focus-visible .project-demo-preview__media img {
+  filter: saturate(0.96) contrast(1.04);
+  transform: scale(1.015);
+}
+
+.project-demo-preview__copy {
+  display: grid;
+  gap: 0.1rem;
+}
+
+.project-demo-preview__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.project-demo-preview__title {
+  color: color-mix(in srgb, var(--ink) 84%, var(--accent));
+  font-weight: 650;
+  line-height: 1.25;
+}
+
+.project-demo-preview__action {
+  flex: 0 0 auto;
+  color: color-mix(in srgb, var(--accent) 72%, var(--muted-ink));
+  font-size: 0.84rem;
+  font-weight: 550;
+  line-height: 1.25;
+}
+
+.project-demo-preview__descriptor {
+  color: var(--muted-ink);
+  font-size: 0.86rem;
+  line-height: 1.35;
+}
+
+.project-demo-preview:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--accent) 66%, transparent);
+  outline-offset: 4px;
+}
+
 .product-group + .product-group .product-card {
   padding: clamp(1.15rem, 2.25vw, 1.75rem);
 }
@@ -1065,9 +1474,22 @@ html[data-view-controls="collapsed"] .view-controls {
   padding: clamp(1rem, 2vw, 1.4rem);
 }
 
+.product-card[data-project-id="meal-match"],
+.product-card[data-project-id="pathwise"],
+.product-card[data-project-id="momentum-tasks"] {
+  min-height: clamp(15rem, 24vw, 18rem);
+}
+
 .product-group[aria-labelledby="products-concepts-title"] .product-card__title {
   margin-bottom: 0.55rem;
   font-size: clamp(1.45rem, 2.3vw, 2rem);
+}
+
+.product-card[data-project-id="meal-match"] .product-card__title,
+.product-card[data-project-id="pathwise"] .product-card__title,
+.product-card[data-project-id="momentum-tasks"] .product-card__title {
+  min-height: 0;
+  margin: 0 0 clamp(0.75rem, 1.4vw, 1rem);
 }
 
 .product-group[aria-labelledby="products-concepts-title"] .product-card__description {
@@ -1077,14 +1499,91 @@ html[data-view-controls="collapsed"] .view-controls {
   font-size: 0.92rem;
 }
 
-.concept-card__status {
-  margin: auto 0 0;
+.product-card[data-project-id="meal-match"] .product-card__description,
+.product-card[data-project-id="pathwise"] .product-card__description,
+.product-card[data-project-id="momentum-tasks"] .product-card__description {
+  max-width: 42rem;
+  min-height: 0;
+  margin: 0;
+}
+
+.concept-card__interactive[hidden] {
+  display: none;
+}
+
+.portfolio-item {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.portfolio-item > .product-card,
+.portfolio-item > .showcase__card {
+  flex: 1 1 auto;
+}
+
+.item-locator {
+  display: flex;
+  min-width: 0;
+  align-items: baseline;
+  gap: 0.42rem;
+  margin: 0 0 0.38rem;
+  white-space: nowrap;
+}
+
+.item-locator__code {
+  flex: 0 0 auto;
   color: var(--accent);
-  font-size: 0.66rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.075em;
   line-height: 1.25;
   text-transform: uppercase;
+}
+
+.item-locator__separator,
+.item-locator__descriptor {
+  overflow: hidden;
+  font-size: 0.78rem;
+  font-weight: 400;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+}
+
+.item-locator__separator {
+  height: 0.88em;
+  flex: 1 1 auto;
+  min-width: 2.75rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 34%, transparent);
+  color: transparent;
+  transform: translateY(0.04em);
+}
+
+.item-locator__descriptor {
+  min-width: 0;
+  flex: 0 0 auto;
+  color: color-mix(in srgb, var(--muted-ink) 86%, var(--card));
+  text-align: right;
+}
+
+.item-locator--stacked {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.05rem;
+  white-space: normal;
+}
+
+.item-locator--stacked .item-locator__separator {
+  display: none;
+}
+
+.item-locator--stacked .item-locator__descriptor {
+  justify-self: start;
+  max-width: 100%;
+  overflow: visible;
+  color: var(--muted-ink);
+  text-align: left;
+  text-overflow: clip;
 }
 
 .showcase {
@@ -1155,71 +1654,180 @@ html[data-view-controls="collapsed"] .view-controls {
   background: transparent;
 }
 
-.music-for-this-moment__anchor {
-  display: grid;
-  justify-items: end;
-  gap: 0.2rem;
-  margin-bottom: clamp(0.8rem, 1.5vw, 1.1rem);
-  color: #c8954e;
-  text-align: right;
-}
-
-.music-for-this-moment__anchor h3,
-.music-for-this-moment__anchor p {
-  margin: 0;
-}
-
-.music-for-this-moment__anchor h3 {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(1.25rem, 2.1vw, 1.65rem);
-  font-weight: 400;
-  letter-spacing: -0.035em;
-  line-height: 1;
-}
-
-.music-for-this-moment__anchor p {
-  color: var(--muted-ink);
-  font-size: clamp(0.72rem, 1.1vw, 0.86rem);
-  font-weight: 700;
-  letter-spacing: 0.055em;
-  line-height: 1.25;
-  text-transform: uppercase;
-}
-
-.momo-gallery__anchor {
-  display: grid;
-  justify-items: end;
-  gap: 0.2rem;
-  margin-bottom: clamp(0.8rem, 1.5vw, 1.1rem);
-  color: var(--momo-gold, #c8954e);
-  text-align: right;
-}
-
-.momo-gallery__anchor h3,
-.momo-gallery__anchor p {
-  margin: 0;
-}
-
-.momo-gallery__anchor h3 {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(1.25rem, 2.1vw, 1.65rem);
-  font-weight: 400;
-  letter-spacing: -0.035em;
-  line-height: 1;
-}
-
-.momo-gallery__anchor p {
-  color: var(--muted-ink);
-  font-size: clamp(0.72rem, 1.1vw, 0.86rem);
-  font-weight: 700;
-  letter-spacing: 0.055em;
-  line-height: 1.25;
-  text-transform: uppercase;
-}
-
 .showcase__card--momo [data-momo-editions-gallery] {
   border: 0;
   border-radius: 14px;
+}
+
+/* Default item-first view: preserve the existing item content and present it as one sequence. */
+.portfolio-sequence {
+  display: grid;
+  width: min(100%, var(--content-column-width));
+  margin: 0 auto;
+  padding-block: clamp(1.4rem, 2.6vw, 2rem) clamp(2.5rem, 5vw, 4rem);
+  gap: clamp(1.5rem, 3vw, 2.25rem);
+  background: var(--curated-portfolio-field);
+  box-shadow: 0 0 0 100vmax var(--curated-portfolio-field);
+  clip-path: inset(0 -100vmax);
+  --portfolio-item-width: 100%;
+}
+
+.portfolio-sequence > .portfolio-item[data-portfolio-item],
+.portfolio-sequence__banner-picker[data-portfolio-item] {
+  display: flex;
+  flex-direction: column;
+  width: var(--portfolio-item-width);
+  min-width: 0;
+  min-height: 0;
+  justify-self: center;
+  margin: 0;
+}
+
+.portfolio-sequence > .portfolio-item[data-portfolio-item] > .product-card,
+.portfolio-sequence > .portfolio-sequence__banner-picker[data-portfolio-item] > .decision-demo,
+.portfolio-sequence > .portfolio-item[data-portfolio-item] > .showcase__card {
+  min-width: 0;
+}
+
+.portfolio-sequence > .portfolio-item[data-portfolio-item] > .product-card,
+.portfolio-sequence > .portfolio-item[data-portfolio-item] > .showcase__card,
+.portfolio-sequence > .portfolio-sequence__banner-picker[data-portfolio-item] > .decision-demo {
+  width: 100%;
+}
+
+.portfolio-sequence > .portfolio-item[data-portfolio-item] > .showcase__card {
+  margin-bottom: 0;
+}
+
+.portfolio-sequence > .portfolio-item[data-portfolio-item="momomovies"] > .product-card,
+.portfolio-sequence > .portfolio-item[data-portfolio-item="listenlab"] > .product-card,
+.portfolio-sequence > .portfolio-item[data-portfolio-item="momentum-management"] > .product-card {
+  background-color: #bcae95;
+  background-image:
+    linear-gradient(rgb(195 187 170 / 72%), rgb(195 187 170 / 72%)),
+    url("assets/kahntra-card-paper-v2.png");
+  background-position: center top, var(--project-paper-position, center top);
+  background-repeat: repeat;
+  background-size: auto, 1080px 1080px;
+}
+
+.portfolio-sequence > .portfolio-item[data-portfolio-item="listenlab"] > .product-card {
+  --project-paper-position: 20% 0%;
+}
+
+.portfolio-sequence > .portfolio-item[data-portfolio-item="momentum-management"] > .product-card {
+  --project-paper-position: 77% 0%;
+}
+
+.portfolio-sequence > .portfolio-item[data-portfolio-item="meal-match"] > .product-card {
+  background-position: 34% 70%;
+}
+
+.portfolio-sequence > .portfolio-item[data-portfolio-item="pathwise"] > .product-card {
+  background-position: 86% 78%;
+}
+
+.portfolio-sequence > .portfolio-item[data-portfolio-item="momentum-tasks"] > .product-card {
+  background-position: 12% 88%;
+}
+
+.portfolio-sequence > .portfolio-item > .product-card .product-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.35rem 0.65rem;
+  margin: 0 0 clamp(1.4rem, 3vw, 2rem);
+}
+
+.portfolio-sequence > .portfolio-item > .product-card .stage,
+.portfolio-sequence > .portfolio-item > .product-card .availability {
+  margin: 0;
+  padding: 0;
+}
+
+.portfolio-sequence > .portfolio-item > .product-card .availability {
+  margin-left: auto;
+  text-align: right;
+}
+
+.portfolio-sequence > .portfolio-item > .product-card .product-card__title {
+  min-height: 0;
+  margin: 0;
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.7rem, 3vw, 2.35rem);
+  font-weight: 400;
+  letter-spacing: -0.05em;
+  line-height: 1;
+}
+
+.portfolio-sequence > .portfolio-item > .product-card .product-card__title--logo {
+  display: block;
+  width: min(100%, 12rem);
+}
+
+.portfolio-sequence > .portfolio-item[data-portfolio-item="momomovies"] > .product-card .product-card__title {
+  align-self: flex-start;
+  width: min(100%, 12rem);
+}
+
+.portfolio-sequence > .portfolio-item[data-portfolio-item="listenlab"] > .product-card .product-card__title--logo {
+  width: min(100%, 15rem);
+}
+
+.portfolio-sequence > .portfolio-item[data-portfolio-item="momentum-management"] > .product-card .product-card__title--logo {
+  width: min(100%, 18rem);
+}
+
+.portfolio-sequence > .portfolio-item[data-portfolio-item="momentum-management"] > .product-card .product-card__title--momentum {
+  aspect-ratio: auto;
+  overflow: visible;
+}
+
+.portfolio-sequence > .portfolio-item[data-portfolio-item="momentum-management"] > .product-card .product-card__title--momentum img {
+  width: 100%;
+  max-width: 100%;
+  transform: none;
+}
+
+.portfolio-sequence > .portfolio-item > .product-card .product-card__description {
+  max-width: 42rem;
+  min-height: 0;
+  margin: clamp(1rem, 2vw, 1.5rem) 0 0;
+  color: var(--muted-ink);
+}
+
+.portfolio-sequence > .portfolio-item > .product-card .product-card__description {
+  align-self: auto;
+  font-size: 1rem;
+}
+
+.portfolio-sequence > .portfolio-item > .product-card .product-card__description p {
+  margin: 0;
+}
+
+.portfolio-sequence > .portfolio-item > .product-card .product-card__footer {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: clamp(1rem, 2vw, 1.5rem);
+}
+
+.portfolio-sequence > .portfolio-item > .product-card .concept-card__status {
+  margin-top: clamp(1rem, 2vw, 1.5rem);
+}
+
+.portfolio-sequence .music-for-this-moment-island,
+.portfolio-sequence .momo-gallery-portal {
+  width: 100%;
+}
+
+.portfolio-sequence__banner-picker .decision-demo {
+  margin-inline: 0;
+}
+
+.portfolio-sequence__banner-picker .decision-demo__locator {
+  margin-inline: 0;
 }
 
 .decision-demo {
@@ -1229,9 +1837,318 @@ html[data-view-controls="collapsed"] .view-controls {
   background: var(--collection);
 }
 
-.decision-demo__label {
-  margin: 0 clamp(0.75rem, 2.5vw, 2.5rem) 0.65rem;
-  color: var(--accent);
+.decision-demo__locator {
+  margin: 0 clamp(0.75rem, 2.5vw, 2.5rem) 0.35rem;
+}
+
+html[data-portfolio-layout="grouped"] .products.section {
+  padding-bottom: 0;
+}
+
+html[data-portfolio-layout="grouped"] .products .section-heading {
+  margin-bottom: clamp(2.25rem, 3.5vw, 2.75rem);
+}
+
+html[data-portfolio-layout="grouped"] .product-groups {
+  width: min(100%, var(--content-column-width));
+  margin-top: 0;
+  gap: 0;
+  --portfolio-item-width: 100%;
+}
+
+html[data-portfolio-layout="grouped"] .product-group {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.25rem);
+  padding-block: clamp(1rem, 2vw, 1.5rem);
+  background: var(--grouped-projects-field);
+  box-shadow: 0 0 0 100vmax var(--grouped-projects-field);
+  clip-path: inset(0 -100vmax);
+}
+
+html[data-portfolio-layout="grouped"] .product-group[aria-labelledby="products-concepts-title"] {
+  background: var(--grouped-concepts-field);
+  box-shadow: 0 0 0 100vmax var(--grouped-concepts-field);
+}
+
+html[data-portfolio-layout="grouped"] .product-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(1.5rem, 3vw, 2.25rem);
+  width: 100%;
+}
+
+html[data-portfolio-layout="grouped"] .product-group__title,
+html[data-portfolio-layout="grouped"] .showcase__heading {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+html[data-portfolio-layout="grouped"] .product-grid,
+html[data-portfolio-layout="grouped"] .product-group[aria-labelledby="products-concepts-title"] .product-grid {
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+html[data-portfolio-layout="grouped"] .product-groups .portfolio-item,
+html[data-portfolio-layout="grouped"] .showcase .portfolio-item {
+  display: flex;
+  flex-direction: column;
+  width: var(--portfolio-item-width, min(80%, 54rem));
+  min-width: 0;
+  min-height: 0;
+  justify-self: center;
+  margin: 0;
+}
+
+html[data-portfolio-layout="grouped"] .product-groups .product-card,
+html[data-portfolio-layout="grouped"] .showcase .showcase__card,
+html[data-portfolio-layout="grouped"] .showcase .decision-demo {
+  width: 100%;
+}
+
+html[data-portfolio-layout="grouped"] .product-groups .product-card,
+html[data-portfolio-layout="grouped"] .product-group[aria-labelledby="products-concepts-title"] .product-card {
+  min-height: 0;
+  padding: clamp(1.5rem, 3.5vw, 2.5rem);
+}
+
+html[data-portfolio-layout="grouped"] .product-group[aria-labelledby="products-development-title"] .product-card,
+html[data-portfolio-layout="grouped"] .product-card[data-project-id="momomovies"],
+html[data-portfolio-layout="grouped"] .product-card[data-project-id="listenlab"],
+html[data-portfolio-layout="grouped"] .product-card[data-project-id="momentum-management"] {
+  background-color: #bcae95;
+  background-image:
+    linear-gradient(rgb(195 187 170 / 72%), rgb(195 187 170 / 72%)),
+    url("assets/kahntra-card-paper-v2.png");
+  background-position: center top, var(--project-paper-position, center top);
+  background-repeat: repeat;
+  background-size: auto, 1080px 1080px;
+}
+
+html[data-portfolio-layout="grouped"] .product-group[aria-labelledby="products-development-title"] .product-card[data-project-id="listenlab"] {
+  --project-paper-position: 20% 0%;
+}
+
+html[data-portfolio-layout="grouped"] .product-group[aria-labelledby="products-development-title"] .product-card[data-project-id="momentum-management"] {
+  --project-paper-position: 77% 0%;
+}
+
+html[data-portfolio-layout="grouped"] .product-card[data-project-id="meal-match"] {
+  background-position: 34% 70%;
+}
+
+html[data-portfolio-layout="grouped"] .product-card[data-project-id="pathwise"] {
+  background-position: 86% 78%;
+}
+
+html[data-portfolio-layout="grouped"] .product-card[data-project-id="momentum-tasks"] {
+  background-position: 12% 88%;
+}
+
+html[data-portfolio-layout="grouped"] .product-card .product-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.35rem 0.65rem;
+  margin: 0 0 clamp(1.4rem, 3vw, 2rem);
+}
+
+html[data-portfolio-layout="grouped"] .product-card .stage,
+html[data-portfolio-layout="grouped"] .product-card .availability {
+  margin: 0;
+  padding: 0;
+}
+
+html[data-portfolio-layout="grouped"] .product-card .availability {
+  margin-left: auto;
+  text-align: right;
+}
+
+html[data-portfolio-layout="grouped"] .product-card .product-card__title,
+html[data-portfolio-layout="grouped"] .product-group[aria-labelledby="products-concepts-title"] .product-card__title {
+  min-height: 0;
+  margin: 0;
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.7rem, 3vw, 2.35rem);
+  font-weight: 400;
+  letter-spacing: -0.05em;
+  line-height: 1;
+}
+
+html[data-portfolio-layout="grouped"] .product-card .product-card__title--logo {
+  display: block;
+  width: min(100%, 12rem);
+}
+
+html[data-portfolio-layout="grouped"] .portfolio-item[data-portfolio-item="momomovies"] .product-card__title {
+  align-self: flex-start;
+  width: min(100%, 12rem);
+}
+
+html[data-portfolio-layout="grouped"] .portfolio-item[data-portfolio-item="listenlab"] .product-card__title--logo {
+  width: min(100%, 15rem);
+}
+
+html[data-portfolio-layout="grouped"] .portfolio-item[data-portfolio-item="momentum-management"] .product-card__title--logo {
+  width: min(100%, 18rem);
+}
+
+html[data-portfolio-layout="grouped"] .portfolio-item[data-portfolio-item="momentum-management"] .product-card__title--momentum {
+  aspect-ratio: auto;
+  overflow: visible;
+}
+
+html[data-portfolio-layout="grouped"] .portfolio-item[data-portfolio-item="momentum-management"] .product-card__title--momentum img {
+  width: 100%;
+  max-width: 100%;
+  transform: none;
+}
+
+html[data-portfolio-layout="grouped"] .product-card .product-card__description,
+html[data-portfolio-layout="grouped"] .product-group[aria-labelledby="products-concepts-title"] .product-card__description {
+  max-width: 42rem;
+  min-height: 0;
+  margin: clamp(1rem, 2vw, 1.5rem) 0 0;
+  color: var(--muted-ink);
+  font-size: 1rem;
+}
+
+html[data-portfolio-layout="grouped"] .product-card .product-card__footer {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: clamp(1rem, 2vw, 1.5rem);
+}
+
+html[data-portfolio-layout="grouped"] .product-card .concept-card__status {
+  margin-top: clamp(1rem, 2vw, 1.5rem);
+}
+
+.portfolio-sequence > .portfolio-item[data-portfolio-item="momomovies"] > .product-card,
+.portfolio-sequence > .portfolio-item[data-portfolio-item="listenlab"] > .product-card,
+.portfolio-sequence > .portfolio-item[data-portfolio-item="momentum-management"] > .product-card,
+html[data-portfolio-layout="grouped"] .portfolio-item[data-portfolio-item="momomovies"] .product-card,
+html[data-portfolio-layout="grouped"] .portfolio-item[data-portfolio-item="listenlab"] .product-card,
+html[data-portfolio-layout="grouped"] .portfolio-item[data-portfolio-item="momentum-management"] .product-card {
+  min-height: 0;
+}
+
+.portfolio-sequence > .portfolio-item[data-portfolio-item="momomovies"] > .product-card .product-card__meta,
+.portfolio-sequence > .portfolio-item[data-portfolio-item="listenlab"] > .product-card .product-card__meta,
+.portfolio-sequence > .portfolio-item[data-portfolio-item="momentum-management"] > .product-card .product-card__meta,
+html[data-portfolio-layout="grouped"] .portfolio-item[data-portfolio-item="momomovies"] .product-card .product-card__meta,
+html[data-portfolio-layout="grouped"] .portfolio-item[data-portfolio-item="listenlab"] .product-card .product-card__meta,
+html[data-portfolio-layout="grouped"] .portfolio-item[data-portfolio-item="momentum-management"] .product-card .product-card__meta {
+  min-height: 1.25rem;
+  margin-bottom: clamp(1.35rem, 2.6vw, 1.9rem);
+}
+
+.portfolio-sequence > .portfolio-item[data-portfolio-item="momomovies"] > .product-card .product-card__title--logo,
+.portfolio-sequence > .portfolio-item[data-portfolio-item="listenlab"] > .product-card .product-card__title--logo,
+.portfolio-sequence > .portfolio-item[data-portfolio-item="momentum-management"] > .product-card .product-card__title--logo,
+html[data-portfolio-layout="grouped"] .portfolio-item[data-portfolio-item="momomovies"] .product-card__title--logo,
+html[data-portfolio-layout="grouped"] .portfolio-item[data-portfolio-item="listenlab"] .product-card__title--logo,
+html[data-portfolio-layout="grouped"] .portfolio-item[data-portfolio-item="momentum-management"] .product-card__title--logo {
+  display: grid;
+  align-content: start;
+  justify-items: start;
+  width: min(100%, 42rem);
+  min-height: 6.35rem;
+  margin: 0;
+}
+
+.portfolio-sequence > .portfolio-item[data-portfolio-item="momomovies"] > .product-card .product-card__title--logo img,
+html[data-portfolio-layout="grouped"] .portfolio-item[data-portfolio-item="momomovies"] .product-card__title--logo img {
+  width: min(100%, 12rem);
+}
+
+.portfolio-sequence > .portfolio-item[data-portfolio-item="listenlab"] > .product-card .product-card__title--logo img,
+html[data-portfolio-layout="grouped"] .portfolio-item[data-portfolio-item="listenlab"] .product-card__title--logo img {
+  width: min(100%, 15rem);
+}
+
+.portfolio-sequence > .portfolio-item[data-portfolio-item="momentum-management"] > .product-card .product-card__title--logo img,
+html[data-portfolio-layout="grouped"] .portfolio-item[data-portfolio-item="momentum-management"] .product-card__title--logo img {
+  width: min(100%, 18rem);
+}
+
+.portfolio-sequence > .portfolio-item[data-portfolio-item="momomovies"] > .product-card .product-card__description,
+.portfolio-sequence > .portfolio-item[data-portfolio-item="listenlab"] > .product-card .product-card__description,
+.portfolio-sequence > .portfolio-item[data-portfolio-item="momentum-management"] > .product-card .product-card__description,
+html[data-portfolio-layout="grouped"] .portfolio-item[data-portfolio-item="momomovies"] .product-card__description,
+html[data-portfolio-layout="grouped"] .portfolio-item[data-portfolio-item="listenlab"] .product-card__description,
+html[data-portfolio-layout="grouped"] .portfolio-item[data-portfolio-item="momentum-management"] .product-card__description {
+  max-width: 34rem;
+  min-height: 3.7rem;
+  margin: clamp(1.15rem, 2vw, 1.45rem) 0 1rem;
+  color: #333936;
+}
+
+.portfolio-sequence > .portfolio-item[data-portfolio-item="momomovies"] > .product-card .product-card__footer,
+.portfolio-sequence > .portfolio-item[data-portfolio-item="listenlab"] > .product-card .product-card__footer,
+.portfolio-sequence > .portfolio-item[data-portfolio-item="momentum-management"] > .product-card .product-card__footer,
+html[data-portfolio-layout="grouped"] .portfolio-item[data-portfolio-item="momomovies"] .product-card__footer,
+html[data-portfolio-layout="grouped"] .portfolio-item[data-portfolio-item="listenlab"] .product-card__footer,
+html[data-portfolio-layout="grouped"] .portfolio-item[data-portfolio-item="momentum-management"] .product-card__footer {
+  justify-content: flex-start;
+  margin: 0 0 clamp(1.45rem, 2.4vw, 1.85rem);
+}
+
+.portfolio-sequence > .portfolio-item[data-portfolio-item="meal-match"] > .product-card,
+.portfolio-sequence > .portfolio-item[data-portfolio-item="pathwise"] > .product-card,
+.portfolio-sequence > .portfolio-item[data-portfolio-item="momentum-tasks"] > .product-card,
+html[data-portfolio-layout="grouped"] .portfolio-item[data-portfolio-item="meal-match"] .product-card,
+html[data-portfolio-layout="grouped"] .portfolio-item[data-portfolio-item="pathwise"] .product-card,
+html[data-portfolio-layout="grouped"] .portfolio-item[data-portfolio-item="momentum-tasks"] .product-card {
+  min-height: clamp(15rem, 24vw, 18rem);
+}
+
+.portfolio-sequence > .portfolio-item[data-portfolio-item="meal-match"] > .product-card .product-card__title,
+.portfolio-sequence > .portfolio-item[data-portfolio-item="pathwise"] > .product-card .product-card__title,
+.portfolio-sequence > .portfolio-item[data-portfolio-item="momentum-tasks"] > .product-card .product-card__title,
+html[data-portfolio-layout="grouped"] .portfolio-item[data-portfolio-item="meal-match"] .product-card__title,
+html[data-portfolio-layout="grouped"] .portfolio-item[data-portfolio-item="pathwise"] .product-card__title,
+html[data-portfolio-layout="grouped"] .portfolio-item[data-portfolio-item="momentum-tasks"] .product-card__title {
+  min-height: 0;
+  margin: 0 0 clamp(0.75rem, 1.4vw, 1rem);
+}
+
+.portfolio-sequence > .portfolio-item[data-portfolio-item="meal-match"] > .product-card .product-card__description,
+.portfolio-sequence > .portfolio-item[data-portfolio-item="pathwise"] > .product-card .product-card__description,
+.portfolio-sequence > .portfolio-item[data-portfolio-item="momentum-tasks"] > .product-card .product-card__description,
+html[data-portfolio-layout="grouped"] .portfolio-item[data-portfolio-item="meal-match"] .product-card__description,
+html[data-portfolio-layout="grouped"] .portfolio-item[data-portfolio-item="pathwise"] .product-card__description,
+html[data-portfolio-layout="grouped"] .portfolio-item[data-portfolio-item="momentum-tasks"] .product-card__description {
+  max-width: 42rem;
+  min-height: 0;
+  margin: 0;
+}
+
+html[data-portfolio-layout="grouped"] .showcase {
+  display: grid;
+  width: min(100%, var(--content-column-width));
+  margin: 0 auto;
+  padding-block: clamp(1rem, 2vw, 1.5rem);
+  gap: clamp(1rem, 2vw, 1.5rem);
+  background: var(--grouped-explorations-field);
+  box-shadow: 0 0 0 100vmax var(--grouped-explorations-field);
+  clip-path: inset(0 -100vmax);
+  --portfolio-item-width: 100%;
+}
+
+html[data-portfolio-layout="grouped"] .showcase__card--music {
+  margin-bottom: 0;
+}
+
+html[data-portfolio-layout="grouped"] .showcase .portfolio-sequence__banner-picker .decision-demo {
+  margin-inline: 0;
 }
 
 .decision-demo__heading {
@@ -3339,6 +4256,7 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
 
 .about-dialog__content {
   overflow: auto;
+  overscroll-behavior: contain;
   padding: clamp(1.25rem, 4vw, 3rem);
 }
 
@@ -3522,10 +4440,10 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
   }
 
   :root {
-    --primary-header-height: 64px;
-    --view-controls-expanded-height: 76px;
-    --view-controls-collapsed-height: 36px;
-    --sticky-header-height: calc(var(--primary-header-height) + var(--view-controls-collapsed-height));
+    --primary-header-height: 52px;
+    --view-controls-expanded-height: 0px;
+    --view-controls-collapsed-height: 0px;
+    --sticky-header-height: var(--primary-header-height);
   }
 
   .site-toolbar {
@@ -3589,11 +4507,17 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
   .product-card__description {
     min-height: 13.5rem;
   }
+
+  .product-card[data-project-id="momomovies"] .product-card__description,
+  .product-card[data-project-id="listenlab"] .product-card__description,
+  .product-card[data-project-id="momentum-management"] .product-card__description {
+    min-height: 3.7rem;
+  }
 }
 
 @media (max-width: 760px) {
   :root {
-    --primary-header-height: 52px;
+    --primary-header-height: 48px;
     --view-controls-expanded-height: 0px;
     --view-controls-collapsed-height: 0px;
     --sticky-header-height: var(--primary-header-height);
@@ -3610,14 +4534,19 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
 
   .site-shell {
     width: min(100% - 32px, 1180px);
+    padding-top: var(--primary-header-height);
   }
 
   .site-header-system {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
     height: var(--primary-header-height);
-    margin-inline: -1rem;
+    margin-inline: 0;
     padding-inline: 1rem;
     border-bottom: 1px solid var(--line);
-    background: var(--header);
+    background: color-mix(in srgb, var(--header) 94%, white);
     box-shadow: none;
   }
 
@@ -3652,6 +4581,7 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
     align-self: center;
     justify-self: start;
     width: auto;
+    height: 1.22rem;
     max-width: calc(100vw - 5.75rem);
     transform: translateY(1px);
   }
@@ -3665,7 +4595,7 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
   }
 
   .lens-toggle {
-    height: 30px;
+    height: 28px;
     min-height: 0;
     padding-inline: 0.44rem;
     font-size: 0.72rem;
@@ -3674,6 +4604,14 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
   .lens-panel {
     top: calc(100% + 0.4rem);
     right: 0;
+  }
+
+  .item-locator {
+    gap: 0.32rem;
+  }
+
+  .item-locator__separator {
+    min-width: 2rem;
   }
 
   .mobile-perspective-selector {
@@ -3842,12 +4780,13 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
   }
 
   .hero__title {
-    margin-inline: -1rem;
-    padding-inline: 1rem;
+    width: min(calc(100% - 32px), var(--content-column-width));
+    margin-inline: auto;
+    padding-inline: 0;
   }
 
   .hero__title-field {
-    inset: 0 -1rem;
+    inset: 0;
     background-position: center;
     background-size: cover;
     opacity: 0.74;
@@ -4069,6 +5008,28 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
 
   .decision-demo__soft-tags button {
     transition-duration: 0ms;
+  }
+}
+
+@media (max-width: 640px) {
+  .portfolio-sequence {
+    grid-template-columns: minmax(0, 1fr);
+    width: min(100% - clamp(1.5rem, 5vw, 4rem), 67.5rem);
+  }
+
+  .portfolio-sequence > .portfolio-item[data-portfolio-item],
+  .portfolio-sequence__banner-picker[data-portfolio-item] {
+    width: 100%;
+  }
+
+  html[data-portfolio-layout="grouped"] .product-groups .portfolio-item,
+  html[data-portfolio-layout="grouped"] .showcase .portfolio-item {
+    width: 100%;
+  }
+
+  .portfolio-sequence > .portfolio-item > .product-card .product-card__meta,
+  .portfolio-sequence > .portfolio-item > .showcase__card .product-card__meta {
+    margin-bottom: 1.5rem;
   }
 }
 .decision-demo__selected-sample {

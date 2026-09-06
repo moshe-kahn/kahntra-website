@@ -33,8 +33,11 @@ if (!index.includes('data-mftm-primary-island') || !index.includes('music-for-th
   fail("primary picker island is not mounted in the Showcase");
 }
 if (index.includes("Previous explorations")) fail("experimental lower picker must not be mounted");
-if (!index.includes('class="showcase__card showcase__card--music"') || !index.includes('music-for-this-moment__anchor')) {
-  fail("picker needs its own Momo-style Showcase heading rather than a nested card");
+if (!index.includes('class="showcase__card showcase__card--music"') || !index.includes("data-mftm-primary-island")) {
+  fail("primary picker must remain mounted in its Showcase card");
+}
+if (index.includes("music-for-this-moment__anchor") || index.includes('id="music-for-this-moment-title"')) {
+  fail("removed outside Music for the Moment heading must not be remounted");
 }
 
 const siteStyles = await readFile(resolve(root, "styles.css"), "utf8");

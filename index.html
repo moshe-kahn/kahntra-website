@@ -11,6 +11,8 @@
   <link rel="icon" type="image/svg+xml" sizes="32x32" href="assets/k-favicon-32.svg">
   <link rel="icon" type="image/svg+xml" sizes="512x512" href="assets/k-favicon-large.svg">
   <link rel="apple-touch-icon" sizes="512x512" href="assets/k-favicon-large.svg">
+  <link rel="preload" as="image" href="assets/momo-editions/demo-preview-gallery-thumb.jpg">
+  <link rel="preload" as="image" href="assets/music-for-this-moment/demo-preview-high-energy-collections-thumb.jpg">
   <script>
     (() => {
       const root = document.documentElement;
@@ -23,8 +25,8 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="styles.css?v=task-0073-lens-panel-step1">
-  <link rel="stylesheet" href="momo-editions-gallery.css?v=task-0072-semantics-1">
+  <link rel="stylesheet" href="styles.css?v=task-0073-project-card-collapse-1">
+  <link rel="stylesheet" href="momo-editions-gallery.css?v=task-0073-mobile-credits-1">
   <link rel="stylesheet" href="music-for-this-moment/playlist-showcase.island.css?v=task-0080-mobile-showcase-1">
 </head>
 
@@ -76,7 +78,7 @@
                     <path d="M3.2 9.6h9.6"/>
                     <path d="M3.2 12.2h9.6"/>
                   </svg>
-                  <span>Detailed</span>
+                  <span>Verbose</span>
                 </button>
               </div>
             </fieldset>
@@ -110,14 +112,14 @@
             <button type="button" data-global-lens="design-philosophy" aria-pressed="true"><span>General</span></button>
             <button type="button" data-global-lens="technical" aria-pressed="false"><span>Technical</span></button>
           </div>
-          <button class="context-toggle desktop-context-toggle" type="button" data-context-toggle aria-pressed="false" aria-label="Show detailed view">
+          <button class="context-toggle desktop-context-toggle" type="button" data-context-toggle aria-pressed="false" aria-label="Show verbose view">
             <span class="context-toggle__paper" aria-hidden="true">
               <span class="context-toggle__single-letter">?</span>
               <span class="context-toggle__letter-grid"><span>t</span><span>l</span><span>d</span><span>r</span></span>
             </span>
           </button>
         </div>
-        <button class="mobile-context-toggle" type="button" data-mobile-context-toggle aria-pressed="false" aria-label="Show detailed view">
+        <button class="mobile-context-toggle" type="button" data-mobile-context-toggle aria-pressed="false" aria-label="Show verbose view">
           <span class="mobile-context-toggle__paper" aria-hidden="true">
             <span class="mobile-context-toggle__single-letter">?</span>
             <span class="mobile-context-toggle__letter-grid"><span>t</span><span>l</span><span>d</span><span>r</span></span>
@@ -142,7 +144,7 @@
             <span class="view-control-group__label">Detail:</span>
             <div class="view-control-group__options" role="group" aria-label="Detail">
               <button type="button" data-global-detail="concise" aria-pressed="true">Concise</button>
-              <button type="button" data-global-detail="verbose" aria-pressed="false">Detailed</button>
+              <button type="button" data-global-detail="verbose" aria-pressed="false">Verbose</button>
             </div>
           </div>
         </div>
@@ -193,10 +195,25 @@
               <p data-perspective="technical" data-detail="regular" hidden>A growing body of context-aware tools for everyday decisions, combining dense underlying data with lightweight current signals to surface what matters most in the moment.</p>
               <p data-perspective="technical" data-detail="more" hidden>A growing body of context-aware tools for everyday decisions, combining dense underlying data with lightweight current signals to surface what matters most in the moment.</p>
             </div>
+            <nav class="moments-directory" data-moments-directory aria-label="Moments Collection directory">
+              <a href="#moments-momomovies" data-directory-item="momomovies"><span class="moments-directory__code">PROJECT 01</span><span class="moments-directory__separator" aria-hidden="true">—</span><span class="moments-directory__descriptor">Movie discovery</span></a>
+              <a href="#moments-momentum-tasks" data-directory-item="momentum-tasks"><span class="moments-directory__code">CONCEPT 03</span><span class="moments-directory__separator" aria-hidden="true">—</span><span class="moments-directory__descriptor">Household chore coordination</span></a>
+              <a href="#moments-music-for-this-moment" data-directory-item="music-for-this-moment"><span class="moments-directory__code">EXPLORATION 01</span><span class="moments-directory__separator" aria-hidden="true">—</span><span class="moments-directory__descriptor">Experience-based playlists</span></a>
+              <a href="#moments-pathwise" data-directory-item="pathwise"><span class="moments-directory__code">CONCEPT 02</span><span class="moments-directory__separator" aria-hidden="true">—</span><span class="moments-directory__descriptor">Refined route navigation</span></a>
+              <a href="#moments-listenlab" data-directory-item="listenlab"><span class="moments-directory__code">PROJECT 02</span><span class="moments-directory__separator" aria-hidden="true">—</span><span class="moments-directory__descriptor">Music library tools</span></a>
+              <a href="#moments-meal-match" data-directory-item="meal-match"><span class="moments-directory__code">CONCEPT 01</span><span class="moments-directory__separator" aria-hidden="true">—</span><span class="moments-directory__descriptor">Food decision aid</span></a>
+              <a href="#moments-momo-editions" data-directory-item="momo-editions"><span class="moments-directory__code">EXPLORATION 02</span><span class="moments-directory__separator" aria-hidden="true">—</span><span class="moments-directory__descriptor">Film experience portraits</span></a>
+              <a href="#moments-momentum-management" data-directory-item="momentum-management"><span class="moments-directory__code">PROJECT 03</span><span class="moments-directory__separator" aria-hidden="true">—</span><span class="moments-directory__descriptor">Work context management</span></a>
+              <a href="#moments-banner-picker" data-directory-item="banner-picker"><span class="moments-directory__code">EXPLORATION 03</span><span class="moments-directory__separator" aria-hidden="true">—</span><span class="moments-directory__descriptor">Visual preference matching</span></a>
+            </nav>
           </div>
         </div>
 
-        <p class="eyebrow decision-demo__label" data-tech-demo-label>Experiment</p>
+        <div class="item-locator decision-demo__locator" id="moments-banner-picker" data-tech-demo-locator>
+          <span class="item-locator__code">EXPLORATION 03</span>
+          <span class="item-locator__separator" aria-hidden="true">—</span>
+          <span class="item-locator__descriptor">Visual preference matching</span>
+        </div>
         <section class="decision-demo section" data-tech-demo aria-labelledby="decision-demo-title">
           <div class="decision-demo__opening">
             <div class="decision-demo__opening-copy">
@@ -292,76 +309,194 @@
           <section class="product-group" aria-labelledby="products-development-title">
             <h3 class="product-group__title" id="products-development-title">Projects</h3>
             <div class="product-grid">
+          <div class="portfolio-item" id="moments-momomovies" data-portfolio-item-shell="momomovies">
+          <div class="item-locator">
+            <span class="item-locator__code">PROJECT 01</span>
+            <span class="item-locator__separator" aria-hidden="true">—</span>
+            <span class="item-locator__descriptor">Movie discovery</span>
+          </div>
           <article class="product-card" data-project-id="momomovies">
             <div class="product-card__meta">
-              <p class="stage">Beta</p>
-              <p class="availability">Public access</p>
+              <p class="product-card__platform">WEB APP</p>
+              <div class="product-card__meta-stack">
+                <p class="availability"><span class="stage">ALPHA</span> · PUBLIC ACCESS</p>
+                <details class="product-card__unavailable product-card__unavailable--meta">
+                  <summary><span class="product-card__external-label">Visit momomovies.app</span><span class="product-card__external-icon" aria-hidden="true">↗</span></summary>
+                  <span>Temporarily unavailable</span>
+                </details>
+              </div>
             </div>
             <h4 class="product-card__title product-card__title--logo"><img src="assets/momo-movies-logo-transparent.svg" alt="Momo Movies"></h4>
             <div class="product-card__description" data-content-group>
-              <p data-perspective="philosophy" data-detail="less" hidden>MomoMovies treats choosing a film as a human decision shaped by mood, context, and the people watching.</p>
-              <p data-perspective="philosophy" data-detail="regular" hidden>Choosing a film is rarely about genre or ratings alone. MomoMovies treats discovery as a human decision: mood, context, and the people watching matter.</p>
-              <p data-perspective="philosophy" data-detail="more" hidden>Choosing a film can become overwhelming when genre, ratings, and long lists stand in for the situation people are actually in. MomoMovies treats discovery as a human decision: mood, available time, the people watching, and the kind of experience they want all matter.</p>
               <p data-perspective="general" data-detail="less" hidden>MomoMovies helps people choose a film by considering mood, viewing context, and available services.</p>
-              <p data-perspective="general" data-detail="regular" hidden>MomoMovies helps people decide what to watch through mood, viewing context, and available services. The product is in development; its public experience is temporarily unavailable while it is refined.</p>
-              <p data-perspective="general" data-detail="more" hidden>MomoMovies is for people choosing alone or with others who want a more useful starting point than an endless catalogue. It narrows choices through mood, viewing context, and available services. The product is in development, and its public experience is temporarily unavailable while that work continues.</p>
-              <p data-perspective="technical" data-detail="less">MomoMovies experiments with Vibes-based discovery and streaming availability.</p>
-              <p data-perspective="technical" data-detail="regular" hidden>MomoMovies is an active product experiment combining curated discovery, Vibes-based browsing, streaming-availability work, and private data and analysis pipelines. Some enrichment and ranking work remains experimental.</p>
-              <p data-perspective="technical" data-detail="more" hidden>MomoMovies combines Vibes-based browsing with structured dimensions and filters, streaming-availability work, and curated ordering experiments. Private enrichment and data pipelines support analysis and discovery research. Ranking work and some enrichment capabilities remain experimental.</p>
+              <p data-perspective="general" data-detail="regular" hidden>MomoMovies helps people choose a film by weighing mood, viewing context, available services, and personal taste at the moment of choosing.</p>
+              <p data-perspective="general" data-detail="more" hidden>MomoMovies helps people choose a film by weighing mood, viewing context, available services, and personal taste at the moment of choosing.</p>
+              <p data-perspective="technical" data-detail="less">MomoMovies helps people choose a film by considering mood, viewing context, and available services.</p>
+              <p data-perspective="technical" data-detail="regular" hidden>MomoMovies helps people choose a film by weighing mood, viewing context, available services, and personal taste at the moment of choosing.</p>
+              <p data-perspective="technical" data-detail="more" hidden>MomoMovies helps people choose a film by weighing mood, viewing context, available services, and personal taste at the moment of choosing.</p>
             </div>
-            <div class="product-card__footer">
-              <p class="product-card__platform">Web app</p>
-              <details class="product-card__unavailable">
-                <summary>Visit MomoMovies</summary>
-                <span>Temporarily unavailable</span>
-              </details>
+            <button class="product-card__more-info" type="button" aria-expanded="false" aria-controls="momomovies-detail-tabs" data-project-more><span class="product-card__more-info-label">More info</span><span class="product-card__more-info-icon" aria-hidden="true">▾</span></button>
+            <div class="project-tabs" id="momomovies-detail-tabs" data-project-tabs hidden>
+              <div class="project-tabs__list" role="tablist" aria-label="MomoMovies details">
+                <button class="project-tabs__tab" type="button" role="tab" aria-selected="true" aria-controls="momomovies-features" id="momomovies-features-tab" data-project-tab-button="features">Features</button>
+                <button class="project-tabs__tab" type="button" role="tab" aria-selected="false" aria-controls="momomovies-demos" id="momomovies-demos-tab" data-project-tab-button="demos">Demos</button>
+                <button class="project-tabs__tab" type="button" role="tab" aria-selected="false" aria-controls="momomovies-technical" id="momomovies-technical-tab" data-project-tab-button="technical">Technical details</button>
+              </div>
+              <div class="project-tabs__panel" id="momomovies-features" role="tabpanel" aria-labelledby="momomovies-features-tab" data-project-tab-panel="features">
+                <ul>
+                  <li>Mood- and vibe-based film browsing.</li>
+                  <li>Filters for context, time, and services.</li>
+                  <li>Curated ordering for large catalogues.</li>
+                  <li>Private library and watch-intent models.</li>
+                </ul>
+                <h5>IN DEVELOPMENT</h5>
+                <ul>
+                  <li>Streaming-provider validation.</li>
+                  <li>Recommendation ranking evaluation.</li>
+                </ul>
+              </div>
+              <div class="project-tabs__panel" id="momomovies-demos" role="tabpanel" aria-labelledby="momomovies-demos-tab" data-project-tab-panel="demos" hidden>
+                <a class="project-demo-preview" href="#moments-momo-editions" aria-label="Jump to Momo Editions exploration">
+                  <span class="project-demo-preview__media">
+                    <img src="assets/momo-editions/demo-preview-gallery-thumb.jpg" width="960" height="705" loading="eager" decoding="async" fetchpriority="low" alt="">
+                  </span>
+                  <span class="project-demo-preview__copy">
+                    <span class="project-demo-preview__row">
+                      <span class="project-demo-preview__title">Momo Editions</span>
+                      <span class="project-demo-preview__action">View <span aria-hidden="true">→</span></span>
+                    </span>
+                    <span class="project-demo-preview__descriptor">Film experience portraits</span>
+                  </span>
+                </a>
+              </div>
+              <div class="project-tabs__panel" id="momomovies-technical" role="tabpanel" aria-labelledby="momomovies-technical-tab" data-project-tab-panel="technical" hidden>
+                <ul>
+                  <li>SvelteKit/TypeScript app on Vercel.</li>
+                  <li>Supabase auth, roles, library data, reviews, and poster storage.</li>
+                  <li>Generated catalog JSON with recommendation and Vibe-affinity data.</li>
+                  <li>TMDB metadata and U.S. streaming availability.</li>
+                </ul>
+              </div>
             </div>
           </article>
+          </div>
 
+          <div class="portfolio-item" id="moments-listenlab" data-portfolio-item-shell="listenlab">
+          <div class="item-locator">
+            <span class="item-locator__code">PROJECT 02</span>
+            <span class="item-locator__separator" aria-hidden="true">—</span>
+            <span class="item-locator__descriptor">Music library tools</span>
+          </div>
           <article class="product-card" data-project-id="listenlab">
             <div class="product-card__meta">
-              <p class="stage">Prototype</p>
-              <p class="availability">Public repository</p>
+              <p class="product-card__platform">WEB APP</p>
+              <div class="product-card__meta-stack">
+                <p class="availability"><span class="stage">PROTOTYPE</span> · PUBLIC REPOSITORY</p>
+              </div>
             </div>
             <h4 class="product-card__title product-card__title--logo product-card__title--listenlab"><img src="assets/listenlab-wordmark-color-on-light.svg" alt="ListenLab"></h4>
             <div class="product-card__description" data-content-group>
-              <p data-perspective="philosophy" data-detail="less" hidden>ListenLab reveals music relationships that ordinary streaming interfaces leave behind.</p>
-              <p data-perspective="philosophy" data-detail="regular" hidden>ListenLab explores how music collections can reveal connections that ordinary streaming interfaces flatten or hide: alternate releases, performances, covers, album context, and personally meaningful organization.</p>
-              <p data-perspective="philosophy" data-detail="more" hidden>ListenLab explores how music collections can reveal connections that ordinary streaming interfaces flatten or hide. Rather than treating a track as a single isolated item, it makes room for alternate performances, covers, album context, and the personal ways people organize music.</p>
               <p data-perspective="general" data-detail="less" hidden>ListenLab is a private prototype for exploring music collections with more context.</p>
-              <p data-perspective="general" data-detail="regular" hidden>ListenLab is a private music-listening and collection prototype designed to help people explore songs, recordings, releases, and playlists with more context.</p>
-              <p data-perspective="general" data-detail="more" hidden>ListenLab is a private music-listening and collection prototype designed to help people explore songs, recordings, releases, and playlists with more context. It brings those materials into a connected view shaped by the relationships that make a collection meaningful.</p>
-              <p data-perspective="technical" data-detail="less">ListenLab prototypes interfaces for exploring music metadata, recordings, releases, and playlists.</p>
-              <p data-perspective="technical" data-detail="regular" hidden>ListenLab is a private prototype exploring music metadata relationships through interface experiments around playlist organization, alternate recordings, and release context.</p>
-              <p data-perspective="technical" data-detail="more" hidden>ListenLab is a private prototype exploring music metadata relationships through interface experiments around playlist organization, alternate recordings, and release context. The work tests how those connections can be made legible without presenting a public production service.</p>
+              <p data-perspective="general" data-detail="regular" hidden>ListenLab explores music collections through the relationships between songs, recordings, releases, playlists, and listening patterns.</p>
+              <p data-perspective="general" data-detail="more" hidden>ListenLab explores music collections through the relationships between songs, recordings, releases, playlists, and listening patterns.</p>
+              <p data-perspective="technical" data-detail="less">ListenLab is a private prototype for exploring music collections with more context.</p>
+              <p data-perspective="technical" data-detail="regular" hidden>ListenLab explores music collections through the relationships between songs, recordings, releases, playlists, and listening patterns.</p>
+              <p data-perspective="technical" data-detail="more" hidden>ListenLab explores music collections through the relationships between songs, recordings, releases, playlists, and listening patterns.</p>
             </div>
-            <div class="product-card__footer">
-              <p class="product-card__platform">Web app</p>
-              <a class="product-card__external" href="https://github.com/moshe-kahn/listen-labs" target="_blank" rel="noreferrer">View repository <span aria-hidden="true">↗</span></a>
+            <button class="product-card__more-info" type="button" aria-expanded="false" aria-controls="listenlab-detail-tabs" data-project-more><span class="product-card__more-info-label">More info</span><span class="product-card__more-info-icon" aria-hidden="true">▾</span></button>
+            <div class="project-tabs" id="listenlab-detail-tabs" data-project-tabs hidden>
+              <div class="project-tabs__list" role="tablist" aria-label="ListenLab details">
+                <button class="project-tabs__tab" type="button" role="tab" aria-selected="true" aria-controls="listenlab-features" id="listenlab-features-tab" data-project-tab-button="features">Features</button>
+                <button class="project-tabs__tab" type="button" role="tab" aria-selected="false" aria-controls="listenlab-demos" id="listenlab-demos-tab" data-project-tab-button="demos">Demos</button>
+                <button class="project-tabs__tab" type="button" role="tab" aria-selected="false" aria-controls="listenlab-technical" id="listenlab-technical-tab" data-project-tab-button="technical">Technical details</button>
+              </div>
+              <div class="project-tabs__panel" id="listenlab-features" role="tabpanel" aria-labelledby="listenlab-features-tab" data-project-tab-panel="features">
+                <ul>
+                  <li>Song, recording, release, and playlist relationships.</li>
+                  <li>Playlist organization and release-context prototypes.</li>
+                  <li>Collection views beyond standard streaming libraries.</li>
+                </ul>
+              </div>
+              <div class="project-tabs__panel" id="listenlab-demos" role="tabpanel" aria-labelledby="listenlab-demos-tab" data-project-tab-panel="demos" hidden>
+                <a class="project-demo-preview" href="#moments-music-for-this-moment" aria-label="Jump to Music for the Moment exploration">
+                  <span class="project-demo-preview__media">
+                    <img src="assets/music-for-this-moment/demo-preview-high-energy-collections-thumb.jpg" width="960" height="694" loading="eager" decoding="async" fetchpriority="low" alt="">
+                  </span>
+                  <span class="project-demo-preview__copy">
+                    <span class="project-demo-preview__row">
+                      <span class="project-demo-preview__title">Music for the Moment</span>
+                      <span class="project-demo-preview__action">View <span aria-hidden="true">→</span></span>
+                    </span>
+                    <span class="project-demo-preview__descriptor">Experience-based playlists</span>
+                  </span>
+                </a>
+              </div>
+              <div class="project-tabs__panel" id="listenlab-technical" role="tabpanel" aria-labelledby="listenlab-technical-tab" data-project-tab-panel="technical" hidden>
+                <ul>
+                  <li>React/Vite frontend with FastAPI backend.</li>
+                  <li>Spotify OAuth/Web API for library, playlists, playback, follows, and listening data.</li>
+                  <li>SQLite migrations, encrypted tokens, history ingest, and identity records.</li>
+                  <li>Deduplication, caching, duration reconciliation, and track-family clustering.</li>
+                </ul>
+                <a class="product-card__external" href="https://github.com/moshe-kahn/listen-labs" target="_blank" rel="noreferrer"><span class="product-card__external-label">Visit GitHub repository</span><span class="product-card__external-icon" aria-hidden="true">↗</span></a>
+              </div>
             </div>
           </article>
+          </div>
 
+          <div class="portfolio-item" id="moments-momentum-management" data-portfolio-item-shell="momentum-management">
+          <div class="item-locator">
+            <span class="item-locator__code">PROJECT 03</span>
+            <span class="item-locator__separator" aria-hidden="true">—</span>
+            <span class="item-locator__descriptor">Work context management</span>
+          </div>
           <article class="product-card" data-project-id="momentum-management">
             <div class="product-card__meta">
-              <p class="stage">Pilot</p>
-              <p class="availability">Private access</p>
+              <p class="product-card__platform">MACOS APP</p>
+              <div class="product-card__meta-stack">
+                <p class="availability"><span class="stage">PILOT</span> · PRIVATE ACCESS</p>
+              </div>
             </div>
             <h4 class="product-card__title product-card__title--logo product-card__title--momentum"><img src="assets/momentum-management-primary-navy-transparent-1400.png" alt="Momentum Management"></h4>
             <div class="product-card__description" data-content-group>
-              <p data-perspective="philosophy" data-detail="less" hidden>Momentum Management helps make ongoing work visible without losing the context around it.</p>
-              <p data-perspective="philosophy" data-detail="regular" hidden>Momentum Management explores a calmer way to see and organize ongoing work, preserving the context that makes priorities meaningful.</p>
-              <p data-perspective="philosophy" data-detail="more" hidden>Momentum Management explores how ongoing work can stay legible without reducing it to an endless task list. It keeps the relationships around priorities, commitments, and attention in view.</p>
               <p data-perspective="general" data-detail="less" hidden>Momentum Management is a private prototype for seeing active work with more context.</p>
-              <p data-perspective="general" data-detail="regular" hidden>Momentum Management is a private prototype for organizing active work, its relationships, and the attention it needs.</p>
-              <p data-perspective="general" data-detail="more" hidden>Momentum Management is a private prototype for organizing active work with clearer context. It brings priorities, relationships, and current attention into one view without treating every item as equivalent.</p>
-              <p data-perspective="technical" data-detail="less">Momentum Management prototypes a shared model for active work and its context.</p>
-              <p data-perspective="technical" data-detail="regular" hidden>Momentum Management is a private prototype for a read-only view of active work, its relationships, and current attention across a shared system.</p>
-              <p data-perspective="technical" data-detail="more" hidden>Momentum Management is a private prototype for a read-only view of active work, its relationships, and current attention across a shared system. It tests how those connected records can remain legible without turning the interface into a collection of separate dashboards.</p>
+              <p data-perspective="general" data-detail="regular" hidden>Momentum Management gives active work more context across projects, tasks, inboxes, attention, and resumable state.</p>
+              <p data-perspective="general" data-detail="more" hidden>Momentum Management gives active work more context across projects, tasks, inboxes, attention, and resumable state.</p>
+              <p data-perspective="technical" data-detail="less">Momentum Management is a private prototype for seeing active work with more context.</p>
+              <p data-perspective="technical" data-detail="regular" hidden>Momentum Management gives active work more context across projects, tasks, inboxes, attention, and resumable state.</p>
+              <p data-perspective="technical" data-detail="more" hidden>Momentum Management gives active work more context across projects, tasks, inboxes, attention, and resumable state.</p>
             </div>
-            <div class="product-card__footer">
-              <p class="product-card__platform">macOS app</p>
+            <button class="product-card__more-info" type="button" aria-expanded="false" aria-controls="momentum-management-detail-tabs" data-project-more><span class="product-card__more-info-label">More info</span><span class="product-card__more-info-icon" aria-hidden="true">▾</span></button>
+            <div class="project-tabs" id="momentum-management-detail-tabs" data-project-tabs hidden>
+              <div class="project-tabs__list" role="tablist" aria-label="Momentum Management details">
+                <button class="project-tabs__tab" type="button" role="tab" aria-selected="true" aria-controls="momentum-management-features" id="momentum-management-features-tab" data-project-tab-button="features">Features</button>
+                <button class="project-tabs__tab" type="button" role="tab" aria-selected="false" aria-controls="momentum-management-technical" id="momentum-management-technical-tab" data-project-tab-button="technical">Technical details</button>
+              </div>
+              <div class="project-tabs__panel" id="momentum-management-features" role="tabpanel" aria-labelledby="momentum-management-features-tab" data-project-tab-panel="features">
+                <ul>
+                  <li>SwiftUI dashboard for active work context.</li>
+                  <li>Selected product-root comparison.</li>
+                  <li>Inbox counts and local status summaries.</li>
+                  <li>Safe filesystem actions for configured roots.</li>
+                </ul>
+                <h5>IN DEVELOPMENT</h5>
+                <ul>
+                  <li>Single selected Productions root.</li>
+                  <li>Shared read-only operational views.</li>
+                  <li>Write actions gated by transaction rules.</li>
+                </ul>
+              </div>
+              <div class="project-tabs__panel" id="momentum-management-technical" role="tabpanel" aria-labelledby="momentum-management-technical-tab" data-project-tab-panel="technical" hidden>
+                <ul>
+                  <li>File-backed operations system for projects, tasks, status, inboxes, and context.</li>
+                  <li>Headless transactional commands for validated Codex actions.</li>
+                  <li>Confirmation tokens, journals, recovery checks, and schema validation.</li>
+                  <li>SwiftUI macOS 14 app over portable Markdown records.</li>
+                </ul>
+              </div>
             </div>
           </article>
+          </div>
             </div>
           </section>
 
@@ -369,6 +504,12 @@
             <h3 class="product-group__title" id="products-concepts-title">Concepts</h3>
             <div class="product-grid">
 
+          <div class="portfolio-item" id="moments-meal-match" data-portfolio-item-shell="meal-match">
+          <div class="item-locator">
+            <span class="item-locator__code">CONCEPT 01</span>
+            <span class="item-locator__separator" aria-hidden="true">—</span>
+            <span class="item-locator__descriptor">Food decision aid</span>
+          </div>
           <article class="product-card" data-project-id="meal-match">
             <h4 class="product-card__title">Meal Match</h4>
             <div class="product-card__description" data-content-group>
@@ -382,9 +523,16 @@
               <p data-perspective="technical" data-detail="regular" hidden>Meal Match is early product research into structured preference inputs, constraint matching, shared decisions, and recommendation logic. No application or functional prototype is available yet.</p>
               <p data-perspective="technical" data-detail="more" hidden>Meal Match is early product research into structured preference inputs, constraint matching, shared decisions, and recommendation logic. No application or functional prototype is available yet.</p>
             </div>
-            <p class="concept-card__status">Concept study</p>
+            <div class="concept-card__interactive" hidden></div>
           </article>
+          </div>
 
+          <div class="portfolio-item" id="moments-pathwise" data-portfolio-item-shell="pathwise">
+          <div class="item-locator">
+            <span class="item-locator__code">CONCEPT 02</span>
+            <span class="item-locator__separator" aria-hidden="true">—</span>
+            <span class="item-locator__descriptor">Refined route navigation</span>
+          </div>
           <article class="product-card" data-project-id="pathwise">
             <h4 class="product-card__title">PathWise</h4>
             <div class="product-card__description" data-content-group>
@@ -398,9 +546,16 @@
               <p data-perspective="technical" data-detail="regular" hidden>PathWise is early product research into context-aware route choice. Its name, data assumptions, safety framing, and implementation boundaries remain open.</p>
               <p data-perspective="technical" data-detail="more" hidden>PathWise is early product research into context-aware route choice. Its name, data assumptions, safety framing, and implementation boundaries remain open.</p>
             </div>
-            <p class="concept-card__status">Exploratory direction</p>
+            <div class="concept-card__interactive" hidden></div>
           </article>
+          </div>
 
+          <div class="portfolio-item" id="moments-momentum-tasks" data-portfolio-item-shell="momentum-tasks">
+          <div class="item-locator">
+            <span class="item-locator__code">CONCEPT 03</span>
+            <span class="item-locator__separator" aria-hidden="true">—</span>
+            <span class="item-locator__descriptor">Household chore coordination</span>
+          </div>
           <article class="product-card" data-project-id="momentum-tasks">
             <h4 class="product-card__title">Chore Thing</h4>
             <div class="product-card__description" data-content-group>
@@ -414,8 +569,9 @@
               <p data-perspective="technical" data-detail="regular" hidden>Chore Thing is early research into context-adaptive household chore decisions. Its identity, privacy, ownership, and collaboration boundaries remain open.</p>
               <p data-perspective="technical" data-detail="more" hidden>Chore Thing is early research into context-adaptive household chore decisions. Its identity, privacy, ownership, and collaboration boundaries remain open.</p>
             </div>
-            <p class="concept-card__status">Product concept</p>
+            <div class="concept-card__interactive" hidden></div>
           </article>
+          </div>
             </div>
           </section>
         </div>
@@ -423,19 +579,17 @@
       </section>
 
       <section class="showcase section" aria-labelledby="showcase-title">
-        <figure class="decision-demo__banner decision-demo__showcase-banner" data-tech-demo-banner hidden>
-          <div class="decision-demo__comparison-preview" data-decision-external-banner role="img" aria-label="Selected banner image"></div>
-          <figcaption><a href="#decision-demo-title">The experiment <span aria-hidden="true">↑</span></a></figcaption>
-        </figure>
         <div class="showcase__heading">
           <h2 id="showcase-title" tabindex="-1">Showcase</h2>
           <p>Selected visual work and experiments from across Kahntra.</p>
         </div>
-        <article class="showcase__card showcase__card--music" aria-labelledby="music-for-this-moment-title">
-          <div class="music-for-this-moment__anchor">
-            <h3 id="music-for-this-moment-title">Music for the Moment</h3>
-            <p>Interactive playlist guide</p>
-          </div>
+        <div class="portfolio-item" id="moments-music-for-this-moment" data-portfolio-item-shell="music-for-this-moment">
+        <div class="item-locator">
+          <span class="item-locator__code">EXPLORATION 01</span>
+          <span class="item-locator__separator" aria-hidden="true">—</span>
+          <span class="item-locator__descriptor">Experience-based playlists</span>
+        </div>
+        <article class="showcase__card showcase__card--music" aria-label="Music for the Moment">
           <div class="music-for-this-moment-island" data-mftm-primary-island>
             <noscript>
               <section class="music-for-this-moment-noscript">
@@ -444,11 +598,14 @@
             </noscript>
           </div>
         </article>
-        <article class="showcase__card showcase__card--momo" aria-labelledby="momo-editions-title">
-          <div class="momo-gallery__anchor">
-            <h3 id="momo-editions-title">Momo Editions</h3>
-            <p>Authored alternate poster studies</p>
-          </div>
+        </div>
+        <div class="portfolio-item" id="moments-momo-editions" data-portfolio-item-shell="momo-editions">
+        <div class="item-locator">
+          <span class="item-locator__code">EXPLORATION 02</span>
+          <span class="item-locator__separator" aria-hidden="true">—</span>
+          <span class="item-locator__descriptor">Film experience portraits</span>
+        </div>
+        <article class="showcase__card showcase__card--momo" aria-label="Momo Editions">
           <div class="momo-gallery-portal" data-momo-gallery-portal>
             <div
               id="momo-editions-gallery"
@@ -479,8 +636,8 @@
               </span>
             </button>
           </div>
-          <p class="momo-gallery__note">One aspect of an evolving project for the MomoMovies app.</p>
         </article>
+        </div>
       </section>
 
       <dialog class="about-dialog" id="about-dialog" aria-labelledby="about-dialog-title">
@@ -590,10 +747,11 @@
   </div>
 
   <p class="sr-only" id="perspective-announcement" role="status" aria-live="polite" aria-atomic="true"></p>
-  <script src="welcome-overlay.js?v=task-0073-lens-panel-step1" defer></script>
+  <script src="welcome-overlay.js?v=task-0073-tech-path-1" defer></script>
   <script src="decision-engine.js?v=task-0060-cache-199" defer></script>
   <script src="decision-demo.js?v=task-0060-cache-227" defer></script>
-  <script type="module" src="momo-editions-gallery.js?v=task-0072-semantics-1"></script>
+  <script src="portfolio-layout.js?v=task-0073-tech-path-1" defer></script>
+  <script type="module" src="momo-editions-gallery.js?v=task-0073-display-selection-1"></script>
   <script type="module" src="music-for-this-moment/playlist-showcase.island.js?v=task-0080-mobile-showcase-1"></script>
 </body>
 </html>
