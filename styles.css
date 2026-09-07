@@ -1376,16 +1376,18 @@ html[data-view-controls="collapsed"] .view-controls {
 .project-demo-preview__badge {
   position: absolute;
   z-index: 1;
-  top: 0.65rem;
-  left: 0.65rem;
+  top: 0.7rem;
+  left: 0.7rem;
   display: inline-flex;
   align-items: center;
-  padding: 0.28rem 0.46rem;
-  background: color-mix(in srgb, var(--ink) 82%, transparent);
-  color: color-mix(in srgb, var(--paper) 92%, white);
-  font-size: 0.68rem;
-  font-weight: 650;
-  letter-spacing: 0.035em;
+  padding: 0.42rem 0.68rem;
+  border-radius: 999px;
+  background: rgb(20 21 18 / 0.88);
+  color: #fff8e9;
+  box-shadow: 0 0.12rem 0.45rem rgb(0 0 0 / 0.24);
+  font-size: 0.72rem;
+  font-weight: 720;
+  letter-spacing: 0.045em;
   line-height: 1;
   text-transform: uppercase;
   pointer-events: none;
