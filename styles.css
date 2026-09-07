@@ -1005,14 +1005,6 @@ html[data-view-controls="collapsed"] .view-controls {
   position: relative;
 }
 
-.product-card__meta-stack {
-  display: grid;
-  justify-items: end;
-  gap: 0.32rem;
-  margin-left: auto;
-  text-align: right;
-}
-
 .product-card[data-project-id="momomovies"] .product-card__meta,
 .product-card[data-project-id="listenlab"] .product-card__meta,
 .product-card[data-project-id="momentum-management"] .product-card__meta {
@@ -1026,10 +1018,6 @@ html[data-view-controls="collapsed"] .view-controls {
   font-size: 0.62rem;
   font-weight: 600;
   text-align: right;
-}
-
-.product-card__meta-stack .availability {
-  margin-left: 0;
 }
 
 .stage {
@@ -1232,19 +1220,6 @@ html[data-view-controls="collapsed"] .view-controls {
   font-weight: 700;
   list-style: none;
   text-decoration: none;
-}
-
-.product-card__unavailable--meta summary {
-  color: color-mix(in srgb, var(--accent) 74%, var(--muted-ink));
-  font-size: 0.74rem;
-  font-weight: 600;
-  line-height: 1.2;
-}
-
-.product-card__unavailable--meta {
-  position: absolute;
-  top: 1.05rem;
-  right: 0;
 }
 
 .product-card__unavailable summary::-webkit-details-marker {
@@ -2099,6 +2074,12 @@ html[data-portfolio-layout="grouped"] .portfolio-item[data-portfolio-item="liste
 html[data-portfolio-layout="grouped"] .portfolio-item[data-portfolio-item="momentum-management"] .product-card__footer {
   justify-content: flex-start;
   margin: 0 0 clamp(1.45rem, 2.4vw, 1.85rem);
+}
+
+.portfolio-sequence > .portfolio-item[data-portfolio-item="momomovies"] > .product-card .product-card__footer--primary-action,
+html[data-portfolio-layout="grouped"] .portfolio-item[data-portfolio-item="momomovies"] .product-card__footer--primary-action,
+.product-card[data-project-id="momomovies"] .product-card__footer--primary-action {
+  margin: 0 0 clamp(0.85rem, 1.5vw, 1.1rem);
 }
 
 .portfolio-sequence > .portfolio-item[data-portfolio-item="meal-match"] > .product-card,
