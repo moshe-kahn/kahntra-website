@@ -40,6 +40,7 @@
     const lensControl = document.querySelector("[data-lens-control]");
     const lensToggle = document.querySelector("[data-lens-toggle]");
     const lensPanel = document.querySelector("[data-lens-panel]");
+    const lensIndexLinks = [...document.querySelectorAll("[data-lens-index-link]")];
     const wordmarkLink = document.querySelector(".wordmark");
     const siteToolbar = document.querySelector("[data-site-toolbar]");
     const viewControls = document.querySelector("#view-controls");
@@ -577,6 +578,24 @@
       });
     }
 
+    function handleLensIndexLinkClick(event) {
+      const target = document.querySelector(event.currentTarget.hash);
+      if (!target) return;
+
+      event.preventDefault();
+      setLensPanelOpen(false);
+      target.scrollIntoView({
+        block: "start",
+        behavior: reduceMotionQuery.matches ? "auto" : "smooth",
+      });
+
+      try {
+        window.history.pushState(null, "", event.currentTarget.hash);
+      } catch {
+        window.location.hash = event.currentTarget.hash;
+      }
+    }
+
     function setAboutTab(tabName) {
       if (!aboutTabs.length) return;
 
@@ -631,6 +650,9 @@
     });
     lensToggle?.addEventListener("click", () => {
       setLensPanelOpen(!lensPanelOpen);
+    });
+    lensIndexLinks.forEach((link) => {
+      link.addEventListener("click", handleLensIndexLinkClick);
     });
     wordmarkLink?.addEventListener("click", handleWordmarkClick);
     contextToggles.forEach((toggle) => {

@@ -63,7 +63,7 @@
 
   const updateItemLocator = (locator) => {
     const code = locator.querySelector(".item-locator__code");
-    const descriptor = locator.querySelector(".item-locator__descriptor");
+    const descriptor = locator.querySelector(".item-locator__right, .item-locator__descriptor");
     if (!code || !descriptor) return;
 
     locator.classList.remove("item-locator--stacked");
