@@ -354,6 +354,21 @@
       });
     }
 
+    function initializeProjectBacklinks() {
+      document.querySelectorAll("[data-project-backlink]").forEach((link) => {
+        link.addEventListener("click", () => {
+          const projectId = link.dataset.projectBacklink;
+          const tabName = link.dataset.projectBacklinkTab;
+          const card = document.querySelector(`[data-project-id="${projectId}"]`);
+          const group = card?.querySelector("[data-project-tabs]");
+          if (!group) return;
+
+          setProjectDetailsExpanded(group, true);
+          if (tabName) setProjectTab(group, tabName);
+        });
+      });
+    }
+
     function updateAllContent() {
       document.querySelectorAll("[data-content-group]").forEach(updateContent);
       updateApproachHeadings();
@@ -657,6 +672,7 @@
 
     siteToolbar.hidden = false;
     initializeProjectTabs();
+    initializeProjectBacklinks();
     updateAllContent();
     setButtonState(perspectiveButtons, globalPerspective, "globalLens");
     updateMobileHeaderDivider();

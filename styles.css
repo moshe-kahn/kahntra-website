@@ -1367,9 +1367,28 @@ html[data-view-controls="collapsed"] .view-controls {
 }
 
 .project-demo-preview__media {
+  position: relative;
   display: block;
   overflow: hidden;
   background: color-mix(in srgb, var(--ink) 92%, var(--card));
+}
+
+.project-demo-preview__badge {
+  position: absolute;
+  z-index: 1;
+  top: 0.65rem;
+  left: 0.65rem;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.28rem 0.46rem;
+  background: color-mix(in srgb, var(--ink) 82%, transparent);
+  color: color-mix(in srgb, var(--paper) 92%, white);
+  font-size: 0.68rem;
+  font-weight: 650;
+  letter-spacing: 0.035em;
+  line-height: 1;
+  text-transform: uppercase;
+  pointer-events: none;
 }
 
 .project-demo-preview__media img {
@@ -1421,6 +1440,36 @@ html[data-view-controls="collapsed"] .view-controls {
 .project-demo-preview:focus-visible {
   outline: 2px solid color-mix(in srgb, var(--accent) 66%, transparent);
   outline-offset: 4px;
+}
+
+.item-parent-link {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem;
+  margin: -0.1rem 0 0.55rem;
+  color: color-mix(in srgb, var(--muted-ink) 84%, var(--ink));
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
+.item-parent-link a {
+  color: color-mix(in srgb, var(--accent) 72%, var(--muted-ink));
+  font-weight: 560;
+  text-decoration: none;
+}
+
+.item-parent-link a:hover,
+.item-parent-link a:focus-visible {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+.item-parent-link a:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--accent) 56%, transparent);
+  outline-offset: 3px;
 }
 
 .product-group + .product-group .product-card {
