@@ -25,7 +25,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="styles.css?v=task-0073-demo-context-1">
+  <link rel="stylesheet" href="styles.css?v=task-0073-lens-order-placement-8">
   <link rel="stylesheet" href="momo-editions-gallery.css?v=task-0073-mobile-credits-1">
   <link rel="stylesheet" href="music-for-this-moment/playlist-showcase.island.css?v=task-0080-mobile-showcase-1">
 </head>
@@ -81,30 +81,6 @@
                   <span>Verbose</span>
                 </button>
               </div>
-            </fieldset>
-            <fieldset class="lens-panel__group">
-              <legend>Order</legend>
-              <div class="lens-panel__options" role="group" aria-label="Order">
-                <button type="button" data-global-order="curated" aria-pressed="true">
-                  <svg class="lens-option__icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                    <path d="M3.2 4.4h9.8"/>
-                    <path d="M3.2 7h4.4"/>
-                    <path d="M3.2 9.6h8"/>
-                    <path d="M3.2 12.2h5.6"/>
-                  </svg>
-                  <span>Curated</span>
-                </button>
-                <button type="button" data-global-order="grouped" aria-pressed="false">
-                  <svg class="lens-option__icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                    <path d="M3.2 4.6h9.2"/>
-                    <path d="M3.2 7.2h9.2"/>
-                    <path d="M3.2 9.8h5.4"/>
-                    <path d="M3.2 12.4h5.4"/>
-                  </svg>
-                  <span>Grouped</span>
-                </button>
-              </div>
-              <p class="lens-panel__note">Changing order returns to the <a href="#products-title" data-lens-index-link>collection index</a>.</p>
             </fieldset>
           </div>
         </div>
@@ -195,6 +171,10 @@
               <p data-perspective="technical" data-detail="less">A growing body of context-aware tools for everyday decisions.</p>
               <p data-perspective="technical" data-detail="regular" hidden>A growing body of context-aware tools for everyday decisions, combining dense underlying data with lightweight current signals to surface what matters most in the moment.</p>
               <p data-perspective="technical" data-detail="more" hidden>A growing body of context-aware tools for everyday decisions, combining dense underlying data with lightweight current signals to surface what matters most in the moment.</p>
+            </div>
+            <div class="collection-order" role="group" aria-label="Collection view">
+              <button type="button" data-global-order="curated" aria-pressed="true">Curated order</button>
+              <button type="button" data-global-order="grouped" aria-pressed="false">Grouped by type</button>
             </div>
             <nav class="moments-directory" data-moments-directory aria-label="Moments Collection directory">
               <a href="#moments-momomovies" data-directory-item="momomovies"><span class="moments-directory__code">PROJECT 01</span><span class="moments-directory__separator" aria-hidden="true">—</span><span class="moments-directory__descriptor">Movie discovery</span></a>
@@ -752,10 +732,10 @@
   </div>
 
   <p class="sr-only" id="perspective-announcement" role="status" aria-live="polite" aria-atomic="true"></p>
-  <script src="welcome-overlay.js?v=task-0073-tech-path-1" defer></script>
+  <script src="welcome-overlay.js?v=task-0073-lens-order-placement-4" defer></script>
   <script src="decision-engine.js?v=task-0060-cache-199" defer></script>
   <script src="decision-demo.js?v=task-0060-cache-227" defer></script>
-  <script src="portfolio-layout.js?v=task-0073-tech-path-1" defer></script>
+  <script src="portfolio-layout.js?v=task-0073-lens-order-placement-4" defer></script>
   <script type="module" src="momo-editions-gallery.js?v=task-0073-display-selection-1"></script>
   <script type="module" src="music-for-this-moment/playlist-showcase.island.js?v=task-0080-mobile-showcase-1"></script>
 </body>

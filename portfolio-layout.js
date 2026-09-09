@@ -100,20 +100,6 @@
     });
   };
 
-  const readStickyHeaderHeight = () => {
-    const value = Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--sticky-header-height"));
-    return Number.isFinite(value) ? value : 0;
-  };
-
-  const scrollToMomentsDirectory = () => {
-    const directory = document.querySelector("[data-moments-directory]");
-    if (!directory) return;
-
-    const stickyTop = readStickyHeaderHeight();
-    const targetTop = window.scrollY + directory.getBoundingClientRect().top - stickyTop - 12;
-    window.scrollTo({ top: Math.max(0, targetTop), behavior: "auto" });
-  };
-
   const restoreOrderPosition = (view) => {
     let payload = null;
 
@@ -126,9 +112,16 @@
 
     if (!payload || payload.targetView !== view) return;
 
+    if (!Number.isFinite(payload.scrollY)) return;
+
+    const top = Math.max(0, payload.scrollY);
+    const restore = () => window.scrollTo({ top, behavior: "auto" });
+    restore();
     requestAnimationFrame(() => {
-      if (payload.restoreTarget === "moments-directory") scrollToMomentsDirectory();
+      restore();
+      requestAnimationFrame(restore);
     });
+    window.addEventListener("load", restore, { once: true });
   };
 
   const buildBannerPicker = (locator, demo) => {
@@ -137,6 +130,11 @@
     bannerPicker.dataset.portfolioItem = "banner-picker";
     bannerPicker.append(locator, demo);
     return bannerPicker;
+  };
+
+  const insertBeforeStable = (parent, node, nextSibling) => {
+    if (!parent || !node) return;
+    parent.insertBefore(node, nextSibling?.parentNode === parent ? nextSibling : null);
   };
 
   const currentView = () => {
@@ -148,29 +146,79 @@
     }
   };
 
+  const products = document.querySelector("#products");
+  const groups = products?.querySelector(".product-groups");
+  const showcase = document.querySelector(".showcase");
+  const sectionHeading = products?.querySelector(".section-heading");
+  const groupsPlaceholder = document.createComment("product-groups-placeholder");
+  const showcasePlaceholder = document.createComment("showcase-placeholder");
+  const originalItemPositions = new Map();
+
+  document.querySelectorAll("[data-portfolio-item-shell]").forEach((item) => {
+    originalItemPositions.set(item, {
+      parent: item.parentNode,
+      nextSibling: item.nextSibling,
+    });
+  });
+
+  if (groups) groups.before(groupsPlaceholder);
+  if (showcase) showcase.before(showcasePlaceholder);
+
+  let sequenceContainer = null;
+
+  const restoreGroupedShells = () => {
+    originalItemPositions.forEach(({ parent, nextSibling }, item) => {
+      insertBeforeStable(parent, item, nextSibling);
+    });
+  };
+
+  const showGroupedContainers = () => {
+    if (groups && !groups.isConnected) groupsPlaceholder.replaceWith(groups);
+    if (showcase && !showcase.isConnected) showcasePlaceholder.replaceWith(showcase);
+  };
+
+  const hideGroupedContainers = () => {
+    if (groups?.isConnected) groups.replaceWith(groupsPlaceholder);
+    if (showcase?.isConnected) showcase.replaceWith(showcasePlaceholder);
+  };
+
+  const ensureSequenceContainer = () => {
+    if (!sequenceContainer) {
+      sequenceContainer = document.createElement("div");
+      sequenceContainer.className = "portfolio-sequence";
+      sequenceContainer.dataset.portfolioSequence = "true";
+    }
+
+    if (!sequenceContainer.isConnected) sectionHeading?.after(sequenceContainer);
+    return sequenceContainer;
+  };
+
+  const visibleLocator = () => document.querySelector("[data-tech-demo-locator]");
+  const visibleDemo = () => document.querySelector("[data-tech-demo]");
+
+  const updateVisibleItemLocators = () => {
+    document.querySelectorAll(".item-locator").forEach(updateItemLocator);
+  };
+
   const applySequence = () => {
-    const products = document.querySelector("#products");
-    const groups = products?.querySelector(".product-groups");
-    const showcase = document.querySelector(".showcase");
-    const locator = products?.querySelector("[data-tech-demo-locator]");
-    const demo = products?.querySelector("[data-tech-demo]");
+    const locator = visibleLocator();
+    const demo = visibleDemo();
     const items = {
-      momomovies: products?.querySelector('[data-portfolio-item-shell="momomovies"]'),
-      "momentum-tasks": products?.querySelector('[data-portfolio-item-shell="momentum-tasks"]'),
-      "music-for-this-moment": showcase?.querySelector('[data-portfolio-item-shell="music-for-this-moment"]'),
-      pathwise: products?.querySelector('[data-portfolio-item-shell="pathwise"]'),
-      listenlab: products?.querySelector('[data-portfolio-item-shell="listenlab"]'),
-      "meal-match": products?.querySelector('[data-portfolio-item-shell="meal-match"]'),
-      "momo-editions": showcase?.querySelector('[data-portfolio-item-shell="momo-editions"]'),
-      "momentum-management": products?.querySelector('[data-portfolio-item-shell="momentum-management"]'),
+      momomovies: document.querySelector('[data-portfolio-item-shell="momomovies"]'),
+      "momentum-tasks": document.querySelector('[data-portfolio-item-shell="momentum-tasks"]'),
+      "music-for-this-moment": document.querySelector('[data-portfolio-item-shell="music-for-this-moment"]'),
+      pathwise: document.querySelector('[data-portfolio-item-shell="pathwise"]'),
+      listenlab: document.querySelector('[data-portfolio-item-shell="listenlab"]'),
+      "meal-match": document.querySelector('[data-portfolio-item-shell="meal-match"]'),
+      "momo-editions": document.querySelector('[data-portfolio-item-shell="momo-editions"]'),
+      "momentum-management": document.querySelector('[data-portfolio-item-shell="momentum-management"]'),
     };
 
-    if (!products || !groups || !showcase || !locator || !demo || sequence.slice(0, -1).some((id) => !items[id])) return;
+    if (!products || !groups || !showcase || !sectionHeading || !locator || !demo || sequence.slice(0, -1).some((id) => !items[id])) return;
     syncDirectory(sequence);
 
-    const container = document.createElement("div");
-    container.className = "portfolio-sequence";
-    container.dataset.portfolioSequence = "true";
+    const container = ensureSequenceContainer();
+    container.replaceChildren();
 
     sequence.slice(0, -1).forEach((id) => {
       const item = items[id];
@@ -180,43 +228,50 @@
 
     container.append(buildBannerPicker(locator, demo));
 
-    products.querySelector(".section-heading")?.after(container);
-    groups.remove();
-    showcase.remove();
+    hideGroupedContainers();
     products.dataset.portfolioLayout = "sequence";
   };
 
   const applyGrouped = () => {
-    const products = document.querySelector("#products");
-    const showcase = document.querySelector(".showcase");
-    const locator = products?.querySelector("[data-tech-demo-locator]");
-    const demo = products?.querySelector("[data-tech-demo]");
+    const locator = visibleLocator();
+    const demo = visibleDemo();
     const items = document.querySelectorAll("[data-portfolio-item-shell]");
 
-    if (!products || !showcase || !locator || !demo) return;
+    if (!products || !groups || !showcase || !locator || !demo) return;
     syncDirectory(groupedSequence);
+    showGroupedContainers();
+    restoreGroupedShells();
 
     items.forEach((item) => {
       const id = item.getAttribute("data-portfolio-item-shell");
       if (id) item.dataset.portfolioItem = id;
     });
 
+    showcase.querySelectorAll(".portfolio-sequence__banner-picker").forEach((item) => item.remove());
     showcase.append(buildBannerPicker(locator, demo));
+    sequenceContainer?.remove();
     products.dataset.portfolioLayout = "grouped";
   };
 
-  const view = currentView();
-  document.documentElement.dataset.portfolioLayout = view;
-  if (view === groupedView) {
-    applyGrouped();
-  } else {
-    applySequence();
-  }
+  const setPortfolioView = (view) => {
+    const resolvedView = view === groupedView ? groupedView : "sequence";
+    document.documentElement.dataset.portfolioLayout = resolvedView;
+    if (resolvedView === groupedView) {
+      applyGrouped();
+    } else {
+      applySequence();
+    }
+    updateVisibleItemLocators();
+    return resolvedView;
+  };
+
+  const view = setPortfolioView(currentView());
+  window.kahntraSetPortfolioView = setPortfolioView;
   watchItemLocators();
   alignFragmentTarget();
   restoreOrderPosition(view);
 
   window.addEventListener("popstate", () => {
-    if (currentView() !== view) window.location.reload();
+    setPortfolioView(currentView());
   });
 })();

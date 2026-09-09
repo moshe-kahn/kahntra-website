@@ -31,6 +31,10 @@
     concise: "Concise",
     verbose: "Verbose",
   };
+  const orderLabelMap = {
+    curated: "Curated order",
+    grouped: "Grouped by type",
+  };
 
   const initialize = () => {
     const announcement = document.querySelector("#perspective-announcement");
@@ -40,7 +44,6 @@
     const lensControl = document.querySelector("[data-lens-control]");
     const lensToggle = document.querySelector("[data-lens-toggle]");
     const lensPanel = document.querySelector("[data-lens-panel]");
-    const lensIndexLinks = [...document.querySelectorAll("[data-lens-index-link]")];
     const wordmarkLink = document.querySelector(".wordmark");
     const siteToolbar = document.querySelector("[data-site-toolbar]");
     const viewControls = document.querySelector("#view-controls");
@@ -103,6 +106,10 @@
 
     function detailLabel(value) {
       return detailLabelMap[value] || capitalize(value);
+    }
+
+    function orderLabel(value) {
+      return orderLabelMap[value] || capitalize(value);
     }
 
     function normalizeDetail(value) {
@@ -218,18 +225,14 @@
       }
     }
 
-    function readStickyHeaderHeight() {
-      const value = Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--sticky-header-height"));
-      return Number.isFinite(value) ? value : 0;
-    }
-
     function storeOrderRestoreState(targetOrder) {
       const payload = {
         targetView: targetOrder === "grouped" ? "grouped" : "sequence",
-        restoreTarget: "moments-directory",
+        scrollY: window.scrollY,
       };
 
       try {
+        if ("scrollRestoration" in history) history.scrollRestoration = "manual";
         sessionStorage.setItem(orderRestoreKey, JSON.stringify(payload));
       } catch {
         // Order switching still works when storage is unavailable.
@@ -446,7 +449,7 @@
       lensToggle.setAttribute("aria-expanded", String(lensPanelOpen));
       lensToggle.setAttribute(
         "aria-label",
-        `Lens. Perspective: ${perspectiveLabel(globalPerspective)}. Detail: ${detailLabel(globalDetail)}. Order: ${capitalize(globalOrder)}.`
+        `Lens. Perspective: ${perspectiveLabel(globalPerspective)}. Detail: ${detailLabel(globalDetail)}.`
       );
     }
 
@@ -525,7 +528,7 @@
       setButtonState(orderButtons, order, "globalOrder");
       updateLensToggle();
       window.dispatchEvent(new CustomEvent("kahntra-order-change", { detail: { order } }));
-      if (announce) announcement.textContent = `Order: ${capitalize(order)}.`;
+      if (announce) announcement.textContent = `View: ${orderLabel(order)}.`;
 
       try {
         const url = new URL(window.location.href);
@@ -535,11 +538,16 @@
         } else {
           url.searchParams.delete("view");
         }
-        url.hash = "";
         if (url.href !== window.location.href) {
-          storeOrderRestoreState(order);
-          window.location.assign(url.href);
+          if (url.pathname === window.location.pathname && window.kahntraSetPortfolioView) {
+            history.pushState({}, "", url.href);
+          } else {
+            storeOrderRestoreState(order);
+            window.location.assign(url.href);
+            return;
+          }
         }
+        window.kahntraSetPortfolioView?.(order === "grouped" ? "grouped" : "sequence");
       } catch {
         // The control state still updates when URL rewriting is unavailable.
       }
@@ -576,24 +584,6 @@
         top: 0,
         behavior: reduceMotionQuery.matches ? "auto" : "smooth",
       });
-    }
-
-    function handleLensIndexLinkClick(event) {
-      const target = document.querySelector(event.currentTarget.hash);
-      if (!target) return;
-
-      event.preventDefault();
-      setLensPanelOpen(false);
-      target.scrollIntoView({
-        block: "start",
-        behavior: reduceMotionQuery.matches ? "auto" : "smooth",
-      });
-
-      try {
-        window.history.pushState(null, "", event.currentTarget.hash);
-      } catch {
-        window.location.hash = event.currentTarget.hash;
-      }
     }
 
     function setAboutTab(tabName) {
@@ -650,9 +640,6 @@
     });
     lensToggle?.addEventListener("click", () => {
       setLensPanelOpen(!lensPanelOpen);
-    });
-    lensIndexLinks.forEach((link) => {
-      link.addEventListener("click", handleLensIndexLinkClick);
     });
     wordmarkLink?.addEventListener("click", handleWordmarkClick);
     contextToggles.forEach((toggle) => {
