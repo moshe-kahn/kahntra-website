@@ -13,19 +13,7 @@
   <link rel="apple-touch-icon" sizes="512x512" href="assets/k-favicon-large.svg">
   <link rel="preload" as="image" href="assets/momo-editions/demo-preview-gallery-thumb.jpg">
   <link rel="preload" as="image" href="assets/music-for-this-moment/demo-preview-high-energy-collections-thumb.jpg">
-  <script>
-    (() => {
-      const root = document.documentElement;
-      try {
-        const storedControls = sessionStorage.getItem("kahntra-view-controls-collapsed-v1");
-        const collapsed = storedControls === "true" || (storedControls !== "false" && matchMedia("(max-width: 760px)").matches);
-        root.dataset.viewControls = collapsed ? "collapsed" : "expanded";
-      } catch {
-        root.dataset.viewControls = matchMedia("(max-width: 760px)").matches ? "collapsed" : "expanded";
-      }
-    })();
-  </script>
-  <link rel="stylesheet" href="styles.css?v=task-0073-lens-order-placement-8">
+  <link rel="stylesheet" href="styles.css?v=task-0073-switch-menu-contrast-1">
   <link rel="stylesheet" href="momo-editions-gallery.css?v=task-0073-mobile-credits-1">
   <link rel="stylesheet" href="music-for-this-moment/playlist-showcase.island.css?v=task-0080-mobile-showcase-1">
 </head>
@@ -37,96 +25,27 @@
         <a class="wordmark" href="/" aria-label="Kahntra Productions home">
           <img src="assets/kahntra-productions-main-header-wordmark.svg" width="340" height="68" alt="">
         </a>
-        <div class="lens-control" data-lens-control>
-          <button class="lens-toggle" type="button" data-lens-toggle aria-controls="lens-panel" aria-expanded="false">
-            Lens
-          </button>
-          <div class="lens-panel" id="lens-panel" data-lens-panel hidden>
-            <fieldset class="lens-panel__group">
-              <legend>Perspective</legend>
-              <div class="lens-panel__options" role="group" aria-label="Perspective">
-                <button type="button" data-global-lens="design-philosophy" aria-pressed="true">
-                  <svg class="lens-option__icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                    <path d="M6 3.5H3.5v9H6"/>
-                    <path d="M10 3.5h2.5v9H10"/>
-                  </svg>
-                  <span>General</span>
-                </button>
-                <button type="button" data-global-lens="technical" aria-pressed="false">
-                  <svg class="lens-option__icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                    <path d="M6.4 3.4H5.2c-.8 0-1.2.4-1.2 1.2v1.6c0 .8-.4 1.2-1.2 1.2.8 0 1.2.4 1.2 1.2v1.8c0 .8.4 1.2 1.2 1.2h1.2"/>
-                    <path d="M9.6 3.4h1.2c.8 0 1.2.4 1.2 1.2v1.6c0 .8.4 1.2 1.2 1.2-.8 0-1.2.4-1.2 1.2v1.8c0 .8-.4 1.2-1.2 1.2H9.6"/>
-                  </svg>
-                  <span>Technical</span>
-                </button>
-              </div>
-            </fieldset>
-            <fieldset class="lens-panel__group">
-              <legend>Detail</legend>
-              <div class="lens-panel__options" role="group" aria-label="Detail">
-                <button type="button" data-global-detail="concise" aria-pressed="true">
-                  <svg class="lens-option__icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                    <path d="M3.2 6.4h9.6"/>
-                    <path d="M3.2 9.6h9.6"/>
-                  </svg>
-                  <span>Concise</span>
-                </button>
-                <button type="button" data-global-detail="verbose" aria-pressed="false">
-                  <svg class="lens-option__icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                    <path d="M3.2 4.4h9.6"/>
-                    <path d="M3.2 7h9.6"/>
-                    <path d="M3.2 9.6h9.6"/>
-                    <path d="M3.2 12.2h9.6"/>
-                  </svg>
-                  <span>Verbose</span>
-                </button>
-              </div>
-            </fieldset>
-          </div>
-        </div>
-        <div class="desktop-header-controls">
-          <div class="desktop-perspective-selector" role="group" aria-label="Perspective">
-            <button type="button" data-global-lens="design-philosophy" aria-pressed="true"><span>General</span></button>
-            <button type="button" data-global-lens="technical" aria-pressed="false"><span>Technical</span></button>
-          </div>
-          <button class="context-toggle desktop-context-toggle" type="button" data-context-toggle aria-pressed="false" aria-label="Show verbose view">
+        <div class="page-utility" data-page-utility>
+          <button class="context-toggle" type="button" data-utility-toggle aria-controls="page-utility-popover" aria-expanded="false" aria-label="Open page utilities">
             <span class="context-toggle__paper" aria-hidden="true">
               <span class="context-toggle__single-letter">?</span>
-              <span class="context-toggle__letter-grid"><span>t</span><span>l</span><span>d</span><span>r</span></span>
             </span>
           </button>
-        </div>
-        <button class="mobile-context-toggle" type="button" data-mobile-context-toggle aria-pressed="false" aria-label="Show verbose view">
-          <span class="mobile-context-toggle__paper" aria-hidden="true">
-            <span class="mobile-context-toggle__single-letter">?</span>
-            <span class="mobile-context-toggle__letter-grid"><span>t</span><span>l</span><span>d</span><span>r</span></span>
-          </span>
-        </button>
-        <div class="mobile-perspective-selector" role="group" aria-label="Perspective">
-          <button type="button" data-global-lens="design-philosophy" aria-pressed="true"><span>General</span></button>
-          <button type="button" data-global-lens="technical" aria-pressed="false"><span>Technical</span></button>
+          <div class="page-utility__popover" id="page-utility-popover" data-utility-popover hidden>
+            <div class="page-utility__section page-utility__section--detail">
+              <span class="page-utility__label">Reading detail:</span>
+              <div class="view-control-group__options" role="group" aria-label="Detail">
+                <button type="button" data-global-detail="concise" aria-pressed="true">Concise</button>
+                <button type="button" data-global-detail="verbose" aria-pressed="false">Verbose</button>
+              </div>
+            </div>
+            <div class="page-utility__divider" aria-hidden="true"></div>
+            <div class="page-utility__section">
+              <button class="page-utility__link" type="button" data-about-open>About Kahntra <span aria-hidden="true">→</span></button>
+            </div>
+          </div>
         </div>
       </header>
-
-      <div class="site-toolbar" data-site-toolbar>
-        <div class="view-controls" id="view-controls" data-view-controls>
-          <div class="view-control-group perspective-bar">
-            <span class="view-control-group__label">Perspective:</span>
-            <div class="view-control-group__options" role="group" aria-label="Perspective">
-              <button type="button" data-global-lens="technical" aria-pressed="false">Technical</button>
-              <button type="button" data-global-lens="design-philosophy" aria-pressed="true">General</button>
-            </div>
-          </div>
-          <div class="view-control-group detail-bar">
-            <span class="view-control-group__label">Detail:</span>
-            <div class="view-control-group__options" role="group" aria-label="Detail">
-              <button type="button" data-global-detail="concise" aria-pressed="true">Concise</button>
-              <button type="button" data-global-detail="verbose" aria-pressed="false">Verbose</button>
-            </div>
-          </div>
-        </div>
-        <button class="view-controls-toggle" type="button" data-view-controls-toggle aria-controls="view-controls" aria-expanded="true">Collapse</button>
-      </div>
     </div>
 
     <main>
@@ -158,6 +77,24 @@
       </section>
 
       <section class="products section" id="products" aria-labelledby="products-title">
+        <div class="emphasis-switch" data-content-group>
+          <div class="emphasis-switch__row" data-perspective="general" data-detail="less" aria-label="Technical emphasis">
+            <span>Prefer <strong>technical emphasis</strong>?</span>
+            <button type="button" data-emphasis-switch="technical">Switch</button>
+          </div>
+          <div class="emphasis-switch__row" data-perspective="general" data-detail="regular" aria-label="Technical emphasis">
+            <span>Prefer <strong>technical emphasis</strong>?</span>
+            <button type="button" data-emphasis-switch="technical">Switch</button>
+          </div>
+          <div class="emphasis-switch__row" data-perspective="technical" data-detail="less" aria-label="General view">
+            <span>Currently viewing <strong>technical emphasis</strong>. Prefer general view?</span>
+            <button type="button" data-emphasis-switch="general">Switch</button>
+          </div>
+          <div class="emphasis-switch__row" data-perspective="technical" data-detail="regular" aria-label="General view">
+            <span>Currently viewing <strong>technical emphasis</strong>. Prefer general view?</span>
+            <button type="button" data-emphasis-switch="general">Switch</button>
+          </div>
+        </div>
         <div class="section-heading">
           <div>
             <h2 class="section-heading__label" id="products-title" tabindex="-1">The Moments Collection</h2>
@@ -171,10 +108,6 @@
               <p data-perspective="technical" data-detail="less">A growing body of context-aware tools for everyday decisions.</p>
               <p data-perspective="technical" data-detail="regular" hidden>A growing body of context-aware tools for everyday decisions, combining dense underlying data with lightweight current signals to surface what matters most in the moment.</p>
               <p data-perspective="technical" data-detail="more" hidden>A growing body of context-aware tools for everyday decisions, combining dense underlying data with lightweight current signals to surface what matters most in the moment.</p>
-            </div>
-            <div class="collection-order" role="group" aria-label="Collection view">
-              <button type="button" data-global-order="curated" aria-pressed="true">Curated order</button>
-              <button type="button" data-global-order="grouped" aria-pressed="false">Grouped by type</button>
             </div>
             <nav class="moments-directory" data-moments-directory aria-label="Moments Collection directory">
               <a href="#moments-momomovies" data-directory-item="momomovies"><span class="moments-directory__code">PROJECT 01</span><span class="moments-directory__separator" aria-hidden="true">—</span><span class="moments-directory__descriptor">Movie discovery</span></a>
@@ -732,10 +665,10 @@
   </div>
 
   <p class="sr-only" id="perspective-announcement" role="status" aria-live="polite" aria-atomic="true"></p>
-  <script src="welcome-overlay.js?v=task-0073-lens-order-placement-4" defer></script>
+  <script src="welcome-overlay.js?v=task-0073-emphasis-copy-1" defer></script>
   <script src="decision-engine.js?v=task-0060-cache-199" defer></script>
   <script src="decision-demo.js?v=task-0060-cache-227" defer></script>
-  <script src="portfolio-layout.js?v=task-0073-lens-order-placement-4" defer></script>
+  <script src="portfolio-layout.js?v=task-0073-emphasis-copy-1" defer></script>
   <script type="module" src="momo-editions-gallery.js?v=task-0073-display-selection-1"></script>
   <script type="module" src="music-for-this-moment/playlist-showcase.island.js?v=task-0080-mobile-showcase-1"></script>
 </body>

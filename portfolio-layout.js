@@ -19,12 +19,12 @@
     "momomovies",
     "listenlab",
     "momentum-management",
-    "meal-match",
-    "pathwise",
-    "momentum-tasks",
     "music-for-this-moment",
     "momo-editions",
     "banner-picker",
+    "meal-match",
+    "pathwise",
+    "momentum-tasks",
   ];
 
   const syncDirectory = (order) => {
@@ -149,6 +149,8 @@
   const products = document.querySelector("#products");
   const groups = products?.querySelector(".product-groups");
   const showcase = document.querySelector(".showcase");
+  const developmentGroup = products?.querySelector('[aria-labelledby="products-development-title"]');
+  const conceptsGroup = products?.querySelector('[aria-labelledby="products-concepts-title"]');
   const sectionHeading = products?.querySelector(".section-heading");
   const groupsPlaceholder = document.createComment("product-groups-placeholder");
   const showcasePlaceholder = document.createComment("showcase-placeholder");
@@ -175,6 +177,12 @@
   const showGroupedContainers = () => {
     if (groups && !groups.isConnected) groupsPlaceholder.replaceWith(groups);
     if (showcase && !showcase.isConnected) showcasePlaceholder.replaceWith(showcase);
+  };
+
+  const orderGroupedContainers = () => {
+    if (!groups || !developmentGroup || !conceptsGroup || !showcase) return;
+    if (developmentGroup.parentNode !== groups || conceptsGroup.parentNode !== groups) return;
+    groups.insertBefore(showcase, conceptsGroup);
   };
 
   const hideGroupedContainers = () => {
@@ -241,6 +249,7 @@
     syncDirectory(groupedSequence);
     showGroupedContainers();
     restoreGroupedShells();
+    orderGroupedContainers();
 
     items.forEach((item) => {
       const id = item.getAttribute("data-portfolio-item-shell");
