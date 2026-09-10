@@ -145,7 +145,7 @@ a {
   display: grid;
   width: var(--brand-panel-width);
   gap: 0.78rem;
-  padding: 1.84rem var(--brand-panel-gutter) 0.08rem;
+  padding: 1.84rem var(--brand-panel-gutter) 0.42rem;
   border: 0;
   border-radius: 0 0 6px 6px;
   background: var(--brand-panel);
