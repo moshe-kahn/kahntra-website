@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="512x512" href="assets/k-favicon-large.svg">
   <link rel="preload" as="image" href="assets/momo-editions/demo-preview-gallery-thumb.jpg">
   <link rel="preload" as="image" href="assets/music-for-this-moment/demo-preview-high-energy-collections-thumb.jpg">
-  <link rel="stylesheet" href="styles.css?v=task-0073-switch-menu-contrast-1">
+  <link rel="stylesheet" href="styles.css?v=task-0073-brand-panel-1">
   <link rel="stylesheet" href="momo-editions-gallery.css?v=task-0073-mobile-credits-1">
   <link rel="stylesheet" href="music-for-this-moment/playlist-showcase.island.css?v=task-0080-mobile-showcase-1">
 </head>
@@ -22,9 +22,15 @@
   <div class="site-shell">
     <div class="site-header-system">
       <header class="site-header">
-        <a class="wordmark" href="/" aria-label="Kahntra Productions home">
-          <img src="assets/kahntra-productions-main-header-wordmark.svg" width="340" height="68" alt="">
-        </a>
+        <div class="wordmark-control" data-wordmark-control>
+          <a class="wordmark" href="/" role="button" aria-label="Open Kahntra brand information" data-wordmark-trigger aria-controls="wordmark-popover" aria-expanded="false">
+            <img src="assets/kahntra-productions-main-header-wordmark.svg" width="340" height="68" alt="">
+          </a>
+          <div class="wordmark-popover" id="wordmark-popover" data-wordmark-popover hidden>
+            <p>An independent software studio shaping practical tools around people, context, and use.</p>
+            <button type="button" data-about-open data-about-target="kahntra">Learn more and get in touch <span aria-hidden="true">→</span></button>
+          </div>
+        </div>
         <div class="page-utility" data-page-utility>
           <button class="context-toggle" type="button" data-utility-toggle aria-controls="page-utility-popover" aria-expanded="false" aria-label="Open page utilities">
             <span class="context-toggle__paper" aria-hidden="true">
@@ -665,7 +671,7 @@
   </div>
 
   <p class="sr-only" id="perspective-announcement" role="status" aria-live="polite" aria-atomic="true"></p>
-  <script src="welcome-overlay.js?v=task-0073-emphasis-copy-1" defer></script>
+  <script src="welcome-overlay.js?v=task-0073-brand-panel-1" defer></script>
   <script src="decision-engine.js?v=task-0060-cache-199" defer></script>
   <script src="decision-demo.js?v=task-0060-cache-227" defer></script>
   <script src="portfolio-layout.js?v=task-0073-emphasis-copy-1" defer></script>

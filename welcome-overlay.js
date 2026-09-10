@@ -31,6 +31,9 @@
     const utilityControl = document.querySelector("[data-page-utility]");
     const utilityToggle = document.querySelector("[data-utility-toggle]");
     const utilityPopover = document.querySelector("[data-utility-popover]");
+    const wordmarkControl = document.querySelector("[data-wordmark-control]");
+    const wordmarkTrigger = document.querySelector("[data-wordmark-trigger]");
+    const wordmarkPopover = document.querySelector("[data-wordmark-popover]");
     const wordmarkLink = document.querySelector(".wordmark");
     const aboutDialog = document.querySelector("#about-dialog");
     const aboutSurface = aboutDialog?.querySelector(".about-dialog__surface");
@@ -46,6 +49,7 @@
     let globalDetail = readInitialDetail(globalPerspective);
     let globalOrder = orderForPerspective(globalPerspective);
     let utilityPopoverOpen = false;
+    let wordmarkPopoverOpen = false;
     let contentTransitionTimer = null;
     let contentTransitionVersion = 0;
     let aboutOpener = null;
@@ -288,9 +292,23 @@
       }
     }
 
+    function setWordmarkPopoverOpen(open, { returnFocus = false } = {}) {
+      if (!wordmarkTrigger || !wordmarkPopover) return;
+      wordmarkPopoverOpen = open;
+      wordmarkPopover.hidden = !open;
+      wordmarkTrigger.setAttribute("aria-expanded", String(open));
+      wordmarkTrigger.setAttribute("aria-label", open ? "Close Kahntra brand information" : "Open Kahntra brand information");
+      if (!open && returnFocus) {
+        requestAnimationFrame(() => wordmarkTrigger.focus({ preventScroll: true }));
+      }
+    }
+
     function handleDocumentPointerDown(event) {
       if (utilityPopoverOpen && utilityControl && !utilityControl.contains(event.target)) {
         setUtilityPopoverOpen(false, { returnFocus: true });
+      }
+      if (wordmarkPopoverOpen && wordmarkControl && !wordmarkControl.contains(event.target)) {
+        setWordmarkPopoverOpen(false, { returnFocus: true });
       }
       unavailableLinks.forEach((notice) => {
         if (notice.open && !notice.contains(event.target)) notice.open = false;
@@ -302,15 +320,23 @@
         event.preventDefault();
         setUtilityPopoverOpen(false, { returnFocus: true });
       }
+      if (event.key === "Escape" && wordmarkPopoverOpen) {
+        event.preventDefault();
+        setWordmarkPopoverOpen(false, { returnFocus: true });
+      }
     }
 
     function handleWordmarkClick(event) {
       event.preventDefault();
       setUtilityPopoverOpen(false);
-      window.scrollTo({
-        top: 0,
-        behavior: reduceMotionQuery.matches ? "auto" : "smooth",
-      });
+      setWordmarkPopoverOpen(!wordmarkPopoverOpen);
+    }
+
+    function handleWordmarkKeydown(event) {
+      if (event.key !== " ") return;
+      event.preventDefault();
+      setUtilityPopoverOpen(false);
+      setWordmarkPopoverOpen(!wordmarkPopoverOpen);
     }
 
     function setAboutTab(tabName) {
@@ -332,8 +358,9 @@
     function openAbout(event) {
       if (!aboutDialog) return;
       setUtilityPopoverOpen(false);
+      setWordmarkPopoverOpen(false);
       aboutOpener = event.currentTarget;
-      setAboutTab("kahntra");
+      setAboutTab(event.currentTarget.dataset.aboutTarget || "kahntra");
       if (!aboutDialog.open) {
         aboutDialog.showModal();
         document.documentElement.dataset.aboutDialog = "open";
@@ -415,8 +442,10 @@
     });
     utilityToggle?.addEventListener("click", () => {
       setUtilityPopoverOpen(!utilityPopoverOpen);
+      setWordmarkPopoverOpen(false);
     });
     wordmarkLink?.addEventListener("click", handleWordmarkClick);
+    wordmarkLink?.addEventListener("keydown", handleWordmarkKeydown);
     aboutOpenButtons.forEach((button) => {
       button.addEventListener("click", openAbout);
     });

@@ -96,6 +96,28 @@ a {
   line-height: 0;
 }
 
+.wordmark-control {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  --brand-panel: #2c2923;
+  --brand-panel-text: #f7f4ec;
+  --brand-panel-muted: #bdb8ad;
+  --brand-panel-width: min(23rem, calc(100vw - 3rem));
+  --brand-panel-gutter: 0.72rem;
+}
+
+.wordmark-control:has(.wordmark[aria-expanded="true"])::before {
+  position: absolute;
+  z-index: -1;
+  top: calc((var(--primary-header-height) - 1.45rem) / -2);
+  left: calc(var(--brand-panel-gutter) * -1);
+  width: var(--brand-panel-width);
+  height: var(--primary-header-height);
+  background: var(--brand-panel);
+  content: "";
+}
+
 .wordmark img {
   display: block;
   width: auto;
@@ -105,6 +127,76 @@ a {
   cursor: inherit;
   object-fit: contain;
   object-position: left center;
+}
+
+.wordmark[aria-expanded="true"] {
+  background: transparent;
+}
+
+.wordmark[aria-expanded="true"] img {
+  filter: invert(1) grayscale(1) brightness(2.4);
+}
+
+.wordmark-popover {
+  position: absolute;
+  z-index: calc(var(--layer-sticky-header) + 1);
+  top: calc(100% + ((var(--primary-header-height) - 1.45rem) / 2));
+  left: calc(var(--brand-panel-gutter) * -1);
+  display: grid;
+  width: var(--brand-panel-width);
+  gap: 0.78rem;
+  padding: 1.84rem var(--brand-panel-gutter) 0.08rem;
+  border: 0;
+  border-radius: 0 0 6px 6px;
+  background: var(--brand-panel);
+  box-shadow: 0 0.18rem 0.35rem rgb(28 33 31 / 5%);
+}
+
+.wordmark-popover::before {
+  display: none;
+  content: "";
+}
+
+.wordmark-popover[hidden] {
+  display: none;
+}
+
+.wordmark-popover p {
+  margin: 0 0 0.12rem;
+  color: var(--brand-panel-muted);
+  font-size: 0.78rem;
+  line-height: 1.46;
+}
+
+.wordmark-popover button {
+  width: fit-content;
+  max-width: 100%;
+  padding: 0;
+  border: 0;
+  color: color-mix(in srgb, var(--brand-panel-text) 86%, var(--accent));
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.35;
+  text-align: left;
+  text-decoration: none;
+  text-underline-offset: 0.22rem;
+}
+
+.wordmark-popover button:hover,
+.wordmark-popover button:focus-visible {
+  color: color-mix(in srgb, var(--brand-panel-text) 64%, var(--accent));
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 1px;
+}
+
+.wordmark-popover button:focus-visible {
+  border-radius: 2px;
+  outline: 2px solid color-mix(in srgb, var(--accent) 50%, transparent);
+  outline-offset: 3px;
 }
 
 .desktop-header-controls,
