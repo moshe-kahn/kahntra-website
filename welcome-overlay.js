@@ -354,7 +354,9 @@
         aboutDialog.showModal();
         document.documentElement.dataset.aboutDialog = "open";
       }
-      requestAnimationFrame(() => aboutTabs[0]?.focus());
+      requestAnimationFrame(() => {
+        aboutTabs.find((tab) => tab.getAttribute("aria-selected") === "true")?.focus();
+      });
     }
 
     function handleAboutTabKeydown(event) {
@@ -424,14 +426,14 @@
     detailButtons.forEach((button) => {
       button.addEventListener("click", () => setGlobalDetail(button.dataset.globalDetail));
     });
-    emphasisSwitchButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        applyEmphasisPreset(button.dataset.emphasisSwitch === "technical" ? "technical" : "general");
-      });
-    });
     contextToggles.forEach((toggle) => {
       toggle.addEventListener("click", () => {
         setGlobalDetail(globalDetail === "verbose" ? "concise" : "verbose");
+      });
+    });
+    emphasisSwitchButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        applyEmphasisPreset(button.dataset.emphasisSwitch === "technical" ? "technical" : "general");
       });
     });
     wordmarkLink?.addEventListener("click", handleWordmarkClick);
