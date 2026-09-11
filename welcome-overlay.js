@@ -27,10 +27,8 @@
   const initialize = () => {
     const announcement = document.querySelector("#perspective-announcement");
     const detailButtons = [...document.querySelectorAll("[data-global-detail]")];
+    const contextToggles = [...document.querySelectorAll("[data-context-toggle]")];
     const emphasisSwitchButtons = [...document.querySelectorAll("[data-emphasis-switch]")];
-    const utilityControl = document.querySelector("[data-page-utility]");
-    const utilityToggle = document.querySelector("[data-utility-toggle]");
-    const utilityPopover = document.querySelector("[data-utility-popover]");
     const wordmarkControl = document.querySelector("[data-wordmark-control]");
     const wordmarkTrigger = document.querySelector("[data-wordmark-trigger]");
     const wordmarkPopover = document.querySelector("[data-wordmark-popover]");
@@ -43,12 +41,11 @@
     const unavailableLinks = [...document.querySelectorAll(".product-card__unavailable")];
     const projectTabGroups = [...document.querySelectorAll("[data-project-tabs]")];
 
-    if (!announcement || !detailButtons.length) return;
+    if (!announcement) return;
 
     let globalPerspective = readPerspective();
     let globalDetail = readInitialDetail(globalPerspective);
     let globalOrder = orderForPerspective(globalPerspective);
-    let utilityPopoverOpen = false;
     let wordmarkPopoverOpen = false;
     let contentTransitionTimer = null;
     let contentTransitionVersion = 0;
@@ -125,6 +122,17 @@
     function setButtonState(buttons, activeValue, dataKey) {
       buttons.forEach((button) => {
         button.setAttribute("aria-pressed", String(button.dataset[dataKey] === activeValue));
+      });
+    }
+
+    function updateContextToggles() {
+      const showingVerbose = globalDetail === "verbose";
+      contextToggles.forEach((toggle) => {
+        toggle.setAttribute("aria-pressed", String(showingVerbose));
+        toggle.setAttribute(
+          "aria-label",
+          showingVerbose ? "Show concise view" : "Show verbose view"
+        );
       });
     }
 
@@ -249,6 +257,7 @@
       updateProjectDetailsForDetail();
       transitionContent();
       setButtonState(detailButtons, detail, "globalDetail");
+      updateContextToggles();
       window.dispatchEvent(new CustomEvent("kahntra-detail-change", { detail: { detail } }));
       if (announce) announcement.textContent = `Detail: ${detail === "verbose" ? "Verbose" : "Concise"}.`;
     }
@@ -272,6 +281,7 @@
       storeValue(perspectiveKey, globalPerspective);
       storeValue(detailKey, globalDetail);
       setButtonState(detailButtons, globalDetail, "globalDetail");
+      updateContextToggles();
       updateProjectDetailsForDetail();
       transitionContent({ includeApproachHeading: true });
       window.kahntraSetPortfolioView?.(globalOrder === "grouped" ? "grouped" : "sequence");
@@ -279,17 +289,6 @@
       window.dispatchEvent(new CustomEvent("kahntra-perspective-change", { detail: { perspective: globalPerspective } }));
       window.dispatchEvent(new CustomEvent("kahntra-detail-change", { detail: { detail: globalDetail } }));
       if (announce) announcement.textContent = target === "technical" ? "Technical emphasis." : "General view.";
-    }
-
-    function setUtilityPopoverOpen(open, { returnFocus = false } = {}) {
-      if (!utilityToggle || !utilityPopover) return;
-      utilityPopoverOpen = open;
-      utilityPopover.hidden = !open;
-      utilityToggle.setAttribute("aria-expanded", String(open));
-      utilityToggle.setAttribute("aria-label", open ? "Close page utilities" : "Open page utilities");
-      if (!open && returnFocus) {
-        requestAnimationFrame(() => utilityToggle.focus({ preventScroll: true }));
-      }
     }
 
     function setWordmarkPopoverOpen(open, { returnFocus = false } = {}) {
@@ -304,9 +303,6 @@
     }
 
     function handleDocumentPointerDown(event) {
-      if (utilityPopoverOpen && utilityControl && !utilityControl.contains(event.target)) {
-        setUtilityPopoverOpen(false, { returnFocus: true });
-      }
       if (wordmarkPopoverOpen && wordmarkControl && !wordmarkControl.contains(event.target)) {
         setWordmarkPopoverOpen(false, { returnFocus: true });
       }
@@ -316,10 +312,6 @@
     }
 
     function handleDocumentKeydown(event) {
-      if (event.key === "Escape" && utilityPopoverOpen) {
-        event.preventDefault();
-        setUtilityPopoverOpen(false, { returnFocus: true });
-      }
       if (event.key === "Escape" && wordmarkPopoverOpen) {
         event.preventDefault();
         setWordmarkPopoverOpen(false, { returnFocus: true });
@@ -328,14 +320,12 @@
 
     function handleWordmarkClick(event) {
       event.preventDefault();
-      setUtilityPopoverOpen(false);
       setWordmarkPopoverOpen(!wordmarkPopoverOpen);
     }
 
     function handleWordmarkKeydown(event) {
       if (event.key !== " ") return;
       event.preventDefault();
-      setUtilityPopoverOpen(false);
       setWordmarkPopoverOpen(!wordmarkPopoverOpen);
     }
 
@@ -357,7 +347,6 @@
 
     function openAbout(event) {
       if (!aboutDialog) return;
-      setUtilityPopoverOpen(false);
       setWordmarkPopoverOpen(false);
       aboutOpener = event.currentTarget;
       setAboutTab(event.currentTarget.dataset.aboutTarget || "kahntra");
@@ -440,9 +429,10 @@
         applyEmphasisPreset(button.dataset.emphasisSwitch === "technical" ? "technical" : "general");
       });
     });
-    utilityToggle?.addEventListener("click", () => {
-      setUtilityPopoverOpen(!utilityPopoverOpen);
-      setWordmarkPopoverOpen(false);
+    contextToggles.forEach((toggle) => {
+      toggle.addEventListener("click", () => {
+        setGlobalDetail(globalDetail === "verbose" ? "concise" : "verbose");
+      });
     });
     wordmarkLink?.addEventListener("click", handleWordmarkClick);
     wordmarkLink?.addEventListener("keydown", handleWordmarkKeydown);
@@ -479,6 +469,7 @@
     initializeProjectBacklinks();
     updateAllContent();
     setButtonState(detailButtons, globalDetail, "globalDetail");
+    updateContextToggles();
     document.documentElement.dataset.detailMode = globalDetail;
     window.kahntraSetPortfolioView?.(globalOrder === "grouped" ? "grouped" : "sequence");
     window.dispatchEvent(new CustomEvent("kahntra-perspective-change", { detail: { perspective: globalPerspective } }));

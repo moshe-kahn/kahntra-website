@@ -211,7 +211,7 @@ a {
   margin-left: auto;
 }
 
-.page-utility .context-toggle {
+.context-toggle {
   position: relative;
   display: inline-flex;
   width: 2rem;
@@ -226,7 +226,7 @@ a {
   -webkit-tap-highlight-color: transparent;
 }
 
-.page-utility .context-toggle__paper {
+.context-toggle__paper {
   position: relative;
   display: flex;
   width: 1.55rem;
@@ -239,7 +239,7 @@ a {
   transition: color 160ms ease, background-color 160ms ease, transform 160ms ease;
 }
 
-.page-utility .context-toggle__paper::after {
+.context-toggle__paper::after {
   position: absolute;
   top: -1px;
   right: -1px;
@@ -251,127 +251,49 @@ a {
   content: "";
 }
 
-.page-utility .context-toggle__single-letter {
+.context-toggle__single-letter {
   font-size: 0.95rem;
   line-height: 1;
 }
 
-.page-utility .context-toggle:hover,
-.page-utility .context-toggle:focus-visible,
-.page-utility .context-toggle[aria-expanded="true"] {
+.context-toggle__letter-grid {
+  display: none;
+}
+
+.context-toggle[aria-pressed="true"] .context-toggle__single-letter {
+  display: none;
+}
+
+.context-toggle[aria-pressed="true"] .context-toggle__letter-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: calc(100% - 0.18rem);
+  margin-right: 0.18rem;
+  gap: 0;
+  font-size: 0.64rem;
+  line-height: 1;
+  text-align: center;
+}
+
+.context-toggle:hover,
+.context-toggle:focus-visible {
   color: var(--accent);
 }
 
-.page-utility .context-toggle:active .context-toggle__paper {
+.context-toggle:active .context-toggle__paper {
   color: var(--accent);
   background: color-mix(in srgb, var(--accent) 10%, transparent);
   transform: translateY(1px);
   transition-duration: 0ms;
 }
 
-.page-utility .context-toggle[aria-expanded="true"] .context-toggle__paper {
-  color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 10%, transparent);
-}
-
-.page-utility .context-toggle:focus-visible {
+.context-toggle:focus-visible {
   outline: 0;
 }
 
-.page-utility .context-toggle:focus-visible .context-toggle__paper {
+.context-toggle:focus-visible .context-toggle__paper {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
-}
-
-.page-utility__popover {
-  position: absolute;
-  z-index: calc(var(--layer-sticky-header) + 1);
-  top: calc(100% + 0.28rem);
-  right: 0;
-  display: grid;
-  width: min(15rem, calc(100vw - 2rem));
-  gap: 0.28rem;
-  padding: 0.36rem 0.46rem;
-  border: 1px solid color-mix(in srgb, var(--line) 42%, transparent);
-  border-radius: 6px;
-  background: color-mix(in srgb, var(--card) 96%, white);
-  box-shadow: 0 0.3rem 0.7rem rgb(28 33 31 / 6%);
-}
-
-.page-utility__popover[hidden] {
-  display: none;
-}
-
-.page-utility__section {
-  display: grid;
-  gap: 0.16rem;
-}
-
-.page-utility__link {
-  width: fit-content;
-  max-width: 100%;
-  padding: 0.04rem 0;
-  border: 0;
-  color: color-mix(in srgb, var(--muted-ink) 90%, var(--ink));
-  background: transparent;
-  cursor: pointer;
-  font: inherit;
-  font-size: 0.76rem;
-  font-weight: 470;
-  line-height: 1.35;
-  text-align: left;
-  text-decoration: none;
-}
-
-.page-utility__link:hover,
-.page-utility__link:focus-visible {
-  color: var(--accent);
-}
-
-.page-utility__link:focus-visible {
-  border-radius: 2px;
-  outline: 2px solid color-mix(in srgb, var(--accent) 58%, transparent);
-  outline-offset: 3px;
-}
-
-.page-utility__divider {
-  height: 1px;
-  background: color-mix(in srgb, var(--line) 44%, transparent);
-}
-
-.page-utility__section--detail {
-  display: flex;
-  align-items: baseline;
-  gap: 0.7rem;
-}
-
-.page-utility__label {
-  color: color-mix(in srgb, var(--muted-ink) 92%, var(--line));
-  font-size: 0.68rem;
-  font-weight: 400;
-  letter-spacing: 0;
-  line-height: 1.2;
-  text-transform: none;
-  white-space: nowrap;
-}
-
-.page-utility__section--detail .view-control-group__options {
-  gap: 0.48rem;
-}
-
-.page-utility__section--detail .view-control-group__options button {
-  min-height: 1.34rem;
-  padding: 0 0 0.08rem;
-  font-size: 0.72rem;
-  font-weight: 560;
-}
-
-.page-utility__section--detail .view-control-group__options button[aria-pressed="true"] {
-  color: var(--accent);
-  background: transparent;
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.24rem;
 }
 
 .lens-control {
