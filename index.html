@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="512x512" href="assets/k-favicon-large.svg">
   <link rel="preload" as="image" href="assets/momo-editions/demo-preview-gallery-thumb.jpg">
   <link rel="preload" as="image" href="assets/music-for-this-moment/demo-preview-high-energy-collections-thumb.jpg">
-  <link rel="stylesheet" href="styles.css?v=task-0073-brand-card-final-1">
+  <link rel="stylesheet" href="styles.css?v=task-0073-final-visual-refine-1">
   <link rel="stylesheet" href="momo-editions-gallery.css?v=task-0073-mobile-credits-1">
   <link rel="stylesheet" href="music-for-this-moment/playlist-showcase.island.css?v=task-0080-mobile-showcase-1">
 </head>
@@ -27,9 +27,11 @@
             <img src="assets/kahntra-productions-main-header-wordmark.svg?v=brand-panel-2" width="340" height="68" alt="">
           </a>
           <div class="wordmark-popover" id="wordmark-popover" data-wordmark-popover hidden>
-            <p class="wordmark-popover__byline"><span>by</span> <button type="button" data-about-open data-about-target="moshe">Moshe Kahn</button></p>
-            <p>An independent software studio shaping practical tools around people, context, and use.</p>
-            <button type="button" data-about-open data-about-target="kahntra">Learn more and get in touch <span aria-hidden="true">→</span></button>
+            <p class="wordmark-popover__byline"><span>by</span> <strong>Moshe Kahn</strong></p>
+            <button class="wordmark-popover__about" type="button" data-about-open data-about-target="kahntra">
+              <span class="wordmark-popover__description">An independent software studio shaping practical tools around people, context, and use.</span>
+              <span class="wordmark-popover__cta">Learn more and get in touch <span aria-hidden="true">→</span></span>
+            </button>
           </div>
         </div>
         <div class="page-utility" data-page-utility>
@@ -87,36 +89,36 @@
                 <p data-perspective="technical" data-detail="regular" hidden>A growing body of context-aware tools for everyday decisions, combining dense underlying data with lightweight current signals to surface what matters most in the moment.</p>
                 <p data-perspective="technical" data-detail="more" hidden>A growing body of context-aware tools for everyday decisions, combining dense underlying data with lightweight current signals to surface what matters most in the moment.</p>
               </div>
+              <div class="emphasis-switch" data-content-group>
+                <div class="emphasis-switch__row" data-perspective="general" data-detail="less" aria-label="Technical emphasis">
+                  <span>Prefer <strong>technical emphasis</strong>?</span>
+                  <button type="button" data-emphasis-switch="technical">Switch</button>
+                </div>
+                <div class="emphasis-switch__row" data-perspective="general" data-detail="regular" aria-label="Technical emphasis">
+                  <span>Prefer <strong>technical emphasis</strong>?</span>
+                  <button type="button" data-emphasis-switch="technical">Switch</button>
+                </div>
+                <div class="emphasis-switch__row" data-perspective="technical" data-detail="less" aria-label="General view">
+                  <span>Currently viewing <strong>technical emphasis</strong>. Prefer general view?</span>
+                  <button type="button" data-emphasis-switch="general">Switch</button>
+                </div>
+                <div class="emphasis-switch__row" data-perspective="technical" data-detail="regular" aria-label="General view">
+                  <span>Currently viewing <strong>technical emphasis</strong>. Prefer general view?</span>
+                  <button type="button" data-emphasis-switch="general">Switch</button>
+                </div>
+              </div>
+              <nav class="moments-directory" data-moments-directory aria-label="Moments Collection directory">
+                <a href="#moments-momomovies" data-directory-item="momomovies"><span class="moments-directory__code">PROJECT 01</span><span class="moments-directory__separator" aria-hidden="true">—</span><span class="moments-directory__descriptor">Movie discovery</span></a>
+                <a href="#moments-momentum-tasks" data-directory-item="momentum-tasks"><span class="moments-directory__code">CONCEPT 03</span><span class="moments-directory__separator" aria-hidden="true">—</span><span class="moments-directory__descriptor">Household chore coordination</span></a>
+                <a href="#moments-music-for-this-moment" data-directory-item="music-for-this-moment"><span class="moments-directory__code">EXPLORATION 01</span><span class="moments-directory__separator" aria-hidden="true">—</span><span class="moments-directory__descriptor">Experience-based playlists</span></a>
+                <a href="#moments-pathwise" data-directory-item="pathwise"><span class="moments-directory__code">CONCEPT 02</span><span class="moments-directory__separator" aria-hidden="true">—</span><span class="moments-directory__descriptor">Refined route navigation</span></a>
+                <a href="#moments-listenlab" data-directory-item="listenlab"><span class="moments-directory__code">PROJECT 02</span><span class="moments-directory__separator" aria-hidden="true">—</span><span class="moments-directory__descriptor">Music library tools</span></a>
+                <a href="#moments-meal-match" data-directory-item="meal-match"><span class="moments-directory__code">CONCEPT 01</span><span class="moments-directory__separator" aria-hidden="true">—</span><span class="moments-directory__descriptor">Food decision aid</span></a>
+                <a href="#moments-momo-editions" data-directory-item="momo-editions"><span class="moments-directory__code">EXPLORATION 02</span><span class="moments-directory__separator" aria-hidden="true">—</span><span class="moments-directory__descriptor">Film experience portraits</span></a>
+                <a href="#moments-momentum-management" data-directory-item="momentum-management"><span class="moments-directory__code">PROJECT 03</span><span class="moments-directory__separator" aria-hidden="true">—</span><span class="moments-directory__descriptor">Work context management</span></a>
+                <a href="#moments-banner-picker" data-directory-item="banner-picker"><span class="moments-directory__code">EXPLORATION 03</span><span class="moments-directory__separator" aria-hidden="true">—</span><span class="moments-directory__descriptor">Visual preference matching</span></a>
+              </nav>
             </div>
-            <div class="emphasis-switch" data-content-group>
-              <div class="emphasis-switch__row" data-perspective="general" data-detail="less" aria-label="Technical emphasis">
-                <span>Prefer <strong>technical emphasis</strong>?</span>
-                <button type="button" data-emphasis-switch="technical">Switch</button>
-              </div>
-              <div class="emphasis-switch__row" data-perspective="general" data-detail="regular" aria-label="Technical emphasis">
-                <span>Prefer <strong>technical emphasis</strong>?</span>
-                <button type="button" data-emphasis-switch="technical">Switch</button>
-              </div>
-              <div class="emphasis-switch__row" data-perspective="technical" data-detail="less" aria-label="General view">
-                <span>Currently viewing <strong>technical emphasis</strong>. Prefer general view?</span>
-                <button type="button" data-emphasis-switch="general">Switch</button>
-              </div>
-              <div class="emphasis-switch__row" data-perspective="technical" data-detail="regular" aria-label="General view">
-                <span>Currently viewing <strong>technical emphasis</strong>. Prefer general view?</span>
-                <button type="button" data-emphasis-switch="general">Switch</button>
-              </div>
-            </div>
-            <nav class="moments-directory" data-moments-directory aria-label="Moments Collection directory">
-              <a href="#moments-momomovies" data-directory-item="momomovies"><span class="moments-directory__code">PROJECT 01</span><span class="moments-directory__separator" aria-hidden="true">—</span><span class="moments-directory__descriptor">Movie discovery</span></a>
-              <a href="#moments-momentum-tasks" data-directory-item="momentum-tasks"><span class="moments-directory__code">CONCEPT 03</span><span class="moments-directory__separator" aria-hidden="true">—</span><span class="moments-directory__descriptor">Household chore coordination</span></a>
-              <a href="#moments-music-for-this-moment" data-directory-item="music-for-this-moment"><span class="moments-directory__code">EXPLORATION 01</span><span class="moments-directory__separator" aria-hidden="true">—</span><span class="moments-directory__descriptor">Experience-based playlists</span></a>
-              <a href="#moments-pathwise" data-directory-item="pathwise"><span class="moments-directory__code">CONCEPT 02</span><span class="moments-directory__separator" aria-hidden="true">—</span><span class="moments-directory__descriptor">Refined route navigation</span></a>
-              <a href="#moments-listenlab" data-directory-item="listenlab"><span class="moments-directory__code">PROJECT 02</span><span class="moments-directory__separator" aria-hidden="true">—</span><span class="moments-directory__descriptor">Music library tools</span></a>
-              <a href="#moments-meal-match" data-directory-item="meal-match"><span class="moments-directory__code">CONCEPT 01</span><span class="moments-directory__separator" aria-hidden="true">—</span><span class="moments-directory__descriptor">Food decision aid</span></a>
-              <a href="#moments-momo-editions" data-directory-item="momo-editions"><span class="moments-directory__code">EXPLORATION 02</span><span class="moments-directory__separator" aria-hidden="true">—</span><span class="moments-directory__descriptor">Film experience portraits</span></a>
-              <a href="#moments-momentum-management" data-directory-item="momentum-management"><span class="moments-directory__code">PROJECT 03</span><span class="moments-directory__separator" aria-hidden="true">—</span><span class="moments-directory__descriptor">Work context management</span></a>
-              <a href="#moments-banner-picker" data-directory-item="banner-picker"><span class="moments-directory__code">EXPLORATION 03</span><span class="moments-directory__separator" aria-hidden="true">—</span><span class="moments-directory__descriptor">Visual preference matching</span></a>
-            </nav>
           </div>
         </div>
 
@@ -655,8 +657,19 @@
     </main>
 
     <footer class="site-footer">
+      <span class="site-footer__tear" aria-hidden="true"></span>
       <nav class="site-footer__links" aria-label="Footer">
-        <button type="button" data-about-open>Learn more about our approach and get in touch <span aria-hidden="true">→</span></button>
+        <button class="site-footer__link site-footer__link--primary" type="button" data-about-open data-about-target="kahntra">
+          <span class="site-footer__link-label">About Kahntra <span aria-hidden="true">→</span></span>
+        </button>
+        <button class="site-footer__link" type="button" data-about-open data-about-target="moshe">
+          <span class="site-footer__link-kicker">Founder</span>
+          <span class="site-footer__link-label">Moshe Kahn bio <span aria-hidden="true">→</span></span>
+        </button>
+        <a class="site-footer__link site-footer__link--email" href="mailto:contact@kahntra.com">
+          <span class="site-footer__link-kicker">Direct contact</span>
+          <span class="site-footer__link-label">Email contact@kahntra.com <span aria-hidden="true">↗</span></span>
+        </a>
       </nav>
     </footer>
   </div>
