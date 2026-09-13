@@ -4783,7 +4783,8 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
   max-width: 14ch;
 }
 
-.about-dialog__moshe {
+.about-dialog__moshe,
+.about-dialog__client-work {
   display: grid;
   gap: clamp(1.25rem, 3vw, 2rem);
   align-items: start;
@@ -4791,7 +4792,8 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
   padding-bottom: clamp(1rem, 4vw, 3rem);
 }
 
-.about-dialog__moshe h2 {
+.about-dialog__moshe h2,
+.about-dialog__client-work h2 {
   margin: 0 0 1rem;
 }
 
@@ -4807,6 +4809,27 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
   grid-template-columns: minmax(10rem, 12rem) minmax(0, 1fr);
   gap: clamp(1.25rem, 3vw, 2.5rem);
   align-items: center;
+}
+
+.about-dialog__client-work-body {
+  display: grid;
+  gap: clamp(1.25rem, 3vw, 2rem);
+}
+
+.about-dialog__client-work-list {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+  list-style: none;
+}
+
+.about-dialog__client-work-list li {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted-ink);
+  line-height: 1.55;
 }
 
 .about-dialog__portrait {

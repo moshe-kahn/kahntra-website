@@ -563,12 +563,13 @@
           <div class="about-dialog__header">
             <h2 class="sr-only" id="about-dialog-title">About</h2>
             <div class="about-dialog__tabs" role="tablist" aria-label="About">
-              <button type="button" id="about-kahntra-tab" role="tab" aria-selected="true" aria-controls="about-kahntra-panel" data-about-tab="kahntra">Kahntra</button>
-              <button type="button" id="about-moshe-tab" role="tab" aria-selected="false" aria-controls="about-moshe-panel" data-about-tab="moshe">Moshe Kahn</button>
+              <button type="button" id="about-kahntra-tab" role="tab" aria-selected="true" aria-controls="about-kahntra-panel" data-about-tab="kahntra">Approach</button>
+              <button type="button" id="about-moshe-tab" role="tab" aria-selected="false" aria-controls="about-moshe-panel" data-about-tab="moshe">Founder</button>
+              <button type="button" id="about-client-work-tab" role="tab" aria-selected="false" aria-controls="about-client-work-panel" data-about-tab="client-work">Client Work</button>
             </div>
             <button class="about-dialog__close" type="button" data-about-close aria-label="Close About">×</button>
           </div>
-      <section class="approach section about-dialog__approach" id="about-kahntra-panel" role="tabpanel" aria-labelledby="about-kahntra-tab" data-about-panel="kahntra" aria-label="About Kahntra">
+      <section class="approach section about-dialog__approach" id="about-kahntra-panel" role="tabpanel" aria-labelledby="about-kahntra-tab" data-about-panel="kahntra" aria-label="Kahntra approach">
         <div class="approach-copy">
           <p class="eyebrow">Our approach</p>
           <h2 tabindex="-1" data-perspective-heading="philosophy" hidden>Tools should fit the work.</h2>
@@ -646,6 +647,18 @@
                 <img src="assets/moshe-kahn-portrait.jpg" width="400" height="400" loading="lazy" alt="Moshe Kahn wearing glasses.">
               </figure>
               <p class="about-dialog__lead">I build independent products, experiments, and client tools through close attention to how people actually use them.</p>
+            </div>
+          </section>
+          <section class="about-dialog__client-work" id="about-client-work-panel" role="tabpanel" aria-labelledby="about-client-work-tab" data-about-panel="client-work" hidden>
+            <p class="eyebrow">Client Work</p>
+            <h2>Focused tools for specific work.</h2>
+            <div class="about-dialog__client-work-body">
+              <p class="about-dialog__lead">Kahntra can help shape small software products, prototypes, and internal tools around the people and conditions they need to serve.</p>
+              <ul class="about-dialog__client-work-list" aria-label="Client work focus areas">
+                <li>Clarify the workflow, audience, and practical constraints.</li>
+                <li>Prototype the interaction before expanding the system.</li>
+                <li>Refine the tool around real use and clearer decisions.</li>
+              </ul>
             </div>
           </section>
           </div>
