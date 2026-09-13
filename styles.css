@@ -4806,9 +4806,26 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
 
 .about-dialog__moshe-body {
   display: grid;
-  grid-template-columns: minmax(10rem, 12rem) minmax(0, 1fr);
+  grid-template-columns: minmax(9rem, 36%) minmax(0, 1fr);
   gap: clamp(1.25rem, 3vw, 2.5rem);
   align-items: center;
+}
+
+.about-dialog__founder-copy {
+  display: grid;
+  gap: 1rem;
+}
+
+.about-dialog__founder-role,
+.about-dialog__founder-note {
+  margin: 0;
+  color: var(--muted-ink);
+  line-height: 1.5;
+}
+
+.about-dialog__founder-role {
+  color: var(--ink);
+  font-weight: 700;
 }
 
 .about-dialog__client-work-body {
@@ -4833,6 +4850,7 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
 }
 
 .about-dialog__portrait {
+  aspect-ratio: 5 / 6;
   margin: 0;
   overflow: hidden;
   border: 1px solid var(--line);
@@ -4842,9 +4860,8 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
 .about-dialog__portrait img {
   display: block;
   width: 100%;
-  aspect-ratio: 1;
-  height: auto;
-  object-fit: contain;
+  height: 100%;
+  object-fit: cover;
   filter: grayscale(1);
 }
 
@@ -4880,7 +4897,7 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
   }
 
   .about-dialog__portrait {
-    width: min(11rem, 58vw);
+    width: min(10rem, 52vw);
   }
 
   .about-dialog__footer {
