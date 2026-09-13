@@ -4670,17 +4670,19 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
 }
 
 .about-dialog {
-  width: min(calc(100% - 2rem), 68rem);
-  max-height: min(calc(100dvh - 2rem), 54rem);
+  width: min(calc(100% - clamp(1rem, 4vw, 2rem)), 64rem);
+  max-height: min(calc(100dvh - clamp(1rem, 4vw, 2rem)), 50rem);
   padding: 0;
   border: 1px solid var(--line);
+  border-radius: 6px;
   color: var(--ink);
   background: var(--canvas);
+  box-shadow: 0 1.5rem 4rem rgb(28 33 31 / 24%);
   overflow: hidden;
 }
 
 .about-dialog::backdrop {
-  background: rgb(28 33 31 / 48%);
+  background: rgb(28 33 31 / 54%);
 }
 
 .about-dialog__surface {
@@ -4693,7 +4695,8 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
 .about-dialog__content {
   overflow: auto;
   overscroll-behavior: contain;
-  padding: clamp(1.25rem, 4vw, 3rem);
+  padding: clamp(1rem, 3vw, 2.5rem);
+  scrollbar-gutter: stable;
 }
 
 [data-about-panel][hidden] {
@@ -4701,12 +4704,18 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
 }
 
 .about-dialog__header {
+  position: sticky;
+  z-index: 2;
+  top: 0;
   display: flex;
   align-items: flex-start;
   gap: 1rem;
   min-height: 2.25rem;
-  margin-bottom: clamp(2rem, 4vw, 3.5rem);
+  margin: calc(clamp(1rem, 3vw, 2.5rem) * -1) calc(clamp(1rem, 3vw, 2.5rem) * -1) clamp(1.5rem, 3vw, 2.5rem);
+  padding: clamp(1rem, 3vw, 2.5rem) clamp(1rem, 3vw, 2.5rem) 0;
   border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, var(--canvas) 94%, transparent);
+  backdrop-filter: blur(8px);
 }
 
 .about-dialog__close {
@@ -4736,9 +4745,17 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
   gap: 1.1rem;
   margin: 0;
   border: 0;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.about-dialog__tabs::-webkit-scrollbar {
+  display: none;
 }
 
 .about-dialog__tabs button {
+  flex: 0 0 auto;
   padding: 0 0 0.7rem;
   border: 0;
   border-bottom: 3px solid transparent;
@@ -4762,11 +4779,15 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
   background: transparent;
 }
 
+.about-dialog .approach-copy h2 {
+  max-width: 14ch;
+}
+
 .about-dialog__moshe {
   display: grid;
   gap: clamp(1.25rem, 3vw, 2rem);
   align-items: start;
-  max-width: 54rem;
+  max-width: 48rem;
   padding-bottom: clamp(1rem, 4vw, 3rem);
 }
 
@@ -4777,18 +4798,22 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
 .about-dialog__lead {
   margin: 0;
   color: var(--muted-ink);
-  font-size: clamp(1.15rem, 2vw, 1.45rem);
+  font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+  line-height: 1.45;
 }
 
 .about-dialog__moshe-body {
   display: grid;
-  grid-template-columns: minmax(10rem, 14rem) minmax(0, 1fr);
+  grid-template-columns: minmax(10rem, 12rem) minmax(0, 1fr);
   gap: clamp(1.25rem, 3vw, 2.5rem);
-  align-items: start;
+  align-items: center;
 }
 
 .about-dialog__portrait {
   margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--card);
 }
 
 .about-dialog__portrait img {
@@ -4817,9 +4842,26 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
 }
 
 @media (max-width: 600px) {
+  .about-dialog {
+    width: min(calc(100% - 1rem), 34rem);
+  }
+
+  .about-dialog__header {
+    align-items: center;
+    gap: 0.75rem;
+  }
+
   .about-dialog__moshe-body {
-    grid-template-columns: minmax(7.5rem, 10rem) minmax(0, 1fr);
-    gap: 1rem;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem;
+  }
+
+  .about-dialog__portrait {
+    width: min(11rem, 58vw);
+  }
+
+  .about-dialog__footer {
+    text-align: left;
   }
 }
 

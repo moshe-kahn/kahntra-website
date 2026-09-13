@@ -35,6 +35,7 @@
     const wordmarkLink = document.querySelector(".wordmark");
     const aboutDialog = document.querySelector("#about-dialog");
     const aboutSurface = aboutDialog?.querySelector(".about-dialog__surface");
+    const aboutContent = aboutDialog?.querySelector(".about-dialog__content");
     const aboutOpenButtons = [...document.querySelectorAll("[data-about-open]")];
     const aboutCloseButton = document.querySelector("[data-about-close]");
     const aboutTabs = [...document.querySelectorAll("[data-about-tab]")];
@@ -332,6 +333,8 @@
     function setAboutTab(tabName) {
       if (!aboutTabs.length) return;
 
+      const currentTab = aboutTabs.find((tab) => tab.getAttribute("aria-selected") === "true");
+      const shouldResetScroll = !aboutDialog?.open || currentTab?.dataset.aboutTab !== tabName;
       aboutTabs.forEach((tab) => {
         const selected = tab.dataset.aboutTab === tabName;
         tab.setAttribute("aria-selected", String(selected));
@@ -339,6 +342,7 @@
       document.querySelectorAll("[data-about-panel]").forEach((panel) => {
         panel.hidden = panel.dataset.aboutPanel !== tabName;
       });
+      if (shouldResetScroll && aboutContent) aboutContent.scrollTop = 0;
     }
 
     function closeAbout() {
@@ -350,11 +354,13 @@
       setWordmarkPopoverOpen(false);
       aboutOpener = event.currentTarget;
       setAboutTab(event.currentTarget.dataset.aboutTarget || "kahntra");
+      const wasOpen = aboutDialog.open;
       if (!aboutDialog.open) {
         aboutDialog.showModal();
         document.documentElement.dataset.aboutDialog = "open";
       }
       requestAnimationFrame(() => {
+        if (!wasOpen && aboutContent) aboutContent.scrollTop = 0;
         aboutTabs.find((tab) => tab.getAttribute("aria-selected") === "true")?.focus();
       });
     }
@@ -371,6 +377,7 @@
           ? aboutTabs.length - 1
           : (currentIndex + (event.key === "ArrowRight" ? 1 : -1) + aboutTabs.length) % aboutTabs.length;
       const nextTab = aboutTabs[nextIndex];
+      if (nextTab === event.currentTarget) return;
       setAboutTab(nextTab.dataset.aboutTab);
       nextTab.focus();
     }
@@ -443,7 +450,10 @@
     });
     aboutCloseButton?.addEventListener("click", closeAbout);
     aboutTabs.forEach((tab) => {
-      tab.addEventListener("click", () => setAboutTab(tab.dataset.aboutTab));
+      tab.addEventListener("click", () => {
+        if (tab.getAttribute("aria-selected") === "true") return;
+        setAboutTab(tab.dataset.aboutTab);
+      });
       tab.addEventListener("keydown", handleAboutTabKeydown);
     });
     aboutSurface?.addEventListener("click", (event) => event.stopPropagation());
