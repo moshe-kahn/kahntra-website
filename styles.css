@@ -4773,14 +4773,77 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
 }
 
 .about-dialog .approach.section {
+  display: block;
+  max-width: 52rem;
   margin: 0;
   padding: 0;
   border: 0;
   background: transparent;
 }
 
+.about-dialog [data-about-panel][hidden] {
+  display: none;
+}
+
 .about-dialog .approach-copy h2 {
   max-width: 14ch;
+}
+
+.about-dialog .approach-followup {
+  display: grid;
+  gap: clamp(1.75rem, 4vw, 2.75rem);
+}
+
+.about-dialog__method {
+  display: grid;
+  gap: 1rem;
+  padding-top: clamp(1.5rem, 4vw, 2.5rem);
+  border-top: 1px solid var(--line);
+}
+
+.about-dialog__method .eyebrow,
+.about-dialog__method h3,
+.about-dialog__method h4,
+.about-dialog__method p {
+  margin: 0;
+}
+
+.about-dialog__method h3 {
+  max-width: 24ch;
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  line-height: 1.05;
+}
+
+.about-dialog__method > p,
+.about-dialog__method-list p {
+  color: var(--muted-ink);
+  line-height: 1.5;
+}
+
+.about-dialog__method-list {
+  display: grid;
+  gap: 0;
+  margin: clamp(0.5rem, 2vw, 1rem) 0 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+  list-style: none;
+}
+
+.about-dialog__method-list li {
+  display: grid;
+  gap: 0.35rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.about-dialog__method-list h4 {
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  line-height: 1.25;
+  text-transform: uppercase;
 }
 
 .about-dialog__moshe,
@@ -4884,6 +4947,11 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
 @media (max-width: 600px) {
   .about-dialog {
     width: min(calc(100% - 1rem), 34rem);
+    height: min(calc(100dvh - 1rem), 50rem);
+  }
+
+  .about-dialog__surface {
+    height: 100%;
   }
 
   .about-dialog__header {
