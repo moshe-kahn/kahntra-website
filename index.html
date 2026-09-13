@@ -559,17 +559,12 @@
 
       <dialog class="about-dialog" id="about-dialog" aria-labelledby="about-dialog-title">
         <div class="about-dialog__surface">
-          <div class="about-dialog__content">
+          <div class="about-main about-dialog__content">
           <div class="about-dialog__header">
             <h2 class="sr-only" id="about-dialog-title">About</h2>
-            <div class="about-dialog__tabs" role="tablist" aria-label="About">
-              <button type="button" id="about-kahntra-tab" role="tab" aria-selected="true" aria-controls="about-kahntra-panel" data-about-tab="kahntra">Approach</button>
-              <button type="button" id="about-moshe-tab" role="tab" aria-selected="false" aria-controls="about-moshe-panel" data-about-tab="moshe">Founder</button>
-              <button type="button" id="about-client-work-tab" role="tab" aria-selected="false" aria-controls="about-client-work-panel" data-about-tab="client-work">Client Work</button>
-            </div>
             <button class="about-dialog__close" type="button" data-about-close aria-label="Close About">×</button>
           </div>
-      <section class="approach section about-dialog__approach" id="about-kahntra-panel" role="tabpanel" aria-labelledby="about-kahntra-tab" data-about-panel="kahntra" aria-label="Kahntra approach">
+      <section class="approach section about-dialog__approach" id="about-kahntra-panel" aria-label="Kahntra approach">
         <div class="approach-copy">
           <p class="eyebrow">Our approach</p>
           <h2>Tools should fit the work.</h2>
@@ -579,7 +574,7 @@
               <li>
                 <span class="approach-process__mark" aria-hidden="true">01</span>
                 <div>
-                  <h3>Stay close to the work</h3>
+                  <h3>Start with what’s there</h3>
                   <p>Start with the people, materials, habits, and constraints already shaping the situation.</p>
                 </div>
               </li>
@@ -598,56 +593,20 @@
                 </div>
               </li>
             </ol>
-            <section class="about-dialog__method" aria-labelledby="about-dialog-method-title">
-              <p class="eyebrow">How it gets tested</p>
-              <h3 id="about-dialog-method-title">Small product experiments make the approach concrete.</h3>
-              <p>Each experiment gives the method a specific surface: a decision to clarify, a rhythm to support, or a collection to make easier to explore.</p>
-              <ul class="about-dialog__method-list">
-                <li>
-                  <h4>Banner Picker</h4>
-                  <p>A small preference test for noticing how visual choices change the feel of a product surface.</p>
-                </li>
-                <li>
-                  <h4>Music for the Moment / Playlist Picker</h4>
-                  <p>A guided selection flow for matching music to context without turning the choice into a search chore.</p>
-                </li>
-                <li>
-                  <h4>Momo Editions</h4>
-                  <p>A visual collection study for exploring how poster treatments can frame the same film in different ways.</p>
-                </li>
-              </ul>
-            </section>
           </div>
         </div>
       </section>
-          <section class="about-dialog__moshe" id="about-moshe-panel" role="tabpanel" aria-labelledby="about-moshe-tab" data-about-panel="moshe" hidden>
-            <h2>Moshe Kahn</h2>
-            <div class="about-dialog__moshe-body">
-              <figure class="about-dialog__portrait">
-                <img src="assets/moshe-kahn-portrait.jpg" width="400" height="400" loading="lazy" alt="Moshe Kahn wearing glasses.">
-              </figure>
-              <div class="about-dialog__founder-copy">
-                <p class="about-dialog__founder-role">Founder, designer, and developer.</p>
-                <p class="about-dialog__lead">I build independent products, experiments, and client tools through close attention to how people actually use them.</p>
-                <p class="about-dialog__founder-note">B.S. Computer Science, UCLA.</p>
+          </div>
+          <footer class="about-footer about-dialog__footer">
+            <div class="about-dialog__founder-signature">
+              <img src="assets/moshe-kahn-portrait.jpg" width="400" height="400" loading="lazy" alt="Moshe Kahn wearing glasses.">
+              <div>
+                <p class="about-dialog__founder-name">Moshe Kahn</p>
+                <p>Founder, designer, and developer.</p>
+                <a href="https://www.linkedin.com/in/moshe-kahn/" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
               </div>
             </div>
-          </section>
-          <section class="about-dialog__client-work" id="about-client-work-panel" role="tabpanel" aria-labelledby="about-client-work-tab" data-about-panel="client-work" hidden>
-            <p class="eyebrow">Client Work</p>
-            <h2>Focused tools for specific work.</h2>
-            <div class="about-dialog__client-work-body">
-              <p class="about-dialog__lead">Kahntra can help shape small software products, prototypes, and internal tools around the people and conditions they need to serve.</p>
-              <ul class="about-dialog__client-work-list" aria-label="Client work focus areas">
-                <li>Clarify the workflow, audience, and practical constraints.</li>
-                <li>Prototype the interaction before expanding the system.</li>
-                <li>Refine the tool around real use and clearer decisions.</li>
-              </ul>
-            </div>
-          </section>
-          </div>
-          <footer class="about-dialog__footer">
-            <a href="mailto:contact@kahntra.com">Send an email to contact@kahntra.com <span aria-hidden="true">→</span></a>
+            <a class="about-dialog__email" href="mailto:contact@kahntra.com">Send an email to contact@kahntra.com <span aria-hidden="true">↗</span></a>
           </footer>
         </div>
       </dialog>
@@ -658,10 +617,6 @@
       <nav class="site-footer__links" aria-label="Footer">
         <button class="site-footer__link site-footer__link--primary" type="button" data-about-open data-about-target="kahntra">
           <span class="site-footer__link-label">About Kahntra <span aria-hidden="true">→</span></span>
-        </button>
-        <button class="site-footer__link" type="button" data-about-open data-about-target="moshe">
-          <span class="site-footer__link-kicker">Founder</span>
-          <span class="site-footer__link-label">Moshe Kahn bio <span aria-hidden="true">→</span></span>
         </button>
         <a class="site-footer__link site-footer__link--email" href="mailto:contact@kahntra.com">
           <span class="site-footer__link-kicker">Direct contact</span>

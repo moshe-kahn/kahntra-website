@@ -38,7 +38,6 @@
     const aboutContent = aboutDialog?.querySelector(".about-dialog__content");
     const aboutOpenButtons = [...document.querySelectorAll("[data-about-open]")];
     const aboutCloseButton = document.querySelector("[data-about-close]");
-    const aboutTabs = [...document.querySelectorAll("[data-about-tab]")];
     const unavailableLinks = [...document.querySelectorAll(".product-card__unavailable")];
     const projectTabGroups = [...document.querySelectorAll("[data-project-tabs]")];
 
@@ -330,21 +329,6 @@
       setWordmarkPopoverOpen(!wordmarkPopoverOpen);
     }
 
-    function setAboutTab(tabName) {
-      if (!aboutTabs.length) return;
-
-      const currentTab = aboutTabs.find((tab) => tab.getAttribute("aria-selected") === "true");
-      const shouldResetScroll = !aboutDialog?.open || currentTab?.dataset.aboutTab !== tabName;
-      aboutTabs.forEach((tab) => {
-        const selected = tab.dataset.aboutTab === tabName;
-        tab.setAttribute("aria-selected", String(selected));
-      });
-      document.querySelectorAll("[data-about-panel]").forEach((panel) => {
-        panel.hidden = panel.dataset.aboutPanel !== tabName;
-      });
-      if (shouldResetScroll && aboutContent) aboutContent.scrollTop = 0;
-    }
-
     function closeAbout() {
       if (aboutDialog?.open) aboutDialog.close();
     }
@@ -353,7 +337,6 @@
       if (!aboutDialog) return;
       setWordmarkPopoverOpen(false);
       aboutOpener = event.currentTarget;
-      setAboutTab(event.currentTarget.dataset.aboutTarget || "kahntra");
       const wasOpen = aboutDialog.open;
       if (!aboutDialog.open) {
         aboutDialog.showModal();
@@ -361,25 +344,7 @@
       }
       requestAnimationFrame(() => {
         if (!wasOpen && aboutContent) aboutContent.scrollTop = 0;
-        aboutTabs.find((tab) => tab.getAttribute("aria-selected") === "true")?.focus();
       });
-    }
-
-    function handleAboutTabKeydown(event) {
-      if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
-      const currentIndex = aboutTabs.indexOf(event.currentTarget);
-      if (currentIndex === -1) return;
-
-      event.preventDefault();
-      const nextIndex = event.key === "Home"
-        ? 0
-        : event.key === "End"
-          ? aboutTabs.length - 1
-          : (currentIndex + (event.key === "ArrowRight" ? 1 : -1) + aboutTabs.length) % aboutTabs.length;
-      const nextTab = aboutTabs[nextIndex];
-      if (nextTab === event.currentTarget) return;
-      setAboutTab(nextTab.dataset.aboutTab);
-      nextTab.focus();
     }
 
     function initializeProjectTabs() {
@@ -449,13 +414,6 @@
       button.addEventListener("click", openAbout);
     });
     aboutCloseButton?.addEventListener("click", closeAbout);
-    aboutTabs.forEach((tab) => {
-      tab.addEventListener("click", () => {
-        if (tab.getAttribute("aria-selected") === "true") return;
-        setAboutTab(tab.dataset.aboutTab);
-      });
-      tab.addEventListener("keydown", handleAboutTabKeydown);
-    });
     aboutSurface?.addEventListener("click", (event) => event.stopPropagation());
     aboutDialog?.addEventListener("click", (event) => {
       if (event.target === aboutDialog) closeAbout();
