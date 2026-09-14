@@ -1586,58 +1586,6 @@ html[data-view-controls="collapsed"] .view-controls {
   text-underline-offset: 0.22rem;
 }
 
-.product-card__unavailable {
-  position: relative;
-  color: var(--muted-ink);
-}
-
-.product-card__unavailable summary {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.3rem;
-  cursor: pointer;
-  color: var(--accent);
-  font-size: 0.9rem;
-  font-weight: 700;
-  list-style: none;
-  text-decoration: none;
-}
-
-.product-card__unavailable summary::-webkit-details-marker {
-  display: none;
-}
-
-.product-card__unavailable summary:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
-}
-
-.product-card__unavailable > span {
-  position: absolute;
-  right: 0;
-  bottom: calc(100% + 0.45rem);
-  width: max-content;
-  max-width: min(13rem, 75vw);
-  padding: 0.35rem 0.45rem;
-  border: 1px solid var(--line);
-  background: var(--card);
-  color: var(--muted-ink);
-  font-size: 0.72rem;
-  font-weight: 600;
-  line-height: 1.25;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(0.2rem);
-  transition: opacity 140ms ease, transform 140ms ease;
-}
-
-.product-card__unavailable:hover > span,
-.product-card__unavailable:focus-within > span,
-.product-card__unavailable[open] > span {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 .project-tabs {
   display: grid;
   width: 100%;

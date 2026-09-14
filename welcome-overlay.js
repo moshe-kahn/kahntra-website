@@ -38,7 +38,6 @@
     const aboutContent = aboutDialog?.querySelector(".about-dialog__content");
     const aboutOpenButtons = [...document.querySelectorAll("[data-about-open]")];
     const aboutCloseButton = document.querySelector("[data-about-close]");
-    const unavailableLinks = [...document.querySelectorAll(".product-card__unavailable")];
     const projectTabGroups = [...document.querySelectorAll("[data-project-tabs]")];
 
     if (!announcement) return;
@@ -50,7 +49,6 @@
     let contentTransitionTimer = null;
     let contentTransitionVersion = 0;
     let aboutOpener = null;
-    const unavailableTimers = new WeakMap();
     const contentFadeOutDuration = 220;
     const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
@@ -306,9 +304,6 @@
       if (wordmarkPopoverOpen && wordmarkControl && !wordmarkControl.contains(event.target)) {
         setWordmarkPopoverOpen(false, { returnFocus: true });
       }
-      unavailableLinks.forEach((notice) => {
-        if (notice.open && !notice.contains(event.target)) notice.open = false;
-      });
     }
 
     function handleDocumentKeydown(event) {
@@ -422,12 +417,6 @@
       delete document.documentElement.dataset.aboutDialog;
       aboutOpener?.focus({ preventScroll: true });
       aboutOpener = null;
-    });
-    unavailableLinks.forEach((notice) => {
-      notice.addEventListener("toggle", () => {
-        window.clearTimeout(unavailableTimers.get(notice));
-        if (notice.open) unavailableTimers.set(notice, window.setTimeout(() => { notice.open = false; }, 2000));
-      });
     });
     document.addEventListener("pointerdown", handleDocumentPointerDown);
     document.addEventListener("keydown", handleDocumentKeydown);
