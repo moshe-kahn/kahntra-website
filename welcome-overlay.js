@@ -2,13 +2,6 @@
   const detailKey = "kahntra-site-detail-v1";
   const perspectiveKey = "kahntra-site-perspective-v1";
   const details = ["concise", "verbose"];
-  const detailAliases = {
-    concise: "concise",
-    verbose: "verbose",
-    less: "concise",
-    regular: "verbose",
-    more: "verbose",
-  };
   const routePresets = {
     general: {
       perspective: "design-philosophy",
@@ -77,12 +70,10 @@
     }
 
     function normalizeDetail(value) {
-      return detailAliases[value] || null;
+      return details.includes(value) ? value : null;
     }
 
     function readInitialDetail(perspective) {
-      if (perspective === "technical") return routePresets.technical.detail;
-
       try {
         const params = new URLSearchParams(window.location.search);
         const resolvedDetail = normalizeDetail(params.get("detail"));
@@ -91,7 +82,7 @@
         // URL state is optional when history APIs are unavailable.
       }
 
-      return routePresets.general.detail;
+      return perspective === "technical" ? routePresets.technical.detail : routePresets.general.detail;
     }
 
     function storeValue(key, value) {
@@ -108,13 +99,6 @@
 
     function visiblePerspective() {
       return globalPerspective === "technical" ? "technical" : "general";
-    }
-
-    function mappedDetailOrder(detailState) {
-      if (detailState === "verbose") {
-        return ["regular", "more", "less"];
-      }
-      return ["less", "regular", "more"];
     }
 
     function setButtonState(buttons, activeValue, dataKey) {
@@ -136,7 +120,6 @@
 
     function updateContent(container) {
       const perspective = visiblePerspective();
-      const detailCandidates = mappedDetailOrder(globalDetail);
       const visibleElements = [...container.querySelectorAll("[data-perspective][data-detail]")].filter(
         (element) => element.dataset.perspective === perspective
       );
@@ -145,9 +128,10 @@
         element.hidden = true;
       });
 
-      const selectedDetail = detailCandidates.find((detail) =>
-        visibleElements.some((element) => element.dataset.detail === detail)
-      );
+      const selectedDetail = details.includes(globalDetail) &&
+        visibleElements.some((element) => element.dataset.detail === globalDetail)
+        ? globalDetail
+        : routePresets.general.detail;
 
       visibleElements
         .filter((element) => element.dataset.detail === selectedDetail)
