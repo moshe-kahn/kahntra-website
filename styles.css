@@ -615,6 +615,27 @@ a {
   display: none;
 }
 
+html[data-visible-perspective="general"][data-detail-mode="concise"] [data-perspective][data-detail],
+html[data-visible-perspective="general"][data-detail-mode="verbose"] [data-perspective][data-detail],
+html[data-visible-perspective="technical"][data-detail-mode="concise"] [data-perspective][data-detail],
+html[data-visible-perspective="technical"][data-detail-mode="verbose"] [data-perspective][data-detail] {
+  display: none;
+}
+
+html[data-visible-perspective="general"][data-detail-mode="concise"] [data-perspective="general"][data-detail="concise"],
+html[data-visible-perspective="general"][data-detail-mode="verbose"] [data-perspective="general"][data-detail="verbose"],
+html[data-visible-perspective="technical"][data-detail-mode="concise"] [data-perspective="technical"][data-detail="concise"],
+html[data-visible-perspective="technical"][data-detail-mode="verbose"] [data-perspective="technical"][data-detail="verbose"] {
+  display: revert;
+}
+
+html[data-visible-perspective="general"][data-detail-mode="concise"] .emphasis-switch__row[data-perspective="general"][data-detail="concise"],
+html[data-visible-perspective="general"][data-detail-mode="verbose"] .emphasis-switch__row[data-perspective="general"][data-detail="verbose"],
+html[data-visible-perspective="technical"][data-detail-mode="concise"] .emphasis-switch__row[data-perspective="technical"][data-detail="concise"],
+html[data-visible-perspective="technical"][data-detail-mode="verbose"] .emphasis-switch__row[data-perspective="technical"][data-detail="verbose"] {
+  display: inline-flex;
+}
+
 .emphasis-switch__row strong {
   color: inherit;
   font-weight: 650;
@@ -1272,6 +1293,11 @@ html[data-view-controls="collapsed"] .view-controls {
   width: min(100% - clamp(1.5rem, 5vw, 4rem), 67.5rem);
   margin: clamp(2.5rem, 5vw, 4.5rem) auto 0;
   gap: clamp(3rem, 7vw, 6rem);
+}
+
+.products.section > .product-groups,
+.showcase.section {
+  display: none;
 }
 
 .product-group {
@@ -2054,6 +2080,20 @@ html[data-view-controls="collapsed"] .view-controls {
   border-radius: 14px;
 }
 
+html[data-portfolio-layout] #products > [data-tech-demo-locator],
+html[data-portfolio-layout] #products > [data-tech-demo] {
+  display: none;
+}
+
+html[data-portfolio-layout]:not([data-portfolio-ready]) .site-footer {
+  visibility: hidden;
+}
+
+html[data-portfolio-layout="sequence"] .products.section > .product-groups,
+html[data-portfolio-layout="sequence"] .showcase.section {
+  display: none;
+}
+
 /* Default item-first view: preserve the existing item content and present it as one sequence. */
 .portfolio-sequence {
   display: grid;
@@ -2238,6 +2278,10 @@ html[data-view-controls="collapsed"] .view-controls {
 
 html[data-portfolio-layout="grouped"] .products.section {
   padding-bottom: 0;
+}
+
+html[data-portfolio-layout="grouped"] .products.section > .product-groups {
+  display: grid;
 }
 
 html[data-portfolio-layout="grouped"] .product-groups {
@@ -4634,7 +4678,7 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
 .about-dialog {
   top: 50%;
   bottom: auto;
-  width: min(calc(100% - clamp(1rem, 4vw, 2rem)), 64rem);
+  width: min(calc(100% - clamp(2rem, 9vw, 8rem)), 68rem);
   height: auto;
   max-height: min(calc(100dvh - clamp(1rem, 4vw, 2rem)), 50rem);
   padding: 0;
@@ -4660,12 +4704,14 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
 }
 
 .about-dialog__content {
-  flex: 0 1 auto;
+  flex: 1 1 auto;
+  max-height: inherit;
   min-height: 0;
   overflow: auto;
   overscroll-behavior: contain;
-  padding: clamp(1rem, 2.5vw, 2rem);
+  padding: clamp(1rem, 2.25vw, 1.7rem);
   scrollbar-gutter: stable;
+  -webkit-overflow-scrolling: touch;
 }
 
 [data-about-panel][hidden] {
@@ -4675,11 +4721,11 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
 .about-dialog__header {
   position: absolute;
   z-index: 2;
-  top: clamp(0.75rem, 2vw, 1.25rem);
-  right: clamp(0.75rem, 2vw, 1.25rem);
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
+  top: clamp(0.82rem, 1.7vw, 1.15rem);
+  right: clamp(0.82rem, 1.7vw, 1.15rem);
+  width: auto;
+  height: auto;
+  overflow: visible;
 }
 
 .about-dialog__close {
@@ -4714,9 +4760,10 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
 
 .about-dialog .approach.section {
   display: block;
-  max-width: 52rem;
+  width: 100%;
+  max-width: none;
   margin: 0;
-  padding: 0 clamp(2.25rem, 6vw, 4.25rem) 0 0;
+  padding: 0 clamp(1.9rem, 4vw, 3rem) clamp(0.5rem, 2vw, 1rem) 0;
   border: 0;
   background: transparent;
 }
@@ -4727,18 +4774,542 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
 
 .about-dialog .approach-copy h2 {
   max-width: none;
-  margin-bottom: clamp(1rem, 2vw, 1.2rem);
+  margin: clamp(1.65rem, 3.3vw, 2.25rem) 0 clamp(0.75rem, 1.5vw, 0.95rem);
   font-size: clamp(2.2rem, 4vw, 2.85rem);
   line-height: 1;
 }
 
 .about-dialog .approach-followup {
   display: grid;
-  gap: clamp(1rem, 2vw, 1.45rem);
+  width: min(100%, 44rem);
+  gap: clamp(0.5rem, 1.1vw, 0.78rem);
 }
 
 .about-dialog .approach-process {
   margin: 0;
+}
+
+.decision-field {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: clamp(0.58rem, 0.9vw, 0.72rem);
+  width: 100%;
+  height: clamp(17.25rem, 32vh, 18.75rem);
+  margin: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: clamp(0.68rem, 1vw, 0.82rem) clamp(0.78rem, 1.25vw, 0.94rem) clamp(0.64rem, 0.9vw, 0.76rem);
+  border: 1px solid color-mix(in srgb, var(--line) 25%, transparent);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--card) 38%, transparent), transparent 58%),
+    color-mix(in srgb, var(--canvas) 87%, var(--card));
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--card) 58%, transparent),
+    inset 0 -1px 0 color-mix(in srgb, var(--line) 18%, transparent);
+}
+
+.about-dialog__approach-grid > .decision-field {
+  height: clamp(17.5rem, 33vh, 18.75rem);
+  min-height: 0;
+}
+
+.decision-field__intro {
+  display: grid;
+  max-width: 41rem;
+  gap: 0;
+  margin: 0;
+  color: var(--muted-ink);
+}
+
+.decision-field__intro span {
+  display: none;
+}
+
+.decision-field__intro p {
+  max-width: 41rem;
+  margin: 0;
+  color: color-mix(in srgb, var(--ink) 82%, var(--muted-ink));
+  font-size: clamp(0.84rem, 0.92vw, 0.92rem);
+  font-weight: 760;
+  line-height: 1.24;
+}
+
+.decision-field__controls {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: auto minmax(15rem, 1fr) auto;
+  gap: 0.36rem clamp(0.75rem, 1.6vw, 1rem);
+  align-items: center;
+  padding-top: clamp(0.42rem, 0.7vw, 0.54rem);
+  border-top: 1px solid color-mix(in srgb, var(--line) 34%, transparent);
+  background: color-mix(in srgb, var(--canvas) 78%, transparent);
+  min-height: 1.8rem;
+}
+
+.about-dialog__approach-label {
+  margin: 0 0 clamp(0.95rem, 1.8vw, 1.28rem);
+  color: color-mix(in srgb, var(--muted-ink) 76%, var(--ink));
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.045em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.about-dialog__approach-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.82fr) minmax(16rem, 1fr);
+  gap: clamp(1.65rem, 3.2vw, 2.65rem);
+  align-items: start;
+  margin-top: 0;
+}
+
+.about-dialog__left-column {
+  display: grid;
+  align-content: start;
+  gap: 0;
+  min-width: 0;
+}
+
+.about-dialog__principles {
+  min-width: 0;
+}
+
+.about-dialog__principle-list {
+  display: grid;
+  gap: clamp(1.05rem, 2.25vw, 1.55rem);
+  max-width: 34rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.about-dialog__principle-list li {
+  display: grid;
+  grid-template-columns: 2.35rem minmax(0, 1fr);
+  gap: clamp(0.75rem, 1.6vw, 1.05rem);
+  align-items: start;
+  padding-top: clamp(0.72rem, 1.5vw, 0.95rem);
+  border-top: 1px solid color-mix(in srgb, var(--line) 42%, transparent);
+}
+
+.about-dialog__principle-list li:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.about-dialog__principle-number {
+  color: color-mix(in srgb, var(--accent) 62%, var(--muted-ink));
+  font-size: 0.72rem;
+  font-weight: 720;
+  letter-spacing: 0.055em;
+  line-height: 1.35;
+}
+
+.about-dialog__principle-list h3 {
+  margin: 0 0 0.24rem;
+  color: var(--ink);
+  font-size: clamp(0.94rem, 1.15vw, 1.05rem);
+  font-weight: 800;
+  letter-spacing: 0.035em;
+  line-height: 1.18;
+  text-transform: uppercase;
+}
+
+.about-dialog__principle-list p {
+  max-width: 27.5rem;
+  margin: 0;
+  color: var(--muted-ink);
+  font-size: clamp(0.9rem, 1.08vw, 0.98rem);
+  line-height: 1.42;
+}
+
+.about-dialog__approach .about-dialog__lead {
+  max-width: 37rem;
+  margin-top: clamp(0.62rem, 1.1vw, 0.85rem);
+  font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+  line-height: 1.42;
+}
+
+.decision-field__nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  user-select: none;
+}
+
+.decision-field__back,
+.decision-field__start {
+  justify-self: start;
+  min-height: 1.7rem;
+  padding: 0.2rem 0;
+  border: 0;
+  color: var(--accent);
+  background: transparent;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 800;
+  cursor: pointer;
+  user-select: none;
+}
+
+.decision-field__back {
+  color: color-mix(in srgb, var(--muted-ink) 82%, var(--ink));
+  font-weight: 700;
+}
+
+.decision-field__back[hidden] {
+  display: none;
+}
+
+.decision-field__slider {
+  display: grid;
+  gap: 0.28rem;
+  min-width: 0;
+  color: color-mix(in srgb, var(--muted-ink) 74%, var(--ink));
+  font-size: 0.68rem;
+  font-weight: 680;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.decision-field__slider > span {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.decision-field__slider input {
+  appearance: none;
+  width: 100%;
+  height: 1rem;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.decision-field__slider input::-webkit-slider-runnable-track {
+  height: 2px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--line) 78%, var(--muted-ink));
+}
+
+.decision-field__slider input::-webkit-slider-thumb {
+  appearance: none;
+  width: 0.9rem;
+  height: 0.9rem;
+  margin-top: calc((2px - 0.9rem) / 2);
+  border: 1px solid color-mix(in srgb, var(--accent) 78%, var(--ink));
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.decision-field__slider input::-moz-range-track {
+  height: 2px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--line) 78%, var(--muted-ink));
+}
+
+.decision-field__slider input::-moz-range-progress {
+  height: 2px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--line) 78%, var(--muted-ink));
+}
+
+.decision-field__slider input::-moz-range-thumb {
+  width: 0.9rem;
+  height: 0.9rem;
+  border: 1px solid color-mix(in srgb, var(--accent) 78%, var(--ink));
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.decision-field__constraint-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.35rem 0.5rem;
+  align-items: center;
+}
+
+.decision-field__soft-toggle,
+.decision-field__edge-limit button,
+.decision-field__layout-toggle button {
+  min-height: 1.7rem;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid color-mix(in srgb, var(--line) 76%, transparent);
+  border-radius: 999px;
+  color: color-mix(in srgb, var(--muted-ink) 88%, var(--ink));
+  background: color-mix(in srgb, var(--canvas) 74%, transparent);
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.decision-field__soft-toggle[aria-pressed="true"],
+.decision-field__edge-limit button[aria-checked="true"],
+.decision-field__layout-toggle button[aria-pressed="true"] {
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+  color: color-mix(in srgb, var(--accent) 82%, var(--ink));
+  background: color-mix(in srgb, var(--accent) 9%, var(--canvas));
+}
+
+.decision-field__soft-toggle:focus-visible,
+.decision-field__edge-limit button:focus-visible,
+.decision-field__slider input:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--accent) 62%, transparent);
+  outline-offset: 3px;
+}
+
+.decision-field__edge-limit {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: color-mix(in srgb, var(--muted-ink) 72%, var(--ink));
+  font-size: 0.73rem;
+  font-weight: 700;
+}
+
+.decision-field__edge-limit > span {
+  margin-right: 0.15rem;
+}
+
+.decision-field__layout-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.22rem;
+}
+
+.decision-field__readout {
+  display: grid;
+  grid-template-columns: auto auto minmax(5rem, 1fr);
+  gap: 0.26rem 1.05rem;
+  align-items: end;
+  color: color-mix(in srgb, var(--muted-ink) 80%, var(--ink));
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.decision-field__readout,
+.decision-field__nav,
+.decision-field__constraint-row {
+  display: none;
+}
+
+.decision-field__readout > div {
+  display: grid;
+  gap: 0.24rem;
+  align-items: start;
+}
+
+.decision-field__readout svg {
+  width: 3.05rem;
+  height: 3.05rem;
+  cursor: default;
+  touch-action: auto;
+}
+
+.decision-field__readout p {
+  margin: 0;
+  color: color-mix(in srgb, var(--muted-ink) 68%, var(--ink));
+  font-size: 0.71rem;
+  font-weight: 650;
+}
+
+.decision-field__readout p:first-of-type {
+  align-self: end;
+  padding-bottom: 0.22rem;
+}
+
+.decision-field__eligible-count {
+  grid-column: 3;
+  align-self: start;
+  opacity: 0.72;
+}
+
+.decision-field__readout path,
+.decision-field__reference path,
+.decision-field__average path {
+  fill: color-mix(in srgb, var(--muted-ink) 72%, var(--accent));
+  stroke: color-mix(in srgb, var(--ink) 44%, var(--accent));
+  stroke-width: 1.2;
+  vector-effect: non-scaling-stroke;
+  transition: d 220ms ease, fill 220ms ease, stroke 220ms ease;
+}
+
+.decision-field__average path {
+  fill: color-mix(in srgb, var(--accent) 18%, var(--card));
+  stroke: color-mix(in srgb, var(--accent) 62%, var(--ink));
+}
+
+.decision-field__space {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.decision-field__space svg {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  margin: 0;
+  cursor: default;
+  touch-action: none;
+}
+
+.decision-field .decision-field__readout svg {
+  width: 3.05rem;
+  height: 3.05rem;
+  cursor: default;
+  touch-action: auto;
+}
+
+.decision-field__soft-band {
+  opacity: 0.38;
+  pointer-events: none;
+}
+
+.decision-field__band-path {
+  fill: none;
+  stroke: color-mix(in srgb, var(--accent) 38%, var(--card));
+  stroke-width: 54;
+  stroke-linecap: round;
+  opacity: 0.34;
+  vector-effect: non-scaling-stroke;
+  transition: d 190ms ease, opacity 190ms ease;
+}
+
+.decision-field__edge-threshold {
+  stroke: color-mix(in srgb, var(--accent) 46%, var(--line));
+  stroke-dasharray: 2 7;
+  stroke-linecap: round;
+  stroke-width: 1;
+  opacity: 0.55;
+  vector-effect: non-scaling-stroke;
+}
+
+.decision-field__candidate {
+  fill: color-mix(in srgb, var(--muted-ink) 74%, var(--accent));
+  stroke: color-mix(in srgb, var(--ink) 48%, var(--accent));
+  stroke-width: var(--shape-stroke, 1.1);
+  opacity: var(--shape-opacity, 0.48);
+  cursor: pointer;
+  vector-effect: non-scaling-stroke;
+  transition: opacity 220ms ease, stroke-width 220ms ease, fill 220ms ease;
+}
+
+.decision-field__candidate.is-strong {
+  fill: color-mix(in srgb, var(--accent) 68%, var(--ink));
+  stroke: color-mix(in srgb, var(--ink) 56%, var(--accent));
+}
+
+.decision-field__candidate.is-ineligible {
+  fill: color-mix(in srgb, var(--muted-ink) 46%, var(--line));
+  stroke: color-mix(in srgb, var(--muted-ink) 42%, var(--line));
+}
+
+.decision-field__candidate.is-selected {
+  stroke: color-mix(in srgb, var(--ink) 72%, var(--accent));
+}
+
+.decision-field__selection-ring {
+  fill: none;
+  stroke: #a88a57;
+  stroke-width: 2.75;
+  opacity: 0;
+  pointer-events: none;
+  vector-effect: non-scaling-stroke;
+  transition: opacity 180ms ease, stroke-width 180ms ease;
+}
+
+.decision-field__candidate.is-selected .decision-field__selection-ring {
+  opacity: 1;
+}
+
+.decision-field__edge-label,
+.decision-field__axis-label {
+  display: none;
+  fill: color-mix(in srgb, var(--muted-ink) 62%, transparent);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  user-select: none;
+}
+
+.decision-field__edge-label {
+  text-anchor: middle;
+}
+
+.decision-field__axis-label {
+  text-anchor: start;
+}
+
+.decision-field[data-layout="explore"] .decision-field__edge-label,
+.decision-field[data-layout="explore"] .decision-field__axis-label {
+  opacity: 0;
+}
+
+.decision-field[data-layout="map"] .decision-field__edge-label,
+.decision-field[data-layout="map"] .decision-field__axis-label {
+  opacity: 1;
+}
+
+.decision-field[data-phase="idle"] .decision-field__reference,
+.decision-field[data-phase="idle"] .decision-field__average,
+.decision-field[data-phase="structure"] .decision-field__reference,
+.decision-field[data-phase="structure"] .decision-field__average {
+  display: none;
+}
+
+.decision-field[data-phase="idle"] .decision-field__readout,
+.decision-field[data-phase="idle"] .decision-field__constraint-row,
+.decision-field[data-phase="structure"] .decision-field__readout,
+.decision-field[data-phase="structure"] .decision-field__constraint-row,
+.decision-field[data-phase="summary"] [data-soft-symmetry],
+.decision-field[data-phase="summary"] [data-hard-symmetry],
+.decision-field[data-phase="soft"] [data-hard-symmetry] {
+  display: none;
+}
+
+.decision-field[data-phase="summary"] .decision-field__eligible-count,
+.decision-field[data-phase="soft"] .decision-field__eligible-count {
+  display: none;
+}
+
+.decision-field[data-phase="idle"] .decision-field__controls,
+.decision-field[data-phase="structure"] .decision-field__controls {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.decision-field[data-phase="summary"] .decision-field__controls,
+.decision-field[data-phase="soft"] .decision-field__controls,
+.decision-field[data-phase="hard"] .decision-field__controls,
+.decision-field[data-phase="final"] .decision-field__controls {
+  grid-template-columns: minmax(15rem, 1fr) auto;
+}
+
+.decision-field[data-phase="summary"] .decision-field__nav,
+.decision-field[data-phase="soft"] .decision-field__nav,
+.decision-field[data-phase="hard"] .decision-field__nav,
+.decision-field[data-phase="final"] .decision-field__nav {
+  order: 3;
+}
+
+@media (min-width: 761px) {
+  .about-dialog .approach-copy > h2 {
+    white-space: normal;
+  }
 }
 
 @media (min-width: 761px) {
@@ -4761,18 +5332,54 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
 }
 
 .about-dialog__lead {
+  max-width: 41rem;
   margin: 0;
   color: var(--muted-ink);
   font-size: clamp(1.1rem, 1.8vw, 1.35rem);
   line-height: 1.45;
 }
 
-.about-dialog__founder-signature {
+.about-dialog__identity-panel {
+  position: relative;
   display: grid;
-  grid-template-columns: 2.75rem minmax(0, max-content);
-  gap: 0.65rem;
+  grid-template-columns: minmax(18rem, 1fr) minmax(12rem, 16rem);
+  width: 100%;
+  column-gap: clamp(1.35rem, 2.8vw, 2.2rem);
+  row-gap: clamp(0.55rem, 1.2vw, 0.8rem);
   align-items: start;
-  min-width: min(100%, 16rem);
+  box-sizing: border-box;
+  margin: 0 0 clamp(1.15rem, 2.2vw, 1.45rem);
+  padding: clamp(0.72rem, 1.35vw, 0.92rem) clamp(3.35rem, 5vw, 4rem) clamp(0.82rem, 1.55vw, 1rem) clamp(0.78rem, 1.45vw, 0.98rem);
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--card) 46%, transparent), transparent 82%),
+    color-mix(in srgb, var(--canvas) 91%, var(--card));
+  box-shadow:
+    inset 0 -1px 0 color-mix(in srgb, var(--line) 64%, transparent);
+}
+
+.about-dialog__identity-panel::after {
+  content: none;
+}
+
+.about-dialog__founder-signature {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2.75rem minmax(0, 14rem);
+  gap: 0.65rem 0.72rem;
+  align-items: start;
+  justify-self: stretch;
+  min-width: 0;
+  padding-top: clamp(0.15rem, 0.5vw, 0.3rem);
+}
+
+.about-dialog__founder-signature::before {
+  position: absolute;
+  top: 0.05rem;
+  bottom: 0.05rem;
+  left: calc((clamp(1.35rem, 2.8vw, 2.2rem) / -2) - 0.5px);
+  width: 1px;
+  background: color-mix(in srgb, var(--line) 42%, transparent);
+  content: "";
 }
 
 .about-dialog__founder-signature img {
@@ -4787,7 +5394,9 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
 
 .about-dialog__founder-signature > div {
   display: grid;
-  gap: 0.04rem;
+  min-height: 2.75rem;
+  align-content: space-between;
+  gap: 0.05rem;
 }
 
 .about-dialog__founder-signature p {
@@ -4797,51 +5406,126 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
   line-height: 1.25;
 }
 
+.about-dialog__studio {
+  display: grid;
+  min-height: 3.05rem;
+  align-content: space-between;
+  gap: 0.12rem;
+  min-width: 0;
+}
+
+.about-dialog__compact-mark {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 0.93rem;
+  font-weight: 500;
+  line-height: 1.18;
+  letter-spacing: 0;
+}
+
+.about-dialog__compact-mark span {
+  font-weight: 760;
+}
+
+.about-dialog__identity {
+  max-width: none;
+  margin: 0;
+  color: color-mix(in srgb, var(--muted-ink) 86%, var(--ink)) !important;
+  font-size: 0.86rem !important;
+  font-weight: 500;
+  line-height: 1.32 !important;
+}
+
 .about-dialog__founder-name {
   color: var(--ink) !important;
   font-weight: 700;
 }
 
-.about-dialog__founder-signature a {
-  justify-self: start;
+.about-dialog__founder-signature a,
+.about-dialog__email {
   color: var(--accent);
-  font-size: 0.78rem;
   font-weight: 700;
 }
 
-.about-dialog__footer {
-  display: flex;
-  flex: 0 0 auto;
-  gap: 1rem;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.4rem clamp(1rem, 3vw, 1.75rem);
-  border-top: 1px solid var(--line);
-  background: color-mix(in srgb, var(--canvas) 95%, var(--ink));
+.about-dialog__founder-signature a {
+  justify-self: start;
+  font-size: 0.78rem;
 }
 
 .about-dialog__email {
-  align-self: center;
-  flex: 0 0 auto;
-  display: inline-block;
+  justify-self: start;
   max-width: 100%;
-  padding-bottom: 0.1rem;
-  border-bottom: 1px solid currentColor;
+  padding-bottom: 0.08rem;
+  border-bottom: 1px solid transparent;
   color: var(--accent);
-  font-size: 0.875rem;
+  font-size: 0.82rem;
   font-weight: 700;
   overflow-wrap: break-word;
 }
 
-@media (max-width: 720px) {
-  .about-dialog__footer {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 0.6rem;
+.about-dialog__email:hover,
+.about-dialog__email:focus-visible {
+  border-bottom-color: currentColor;
+}
+
+@media (min-width: 761px) and (max-width: 900px) {
+  .about-dialog__approach-grid {
+    grid-template-columns: minmax(0, 1.72fr) minmax(14.25rem, 0.95fr);
+    gap: clamp(1.15rem, 2.8vw, 1.7rem);
   }
 
-  .about-dialog__email {
-    align-self: flex-start;
+  .about-dialog__principle-list {
+    max-width: 32rem;
+  }
+
+  .about-dialog__principle-list p {
+    max-width: 26rem;
+  }
+
+  .about-dialog__approach-grid > .decision-field {
+    height: clamp(18rem, 38vw, 19.75rem);
+  }
+}
+
+@media (max-width: 760px) {
+  .about-dialog__approach-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(0.95rem, 3.2vw, 1.35rem);
+  }
+
+  .decision-field {
+    justify-self: center;
+    max-width: 30rem;
+  }
+
+  .about-dialog__approach-grid > .decision-field {
+    height: auto;
+    min-height: 20rem;
+  }
+
+  .about-dialog__identity-panel {
+    align-items: flex-start;
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+    gap: 0.72rem;
+    margin-left: 0;
+    padding: 0.72rem 3.1rem 0.86rem 0.78rem;
+  }
+
+  .about-dialog__founder-signature::before {
+    top: -0.45rem;
+    right: 0;
+    bottom: auto;
+    left: 0;
+    width: min(100%, 18rem);
+    height: 1px;
+    background: linear-gradient(90deg, color-mix(in srgb, var(--line) 52%, transparent), transparent);
+  }
+
+  .about-dialog__founder-signature {
+    justify-self: start;
+    min-width: 0;
   }
 }
 
@@ -4854,14 +5538,74 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
 
   .about-dialog__surface {
     height: 100%;
+    max-height: 100%;
   }
 
   .about-dialog__content {
-    flex: 1 1 auto;
+    height: 100%;
+    max-height: 100%;
   }
 
   .about-dialog .approach.section {
-    padding-right: clamp(1.75rem, 10vw, 3rem);
+    padding-right: clamp(1.4rem, 8vw, 2.4rem);
+  }
+
+  .decision-field {
+    width: 100%;
+    height: auto;
+    min-height: 20.25rem;
+    gap: 0.52rem;
+    margin-top: 0.15rem;
+    padding: 0.68rem clamp(0.62rem, 3vw, 0.86rem) 0.7rem;
+  }
+
+  .decision-field__space {
+    height: clamp(12.25rem, 58vw, 15.75rem);
+  }
+
+  .about-dialog__approach-grid > .decision-field {
+    min-height: 18.75rem;
+  }
+
+  .about-dialog__approach-grid {
+    gap: 0.95rem;
+    margin-top: 1.05rem;
+  }
+
+  .about-dialog__approach-label {
+    margin-bottom: 0.9rem;
+  }
+
+  .about-dialog__principle-list {
+    gap: 0.95rem;
+  }
+
+  .about-dialog__principle-list li {
+    padding-top: 0.75rem;
+  }
+
+  .about-dialog__principle-list li {
+    grid-template-columns: 2rem minmax(0, 1fr);
+  }
+
+  .decision-field__controls {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+
+  .decision-field__constraint-row {
+    justify-content: flex-start;
+  }
+
+  .decision-field__edge-limit {
+    flex-wrap: wrap;
+  }
+
+  .decision-field__space svg {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    transform: none;
   }
 
   .about-dialog__founder-signature {
@@ -4869,6 +5613,13 @@ html[data-detail-mode="concise"] .decision-demo__controls .decision-demo__contro
     min-width: 0;
   }
 
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .decision-field__band-path,
+  .decision-field__candidate {
+    transition: none;
+  }
 }
 
 .site-footer {

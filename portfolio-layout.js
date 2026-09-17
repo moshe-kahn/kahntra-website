@@ -222,7 +222,7 @@
       "momentum-management": document.querySelector('[data-portfolio-item-shell="momentum-management"]'),
     };
 
-    if (!products || !groups || !showcase || !sectionHeading || !locator || !demo || sequence.slice(0, -1).some((id) => !items[id])) return;
+    if (!products || !groups || !showcase || !sectionHeading || !locator || !demo || sequence.slice(0, -1).some((id) => !items[id])) return false;
     syncDirectory(sequence);
 
     const container = ensureSequenceContainer();
@@ -238,6 +238,7 @@
 
     hideGroupedContainers();
     products.dataset.portfolioLayout = "sequence";
+    return true;
   };
 
   const applyGrouped = () => {
@@ -245,7 +246,7 @@
     const demo = visibleDemo();
     const items = document.querySelectorAll("[data-portfolio-item-shell]");
 
-    if (!products || !groups || !showcase || !locator || !demo) return;
+    if (!products || !groups || !showcase || !locator || !demo) return false;
     syncDirectory(groupedSequence);
     showGroupedContainers();
     restoreGroupedShells();
@@ -260,16 +261,15 @@
     showcase.append(buildBannerPicker(locator, demo));
     sequenceContainer?.remove();
     products.dataset.portfolioLayout = "grouped";
+    return true;
   };
 
   const setPortfolioView = (view) => {
     const resolvedView = view === groupedView ? groupedView : "sequence";
+    delete document.documentElement.dataset.portfolioReady;
     document.documentElement.dataset.portfolioLayout = resolvedView;
-    if (resolvedView === groupedView) {
-      applyGrouped();
-    } else {
-      applySequence();
-    }
+    const applied = resolvedView === groupedView ? applyGrouped() : applySequence();
+    if (applied) document.documentElement.dataset.portfolioReady = "true";
     updateVisibleItemLocators();
     return resolvedView;
   };

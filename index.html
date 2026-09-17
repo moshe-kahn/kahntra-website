@@ -13,7 +13,35 @@
   <link rel="apple-touch-icon" sizes="512x512" href="assets/k-favicon-large.svg">
   <link rel="preload" as="image" href="assets/momo-editions/demo-preview-gallery-thumb.jpg">
   <link rel="preload" as="image" href="assets/music-for-this-moment/demo-preview-high-energy-collections-thumb.jpg">
-  <link rel="stylesheet" href="styles.css?v=task-0073-final-visual-refine-1">
+  <script>
+    (() => {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const detail = params.get("detail");
+        const isTechnicalPath = window.location.pathname.replace(/\/+$/, "") === "/tech";
+        const isTechnical = isTechnicalPath || params.get("perspective") === "technical";
+        document.documentElement.dataset.detailMode = detail === "verbose" || isTechnicalPath ? "verbose" : "concise";
+        document.documentElement.dataset.visiblePerspective = isTechnical ? "technical" : "general";
+        document.documentElement.dataset.portfolioLayout =
+          isTechnicalPath || params.get("view") === "grouped" ? "grouped" : "sequence";
+      } catch {
+        document.documentElement.dataset.detailMode = "concise";
+        document.documentElement.dataset.visiblePerspective = "general";
+        document.documentElement.dataset.portfolioLayout = "sequence";
+      }
+    })();
+  </script>
+  <style>
+    html:not([data-portfolio-layout="grouped"]) .products.section > .product-groups,
+    html:not([data-portfolio-layout="grouped"]) .showcase.section {
+      display: none;
+    }
+
+    html[data-portfolio-layout]:not([data-portfolio-ready]) .site-footer {
+      visibility: hidden;
+    }
+  </style>
+  <link rel="stylesheet" href="styles.css?v=task-0007-identity-top-zone-2">
   <link rel="stylesheet" href="momo-editions-gallery.css?v=task-0073-mobile-credits-1">
   <link rel="stylesheet" href="music-for-this-moment/playlist-showcase.island.css?v=task-0080-mobile-showcase-1">
 </head>
@@ -537,40 +565,14 @@
             <h2 class="sr-only" id="about-dialog-title">About</h2>
             <button class="about-dialog__close" type="button" data-about-close aria-label="Close About">×</button>
           </div>
-      <section class="approach section about-dialog__approach" id="about-kahntra-panel" aria-label="Kahntra approach">
+      <section class="approach section about-dialog__approach" id="about-kahntra-panel" aria-label="About Kahntra">
         <div class="approach-copy">
-          <p class="eyebrow">Our approach</p>
-          <h2>Tools should fit the work.</h2>
-          <div class="approach-followup">
-            <p class="about-dialog__lead">Kahntra starts with the real situation around a tool: who is using it, what they are trying to decide or do, and what would make the next step clearer.</p>
-            <ol class="approach-process" aria-label="Kahntra approach">
-              <li>
-                <span class="approach-process__mark" aria-hidden="true">01</span>
-                <div>
-                  <h3>Start with what’s there</h3>
-                  <p>Start with the people, materials, habits, and constraints already shaping the situation.</p>
-                </div>
-              </li>
-              <li>
-                <span class="approach-process__mark" aria-hidden="true">02</span>
-                <div>
-                  <h3>Refine in use</h3>
-                  <p>Test and adjust the interaction as real use reveals what matters.</p>
-                </div>
-              </li>
-              <li>
-                <span class="approach-process__mark" aria-hidden="true">03</span>
-                <div>
-                  <h3>Keep what fits</h3>
-                  <p>Retain the structure that genuinely helps and let unnecessary complexity fall away.</p>
-                </div>
-              </li>
-            </ol>
-          </div>
-        </div>
-      </section>
-          </div>
-          <footer class="about-footer about-dialog__footer">
+          <div class="about-dialog__identity-panel">
+            <div class="about-dialog__studio">
+              <p class="about-dialog__compact-mark" aria-label="Kahntra_Productions"><span>Kahn</span>tra_<span>Pro</span>ductions</p>
+              <p class="about-dialog__identity">An independent software development studio.</p>
+              <a class="about-dialog__email" href="mailto:contact@kahntra.com">contact@kahntra.com <span aria-hidden="true">↗</span></a>
+            </div>
             <div class="about-dialog__founder-signature">
               <img src="assets/moshe-kahn-portrait.jpg" width="400" height="400" loading="lazy" alt="Moshe Kahn wearing glasses.">
               <div>
@@ -579,8 +581,83 @@
                 <a href="https://www.linkedin.com/in/moshe-kahn/" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
               </div>
             </div>
-            <a class="about-dialog__email" href="mailto:contact@kahntra.com">Send an email to contact@kahntra.com <span aria-hidden="true">↗</span></a>
-          </footer>
+          </div>
+          <p class="about-dialog__approach-label">How Kahntra approaches choice</p>
+          <div class="about-dialog__approach-grid">
+            <div class="about-dialog__left-column">
+              <div class="about-dialog__principles">
+              <ol class="about-dialog__principle-list" aria-label="Kahntra choice method">
+                <li>
+                  <span class="about-dialog__principle-number" aria-hidden="true">01</span>
+                  <div>
+                    <h3>Start with the moment</h3>
+                    <p>Understand what someone is trying to decide now, and what context actually changes the choice.</p>
+                  </div>
+                </li>
+                <li>
+                  <span class="about-dialog__principle-number" aria-hidden="true">02</span>
+                  <div>
+                    <h3>Reduce the field</h3>
+                    <p>Turn many underlying signals into a few meaningful qualities that surface the most relevant possibilities.</p>
+                  </div>
+                </li>
+                <li>
+                  <span class="about-dialog__principle-number" aria-hidden="true">03</span>
+                  <div>
+                    <h3>Let the options refine the choice</h3>
+                    <p>Once the field is manageable, the remaining options help clarify the preferences and constraints worth comparing.</p>
+                  </div>
+                </li>
+              </ol>
+              </div>
+            </div>
+            <figure class="decision-field" data-decision-field aria-label="Interactive shape space for narrowing a field of possibilities." role="group">
+              <figcaption class="decision-field__intro">
+                <p data-demo-caption></p>
+              </figcaption>
+              <div class="decision-field__space">
+                <svg viewBox="0 0 360 360" data-shape-space aria-hidden="true" focusable="false">
+                  <g class="decision-field__soft-band" data-relevance-band aria-hidden="true"></g>
+                  <g class="decision-field__candidates" data-shape-candidates aria-hidden="true"></g>
+                  <g class="decision-field__reference" data-reference-shape aria-hidden="true"></g>
+                  <g class="decision-field__average" data-average-shape aria-hidden="true"></g>
+                  <text class="decision-field__axis-label decision-field__axis-label--top" x="44" y="28">High richness</text>
+                  <text class="decision-field__axis-label decision-field__axis-label--bottom" x="44" y="268">Low richness</text>
+                  <text class="decision-field__edge-label decision-field__edge-label--left" x="132" y="288">Low frequency</text>
+                  <text class="decision-field__edge-label decision-field__edge-label--right" x="674" y="288">High frequency</text>
+                </svg>
+              </div>
+              <div class="decision-field__readout" data-demo-readout>
+                <div>
+                  <span>A direction</span>
+                  <svg viewBox="-28 -28 56 56" aria-hidden="true" focusable="false"><path data-reference-mini></path></svg>
+                </div>
+                <div>
+                  <span>Average in focus</span>
+                  <svg viewBox="-28 -28 56 56" aria-hidden="true" focusable="false"><path data-average-mini></path></svg>
+                </div>
+                <p><strong data-focus-count>0</strong> <span data-focus-count-label>options in focus</span></p>
+                <p class="decision-field__eligible-count"><strong data-eligible-count>0</strong> eligible</p>
+              </div>
+              <div class="decision-field__controls">
+                <div class="decision-field__nav">
+                  <button class="decision-field__back" type="button" data-demo-back hidden><span aria-hidden="true">←</span> Back</button>
+                  <button class="decision-field__start" type="button" data-demo-advance>Start demo <span aria-hidden="true">→</span></button>
+                </div>
+                <label class="decision-field__slider">
+                  <span><span>Simple</span><span>Complex</span></span>
+                  <input type="range" min="0" max="100" value="50" data-complexity-slider aria-label="Simple to Complex">
+                </label>
+                <div class="decision-field__constraint-row">
+                  <button class="decision-field__soft-toggle" type="button" aria-pressed="false" data-soft-symmetry>Prefer symmetry</button>
+                  <button class="decision-field__soft-toggle" type="button" aria-pressed="false" data-hard-symmetry>Require symmetry</button>
+                </div>
+              </div>
+            </figure>
+          </div>
+        </div>
+      </section>
+          </div>
         </div>
       </dialog>
     </main>
@@ -600,10 +677,10 @@
   </div>
 
   <p class="sr-only" id="perspective-announcement" role="status" aria-live="polite" aria-atomic="true"></p>
-  <script src="welcome-overlay.js?v=task-0073-brand-card-final-1" defer></script>
+  <script src="welcome-overlay.js?v=task-0007-identity-top-zone-3" defer></script>
   <script src="decision-engine.js?v=task-0060-cache-199" defer></script>
   <script src="decision-demo.js?v=task-0060-cache-227" defer></script>
-  <script src="portfolio-layout.js?v=task-0073-emphasis-copy-1" defer></script>
+  <script src="portfolio-layout.js?v=task-0007-demo-panel-1" defer></script>
   <script type="module" src="momo-editions-gallery.js?v=task-0073-display-selection-1"></script>
   <script type="module" src="music-for-this-moment/playlist-showcase.island.js?v=task-0080-mobile-showcase-1"></script>
 </body>
